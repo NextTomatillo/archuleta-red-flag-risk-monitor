@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archuleta Red Flag Risk Monitor</title>
+  <style>
+    :root {
+      --bg: #f4efe5;
+      --panel: rgba(255, 250, 242, 0.88);
+      --ink: #1d2a2a;
+      --muted: #5c6766;
+      --line: rgba(29, 42, 42, 0.12);
+      --green: #3c7a44;
+      --elevated: #b88418;
+      --concern: #cb5a1b;
+      --high: #a72f23;
+      --shadow: 0 16px 40px rgba(58, 48, 31, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(203, 90, 27, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(167, 47, 35, 0.16), transparent 28%),
+        linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,245,232,0.92));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+    h1, h2, h3, strong {
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    h3 {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-note {
+      max-width: 52rem;
+      margin: 16px 0 0;
+      font-size: 1.03rem;
+      color: var(--muted);
+    }
+    .official-warning {
+      max-width: 58rem;
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      border: 2px solid rgba(167, 47, 35, 0.32);
+      border-radius: 16px;
+      background: rgba(255, 238, 230, 0.92);
+      color: #5b2209;
+      line-height: 1.35;
+      box-shadow: 0 10px 24px rgba(167, 47, 35, 0.1);
+    }
+    .official-warning strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .time-note {
+      margin: 10px 0 0;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #344241;
+    }
+    .next-update-note {
+      display: inline-flex;
+      margin: 12px 0 0;
+      padding: 8px 11px;
+      border-radius: 10px;
+      background: rgba(29, 42, 42, 0.07);
+      color: var(--ink);
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.94rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .chip.tier-green,
+    .risk-segment.tier-green,
+    .summary-value.tier-green { background: var(--green); color: #fff; }
+    .chip.tier-elevated,
+    .risk-segment.tier-elevated,
+    .summary-value.tier-elevated { background: var(--elevated); color: #1f1700; }
+    .chip.tier-concern,
+    .risk-segment.tier-concern,
+    .summary-value.tier-concern { background: var(--concern); color: #fff; }
+    .chip.tier-high,
+    .risk-segment.tier-high,
+    .summary-value.tier-high { background: var(--high); color: #fff; }
+    .summary-value.psps-low,
+    .outlook-segment.psps-low,
+    .psps-segment.psps-low { background: var(--green); color: #fff; }
+    .summary-value.psps-elevated,
+    .outlook-segment.psps-elevated,
+    .psps-segment.psps-elevated { background: var(--elevated); color: #1f1700; }
+    .summary-value.psps-watch,
+    .outlook-segment.psps-watch,
+    .psps-segment.psps-watch { background: var(--concern); color: #fff; }
+    .summary-value.psps-likely,
+    .outlook-segment.psps-likely,
+    .psps-segment.psps-likely,
+    .summary-value.psps-confirmed,
+    .outlook-segment.psps-confirmed,
+    .psps-segment.psps-confirmed { background: var(--high); color: #fff; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+      align-items: start;
+    }
+    .summary-card, .section-panel, .day-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+    .summary-card {
+      padding: 18px;
+      min-height: 0;
+    }
+    .summary-value {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+    .summary-note {
+      margin: 10px 0 0;
+      max-width: 24rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.35;
+    }
+    .summary-value.signal-watch {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: rgba(203, 90, 27, 0.14);
+      color: #5b2209;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .date-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .date-pill {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(29, 42, 42, 0.06);
+      color: var(--ink);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .date-pill strong {
+      font-size: 0.88rem;
+      text-transform: uppercase;
+    }
+    .date-pill span {
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+    .summary-value.tier-high,
+    .summary-value.tier-concern,
+    .summary-value.tier-elevated,
+    .summary-value.tier-green,
+    .summary-value.psps-low,
+    .summary-value.psps-elevated,
+    .summary-value.psps-watch,
+    .summary-value.psps-likely,
+    .summary-value.psps-confirmed {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .section-panel {
+      margin-top: 24px;
+      padding: 22px;
+    }
+    .compact-panel {
+      padding: 0;
+      overflow: hidden;
+    }
+    .compact-panel .detail-disclosure {
+      margin-top: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .source-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.58);
+      padding: 14px;
+    }
+    .source-name {
+      margin: 0 0 4px;
+      font-weight: 800;
+    }
+    .source-name a,
+    .source-meta a,
+    .reference-pill a {
+      color: inherit;
+      text-decoration-color: rgba(29, 42, 42, 0.32);
+      text-underline-offset: 3px;
+    }
+    .source-meta {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .alert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .alert-card {
+      border: 1px solid rgba(167, 47, 35, 0.2);
+      border-radius: 14px;
+      background: rgba(255, 241, 239, 0.7);
+      padding: 14px;
+    }
+    .alert-meta {
+      margin: 0 0 10px;
+      color: #5b2209;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+    .source-tags {
+      display: block;
+      width: fit-content;
+      margin: 0 0 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.07);
+      color: #344241;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .source-snippet {
+      margin: 0;
+      line-height: 1.35;
+      color: #344241;
+      font-size: 0.94rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .reference-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .reference-pill {
+      display: inline-flex;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.07);
+      color: #344241;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .empty-state {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .risk-strip {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .risk-segment,
+    .outlook-segment,
+    .psps-segment {
+      border-radius: 18px;
+      padding: 14px 10px;
+      text-align: center;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.28);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+    }
+    .risk-segment span,
+    .outlook-segment span,
+    .psps-segment span {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .risk-segment small,
+    .outlook-segment small,
+    .psps-segment small {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .risk-segment strong,
+    .outlook-segment strong,
+    .psps-segment strong {
+      font-size: 1.05rem;
+    }
+    .outlook-segment em,
+    .outlook-segment b,
+    .psps-segment em {
+      font-size: 0.76rem;
+      line-height: 1.1;
+      font-style: normal;
+      opacity: 0.9;
+    }
+    .outlook-segment b {
+      font-weight: 800;
+    }
+    .psps-location-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .psps-location-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.62);
+      padding: 14px;
+    }
+    .psps-location-card h3 {
+      font-size: 1.2rem;
+    }
+    .weather-score {
+      margin: 8px 0;
+      font-weight: 800;
+      color: #344241;
+    }
+    .psps-location-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #344241;
+      line-height: 1.35;
+    }
+    .detail-disclosure {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.54);
+      overflow: hidden;
+    }
+    .detail-disclosure > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 14px 16px;
+      color: #344241;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .detail-disclosure > summary::-webkit-details-marker {
+      display: none;
+    }
+    .detail-disclosure > summary::after {
+      content: "Show";
+      float: right;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+    }
+    .detail-disclosure[open] > summary {
+      border-bottom: 1px solid var(--line);
+    }
+    .detail-disclosure[open] > summary::after {
+      content: "Hide";
+    }
+    .detail-disclosure-content {
+      padding: 0 16px 16px;
+    }
+    .audit-summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 18px 22px;
+    }
+    .audit-summary small {
+      color: var(--muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .definition-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(29, 42, 42, 0.12);
+      border-radius: 16px;
+      background: rgba(29, 42, 42, 0.055);
+      color: #344241;
+    }
+    .definition-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+    }
+    .definition-box p {
+      margin: 0 0 10px;
+      line-height: 1.42;
+    }
+    .definition-box p:last-child {
+      margin-bottom: 0;
+    }
+    .definition-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .definition-links a {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      color: #1d2a2a;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .day-card {
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .day-card.tier-green { border-left: 8px solid var(--green); background: rgba(247, 255, 246, 0.92); }
+    .day-card.tier-elevated { border-left: 8px solid var(--elevated); background: rgba(255, 249, 229, 0.94); }
+    .day-card.tier-concern { border-left: 8px solid var(--concern); background: rgba(255, 244, 236, 0.94); }
+    .day-card.tier-high { border-left: 8px solid var(--high); background: rgba(255, 241, 239, 0.94); }
+    .day-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -40% auto;
+      width: 140px;
+      height: 140px;
+      background: rgba(255,255,255,0.14);
+      border-radius: 50%;
+    }
+    .day-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+    .day-date {
+      margin: -4px 0 8px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1.08rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .reason {
+      position: relative;
+      z-index: 1;
+      line-height: 1.45;
+      margin: 14px 0 12px;
+    }
+    .metrics {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding-left: 18px;
+      color: #364443;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.96rem;
+    }
+    th, td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .footer-note {
+      margin-top: 20px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    @media (max-width: 760px) {
+      .wrap { padding: 18px 14px 32px; }
+      .hero, .section-panel, .summary-card, .day-card { border-radius: 18px; }
+      .risk-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .audit-summary { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Archuleta County fire-weather monitor</p>
+          <h1>Red Flag Risk</h1>
+          <p class="hero-note">Generated May 27, 2026 at 9:01 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <div class="official-warning">
+            <strong>Unofficial monitor</strong>
+            This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
+          </div>
+          <p class="next-update-note">Next update: May 27, 2026 at 10:01 PM MDT (Pagosa Springs, CO local time)</p>
+          <p class="time-note">All dates and times use Pagosa Springs, CO local time (America/Denver).</p>
+        </div>
+        <span class="chip tier-high">HIGH</span>
+      </div>
+      <div class="summary-grid">
+        
+            <section class="summary-card">
+              <p class="eyebrow">Overall tier</p>
+              <p class="summary-value tier-high">HIGH</p>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">PSPS likelihood</p>
+              <p class="summary-value psps-likely">LIKELY</p>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">Likely PSPS dates</p>
+              <div class="date-pills"><span class="date-pill"><strong>Thu</strong><span>May 28</span></span><span class="date-pill"><strong>Fri</strong><span>May 29</span></span><span class="date-pill"><strong>Sat</strong><span>May 30</span></span></div>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">Send monitor heads-up?</p>
+              <p class="summary-value tier-high">YES</p><p class="summary-note">Send this monitor report because current risk is HIGH. This is not an official LPEA or NWS notice.</p>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">HIGH dates</p>
+              <div class="date-pills"><span class="date-pill"><strong>Thu</strong><span>May 28</span></span><span class="date-pill"><strong>Fri</strong><span>May 29</span></span><span class="date-pill"><strong>Sat</strong><span>May 30</span></span></div>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">CONCERN dates</p>
+              <div class="date-pills"><span class="date-pill"><strong>Sun</strong><span>May 31</span></span><span class="date-pill"><strong>Mon</strong><span>Jun 1</span></span><span class="date-pill"><strong>Tue</strong><span>Jun 2</span></span></div>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">Official NWS alerts</p>
+              <p class="summary-value ">0</p><p class="summary-note">COZ295 Red Flag / Fire Weather alerts</p>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">LPEA signal</p>
+              <p class="summary-value signal-watch">Active source match</p><p class="summary-note">Site-wide red flag banner across 3 sources. Review source links before treating as a confirmed outage or PSPS notice.</p>
+            </section>
+            
+      </div>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">7-Day Outlook</p>
+      <h2>Weather + PSPS Outlook</h2>
+      <p class="footer-note">PSPS likelihood is high on weather-driven red-flag days; prepare for possible LPEA safety-related interruption behavior.</p>
+      <div class="definition-box">
+        <strong>PSPS = Public Safety Power Shutoff</strong>
+        <p>A planned, safety-related power shutoff LPEA may use during dangerous fire-weather conditions to reduce wildfire ignition risk. This monitor estimates weather-driven likelihood only; it is not an official shutoff notice.</p>
+        <p class="definition-links">
+          <a href="https://lpea.coop/psps" target="_blank" rel="noopener noreferrer">LPEA PSPS guidance</a>
+          <a href="https://lpea.coop/outage-center" target="_blank" rel="noopener noreferrer">LPEA outage center</a>
+          <a href="https://outage.lpea.coop" target="_blank" rel="noopener noreferrer">LPEA outage map</a>
+        </p>
+      </div>
+      <div class="risk-strip">
+        
+            <div class="outlook-segment psps-low">
+              <span>Wed</span>
+              <small>May 27</small>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
+              <b>Ignacio, Chimney Rock</b>
+            </div>
+            
+            <div class="outlook-segment psps-likely">
+              <span>Thu</span>
+              <small>May 28</small>
+              <strong>PSPS LIKELY</strong>
+              <em>Weather HIGH</em>
+              <b>Durango, Ignacio</b>
+            </div>
+            
+            <div class="outlook-segment psps-likely">
+              <span>Fri</span>
+              <small>May 29</small>
+              <strong>PSPS LIKELY</strong>
+              <em>Weather HIGH</em>
+              <b>Ignacio, Arboles</b>
+            </div>
+            
+            <div class="outlook-segment psps-likely">
+              <span>Sat</span>
+              <small>May 30</small>
+              <strong>PSPS LIKELY</strong>
+              <em>Weather HIGH</em>
+              <b>Ignacio, Arboles</b>
+            </div>
+            
+            <div class="outlook-segment psps-watch">
+              <span>Sun</span>
+              <small>May 31</small>
+              <strong>PSPS WATCH</strong>
+              <em>Weather CONCERN</em>
+              <b>Pagosa Springs, Durango</b>
+            </div>
+            
+            <div class="outlook-segment psps-watch">
+              <span>Mon</span>
+              <small>Jun 1</small>
+              <strong>PSPS WATCH</strong>
+              <em>Weather CONCERN</em>
+              <b>Bayfield, Arboles</b>
+            </div>
+            
+            <div class="outlook-segment psps-watch">
+              <span>Tue</span>
+              <small>Jun 2</small>
+              <strong>PSPS WATCH</strong>
+              <em>Weather CONCERN</em>
+              <b>Bayfield, Ignacio</b>
+            </div>
+            
+      </div>
+      <details class="detail-disclosure">
+        <summary>Location driver detail (6 watch/likely days)</summary>
+        <div class="detail-disclosure-content">
+          <div class="psps-location-grid">
+            
+        <article class="psps-location-card">
+          <div>
+            <p class="eyebrow">Thu, May 28</p>
+            <h3>LIKELY</h3>
+          </div>
+          <p class="weather-score">Weather score 67/100</p>
+          <ul>
+            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 5, near-threshold hours 7.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7.</li><li><strong>Arboles / southwest county</strong>: WATCH 52/100. Weather score 52/100: RH 12%, wind/gust 24 mph, red-flag hours 0, near-threshold hours 6.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5.</li>
+          </ul>
+        </article>
+        
+        <article class="psps-location-card">
+          <div>
+            <p class="eyebrow">Fri, May 29</p>
+            <h3>LIKELY</h3>
+          </div>
+          <p class="weather-score">Weather score 81/100</p>
+          <ul>
+            <li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 36 mph, red-flag hours 6, near-threshold hours 8.</li><li><strong>Arboles / southwest county</strong>: LIKELY 77/100. Weather score 77/100: RH 12%, wind/gust 33 mph, red-flag hours 4, near-threshold hours 9.</li><li><strong>Durango / La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 13%, wind/gust 37 mph, red-flag hours 6, near-threshold hours 8.</li><li><strong>Bayfield / east La Plata County</strong>: LIKELY 73/100. Weather score 73/100: RH 14%, wind/gust 32 mph, red-flag hours 4, near-threshold hours 6.</li><li><strong>Chimney Rock / west county</strong>: LIKELY 67/100. Weather score 67/100: RH 12%, wind/gust 29 mph, red-flag hours 3, near-threshold hours 9.</li>
+          </ul>
+        </article>
+        
+        <article class="psps-location-card">
+          <div>
+            <p class="eyebrow">Sat, May 30</p>
+            <h3>LIKELY</h3>
+          </div>
+          <p class="weather-score">Weather score 67/100</p>
+          <ul>
+            <li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7.</li><li><strong>Arboles / southwest county</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 6.</li><li><strong>Durango / La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 14%, wind/gust 28 mph, red-flag hours 3, near-threshold hours 6.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 14%, wind/gust 29 mph, red-flag hours 3, near-threshold hours 6.</li><li><strong>Chimney Rock / west county</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 5.</li>
+          </ul>
+        </article>
+        
+        <article class="psps-location-card">
+          <div>
+            <p class="eyebrow">Sun, May 31</p>
+            <h3>WATCH</h3>
+          </div>
+          <p class="weather-score">Weather score 61/100</p>
+          <ul>
+            <li><strong>Pagosa Springs</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 4.</li><li><strong>Durango / La Plata County</strong>: WATCH 61/100. Weather score 61/100: RH 11%, wind/gust 25 mph, red-flag hours 2, near-threshold hours 6.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 5.</li><li><strong>Arboles / southwest county</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 24 mph, red-flag hours 0, near-threshold hours 5.</li>
+          </ul>
+        </article>
+        
+        <article class="psps-location-card">
+          <div>
+            <p class="eyebrow">Mon, Jun 1</p>
+            <h3>WATCH</h3>
+          </div>
+          <p class="weather-score">Weather score 61/100</p>
+          <ul>
+            <li><strong>Bayfield / east La Plata County</strong>: WATCH 61/100. Weather score 61/100: RH 10%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 6.</li><li><strong>Arboles / southwest county</strong>: WATCH 55/100. Weather score 55/100: RH 8%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 4.</li><li><strong>Pagosa Springs</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4.</li><li><strong>Piedra / north county</strong>: WATCH 52/100. Weather score 52/100: RH 12%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 6.</li><li><strong>Durango / La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 9%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</li>
+          </ul>
+        </article>
+        
+        <article class="psps-location-card">
+          <div>
+            <p class="eyebrow">Tue, Jun 2</p>
+            <h3>WATCH</h3>
+          </div>
+          <p class="weather-score">Weather score 48/100</p>
+          <ul>
+            <li><strong>Bayfield / east La Plata County</strong>: WATCH 48/100. Weather score 48/100: RH 14%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 48/100. Weather score 48/100: RH 13%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 4.</li>
+          </ul>
+        </article>
+        
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">Official Sources</p>
+      <h2>Official Weather Alerts</h2>
+      <p class="footer-note">Active NWS alerts for monitored zones: COC007, COC067, COZ019, COZ022, COZ023, COZ295.</p>
+      <div class="alert-grid">
+        <p class="empty-state">No active official NWS Red Flag / Fire Weather or related weather alerts found for monitored zones.</p>
+      </div>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">LPEA Monitor</p>
+      <h2>Power Interruption Signals</h2>
+      <p class="footer-note">LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.</p>
+      <p class="footer-note">Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.</p>
+      <p class="footer-note">Coverage: 13 sources; 5/5 official social sources reachable</p>
+      <div class="source-grid">
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">Site-wide red flag banner</a></p>
+          <p class="source-meta">3 sources: <a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">LPEA homepage</a>, <a href="https://lpea.coop/Posts" target="_blank" rel="noopener noreferrer">LPEA latest news</a>, <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
+          <p class="source-tags">red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation</p>
+          <p class="source-snippet">Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">News-release archive PSPS item</a></p>
+          <p class="source-meta">1 source: <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
+          <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
+          <p class="source-snippet">...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn wildfire preparedness post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
+          <p class="source-snippet">...Comment Share La Plata Electric Association 1,776 followers 4w Report this post Wildfire season doesn&#x27;t wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn PSPS explainer post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
+          <p class="source-snippet">...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...</p>
+        </article>
+        
+      </div>
+      <div class="reference-pills">
+        <span class="reference-pill"><a href="https://lpea.coop/outage-center" target="_blank" rel="noopener noreferrer">LPEA outage center</a></span><span class="reference-pill"><a href="https://lpea.coop/psps" target="_blank" rel="noopener noreferrer">LPEA wildfire / public safety power shutoffs</a></span><span class="reference-pill"><a href="https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members" target="_blank" rel="noopener noreferrer">LPEA red flag outage impact page</a></span><span class="reference-pill"><a href="https://lpea.coop/fire-mitigation" target="_blank" rel="noopener noreferrer">LPEA fire mitigation</a></span>
+      </div>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">Daily Breakdown</p>
+      <h2>What Drives Each Day</h2>
+      <div class="days-grid">
+        
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Wed</p>
+                  <p class="day-date">May 27</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 26% / wind 8 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-high">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Thu</p>
+                  <p class="day-date">May 28</p>
+                  <h3>HIGH</h3>
+                </div>
+                <span class="chip tier-high">HIGH</span>
+              </div>
+              <p class="reason">Durango / La Plata County: Forecast meets red-flag screen: RH &lt;= 15% and wind/gust &gt;= 25 mph for at least 3 hours in a 12-hour window.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 14% / wind 23 mph</li><li>Arboles / southwest county: RH 12% / wind 24 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-high">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Fri</p>
+                  <p class="day-date">May 29</p>
+                  <h3>HIGH</h3>
+                </div>
+                <span class="chip tier-high">HIGH</span>
+              </div>
+              <p class="reason">Arboles / southwest county: Forecast meets red-flag screen: RH &lt;= 15% and wind/gust &gt;= 25 mph for at least 3 hours in a 12-hour window.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 16% / wind 26 mph</li><li>Arboles / southwest county: RH 12% / wind 33 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-high">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Sat</p>
+                  <p class="day-date">May 30</p>
+                  <h3>HIGH</h3>
+                </div>
+                <span class="chip tier-high">HIGH</span>
+              </div>
+              <p class="reason">Arboles / southwest county: Forecast meets red-flag screen: RH &lt;= 15% and wind/gust &gt;= 25 mph for at least 3 hours in a 12-hour window.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 15% / wind 28 mph</li><li>Arboles / southwest county: RH 13% / wind 26 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-concern">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Sun</p>
+                  <p class="day-date">May 31</p>
+                  <h3>CONCERN</h3>
+                </div>
+                <span class="chip tier-concern">CONCERN</span>
+              </div>
+              <p class="reason">Pagosa Springs: Near red-flag screen: RH &lt;= 18% with wind/gust &gt;= 20 mph for at least 2 hours.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 12% / wind 25 mph</li><li>Arboles / southwest county: RH 10% / wind 23 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-concern">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Mon</p>
+                  <p class="day-date">Jun 1</p>
+                  <h3>CONCERN</h3>
+                </div>
+                <span class="chip tier-concern">CONCERN</span>
+              </div>
+              <p class="reason">Pagosa Springs: Near red-flag screen: RH &lt;= 18% with wind/gust &gt;= 20 mph for at least 2 hours.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 10% / wind 23 mph</li><li>Arboles / southwest county: RH 8% / wind 22 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-concern">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Tue</p>
+                  <p class="day-date">Jun 2</p>
+                  <h3>CONCERN</h3>
+                </div>
+                <span class="chip tier-concern">CONCERN</span>
+              </div>
+              <p class="reason">Arboles / southwest county: Near red-flag screen: RH &lt;= 18% with wind/gust &gt;= 20 mph for at least 2 hours.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 16% / wind 17 mph</li><li>Arboles / southwest county: RH 13% / wind 21 mph</li></ul>
+            </article>
+            
+      </div>
+    </section>
+
+    <section class="section-panel compact-panel">
+      <details class="detail-disclosure">
+        <summary class="audit-summary">
+          <span>Coverage + sample points</span>
+          <small>NWS discussion: NWS discussion contains fire-weather concern language.</small>
+        </summary>
+        <div class="detail-disclosure-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Point</th>
+                <th>Fire Zone</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            <tr>
+              <td>Pagosa Springs</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ023, county zone COC007</td>
+            </tr>
+            
+            <tr>
+              <td>Arboles / southwest county</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ023, county zone COC007</td>
+            </tr>
+            
+            <tr>
+              <td>Chimney Rock / west county</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ023, county zone COC007</td>
+            </tr>
+            
+            <tr>
+              <td>Piedra / north county</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ019, county zone COC007</td>
+            </tr>
+            
+            <tr>
+              <td>Chromo / southeast county</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ019, county zone COC007</td>
+            </tr>
+            
+            <tr>
+              <td>Durango / La Plata County</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ022, county zone COC067</td>
+            </tr>
+            
+            <tr>
+              <td>Bayfield / east La Plata County</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ022, county zone COC067</td>
+            </tr>
+            
+            <tr>
+              <td>Ignacio / southeast La Plata County</td>
+              <td>COZ295 (matches)</td>
+              <td>forecast zone COZ022, county zone COC067</td>
+            </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+  </main>
+</body>
+</html>

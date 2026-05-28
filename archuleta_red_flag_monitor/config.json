@@ -1,0 +1,189 @@
+{
+  "area_name": "LPEA service territory PSPS weather monitor",
+  "timezone": "America/Denver",
+  "local_time_name": "Pagosa Springs, CO",
+  "fire_weather_zone": "COZ295",
+  "forecast_horizon_days": 7,
+  "expected_update_interval_minutes": 60,
+  "user_agent": "archuleta-red-flag-monitor/1.0 local-contact",
+  "output": {
+    "history_csv": "history.csv",
+    "latest_html": "latest.html",
+    "latest_json": "latest.json",
+    "latest_markdown": "latest.md"
+  },
+  "thresholds": {
+    "red_flag_rh_percent": 15,
+    "red_flag_wind_mph": 25,
+    "red_flag_min_hours": 3,
+    "red_flag_window_hours": 12,
+    "near_rh_percent": 18,
+    "near_wind_mph": 20,
+    "near_min_hours": 2,
+    "thunder_concern_percent": 20,
+    "dry_thunder_precip_max_percent": 20,
+    "elevated_thunder_percent": 15
+  },
+  "sample_points": [
+    {
+      "name": "Pagosa Springs",
+      "lat": 37.2695,
+      "lon": -107.0098
+    },
+    {
+      "name": "Arboles / southwest county",
+      "lat": 37.03,
+      "lon": -107.42
+    },
+    {
+      "name": "Chimney Rock / west county",
+      "lat": 37.19,
+      "lon": -107.31
+    },
+    {
+      "name": "Piedra / north county",
+      "lat": 37.37,
+      "lon": -107.18
+    },
+    {
+      "name": "Chromo / southeast county",
+      "lat": 37.04,
+      "lon": -106.84
+    },
+    {
+      "name": "Durango / La Plata County",
+      "lat": 37.2753,
+      "lon": -107.8801
+    },
+    {
+      "name": "Bayfield / east La Plata County",
+      "lat": 37.2256,
+      "lon": -107.5981
+    },
+    {
+      "name": "Ignacio / southeast La Plata County",
+      "lat": 37.115,
+      "lon": -107.6331
+    }
+  ],
+  "lpea": {
+    "enabled": true,
+    "sources": [
+      {
+        "name": "LPEA outage map",
+        "url": "https://outage.lpea.coop",
+        "type": "outage_map",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA outage center",
+        "url": "https://lpea.coop/outage-center",
+        "type": "official_info",
+        "signal_mode": "reference"
+      },
+      {
+        "name": "LPEA homepage",
+        "url": "https://lpea.coop",
+        "type": "official_updates",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA wildfire / public safety power shutoffs",
+        "url": "https://lpea.coop/psps",
+        "type": "official_info",
+        "signal_mode": "reference"
+      },
+      {
+        "name": "LPEA red flag outage impact page",
+        "url": "https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members",
+        "type": "official_info",
+        "signal_mode": "reference"
+      },
+      {
+        "name": "LPEA fire mitigation",
+        "url": "https://lpea.coop/fire-mitigation",
+        "type": "official_info",
+        "signal_mode": "reference"
+      },
+      {
+        "name": "LPEA latest news",
+        "url": "https://lpea.coop/Posts",
+        "type": "official_updates",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA news releases",
+        "url": "https://lpea.coop/news-releases",
+        "type": "official_updates",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA Facebook",
+        "url": "https://www.facebook.com/laplataelectric",
+        "type": "official_social",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA X",
+        "url": "https://x.com/LaPlataElectric",
+        "type": "official_social",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA Instagram",
+        "url": "https://www.instagram.com/LaPlataElectric",
+        "type": "official_social",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA LinkedIn",
+        "url": "https://www.linkedin.com/company/la-plata-electric-association/",
+        "type": "official_social",
+        "signal_mode": "active"
+      },
+      {
+        "name": "LPEA YouTube",
+        "url": "https://www.youtube.com/channel/UCm4gjtqY12j6ZqxiDqbNwow",
+        "type": "official_social",
+        "signal_mode": "active"
+      }
+    ],
+    "alert_keywords": [
+      "red flag",
+      "wildfire",
+      "public safety power shutoff",
+      "psps",
+      "power shutoff",
+      "shutoff",
+      "power outage",
+      "planned outage",
+      "outage alert",
+      "outage update",
+      "outage map",
+      "power interruption",
+      "de-energization",
+      "de-energize",
+      "deenergize",
+      "fire weather",
+      "fire mitigation",
+      "high winds",
+      "line patrol",
+      "restoration",
+      "restore power",
+      "line crews"
+    ]
+  },
+  "email": {
+    "enabled": false,
+    "from": "archuleta-monitor@example.com",
+    "to": [
+      "you@example.com"
+    ],
+    "smtp_host": "smtp.example.com",
+    "smtp_port": 587,
+    "smtp_starttls": true,
+    "smtp_username_env": "ARCHULETA_MONITOR_SMTP_USERNAME",
+    "smtp_password_env": "ARCHULETA_MONITOR_SMTP_PASSWORD",
+    "timeout_seconds": 30
+  }
+}
