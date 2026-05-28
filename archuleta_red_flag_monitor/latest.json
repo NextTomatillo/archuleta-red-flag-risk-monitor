@@ -1013,9 +1013,9 @@
   },
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-28T16:21:05.658792-06:00",
-  "generated_at_local": "2026-05-28T16:21:05.658792-06:00",
-  "generated_at_utc": "2026-05-28T22:21:05.658792+00:00",
+  "generated_at": "2026-05-28T16:40:44.169921-06:00",
+  "generated_at_local": "2026-05-28T16:40:44.169921-06:00",
+  "generated_at_utc": "2026-05-28T22:40:44.169921+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -1776,7 +1776,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-28T17:21:05.658792-06:00",
+  "next_update_at": "2026-05-28T17:40:44.169921-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],

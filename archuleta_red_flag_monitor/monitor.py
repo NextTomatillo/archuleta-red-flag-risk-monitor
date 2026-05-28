@@ -2343,11 +2343,10 @@ def render_html(report: Dict[str, Any]) -> str:
     outage_url = lpea_outage_url(report)
     psps_url = lpea_psps_url(report)
     outage_map_url = lpea_outage_map_url(report)
+    pagosa_card = pagosa_outlook_card(report)
 
     summary_cards = [
-        {"label": "Overall tier", "value": report["overall_tier"], "class": tier_badge_class(report["overall_tier"])},
-        {"label": "PSPS likelihood", "value": psps.get("overall_level", "UNKNOWN"), "class": f"psps-{psps.get('overall_level', 'unknown').lower()}"},
-        pagosa_outlook_card(report),
+        pagosa_card,
         {"label": "Likely PSPS dates", "value": format_date_list(likely_psps_dates), "class": "", "dates": likely_psps_dates},
         {
             "label": "Send monitor heads-up?",
@@ -2609,11 +2608,92 @@ def render_html(report: Dict[str, Any]) -> str:
       padding: 28px;
     }}
     .hero-top {{
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(290px, 340px);
+      gap: 22px;
+      align-items: start;
+    }}
+    .hero-copy {{
+      min-width: 0;
+    }}
+    .hero-status-rail {{
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid rgba(29, 42, 42, 0.12);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(167, 47, 35, 0.12), transparent 34%),
+        rgba(255, 255, 255, 0.58);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
+    }}
+    .hero-status-primary {{
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--line);
+    }}
+    .hero-status-primary .chip {{
+      margin-top: 2px;
+      min-width: 128px;
+    }}
+    .hero-status-row,
+    .hero-status-time {{
       display: flex;
       justify-content: space-between;
-      gap: 16px;
-      align-items: start;
-      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid rgba(29, 42, 42, 0.1);
+      border-radius: 16px;
+      background: rgba(255, 250, 243, 0.68);
+    }}
+    .hero-status-time {{
+      display: block;
+    }}
+    .hero-status-row span,
+    .hero-status-time span {{
+      color: var(--muted);
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }}
+    .hero-status-time strong {{
+      display: block;
+      margin-top: 5px;
+      color: var(--ink);
+      font-size: 0.98rem;
+      line-height: 1.18;
+    }}
+    .hero-mini-chip {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 10px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }}
+    .hero-mini-chip.psps-low {{ background: var(--green); color: #fff; }}
+    .hero-mini-chip.psps-elevated {{ background: var(--elevated); color: #1f1700; }}
+    .hero-mini-chip.psps-watch {{ background: var(--concern); color: #fff; }}
+    .hero-mini-chip.psps-likely,
+    .hero-mini-chip.psps-confirmed {{ background: var(--high); color: #fff; }}
+    .hero-mini-chip.tier-green {{ background: var(--green); color: #fff; }}
+    .hero-mini-chip.tier-elevated {{ background: var(--elevated); color: #1f1700; }}
+    .hero-mini-chip.tier-concern {{ background: var(--concern); color: #fff; }}
+    .hero-mini-chip.tier-high {{ background: var(--high); color: #fff; }}
+    .hero-time-note {{
+      margin-top: 14px;
     }}
     h1, h2, h3, strong {{
       font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
@@ -2648,7 +2728,7 @@ def render_html(report: Dict[str, Any]) -> str:
       color: var(--muted);
     }}
     .official-warning {{
-      max-width: 58rem;
+      max-width: 54rem;
       margin: 18px 0 0;
       padding: 14px 16px;
       border: 2px solid rgba(167, 47, 35, 0.32);
@@ -2765,9 +2845,9 @@ def render_html(report: Dict[str, Any]) -> str:
     .psps-segment.psps-confirmed {{ background: var(--high); color: #fff; }}
     .summary-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 24px;
+      margin-top: 20px;
       align-items: start;
     }}
     .summary-card, .section-panel, .day-card {{
@@ -3338,12 +3418,24 @@ def render_html(report: Dict[str, Any]) -> str:
       .hero, .section-panel, .summary-card, .day-card {{ border-radius: 18px; }}
       .hero {{ padding: 24px 24px 26px; }}
       .hero-top {{ display: block; }}
-      .hero-top > .chip {{
+      .hero-status-rail {{
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 18px;
+      }}
+      .hero-status-primary {{
+        padding: 12px;
+      }}
+      .hero-status-primary .chip {{
         margin-top: 16px;
         min-width: 0;
         padding: 8px 16px;
         font-size: 0.86rem;
         box-shadow: none;
+      }}
+      .hero-status-row,
+      .hero-status-time {{
+        padding: 10px;
       }}
       .hero-note {{
         margin-top: 14px;
@@ -3353,6 +3445,7 @@ def render_html(report: Dict[str, Any]) -> str:
         padding: 12px 14px;
       }}
       .summary-grid {{
+        grid-template-columns: 1fr;
         margin-top: 18px;
         gap: 12px;
       }}
@@ -3366,7 +3459,7 @@ def render_html(report: Dict[str, Any]) -> str:
   <main class="wrap">
     <section class="hero">
       <div class="hero-top">
-        <div>
+        <div class="hero-copy">
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
           <p class="hero-note">Generated {escape_html(format_generated_at(report))}. This page is a public-source screening view for early heads-up decisions.</p>
@@ -3374,10 +3467,26 @@ def render_html(report: Dict[str, Any]) -> str:
             <strong>{escape_html(UNOFFICIAL_MONITOR_LABEL)}</strong>
             {escape_html(UNOFFICIAL_MONITOR_DISCLAIMER)}
           </div>
-          <p class="next-update-note">Next update: {escape_html(format_next_update_at(report))}</p>
-          <p class="time-note">All dates and times use {escape_html(local_time_context(report))}.</p>
+          <p class="time-note hero-time-note">All dates and times use {escape_html(local_time_context(report))}.</p>
         </div>
-        <span class="chip {tier_badge_class(report['overall_tier'])}">{escape_html(report['overall_tier'])}</span>
+        <aside class="hero-status-rail" aria-label="Current monitor status">
+          <div class="hero-status-primary">
+            <p class="eyebrow">Overall tier</p>
+            <span class="chip {tier_badge_class(report['overall_tier'])}">{escape_html(report['overall_tier'])}</span>
+          </div>
+          <div class="hero-status-row">
+            <span>PSPS likelihood</span>
+            <strong class="hero-mini-chip psps-{escape_html(psps.get('overall_level', 'unknown').lower())}">{escape_html(psps.get('overall_level', 'UNKNOWN'))}</strong>
+          </div>
+          <div class="hero-status-row">
+            <span>Pagosa Springs</span>
+            <strong class="hero-mini-chip {escape_html(pagosa_card.get('class', ''))}">{escape_html(pagosa_card.get('value', 'UNKNOWN'))}</strong>
+          </div>
+          <div class="hero-status-time">
+            <span>Next update</span>
+            <strong>Next update: {escape_html(format_next_update_at(report))}</strong>
+          </div>
+        </aside>
       </div>
       <div class="summary-grid">
         {summary_cards_html}
