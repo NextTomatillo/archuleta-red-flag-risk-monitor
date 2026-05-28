@@ -345,6 +345,31 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(monitor.detect_restriction_stage(text), "STAGE 1")
         self.assertEqual(monitor.detect_fire_danger_level(text), "VERY HIGH")
 
+    def test_fire_posture_parser_ignores_stale_or_water_restrictions(self):
+        self.assertEqual(
+            monitor.detect_restriction_stage("La Plata County Stage 1 Fire Restrictions Rescinded, August 31, 2023."),
+            "NONE",
+        )
+        self.assertEqual(
+            monitor.detect_restriction_stage("City of Durango implements Stage 1 mandatory water restrictions."),
+            "UNKNOWN",
+        )
+        self.assertEqual(
+            monitor.detect_restriction_stage("Stage 1 Fire Restrictions Guidelines are in effect when fire restrictions are enacted."),
+            "UNKNOWN",
+        )
+
+    def test_fire_posture_snippets_filter_non_fire_restrictions(self):
+        text = (
+            "City of Durango implements Stage 1 mandatory water restrictions effective April 10. "
+            + "Other public works updates follow. " * 20
+            + "Fire restrictions are currently in effect for public lands."
+        )
+        snippets = monitor.fire_posture_snippets(text)
+        self.assertTrue(snippets)
+        self.assertNotIn("water restrictions", " ".join(snippets).lower())
+        self.assertIn("fire restrictions", " ".join(snippets).lower())
+
     def test_fire_posture_signal_bumps_to_watch_for_stage_two(self):
         signal = monitor.fire_posture_psps_signal(
             {

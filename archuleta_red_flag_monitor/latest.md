@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 28, 2026 at 3:46 PM MDT (Pagosa Springs, CO local time)
-Next update: May 28, 2026 at 4:46 PM MDT (Pagosa Springs, CO local time)
+Generated: May 28, 2026 at 4:00 PM MDT (Pagosa Springs, CO local time)
+Next update: May 28, 2026 at 5:00 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -9,8 +9,8 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 - Overall tier: **HIGH**
 - PSPS likelihood: **LIKELY**
-- PSPS likely dates: Thu, May 28; Fri, May 29; Sat, May 30; Sun, May 31
-- PSPS watch dates: Mon, Jun 1; Tue, Jun 2
+- PSPS likely dates: Fri, May 29; Sat, May 30; Sun, May 31
+- PSPS watch dates: Thu, May 28; Mon, Jun 1; Tue, Jun 2
 - Monitor heads-up recommended: **YES** - Send this monitor report because current risk is HIGH. This is not an official LPEA or NWS notice.
 - HIGH dates: Thu, May 28; Fri, May 29; Sat, May 30; Sun, May 31
 - CONCERN dates: Mon, Jun 1; Tue, Jun 2
@@ -24,14 +24,14 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 - **PSPS means Public Safety Power Shutoff:** a planned, safety-related power shutoff LPEA may use during dangerous fire-weather conditions to reduce wildfire ignition risk. See [LPEA PSPS guidance](https://lpea.coop/psps) and the [LPEA outage center](https://lpea.coop/outage-center); if power is out, also check the [LPEA outage map](https://outage.lpea.coop).
 - Overall: **LIKELY** - PSPS likelihood is high on weather-driven red-flag days; prepare for possible LPEA safety-related interruption behavior.
-- Likely PSPS watch dates: Thu, May 28; Fri, May 29; Sat, May 30; Sun, May 31
-- PSPS watch dates: Mon, Jun 1; Tue, Jun 2
+- Likely PSPS watch dates: Fri, May 29; Sat, May 30; Sun, May 31
+- PSPS watch dates: Thu, May 28; Mon, Jun 1; Tue, Jun 2
 - LPEA signal basis: LPEA active/update source contains red-flag, wildfire, or power-interruption language.
 - Note: This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
 | Date | PSPS likelihood | Driver locations | Weather basis |
 | --- | --- | --- | --- |
-| Thu, May 28 | LIKELY | Durango / La Plata County (LIKELY 67/100); Ignacio / southeast La Plata County (LIKELY 67/100); Bayfield / east La Plata County (WATCH 63/100); Arboles / southwest county (WATCH 57/100) | Top weather score 67/100 at Durango / La Plata County. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5. |
+| Thu, May 28 | WATCH | Durango / La Plata County (WATCH 63/100); Ignacio / southeast La Plata County (WATCH 63/100); Arboles / southwest county (WATCH 57/100); Bayfield / east La Plata County (WATCH 57/100) | Top weather score 63/100 at Durango / La Plata County. Weather score 63/100: RH 14%, wind/gust 29 mph, red-flag hours 3, near-threshold hours 4. |
 | Fri, May 29 | LIKELY | Arboles / southwest county (LIKELY 81/100); Chimney Rock / west county (LIKELY 81/100); Ignacio / southeast La Plata County (LIKELY 81/100); Durango / La Plata County (LIKELY 77/100) | Top weather score 81/100 at Arboles / southwest county. Weather score 81/100: RH 12%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9. |
 | Sat, May 30 | LIKELY | Arboles / southwest county (LIKELY 67/100); Chimney Rock / west county (LIKELY 67/100); Ignacio / southeast La Plata County (WATCH 63/100); Bayfield / east La Plata County (WATCH 57/100) | Top weather score 67/100 at Arboles / southwest county. Weather score 67/100: RH 14%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 6. |
 | Sun, May 31 | LIKELY | Durango / La Plata County (LIKELY 71/100); Bayfield / east La Plata County (LIKELY 71/100); Ignacio / southeast La Plata County (LIKELY 71/100); Pagosa Springs (WATCH 63/100) | Top weather score 71/100 at Durango / La Plata County. Weather score 71/100: RH 12%, wind/gust 26 mph, red-flag hours 5, near-threshold hours 7. |
@@ -45,9 +45,9 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 | --- | --- | --- | --- |
 | Arboles | WATCH 57/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
 | Chimney Rock | WATCH 52/100 | Fri, May 29: LIKELY 81/100 | 1 PM-9 PM local; 9 near/red-flag threshold hours. |
-| Ignacio | LIKELY 67/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
-| Durango | LIKELY 67/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
-| Bayfield | WATCH 63/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Ignacio | WATCH 63/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Durango | WATCH 63/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Bayfield | WATCH 57/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
 | Pagosa Springs | WATCH 48/100 | Sun, May 31: WATCH 63/100 | 1 PM-6 PM local; 6 near/red-flag threshold hours. |
 | Piedra | ELEVATED 38/100 | Sun, May 31: WATCH 57/100 | 2 PM-6 PM local; 5 near/red-flag threshold hours. |
 | Chromo | ELEVATED 44/100 | Fri, May 29: WATCH 53/100 | 4 PM-6 PM local; 3 near/red-flag threshold hours. |

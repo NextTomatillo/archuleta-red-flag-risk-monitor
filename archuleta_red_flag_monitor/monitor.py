@@ -621,6 +621,31 @@ def configured_fire_posture_sources(config: Dict[str, Any]) -> List[Dict[str, An
 
 def detect_restriction_stage(text: str) -> str:
     lowered = text.lower()
+    stale_context_terms = [
+        "rescinded",
+        "lifted",
+        "expired",
+        "cancelled",
+        "canceled",
+        "water restriction",
+        "water restrictions",
+        "guidelines are in effect when",
+        "when fire restrictions are enacted",
+    ]
+    stage_patterns = [
+        ("STAGE 3", r"\bstage\s*(?:3|iii)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:3|iii)\b"),
+        ("STAGE 2", r"\bstage\s*(?:2|ii)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:2|ii)\b"),
+        ("STAGE 1", r"\bstage\s*(?:1|i)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:1|i)\b"),
+    ]
+    for label, pattern in stage_patterns:
+        for match in re.finditer(pattern, lowered):
+            start = max(0, match.start() - 80)
+            end = min(len(lowered), match.end() + 80)
+            context = lowered[start:end]
+            if any(term in context for term in stale_context_terms):
+                continue
+            return label
+
     no_restriction_phrases = [
         "no fire restrictions are currently in effect",
         "no fire restrictions in effect",
@@ -633,14 +658,6 @@ def detect_restriction_stage(text: str) -> str:
     ]
     if any(phrase in lowered for phrase in no_restriction_phrases):
         return "NONE"
-    stage_patterns = [
-        ("STAGE 3", r"\bstage\s*(?:3|iii)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:3|iii)\b"),
-        ("STAGE 2", r"\bstage\s*(?:2|ii)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:2|ii)\b"),
-        ("STAGE 1", r"\bstage\s*(?:1|i)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:1|i)\b"),
-    ]
-    for label, pattern in stage_patterns:
-        if re.search(pattern, lowered):
-            return label
     if "fire restrictions are in place" in lowered or "fire restrictions in effect" in lowered:
         return "RESTRICTIONS"
     return "UNKNOWN"
@@ -672,7 +689,17 @@ def fire_posture_snippets(text: str, max_snippets: int = 3) -> List[str]:
         "extreme",
         "no fire restrictions",
     ]
-    return keyword_snippets(text, [keyword for keyword in keywords if keyword in text.lower()], max_snippets=max_snippets)
+    raw_snippets = keyword_snippets(text, [keyword for keyword in keywords if keyword in text.lower()], max_snippets=max_snippets * 3)
+    filtered = []
+    for snippet in raw_snippets:
+        lowered = snippet.lower()
+        if "water restriction" in lowered or "water restrictions" in lowered:
+            continue
+        if any(term in lowered for term in ["fire", "wildfire", "burn", "red flag"]):
+            filtered.append(snippet)
+        if len(filtered) >= max_snippets:
+            break
+    return filtered
 
 
 def check_fire_posture(session: requests.Session, config: Dict[str, Any]) -> Dict[str, Any]:
