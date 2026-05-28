@@ -35,6 +35,7 @@ def load_generated_label(source_dir: Path) -> str:
             parsed = dt.datetime.fromisoformat(generated_at)
             if parsed.tzinfo is None:
                 parsed = parsed.replace(tzinfo=ZoneInfo(timezone_name))
+            parsed = parsed.astimezone(ZoneInfo(timezone_name))
             return parsed.strftime("%Y-%m-%d %H:%M %Z")
     except Exception:
         pass
