@@ -1831,6 +1831,20 @@ def fire_status_class(value: str) -> str:
     return "fire-" + re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
 
 
+def jurisdiction_type_label(value: str) -> str:
+    labels = {
+        "county": "County",
+        "town": "Town",
+        "city": "City",
+        "federal_forest": "Federal forest",
+        "federal_blm": "BLM field office",
+        "county_fire_district": "Fire district",
+        "tribal": "Tribal",
+        "official": "Official source",
+    }
+    return labels.get(value, value.replace("_", " ").title())
+
+
 def escape_html(value: Any) -> str:
     return html.escape("" if value is None else str(value))
 
@@ -2509,7 +2523,7 @@ def render_html(report: Dict[str, Any]) -> str:
         f"""
         <article class="fire-posture-card">
           <p class="source-name">{linked_text_html(source.get('name', 'Unknown source'), source.get('url'))}</p>
-          <p class="source-meta">{escape_html(source.get('area', 'Unknown area'))} · {escape_html(source.get('jurisdiction_type', 'official'))}</p>
+          <p class="source-meta">{escape_html(source.get('area', 'Unknown area'))} · {escape_html(jurisdiction_type_label(source.get('jurisdiction_type', 'official')))}</p>
           <div class="fire-chip-row">
             <span class="fire-chip {escape_html(fire_status_class(source.get('restriction_stage', 'unknown')))}">Restrictions: {escape_html(source.get('restriction_stage', 'UNKNOWN'))}</span>
             <span class="fire-chip {escape_html(fire_status_class(source.get('fire_danger', 'unknown')))}">Danger: {escape_html(source.get('fire_danger', 'UNKNOWN'))}</span>
@@ -3322,7 +3336,28 @@ def render_html(report: Dict[str, Any]) -> str:
     @media (max-width: 760px) {{
       .wrap {{ padding: 18px 14px 32px; }}
       .hero, .section-panel, .summary-card, .day-card {{ border-radius: 18px; }}
+      .hero {{ padding: 24px 24px 26px; }}
+      .hero-top {{ display: block; }}
+      .hero-top > .chip {{
+        margin-top: 16px;
+        min-width: 0;
+        padding: 8px 16px;
+        font-size: 0.86rem;
+        box-shadow: none;
+      }}
+      .hero-note {{
+        margin-top: 14px;
+        font-size: 1rem;
+      }}
+      .official-warning {{
+        padding: 12px 14px;
+      }}
+      .summary-grid {{
+        margin-top: 18px;
+        gap: 12px;
+      }}
       .risk-strip {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .source-meta {{ font-size: 0.92rem; }}
       .audit-summary {{ align-items: start; flex-direction: column; }}
     }}
   </style>

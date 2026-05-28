@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 28, 2026 at 4:05 PM MDT (Pagosa Springs, CO local time)
-Next update: May 28, 2026 at 5:05 PM MDT (Pagosa Springs, CO local time)
+Generated: May 28, 2026 at 4:21 PM MDT (Pagosa Springs, CO local time)
+Next update: May 28, 2026 at 5:21 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 

@@ -767,7 +767,28 @@
     @media (max-width: 760px) {
       .wrap { padding: 18px 14px 32px; }
       .hero, .section-panel, .summary-card, .day-card { border-radius: 18px; }
+      .hero { padding: 24px 24px 26px; }
+      .hero-top { display: block; }
+      .hero-top > .chip {
+        margin-top: 16px;
+        min-width: 0;
+        padding: 8px 16px;
+        font-size: 0.86rem;
+        box-shadow: none;
+      }
+      .hero-note {
+        margin-top: 14px;
+        font-size: 1rem;
+      }
+      .official-warning {
+        padding: 12px 14px;
+      }
+      .summary-grid {
+        margin-top: 18px;
+        gap: 12px;
+      }
       .risk-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .source-meta { font-size: 0.92rem; }
       .audit-summary { align-items: start; flex-direction: column; }
     }
   </style>
@@ -779,12 +800,12 @@
         <div>
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 28, 2026 at 4:05 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 28, 2026 at 4:21 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
           </div>
-          <p class="next-update-note">Next update: May 28, 2026 at 5:05 PM MDT (Pagosa Springs, CO local time)</p>
+          <p class="next-update-note">Next update: May 28, 2026 at 5:21 PM MDT (Pagosa Springs, CO local time)</p>
           <p class="time-note">All dates and times use Pagosa Springs, CO local time (America/Denver).</p>
         </div>
         <span class="chip tier-high">HIGH</span>
@@ -1129,7 +1150,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/" target="_blank" rel="noopener noreferrer">Archuleta County Sheriff fire updates</a></p>
-          <p class="source-meta">Archuleta County · county</p>
+          <p class="source-meta">Archuleta County · County</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
             <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
@@ -1139,7 +1160,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://www.pagosasprings.co.gov/" target="_blank" rel="noopener noreferrer">Town of Pagosa Springs</a></p>
-          <p class="source-meta">Pagosa Springs · town</p>
+          <p class="source-meta">Pagosa Springs · Town</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
             <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
@@ -1149,7 +1170,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://www.fs.usda.gov/r02/sanjuan/fire" target="_blank" rel="noopener noreferrer">San Juan National Forest fire</a></p>
-          <p class="source-meta">San Juan National Forest · federal_forest</p>
+          <p class="source-meta">San Juan National Forest · Federal forest</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-stage-1">Restrictions: STAGE 1</span>
             <span class="fire-chip fire-very-high">Danger: VERY HIGH</span>
@@ -1159,7 +1180,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://www.blm.gov/office/tres-rios-field-office" target="_blank" rel="noopener noreferrer">BLM Tres Rios Field Office</a></p>
-          <p class="source-meta">BLM Tres Rios · federal_blm</p>
+          <p class="source-meta">BLM Tres Rios · BLM field office</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-stage-1">Restrictions: STAGE 1</span>
             <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
@@ -1169,7 +1190,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://www.durangofire.org/fire-conditions" target="_blank" rel="noopener noreferrer">Durango Fire &amp; Rescue fire conditions</a></p>
-          <p class="source-meta">La Plata County / Durango Fire · county_fire_district</p>
+          <p class="source-meta">La Plata County / Durango Fire · Fire district</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-none">Restrictions: NONE</span>
             <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
@@ -1179,7 +1200,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://www.durangoco.gov/" target="_blank" rel="noopener noreferrer">City of Durango</a></p>
-          <p class="source-meta">Durango · city</p>
+          <p class="source-meta">Durango · City</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
             <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
@@ -1189,7 +1210,7 @@
         
         <article class="fire-posture-card">
           <p class="source-name"><a href="https://www.southernute-nsn.gov/" target="_blank" rel="noopener noreferrer">Southern Ute Indian Tribe</a></p>
-          <p class="source-meta">Southern Ute / Ignacio · tribal</p>
+          <p class="source-meta">Southern Ute / Ignacio · Tribal</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
             <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>

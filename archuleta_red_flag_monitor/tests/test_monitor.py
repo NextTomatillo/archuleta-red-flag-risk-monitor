@@ -381,6 +381,11 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(signal["level_floor"], "WATCH")
         self.assertIn("STAGE 2", signal["reason"])
 
+    def test_jurisdiction_type_label_is_human_readable(self):
+        self.assertEqual(monitor.jurisdiction_type_label("federal_forest"), "Federal forest")
+        self.assertEqual(monitor.jurisdiction_type_label("county_fire_district"), "Fire district")
+        self.assertEqual(monitor.jurisdiction_type_label("custom_source"), "Custom Source")
+
     def test_fire_posture_omits_generic_snippets_for_unknown_sources(self):
         config = {
             "fire_posture": {
@@ -549,6 +554,7 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Official Weather Alerts", rendered)
         self.assertIn("hero-alert-panel", rendered)
         self.assertIn("1 active", rendered)
+        self.assertIn(".hero-top > .chip", rendered)
         self.assertIn("https://api.weather.gov/alerts/test-red-flag", rendered)
         self.assertLess(rendered.index("Official Weather Alerts"), rendered.index("Weather + PSPS Outlook"))
         self.assertLess(rendered.index("Weather + PSPS Outlook"), rendered.index("What Drives Each Day"))
