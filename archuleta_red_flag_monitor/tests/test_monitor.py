@@ -344,7 +344,7 @@ class MonitorTests(unittest.TestCase):
                 "lpea_signal": {"reason": "LPEA active source signal."},
                 "disclaimer": "Not official.",
                 "days": [
-                    {"date": "2026-06-01", "level": "LIKELY", "weather_score": 75, "driver_locations": [{"name": "Arboles", "level": "LIKELY", "score": 75, "summary": "Weather score 75/100."}], "reasons": ["Red-flag screen."]},
+                    {"date": "2026-06-01", "level": "LIKELY", "weather_score": 75, "driver_locations": [{"name": "Pagosa Springs", "level": "LIKELY", "score": 75, "summary": "Weather score 75/100."}], "location_scores": [{"name": "Pagosa Springs", "level": "LIKELY", "score": 75, "summary": "Weather score 75/100."}], "reasons": ["Red-flag screen."]},
                     {"date": "2026-06-02", "level": "WATCH", "weather_score": 50, "driver_locations": [{"name": "Durango", "level": "WATCH", "score": 50, "summary": "Weather score 50/100."}], "reasons": ["Near threshold."]},
                 ],
             },
@@ -386,7 +386,7 @@ class MonitorTests(unittest.TestCase):
                     "tier": "HIGH",
                     "reasons": ["Critical winds."],
                     "points": [
-                        {"name": "Pagosa", "tier": "HIGH", "min_rh_percent": 12, "max_usable_wind_mph": 31, "max_thunder_percent": 3}
+                        {"name": "Pagosa Springs", "tier": "HIGH", "min_rh_percent": 12, "max_usable_wind_mph": 31, "max_thunder_percent": 3}
                     ],
                 },
                 {
@@ -407,6 +407,9 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("PSPS = Public Safety Power Shutoff", rendered)
         self.assertIn("LPEA outage center", rendered)
         self.assertIn("https://lpea.coop/outage-center", rendered)
+        self.assertIn("Pagosa Springs today", rendered)
+        self.assertIn("Pagosa PSPS score 75/100", rendered)
+        self.assertIn("RH 12%, wind 31 mph", rendered)
         self.assertIn("Official Weather Alerts", rendered)
         self.assertIn("https://api.weather.gov/alerts/test-red-flag", rendered)
         self.assertIn("href=\"https://example.test/lpea\"", rendered)

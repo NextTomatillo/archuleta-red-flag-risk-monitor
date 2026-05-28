@@ -1360,6 +1360,65 @@ def lpea_summary_note(lpea: Dict[str, Any]) -> str:
     return lpea.get("headline", "No LPEA signal detail available.")
 
 
+def find_named_entry(entries: Iterable[Dict[str, Any]], preferred_name: str) -> Optional[Dict[str, Any]]:
+    preferred = preferred_name.lower()
+    fallback_prefix = preferred.split()[0]
+    for entry in entries:
+        name = str(entry.get("name", "")).lower()
+        if name == preferred:
+            return entry
+    for entry in entries:
+        name = str(entry.get("name", "")).lower()
+        if preferred in name or name.startswith(fallback_prefix):
+            return entry
+    return None
+
+
+def psps_level_as_tier(level: str) -> str:
+    return {
+        "CONFIRMED": "HIGH",
+        "LIKELY": "HIGH",
+        "WATCH": "CONCERN",
+        "ELEVATED": "ELEVATED",
+        "LOW": "GREEN",
+    }.get(level, "GREEN")
+
+
+def pagosa_outlook_card(report: Dict[str, Any]) -> Dict[str, Any]:
+    place_name = "Pagosa Springs"
+    current_day = report.get("days", [{}])[0] if report.get("days") else {}
+    date_text = format_display_date(current_day["date"]) if current_day.get("date") else "today"
+    pagosa_weather = find_named_entry(current_day.get("points", []), place_name) or {}
+
+    psps_days = report.get("psps", {}).get("days", [])
+    current_psps_day = next((day for day in psps_days if day.get("date") == current_day.get("date")), {})
+    pagosa_psps = (
+        find_named_entry(current_psps_day.get("location_scores", []), place_name)
+        or find_named_entry(current_psps_day.get("driver_locations", []), place_name)
+        or {}
+    )
+
+    weather_tier = pagosa_weather.get("tier") or current_day.get("tier", "UNKNOWN")
+    psps_level = pagosa_psps.get("level") or current_psps_day.get("level", "UNKNOWN")
+    psps_score = pagosa_psps.get("score") or current_psps_day.get("weather_score")
+
+    note_parts = [f"{date_text}: weather {weather_tier}"]
+    if pagosa_weather:
+        note_parts.append(
+            f"RH {format_metric(pagosa_weather.get('min_rh_percent'), '%')}, wind {format_metric(pagosa_weather.get('max_usable_wind_mph'), ' mph')}"
+        )
+    if psps_score is not None:
+        note_parts.append(f"Pagosa PSPS score {psps_score}/100")
+
+    display_tier = max_tier(weather_tier if weather_tier in TIER_RANK else "GREEN", psps_level_as_tier(psps_level))
+    return {
+        "label": f"{place_name} today",
+        "value": f"PSPS {psps_level}",
+        "class": tier_badge_class(display_tier),
+        "note": "; ".join(note_parts) + ".",
+    }
+
+
 def render_lpea_markdown(report: Dict[str, Any]) -> List[str]:
     lpea = report.get("lpea", {})
     lines = [
@@ -1540,6 +1599,7 @@ def render_html(report: Dict[str, Any]) -> str:
     summary_cards = [
         {"label": "Overall tier", "value": report["overall_tier"], "class": tier_badge_class(report["overall_tier"])},
         {"label": "PSPS likelihood", "value": psps.get("overall_level", "UNKNOWN"), "class": f"psps-{psps.get('overall_level', 'unknown').lower()}"},
+        pagosa_outlook_card(report),
         {"label": "Likely PSPS dates", "value": format_date_list(likely_psps_dates), "class": "", "dates": likely_psps_dates},
         {
             "label": "Send monitor heads-up?",
