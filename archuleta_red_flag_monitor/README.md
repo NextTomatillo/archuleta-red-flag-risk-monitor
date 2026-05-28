@@ -32,6 +32,16 @@ The monitor output is static, so `latest.html`, `latest.json`, and `latest.md` c
 - Best public option: publish the generated files to a static host such as Cloudflare Pages, Azure Static Web Apps, S3/CloudFront, or GitHub Pages.
 - Avoid exposing the Pi directly to the open internet unless it is intentionally hardened, monitored, and kept patched.
 
+## GitHub Pages publishing
+
+The public GitHub Pages dashboard is published from the sibling clone:
+
+```bash
+.venv/bin/python archuleta_red_flag_monitor/publish_github_pages.py
+```
+
+That copies `latest.html` to the Pages repo root as `index.html`, syncs the monitor package files, commits any changes, and pushes `main`.
+
 ## LPEA signal monitoring
 
 The LPEA check monitors official public sources that could indicate power interruptions, including the outage map, homepage, outage center, PSPS information, red-flag outage guidance, fire-mitigation guidance, latest news, news releases, and official social profile URLs listed from LPEA's site.
