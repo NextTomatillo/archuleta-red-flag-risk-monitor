@@ -381,6 +381,24 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(signal["level_floor"], "WATCH")
         self.assertIn("STAGE 2", signal["reason"])
 
+    def test_fire_posture_omits_generic_snippets_for_unknown_sources(self):
+        config = {
+            "fire_posture": {
+                "enabled": True,
+                "sources": [
+                    {"name": "Generic source", "url": "https://example.test/generic", "area": "Town", "type": "town"}
+                ],
+            }
+        }
+        session = FakeSession(
+            {
+                "https://example.test/generic": FakeResponse("Please observe fire restrictions outside of town limits.")
+            }
+        )
+        result = monitor.check_fire_posture(session, config)
+        self.assertEqual(result["sources"][0]["restriction_stage"], "UNKNOWN")
+        self.assertEqual(result["sources"][0]["snippets"], [])
+
     def test_render_markdown_includes_at_a_glance(self):
         report = {
             "generated_at_local": "2026-06-01T08:00:00-06:00",

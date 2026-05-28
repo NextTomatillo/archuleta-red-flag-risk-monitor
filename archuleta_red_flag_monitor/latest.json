@@ -930,9 +930,7 @@
         "jurisdiction_type": "county",
         "name": "Archuleta County Sheriff fire updates",
         "restriction_stage": "UNKNOWN",
-        "snippets": [
-          "...a permit in accordance with Archuleta County Resolution 18-2017 *Please observe fire restrictions outside of Archuleta County. Make sure your fire is DEAD OUT before leaving the area. To get the latest updates on emer..."
-        ],
+        "snippets": [],
         "status": "reachable",
         "status_code": 200,
         "url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/"
@@ -983,11 +981,7 @@
         "jurisdiction_type": "county_fire_district",
         "name": "Durango Fire & Rescue fire conditions",
         "restriction_stage": "NONE",
-        "snippets": [
-          "...city limits. Exception: Small campfires on private property. La Plata County \u2013 Stage 1 Restrictions Rescinded, August 31, 2023 San Juan National Forest \u2013 Stage 1 Restrictions Rescinded, August 31, 2023 Bure...",
-          "...Durango Fire & Rescue Skip to main content Emergency Notifications Evacuations Fire Restrictions Log your Open Burn Search: Search Toggle navigation Home How Do I... Ask a Question Apply for a Job Become a Volunteer...",
-          "...of strong winds, low relative humidity, and warm temperatures can contribute to extreme fire behavior. NOAA \u2013 Current Fire Weather Link What does a Watch or Warning mean in the Durango Fire District? Suspend..."
-        ],
+        "snippets": [],
         "status": "reachable",
         "status_code": 200,
         "url": "https://www.durangofire.org/fire-conditions"
@@ -1019,9 +1013,9 @@
   },
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-28T16:00:22.604917-06:00",
-  "generated_at_local": "2026-05-28T16:00:22.604917-06:00",
-  "generated_at_utc": "2026-05-28T22:00:22.604917+00:00",
+  "generated_at": "2026-05-28T16:05:02.766848-06:00",
+  "generated_at_local": "2026-05-28T16:05:02.766848-06:00",
+  "generated_at_utc": "2026-05-28T22:05:02.766848+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -1782,7 +1776,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-28T17:00:22.604917-06:00",
+  "next_update_at": "2026-05-28T17:05:02.766848-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],

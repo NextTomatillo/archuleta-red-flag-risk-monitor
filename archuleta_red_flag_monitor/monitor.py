@@ -731,7 +731,16 @@ def check_fire_posture(session: requests.Session, config: Dict[str, Any]) -> Dic
                 result["status"] = "reachable"
                 result["restriction_stage"] = detect_restriction_stage(text)
                 result["fire_danger"] = detect_fire_danger_level(text)
-                result["snippets"] = fire_posture_snippets(text)
+                snippets = fire_posture_snippets(text)
+                if result["restriction_stage"] == "NONE" and result["fire_danger"] == "UNKNOWN":
+                    result["snippets"] = [
+                        snippet for snippet in snippets
+                        if any(phrase in snippet.lower() for phrase in ["no fire restrictions", "no restrictions are currently in effect"])
+                    ]
+                elif result["restriction_stage"] == "UNKNOWN" and result["fire_danger"] == "UNKNOWN":
+                    result["snippets"] = []
+                else:
+                    result["snippets"] = snippets
             else:
                 result["status"] = f"http_{resp.status_code}"
         except requests.RequestException as exc:
