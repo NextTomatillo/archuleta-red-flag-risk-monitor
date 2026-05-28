@@ -1,10 +1,34 @@
 {
   "area_name": "LPEA service territory PSPS weather monitor",
+  "calibration": {
+    "candidate_event_count": 0,
+    "confirmed_event_count": 0,
+    "event_log_path": "archuleta_red_flag_monitor/psps_events.json",
+    "false_watch_day_count": 0,
+    "false_watch_examples": [],
+    "forecast_history_path": "archuleta_red_flag_monitor/forecast_history.csv",
+    "hit_count": 0,
+    "hit_rate_percent": null,
+    "hits": [],
+    "logged_events": [],
+    "miss_count": 0,
+    "misses": [],
+    "pending_watch_dates": [
+      "2026-05-28",
+      "2026-05-29",
+      "2026-05-30",
+      "2026-05-31",
+      "2026-06-01",
+      "2026-06-02"
+    ],
+    "summary": "No confirmed LPEA PSPS events logged yet; calibration will start once events are added."
+  },
   "days": [
     {
       "date": "2026-05-28",
       "points": [
         {
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 16.0,
           "max_thunder_percent": 3.0,
           "max_usable_wind_mph": 23.0,
@@ -18,6 +42,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 25.3,
@@ -31,6 +56,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 13.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 23.0,
@@ -44,6 +70,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 18.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 23.0,
@@ -57,6 +84,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 10.0,
           "max_thunder_percent": 4.0,
           "max_usable_wind_mph": 20.7,
@@ -70,6 +98,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_precip_percent": 8.0,
           "max_thunder_percent": 4.0,
           "max_usable_wind_mph": 28.8,
@@ -83,6 +112,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_precip_percent": 12.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 26.5,
@@ -96,6 +126,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 27.6,
@@ -122,6 +153,7 @@
       "date": "2026-05-29",
       "points": [
         {
+          "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 13.0,
           "max_thunder_percent": 13.0,
           "max_usable_wind_mph": 34.5,
@@ -135,6 +167,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_precip_percent": 5.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 39.1,
@@ -148,6 +181,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "1 PM-9 PM local; 9 near/red-flag threshold hours.",
           "max_precip_percent": 8.0,
           "max_thunder_percent": 8.0,
           "max_usable_wind_mph": 36.8,
@@ -161,6 +195,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "4 PM-5 PM local; 2 near/red-flag threshold hours.",
           "max_precip_percent": 7.0,
           "max_thunder_percent": 7.0,
           "max_usable_wind_mph": 31.1,
@@ -174,6 +209,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 10.0,
           "max_thunder_percent": 10.0,
           "max_usable_wind_mph": 32.2,
@@ -187,6 +223,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_precip_percent": 6.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 40.3,
@@ -200,6 +237,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_precip_percent": 7.0,
           "max_thunder_percent": 6.0,
           "max_usable_wind_mph": 39.1,
@@ -213,6 +251,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_precip_percent": 5.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 41.4,
@@ -239,6 +278,7 @@
       "date": "2026-05-30",
       "points": [
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 5.0,
           "max_thunder_percent": 1.0,
           "max_usable_wind_mph": 28.8,
@@ -252,6 +292,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 3.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 28.8,
@@ -265,6 +306,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
           "max_precip_percent": 4.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 27.6,
@@ -278,6 +320,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "Peak ingredients near 5 PM local; RH 20%, wind 29 mph.",
           "max_precip_percent": 5.0,
           "max_thunder_percent": 1.0,
           "max_usable_wind_mph": 28.8,
@@ -291,6 +334,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "5 PM-6 PM local; 2 near/red-flag threshold hours.",
           "max_precip_percent": 4.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 26.5,
@@ -304,6 +348,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 5.0,
           "max_thunder_percent": 1.0,
           "max_usable_wind_mph": 29.9,
@@ -317,6 +362,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 4.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 31.1,
@@ -330,6 +376,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 3.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 31.1,
@@ -356,6 +403,7 @@
       "date": "2026-05-31",
       "points": [
         {
+          "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 27.6,
@@ -369,6 +417,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 25.3,
@@ -382,6 +431,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 25.3,
@@ -395,6 +445,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 26.5,
@@ -408,6 +459,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 24.2,
@@ -421,6 +473,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 26.5,
@@ -434,6 +487,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 27.6,
@@ -447,6 +501,7 @@
           "tier": "HIGH"
         },
         {
+          "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 27.6,
@@ -473,6 +528,7 @@
       "date": "2026-06-01",
       "points": [
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 1.0,
           "max_thunder_percent": 1.0,
           "max_usable_wind_mph": 24.2,
@@ -486,6 +542,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 21.9,
@@ -499,6 +556,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
@@ -512,6 +570,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
@@ -525,6 +584,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 1.0,
           "max_thunder_percent": 1.0,
           "max_usable_wind_mph": 20.7,
@@ -538,6 +598,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
@@ -551,6 +612,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
@@ -564,6 +626,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
@@ -590,6 +653,7 @@
       "date": "2026-06-02",
       "points": [
         {
+          "highest_risk_window": "Peak ingredients near 3 PM local; RH 14%, wind 20 mph.",
           "max_precip_percent": 15.0,
           "max_thunder_percent": 10.0,
           "max_usable_wind_mph": 19.6,
@@ -603,6 +667,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_precip_percent": 6.0,
           "max_thunder_percent": 6.0,
           "max_usable_wind_mph": 20.7,
@@ -616,6 +681,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 10%, wind 20 mph.",
           "max_precip_percent": 9.0,
           "max_thunder_percent": 7.0,
           "max_usable_wind_mph": 19.6,
@@ -629,6 +695,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 2 PM local; RH 16%, wind 20 mph.",
           "max_precip_percent": 16.0,
           "max_thunder_percent": 9.0,
           "max_usable_wind_mph": 19.6,
@@ -642,6 +709,7 @@
           "tier": "GREEN"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 16%, wind 17 mph.",
           "max_precip_percent": 17.0,
           "max_thunder_percent": 14.0,
           "max_usable_wind_mph": 17.3,
@@ -655,6 +723,7 @@
           "tier": "GREEN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 6.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 21.9,
@@ -668,6 +737,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 7.0,
           "max_thunder_percent": 6.0,
           "max_usable_wind_mph": 21.9,
@@ -681,6 +751,7 @@
           "tier": "CONCERN"
         },
         {
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 6.0,
           "max_thunder_percent": 6.0,
           "max_usable_wind_mph": 21.9,
@@ -707,6 +778,7 @@
       "date": "2026-06-03",
       "points": [
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 23%, wind 15 mph.",
           "max_precip_percent": 42.0,
           "max_thunder_percent": 32.0,
           "max_usable_wind_mph": 15.0,
@@ -720,6 +792,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 3 PM local; RH 19%, wind 17 mph.",
           "max_precip_percent": 24.0,
           "max_thunder_percent": 24.0,
           "max_usable_wind_mph": 17.3,
@@ -733,6 +806,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 19%, wind 16 mph.",
           "max_precip_percent": 34.0,
           "max_thunder_percent": 29.0,
           "max_usable_wind_mph": 16.1,
@@ -746,6 +820,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 3 PM local; RH 26%, wind 15 mph.",
           "max_precip_percent": 46.0,
           "max_thunder_percent": 31.0,
           "max_usable_wind_mph": 15.0,
@@ -759,6 +834,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 27%, wind 14 mph.",
           "max_precip_percent": 44.0,
           "max_thunder_percent": 31.0,
           "max_usable_wind_mph": 13.8,
@@ -772,6 +848,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
           "max_precip_percent": 32.0,
           "max_thunder_percent": 25.0,
           "max_usable_wind_mph": 19.6,
@@ -785,6 +862,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 21%, wind 18 mph.",
           "max_precip_percent": 29.0,
           "max_thunder_percent": 27.0,
           "max_usable_wind_mph": 18.4,
@@ -798,6 +876,7 @@
           "tier": "ELEVATED"
         },
         {
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
           "max_precip_percent": 22.0,
           "max_thunder_percent": 22.0,
           "max_usable_wind_mph": 19.6,
@@ -837,9 +916,9 @@
   "expected_update_interval_minutes": 60,
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-28T13:12:39.827111-06:00",
-  "generated_at_local": "2026-05-28T13:12:39.827111-06:00",
-  "generated_at_utc": "2026-05-28T19:12:39.827111+00:00",
+  "generated_at": "2026-05-28T13:38:47.922302-06:00",
+  "generated_at_local": "2026-05-28T13:38:47.922302-06:00",
+  "generated_at_utc": "2026-05-28T19:38:47.922302+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -1020,6 +1099,141 @@
         ]
       }
     ],
+    "evidence_quality": {
+      "counts": {
+        "active": 3,
+        "context": 1,
+        "operational": 0
+      },
+      "groups": [
+        {
+          "matches": [
+            "red flag",
+            "public safety power shutoff",
+            "power shutoff",
+            "shutoff",
+            "power outage",
+            "fire mitigation",
+            "restoration",
+            "wildfire"
+          ],
+          "name": "Site-wide red flag banner",
+          "primary_url": "https://lpea.coop",
+          "quality": {
+            "class": "quality-active",
+            "detail": "Active public-site banner; current watch cue.",
+            "label": "Current banner"
+          },
+          "snippet": "Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.",
+          "source_count": 3,
+          "source_label": "LPEA homepage, LPEA latest news, and LPEA news releases",
+          "source_names": [
+            "LPEA homepage",
+            "LPEA latest news",
+            "LPEA news releases"
+          ],
+          "type": "official_updates",
+          "types": [
+            "official_updates"
+          ],
+          "urls": [
+            "https://lpea.coop",
+            "https://lpea.coop/Posts",
+            "https://lpea.coop/news-releases"
+          ]
+        },
+        {
+          "matches": [
+            "red flag",
+            "wildfire",
+            "public safety power shutoff",
+            "power shutoff",
+            "shutoff",
+            "power outage",
+            "fire mitigation",
+            "restoration"
+          ],
+          "name": "News-release archive PSPS item",
+          "primary_url": "https://lpea.coop/news-releases",
+          "quality": {
+            "class": "quality-context",
+            "detail": "Useful background, but not current outage intent by itself.",
+            "label": "Archive/context"
+          },
+          "snippet": "...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...",
+          "source_count": 1,
+          "source_label": "LPEA news releases",
+          "source_names": [
+            "LPEA news releases"
+          ],
+          "type": "official_updates",
+          "types": [
+            "official_updates"
+          ],
+          "urls": [
+            "https://lpea.coop/news-releases"
+          ]
+        },
+        {
+          "matches": [
+            "wildfire",
+            "public safety power shutoff",
+            "power shutoff",
+            "shutoff"
+          ],
+          "name": "LinkedIn wildfire preparedness post",
+          "primary_url": "https://www.linkedin.com/company/la-plata-electric-association/",
+          "quality": {
+            "class": "quality-active",
+            "detail": "Public social/update source; review timing and wording.",
+            "label": "Social/update cue"
+          },
+          "snippet": "...omment Share La Plata Electric Association 1,776 followers 1mo Report this post Wildfire season doesn't wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...",
+          "source_count": 1,
+          "source_label": "LPEA LinkedIn",
+          "source_names": [
+            "LPEA LinkedIn"
+          ],
+          "type": "official_social",
+          "types": [
+            "official_social"
+          ],
+          "urls": [
+            "https://www.linkedin.com/company/la-plata-electric-association/"
+          ]
+        },
+        {
+          "matches": [
+            "wildfire",
+            "public safety power shutoff",
+            "power shutoff",
+            "shutoff"
+          ],
+          "name": "LinkedIn PSPS explainer post",
+          "primary_url": "https://www.linkedin.com/company/la-plata-electric-association/",
+          "quality": {
+            "class": "quality-active",
+            "detail": "Public social/update source; review timing and wording.",
+            "label": "Social/update cue"
+          },
+          "snippet": "...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...",
+          "source_count": 1,
+          "source_label": "LPEA LinkedIn",
+          "source_names": [
+            "LPEA LinkedIn"
+          ],
+          "type": "official_social",
+          "types": [
+            "official_social"
+          ],
+          "urls": [
+            "https://www.linkedin.com/company/la-plata-electric-association/"
+          ]
+        }
+      ],
+      "reference_match_count": 4,
+      "summary": "0 operational, 3 active/update, 1 archive/context, 4 reference source matches."
+    },
     "headline": "LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.",
     "monitored_source_count": 13,
     "reference_hits": [
@@ -1465,7 +1679,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-28T14:12:39.827111-06:00",
+  "next_update_at": "2026-05-28T14:38:47.922302-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],
@@ -1488,6 +1702,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 16.0,
           "max_thunder_percent": 3.0,
@@ -1503,6 +1718,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 34.5,
           "max_precip_percent": 13.0,
           "max_thunder_percent": 13.0,
@@ -1518,6 +1734,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 28.8,
           "max_precip_percent": 5.0,
           "max_thunder_percent": 1.0,
@@ -1533,6 +1750,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 27.6,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1548,6 +1766,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 24.2,
           "max_precip_percent": 1.0,
           "max_thunder_percent": 1.0,
@@ -1563,6 +1782,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "Peak ingredients near 3 PM local; RH 14%, wind 20 mph.",
           "max_gust_mph": 19.6,
           "max_precip_percent": 15.0,
           "max_thunder_percent": 10.0,
@@ -1578,6 +1798,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 23%, wind 15 mph.",
           "max_gust_mph": 15.0,
           "max_precip_percent": 42.0,
           "max_thunder_percent": 32.0,
@@ -1607,6 +1828,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_gust_mph": 25.3,
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
@@ -1622,6 +1844,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_gust_mph": 39.1,
           "max_precip_percent": 5.0,
           "max_thunder_percent": 5.0,
@@ -1637,6 +1860,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 28.8,
           "max_precip_percent": 3.0,
           "max_thunder_percent": 0.0,
@@ -1652,6 +1876,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 25.3,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1667,6 +1892,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
           "max_gust_mph": 21.9,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1682,6 +1908,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 20.7,
           "max_precip_percent": 6.0,
           "max_thunder_percent": 6.0,
@@ -1697,6 +1924,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 3 PM local; RH 19%, wind 17 mph.",
           "max_gust_mph": 17.3,
           "max_precip_percent": 24.0,
           "max_thunder_percent": 24.0,
@@ -1726,6 +1954,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 13.0,
           "max_thunder_percent": 5.0,
@@ -1741,6 +1970,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "1 PM-9 PM local; 9 near/red-flag threshold hours.",
           "max_gust_mph": 36.8,
           "max_precip_percent": 8.0,
           "max_thunder_percent": 8.0,
@@ -1756,6 +1986,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
           "max_gust_mph": 27.6,
           "max_precip_percent": 4.0,
           "max_thunder_percent": 0.0,
@@ -1771,6 +2002,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 25.3,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1786,6 +2018,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1801,6 +2034,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 10%, wind 20 mph.",
           "max_gust_mph": 19.6,
           "max_precip_percent": 9.0,
           "max_thunder_percent": 7.0,
@@ -1816,6 +2050,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 19%, wind 16 mph.",
           "max_gust_mph": 16.1,
           "max_precip_percent": 34.0,
           "max_thunder_percent": 29.0,
@@ -1845,6 +2080,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 18.0,
           "max_thunder_percent": 5.0,
@@ -1860,6 +2096,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "4 PM-5 PM local; 2 near/red-flag threshold hours.",
           "max_gust_mph": 31.1,
           "max_precip_percent": 7.0,
           "max_thunder_percent": 7.0,
@@ -1875,6 +2112,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "Peak ingredients near 5 PM local; RH 20%, wind 29 mph.",
           "max_gust_mph": 28.8,
           "max_precip_percent": 5.0,
           "max_thunder_percent": 1.0,
@@ -1890,6 +2128,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 26.5,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1905,6 +2144,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -1920,6 +2160,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "Peak ingredients near 2 PM local; RH 16%, wind 20 mph.",
           "max_gust_mph": 19.6,
           "max_precip_percent": 16.0,
           "max_thunder_percent": 9.0,
@@ -1935,6 +2176,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 3 PM local; RH 26%, wind 15 mph.",
           "max_gust_mph": 15.0,
           "max_precip_percent": 46.0,
           "max_thunder_percent": 31.0,
@@ -1964,6 +2206,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 20.7,
           "max_precip_percent": 10.0,
           "max_thunder_percent": 4.0,
@@ -1979,6 +2222,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 32.2,
           "max_precip_percent": 10.0,
           "max_thunder_percent": 10.0,
@@ -1994,6 +2238,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "5 PM-6 PM local; 2 near/red-flag threshold hours.",
           "max_gust_mph": 26.5,
           "max_precip_percent": 4.0,
           "max_thunder_percent": 0.0,
@@ -2009,6 +2254,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 24.2,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2024,6 +2270,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
           "max_gust_mph": 20.7,
           "max_precip_percent": 1.0,
           "max_thunder_percent": 1.0,
@@ -2039,6 +2286,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 16%, wind 17 mph.",
           "max_gust_mph": 17.3,
           "max_precip_percent": 17.0,
           "max_thunder_percent": 14.0,
@@ -2054,6 +2302,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 27%, wind 14 mph.",
           "max_gust_mph": 13.8,
           "max_precip_percent": 44.0,
           "max_thunder_percent": 31.0,
@@ -2083,6 +2332,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_gust_mph": 28.8,
           "max_precip_percent": 8.0,
           "max_thunder_percent": 4.0,
@@ -2098,6 +2348,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_gust_mph": 40.3,
           "max_precip_percent": 6.0,
           "max_thunder_percent": 5.0,
@@ -2113,6 +2364,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 29.9,
           "max_precip_percent": 5.0,
           "max_thunder_percent": 1.0,
@@ -2128,6 +2380,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
           "max_gust_mph": 26.5,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2143,6 +2396,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2158,6 +2412,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 21.9,
           "max_precip_percent": 6.0,
           "max_thunder_percent": 5.0,
@@ -2173,6 +2428,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
           "max_gust_mph": 19.6,
           "max_precip_percent": 32.0,
           "max_thunder_percent": 25.0,
@@ -2202,6 +2458,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_gust_mph": 26.5,
           "max_precip_percent": 12.0,
           "max_thunder_percent": 5.0,
@@ -2217,6 +2474,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_gust_mph": 39.1,
           "max_precip_percent": 7.0,
           "max_thunder_percent": 6.0,
@@ -2232,6 +2490,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 31.1,
           "max_precip_percent": 4.0,
           "max_thunder_percent": 0.0,
@@ -2247,6 +2506,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
           "max_gust_mph": 27.6,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2262,6 +2522,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2277,6 +2538,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 21.9,
           "max_precip_percent": 7.0,
           "max_thunder_percent": 6.0,
@@ -2292,6 +2554,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 21%, wind 18 mph.",
           "max_gust_mph": 18.4,
           "max_precip_percent": 29.0,
           "max_thunder_percent": 27.0,
@@ -2321,6 +2584,7 @@
       "days": [
         {
           "date": "2026-05-28",
+          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
           "max_gust_mph": 27.6,
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
@@ -2336,6 +2600,7 @@
         },
         {
           "date": "2026-05-29",
+          "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
           "max_gust_mph": 41.4,
           "max_precip_percent": 5.0,
           "max_thunder_percent": 5.0,
@@ -2351,6 +2616,7 @@
         },
         {
           "date": "2026-05-30",
+          "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
           "max_gust_mph": 31.1,
           "max_precip_percent": 3.0,
           "max_thunder_percent": 0.0,
@@ -2366,6 +2632,7 @@
         },
         {
           "date": "2026-05-31",
+          "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
           "max_gust_mph": 27.6,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2381,6 +2648,7 @@
         },
         {
           "date": "2026-06-01",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 23.0,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
@@ -2396,6 +2664,7 @@
         },
         {
           "date": "2026-06-02",
+          "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 21.9,
           "max_precip_percent": 6.0,
           "max_thunder_percent": 6.0,
@@ -2411,6 +2680,7 @@
         },
         {
           "date": "2026-06-03",
+          "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
           "max_gust_mph": 19.6,
           "max_precip_percent": 22.0,
           "max_thunder_percent": 22.0,
@@ -2449,6 +2719,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 7,
@@ -2469,6 +2740,7 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 7,
@@ -2489,6 +2761,7 @@
               "3 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 7,
@@ -2509,6 +2782,7 @@
               "7 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 7,
@@ -2529,6 +2803,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -2553,6 +2828,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 7,
@@ -2573,6 +2849,7 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 7,
@@ -2593,6 +2870,7 @@
               "3 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 7,
@@ -2613,6 +2891,7 @@
               "7 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 7,
@@ -2633,6 +2912,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -2653,6 +2933,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -2673,6 +2954,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 3,
@@ -2693,6 +2975,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 3,
@@ -2714,6 +2997,14 @@
           "5 sampled hours meet red-flag screen",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Starting point",
+          "red_flag_hours_delta": null,
+          "rh_delta_percent": null,
+          "score_delta": null,
+          "summary": "First day in this forecast run; trend builds from following days.",
+          "wind_delta_mph": null
+        },
         "weather_factors": [
           "red-flag wind/gust signal near 29 mph",
           "red-flag RH near 13%",
@@ -2739,6 +3030,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2759,6 +3051,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-9 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2779,6 +3072,7 @@
               "7 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2799,6 +3093,7 @@
               "6 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2819,6 +3114,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2843,6 +3139,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2863,6 +3160,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-9 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2883,6 +3181,7 @@
               "7 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2903,6 +3202,7 @@
               "6 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2923,6 +3223,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 9,
@@ -2943,6 +3244,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -2963,6 +3265,7 @@
               "2 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-5 PM local; 2 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 2,
@@ -2983,6 +3286,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -3004,6 +3308,14 @@
           "5 sampled hours meet red-flag screen",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Worsening",
+          "red_flag_hours_delta": 0.0,
+          "rh_delta_percent": -1.0,
+          "score_delta": 14.0,
+          "summary": "Worsening: score +14, wind +10 mph, RH -1%, red-flag hours 0 vs prior day.",
+          "wind_delta_mph": 10.3
+        },
         "weather_factors": [
           "very strong wind/gust signal near 39 mph",
           "very dry RH near 12%",
@@ -3029,6 +3341,7 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 6,
@@ -3049,6 +3362,7 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 8,
@@ -3069,6 +3383,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3089,6 +3404,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3109,6 +3425,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3133,6 +3450,7 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 6,
@@ -3153,6 +3471,7 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 8,
@@ -3173,6 +3492,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3193,6 +3513,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3213,6 +3534,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3233,6 +3555,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -3253,6 +3576,7 @@
               "2 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "5 PM-6 PM local; 2 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 2,
@@ -3272,6 +3596,7 @@
               "dry RH near 19%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 5 PM local; RH 20%, wind 29 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -3293,6 +3618,14 @@
           "4 sampled hours meet red-flag screen",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Easing",
+          "red_flag_hours_delta": -1.0,
+          "rh_delta_percent": 2.0,
+          "score_delta": -14.0,
+          "summary": "Easing: score -14, wind -10 mph, RH +2%, red-flag hours -1 vs prior day.",
+          "wind_delta_mph": -10.3
+        },
         "weather_factors": [
           "red-flag wind/gust signal near 29 mph",
           "red-flag RH near 14%",
@@ -3318,6 +3651,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 7,
@@ -3338,6 +3672,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 8,
@@ -3358,6 +3693,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 8,
@@ -3378,6 +3714,7 @@
               "3 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3398,6 +3735,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3422,6 +3760,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 7,
@@ -3442,6 +3781,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 8,
@@ -3462,6 +3802,7 @@
               "5 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
               "max_near_hours": 8,
@@ -3482,6 +3823,7 @@
               "3 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
+            "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3502,6 +3844,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3522,6 +3865,7 @@
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 6,
@@ -3542,6 +3886,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3562,6 +3907,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3583,6 +3929,14 @@
           "5 sampled hours meet red-flag screen",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Steady",
+          "red_flag_hours_delta": 1.0,
+          "rh_delta_percent": -2.0,
+          "score_delta": 4.0,
+          "summary": "Steady: score +4, wind -2 mph, RH -2%, red-flag hours +1 vs prior day.",
+          "wind_delta_mph": -2.3000000000000007
+        },
         "weather_factors": [
           "red-flag wind/gust signal near 26 mph",
           "very dry RH near 12%",
@@ -3608,6 +3962,7 @@
               "4 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 4,
@@ -3628,6 +3983,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3648,6 +4004,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3668,6 +4025,7 @@
               "4 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 4,
@@ -3688,6 +4046,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3712,6 +4071,7 @@
               "4 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 4,
@@ -3732,6 +4092,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3752,6 +4113,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3772,6 +4134,7 @@
               "4 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 4,
@@ -3792,6 +4155,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3812,6 +4176,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -3832,6 +4197,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -3852,6 +4218,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -3873,6 +4240,14 @@
           "4 sampled hours are near red-flag thresholds",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Steady",
+          "red_flag_hours_delta": -5.0,
+          "rh_delta_percent": -4.0,
+          "score_delta": -16.0,
+          "summary": "Steady: score -16, wind -5 mph, RH -4%, red-flag hours -5 vs prior day.",
+          "wind_delta_mph": -4.600000000000001
+        },
         "weather_factors": [
           "near-threshold wind/gust signal near 22 mph",
           "critically dry RH near 8%",
@@ -3898,6 +4273,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3918,6 +4294,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3938,6 +4315,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -3958,6 +4336,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -3982,6 +4361,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -4002,6 +4382,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -4022,6 +4403,7 @@
               "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 5,
@@ -4042,6 +4424,7 @@
               "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "4 PM-6 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "max_near_hours": 3,
@@ -4061,6 +4444,7 @@
               "very dry RH near 10%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 10%, wind 20 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4080,6 +4464,7 @@
               "red-flag RH near 14%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 3 PM local; RH 14%, wind 20 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4099,6 +4484,7 @@
               "near-threshold RH near 16%"
             ],
             "fire_weather_tier": "GREEN",
+            "highest_risk_window": "Peak ingredients near 2 PM local; RH 16%, wind 20 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4118,6 +4504,7 @@
               "near-threshold RH near 16%"
             ],
             "fire_weather_tier": "GREEN",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 16%, wind 17 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4139,6 +4526,14 @@
           "5 sampled hours are near red-flag thresholds",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Steady",
+          "red_flag_hours_delta": 0.0,
+          "rh_delta_percent": 3.0,
+          "score_delta": -3.0,
+          "summary": "Steady: score -3, wind 0 mph, RH +3%, red-flag hours 0 vs prior day.",
+          "wind_delta_mph": 0.0
+        },
         "weather_factors": [
           "near-threshold wind/gust signal near 22 mph",
           "very dry RH near 11%",
@@ -4164,6 +4559,7 @@
               "modest thunder signal near 29%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 19%, wind 16 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4184,6 +4580,7 @@
               "modest thunder signal near 24%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 3 PM local; RH 19%, wind 17 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4204,6 +4601,7 @@
               "modest thunder signal near 25%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4228,6 +4626,7 @@
               "modest thunder signal near 29%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 19%, wind 16 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4248,6 +4647,7 @@
               "modest thunder signal near 24%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 3 PM local; RH 19%, wind 17 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4268,6 +4668,7 @@
               "modest thunder signal near 25%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4288,6 +4689,7 @@
               "modest thunder signal near 27%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 21%, wind 18 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4308,6 +4710,7 @@
               "modest thunder signal near 22%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 20%, wind 20 mph.",
             "level": "ELEVATED",
             "metrics": {
               "max_near_hours": 0,
@@ -4327,6 +4730,7 @@
               "modest thunder signal near 32%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 23%, wind 15 mph.",
             "level": "LOW",
             "metrics": {
               "max_near_hours": 0,
@@ -4346,6 +4750,7 @@
               "modest thunder signal near 31%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 3 PM local; RH 26%, wind 15 mph.",
             "level": "LOW",
             "metrics": {
               "max_near_hours": 0,
@@ -4364,6 +4769,7 @@
               "modest thunder signal near 31%"
             ],
             "fire_weather_tier": "ELEVATED",
+            "highest_risk_window": "Peak ingredients near 4 PM local; RH 27%, wind 14 mph.",
             "level": "LOW",
             "metrics": {
               "max_near_hours": 0,
@@ -4385,6 +4791,14 @@
           "modest thunder signal near 29%",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
+        "trend": {
+          "label": "Easing",
+          "red_flag_hours_delta": 0.0,
+          "rh_delta_percent": 7.0,
+          "score_delta": -28.0,
+          "summary": "Easing: score -28, wind -6 mph, RH +7%, red-flag hours 0 vs prior day.",
+          "wind_delta_mph": -5.799999999999997
+        },
         "weather_factors": [
           "breezy wind/gust signal near 16 mph",
           "near-threshold RH near 18%",

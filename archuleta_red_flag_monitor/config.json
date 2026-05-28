@@ -7,10 +7,12 @@
   "expected_update_interval_minutes": 60,
   "user_agent": "archuleta-red-flag-monitor/1.0 local-contact",
   "output": {
+    "forecast_history_csv": "forecast_history.csv",
     "history_csv": "history.csv",
     "latest_html": "latest.html",
     "latest_json": "latest.json",
-    "latest_markdown": "latest.md"
+    "latest_markdown": "latest.md",
+    "psps_event_log": "psps_events.json"
   },
   "thresholds": {
     "red_flag_rh_percent": 15,

@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 28, 2026 at 1:12 PM MDT (Pagosa Springs, CO local time)
-Next update: May 28, 2026 at 2:12 PM MDT (Pagosa Springs, CO local time)
+Generated: May 28, 2026 at 1:38 PM MDT (Pagosa Springs, CO local time)
+Next update: May 28, 2026 at 2:38 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -39,6 +39,29 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 | Tue, Jun 2 | WATCH | Durango / La Plata County (WATCH 52/100); Bayfield / east La Plata County (WATCH 52/100); Ignacio / southeast La Plata County (WATCH 52/100); Arboles / southwest county (WATCH 48/100) | Top weather score 52/100 at Durango / La Plata County. Weather score 52/100: RH 11%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5. |
 | Wed, Jun 3 | ELEVATED | Chimney Rock / west county (ELEVATED 24/100); Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100) | Top weather score 24/100 at Chimney Rock / west county. Weather score 24/100: RH 18%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0. |
 
+## Area-Specific Outlook
+
+| Area | Today | Peak this run | Highest-risk window |
+| --- | --- | --- | --- |
+| Arboles | WATCH 61/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Chimney Rock | WATCH 52/100 | Fri, May 29: LIKELY 81/100 | 1 PM-9 PM local; 9 near/red-flag threshold hours. |
+| Ignacio | LIKELY 67/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Durango | LIKELY 67/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Bayfield | WATCH 63/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Pagosa Springs | WATCH 48/100 | Sun, May 31: WATCH 63/100 | 1 PM-6 PM local; 6 near/red-flag threshold hours. |
+| Piedra | ELEVATED 38/100 | Sun, May 31: WATCH 57/100 | 2 PM-6 PM local; 5 near/red-flag threshold hours. |
+| Chromo | ELEVATED 44/100 | Fri, May 29: WATCH 53/100 | 4 PM-6 PM local; 3 near/red-flag threshold hours. |
+
+## Forecast Calibration
+
+- Summary: No confirmed LPEA PSPS events logged yet; calibration will start once events are added.
+- Confirmed PSPS events logged: 0
+- Candidate/unconfirmed events logged: 0
+- WATCH/LIKELY false-watch past days: 0
+- Pending WATCH/LIKELY dates in current forecast: Thu, May 28; Fri, May 29; Sat, May 30; Sun, May 31; Mon, Jun 1; Tue, Jun 2
+- Event log: `archuleta_red_flag_monitor/psps_events.json`
+- Forecast history: `archuleta_red_flag_monitor/forecast_history.csv`
+
 ## Official Weather Alerts
 
 - Monitored NWS zones: COC007, COC067, COZ019, COZ022, COZ023, COZ295
@@ -49,6 +72,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 - Status: `active_keyword_match` - LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.
 - Meaning: Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.
 - Source coverage: 13 sources; 5/5 official social sources reachable
+- Evidence quality: 0 operational, 3 active/update, 1 archive/context, 4 reference source matches.
 - Active/update source pages with matches: LPEA homepage (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); LPEA latest news (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); LPEA news releases (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); LPEA LinkedIn (wildfire, public safety power shutoff, power shutoff, shutoff)
 - Distinct active/update signals: Site-wide red flag banner across 3 sources: LPEA homepage, LPEA latest news, and LPEA news releases (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); News-release archive PSPS item (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); LinkedIn wildfire preparedness post (wildfire, public safety power shutoff, power shutoff, shutoff); LinkedIn PSPS explainer post (wildfire, public safety power shutoff, power shutoff, shutoff)
 - Example signal: Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.

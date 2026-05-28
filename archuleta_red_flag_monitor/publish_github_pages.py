@@ -12,11 +12,13 @@ from zoneinfo import ZoneInfo
 PACKAGE_FILES = [
     "README.md",
     "config.json",
+    "forecast_history.csv",
     "latest.html",
     "latest.json",
     "latest.md",
     "monitor.py",
     "publish_github_pages.py",
+    "psps_events.json",
     "tests/test_monitor.py",
 ]
 

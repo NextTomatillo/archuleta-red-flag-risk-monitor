@@ -283,6 +283,12 @@
       margin-top: 24px;
       padding: 22px;
     }
+    .subsection-heading {
+      margin-top: 18px;
+    }
+    .subsection-heading h3 {
+      font-size: 1.15rem;
+    }
     .compact-panel {
       padding: 0;
       overflow: hidden;
@@ -383,6 +389,20 @@
       font-size: 0.9rem;
       font-weight: 700;
     }
+    .quality-pill {
+      display: inline-flex;
+      margin: 0 0 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .quality-operational { background: rgba(60, 122, 68, 0.16); color: #204923; }
+    .quality-active { background: rgba(203, 90, 27, 0.16); color: #5b2209; }
+    .quality-context { background: rgba(29, 42, 42, 0.08); color: #344241; }
     .empty-state {
       margin: 8px 0 0;
       color: var(--muted);
@@ -450,6 +470,71 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 12px;
       margin-top: 16px;
+    }
+    .area-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .area-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.64);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .area-card.psps-watch { border-left: 7px solid var(--concern); }
+    .area-card.psps-likely,
+    .area-card.psps-confirmed { border-left: 7px solid var(--high); }
+    .area-card.psps-elevated { border-left: 7px solid var(--elevated); }
+    .area-card.psps-low { border-left: 7px solid var(--green); }
+    .area-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .score-badge {
+      display: inline-flex;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.08);
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+    .risk-window {
+      margin: 10px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      color: #344241;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+    .calibration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .calibration-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(29, 42, 42, 0.045);
+      padding: 14px;
+    }
+    .calibration-card strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+    .calibration-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.25;
     }
     .psps-location-card {
       border: 1px solid var(--line);
@@ -650,12 +735,12 @@
         <div>
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 28, 2026 at 1:12 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 28, 2026 at 1:38 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
           </div>
-          <p class="next-update-note">Next update: May 28, 2026 at 2:12 PM MDT (Pagosa Springs, CO local time)</p>
+          <p class="next-update-note">Next update: May 28, 2026 at 2:38 PM MDT (Pagosa Springs, CO local time)</p>
           <p class="time-note">All dates and times use Pagosa Springs, CO local time (America/Denver).</p>
         </div>
         <span class="chip tier-high">HIGH</span>
@@ -738,6 +823,7 @@
               <small>May 28</small>
               <strong>PSPS LIKELY</strong>
               <em>Weather HIGH</em>
+              <em>Starting point</em>
               <b>Durango, Ignacio</b>
             </div>
             
@@ -746,6 +832,7 @@
               <small>May 29</small>
               <strong>PSPS LIKELY</strong>
               <em>Weather HIGH</em>
+              <em>Worsening</em>
               <b>Arboles, Chimney Rock</b>
             </div>
             
@@ -754,6 +841,7 @@
               <small>May 30</small>
               <strong>PSPS LIKELY</strong>
               <em>Weather HIGH</em>
+              <em>Easing</em>
               <b>Arboles, Chimney Rock</b>
             </div>
             
@@ -762,6 +850,7 @@
               <small>May 31</small>
               <strong>PSPS LIKELY</strong>
               <em>Weather HIGH</em>
+              <em>Steady</em>
               <b>Durango, Bayfield</b>
             </div>
             
@@ -770,6 +859,7 @@
               <small>Jun 1</small>
               <strong>PSPS WATCH</strong>
               <em>Weather CONCERN</em>
+              <em>Steady</em>
               <b>Arboles, Ignacio</b>
             </div>
             
@@ -778,6 +868,7 @@
               <small>Jun 2</small>
               <strong>PSPS WATCH</strong>
               <em>Weather CONCERN</em>
+              <em>Steady</em>
               <b>Durango, Bayfield</b>
             </div>
             
@@ -786,9 +877,121 @@
               <small>Jun 3</small>
               <strong>PSPS ELEVATED</strong>
               <em>Weather ELEVATED</em>
+              <em>Easing</em>
               <b>Chimney Rock, Arboles</b>
             </div>
             
+      </div>
+      <div class="subsection-heading">
+        <p class="eyebrow">Area-specific PSPS outlook</p>
+        <h3>Where the risk is strongest</h3>
+      </div>
+      <div class="area-grid">
+        
+        <article class="area-card psps-watch">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Arboles</p>
+              <h3>WATCH</h3>
+            </div>
+            <span class="score-badge">61/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7.</p>
+          <p class="source-meta">Peak: Fri, May 29 at LIKELY 81/100.</p>
+          <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-watch">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Chimney Rock</p>
+              <h3>WATCH</h3>
+            </div>
+            <span class="score-badge">52/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</p>
+          <p class="source-meta">Peak: Fri, May 29 at LIKELY 81/100.</p>
+          <p class="risk-window">Highest-risk window: 1 PM-9 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-likely">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Ignacio</p>
+              <h3>LIKELY</h3>
+            </div>
+            <span class="score-badge">67/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7.</p>
+          <p class="source-meta">Peak: Fri, May 29 at LIKELY 81/100.</p>
+          <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-likely">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Durango</p>
+              <h3>LIKELY</h3>
+            </div>
+            <span class="score-badge">67/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7.</p>
+          <p class="source-meta">Peak: Fri, May 29 at LIKELY 77/100.</p>
+          <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-watch">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Bayfield</p>
+              <h3>WATCH</h3>
+            </div>
+            <span class="score-badge">63/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7.</p>
+          <p class="source-meta">Peak: Fri, May 29 at LIKELY 77/100.</p>
+          <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-watch">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Pagosa Springs</p>
+              <h3>WATCH</h3>
+            </div>
+            <span class="score-badge">48/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 48/100: RH 14%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5.</p>
+          <p class="source-meta">Peak: Sun, May 31 at WATCH 63/100.</p>
+          <p class="risk-window">Highest-risk window: 1 PM-6 PM local; 6 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-elevated">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Piedra</p>
+              <h3>ELEVATED</h3>
+            </div>
+            <span class="score-badge">38/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 38/100: RH 16%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 3.</p>
+          <p class="source-meta">Peak: Sun, May 31 at WATCH 57/100.</p>
+          <p class="risk-window">Highest-risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="area-card psps-elevated">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Chromo</p>
+              <h3>ELEVATED</h3>
+            </div>
+            <span class="score-badge">44/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 44/100: RH 15%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 3.</p>
+          <p class="source-meta">Peak: Fri, May 29 at WATCH 53/100.</p>
+          <p class="risk-window">Highest-risk window: 4 PM-6 PM local; 3 near/red-flag threshold hours.</p>
+        </article>
+        
       </div>
       <details class="detail-disclosure">
         <summary>Location driver detail (6 watch/likely days)</summary>
@@ -801,8 +1004,9 @@
             <h3>LIKELY</h3>
           </div>
           <p class="weather-score">Weather score 67/100</p>
+          <p class="source-meta">First day in this forecast run; trend builds from following days.</p>
           <ul>
-            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</li>
+            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6. Risk window: 3 PM-8 PM local; 6 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -812,8 +1016,9 @@
             <h3>LIKELY</h3>
           </div>
           <p class="weather-score">Weather score 81/100</p>
+          <p class="source-meta">Worsening: score +14, wind +10 mph, RH -1%, red-flag hours 0 vs prior day.</p>
           <ul>
-            <li><strong>Arboles / southwest county</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9.</li><li><strong>Chimney Rock / west county</strong>: LIKELY 81/100. Weather score 81/100: RH 11%, wind/gust 37 mph, red-flag hours 5, near-threshold hours 9.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 41 mph, red-flag hours 7, near-threshold hours 9.</li><li><strong>Durango / La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 13%, wind/gust 40 mph, red-flag hours 6, near-threshold hours 9.</li><li><strong>Bayfield / east La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 14%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9.</li>
+            <li><strong>Arboles / southwest county</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li><li><strong>Chimney Rock / west county</strong>: LIKELY 81/100. Weather score 81/100: RH 11%, wind/gust 37 mph, red-flag hours 5, near-threshold hours 9. Risk window: 1 PM-9 PM local; 9 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 41 mph, red-flag hours 7, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li><li><strong>Durango / La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 13%, wind/gust 40 mph, red-flag hours 6, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 14%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -823,8 +1028,9 @@
             <h3>LIKELY</h3>
           </div>
           <p class="weather-score">Weather score 67/100</p>
+          <p class="source-meta">Easing: score -14, wind -10 mph, RH +2%, red-flag hours -1 vs prior day.</p>
           <ul>
-            <li><strong>Arboles / southwest county</strong>: LIKELY 67/100. Weather score 67/100: RH 14%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 6.</li><li><strong>Chimney Rock / west county</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 8.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 15%, wind/gust 31 mph, red-flag hours 2, near-threshold hours 6.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 57/100. Weather score 57/100: RH 16%, wind/gust 31 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Durango / La Plata County</strong>: WATCH 51/100. Weather score 51/100: RH 16%, wind/gust 30 mph, red-flag hours 0, near-threshold hours 5.</li>
+            <li><strong>Arboles / southwest county</strong>: LIKELY 67/100. Weather score 67/100: RH 14%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 6. Risk window: 2 PM-7 PM local; 6 near/red-flag threshold hours.</li><li><strong>Chimney Rock / west county</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 8. Risk window: 12 PM-7 PM local; 8 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 15%, wind/gust 31 mph, red-flag hours 2, near-threshold hours 6. Risk window: 2 PM-7 PM local; 6 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 57/100. Weather score 57/100: RH 16%, wind/gust 31 mph, red-flag hours 0, near-threshold hours 5. Risk window: 3 PM-7 PM local; 5 near/red-flag threshold hours.</li><li><strong>Durango / La Plata County</strong>: WATCH 51/100. Weather score 51/100: RH 16%, wind/gust 30 mph, red-flag hours 0, near-threshold hours 5. Risk window: 3 PM-7 PM local; 5 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -834,8 +1040,9 @@
             <h3>LIKELY</h3>
           </div>
           <p class="weather-score">Weather score 71/100</p>
+          <p class="source-meta">Steady: score +4, wind -2 mph, RH -2%, red-flag hours +1 vs prior day.</p>
           <ul>
-            <li><strong>Durango / La Plata County</strong>: LIKELY 71/100. Weather score 71/100: RH 12%, wind/gust 26 mph, red-flag hours 5, near-threshold hours 7.</li><li><strong>Bayfield / east La Plata County</strong>: LIKELY 71/100. Weather score 71/100: RH 12%, wind/gust 28 mph, red-flag hours 5, near-threshold hours 8.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 71/100. Weather score 71/100: RH 11%, wind/gust 28 mph, red-flag hours 5, near-threshold hours 8.</li><li><strong>Pagosa Springs</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 28 mph, red-flag hours 3, near-threshold hours 6.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 10%, wind/gust 25 mph, red-flag hours 2, near-threshold hours 6.</li>
+            <li><strong>Durango / La Plata County</strong>: LIKELY 71/100. Weather score 71/100: RH 12%, wind/gust 26 mph, red-flag hours 5, near-threshold hours 7. Risk window: 12 PM-6 PM local; 7 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: LIKELY 71/100. Weather score 71/100: RH 12%, wind/gust 28 mph, red-flag hours 5, near-threshold hours 8. Risk window: 12 PM-7 PM local; 8 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 71/100. Weather score 71/100: RH 11%, wind/gust 28 mph, red-flag hours 5, near-threshold hours 8. Risk window: 12 PM-7 PM local; 8 near/red-flag threshold hours.</li><li><strong>Pagosa Springs</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 28 mph, red-flag hours 3, near-threshold hours 6. Risk window: 1 PM-6 PM local; 6 near/red-flag threshold hours.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 10%, wind/gust 25 mph, red-flag hours 2, near-threshold hours 6. Risk window: 1 PM-6 PM local; 6 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -845,8 +1052,9 @@
             <h3>WATCH</h3>
           </div>
           <p class="weather-score">Weather score 55/100</p>
+          <p class="source-meta">Steady: score -16, wind -5 mph, RH -4%, red-flag hours -5 vs prior day.</p>
           <ul>
-            <li><strong>Arboles / southwest county</strong>: WATCH 55/100. Weather score 55/100: RH 8%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 4.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 55/100. Weather score 55/100: RH 8%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Piedra / north county</strong>: WATCH 52/100. Weather score 52/100: RH 12%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Durango / La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 9%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 9%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5.</li>
+            <li><strong>Arboles / southwest county</strong>: WATCH 55/100. Weather score 55/100: RH 8%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 4. Risk window: 2 PM-5 PM local; 4 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 55/100. Weather score 55/100: RH 8%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5. Risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</li><li><strong>Piedra / north county</strong>: WATCH 52/100. Weather score 52/100: RH 12%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5. Risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</li><li><strong>Durango / La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 9%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4. Risk window: 2 PM-5 PM local; 4 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 9%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 5. Risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -856,8 +1064,9 @@
             <h3>WATCH</h3>
           </div>
           <p class="weather-score">Weather score 52/100</p>
+          <p class="source-meta">Steady: score -3, wind 0 mph, RH +3%, red-flag hours 0 vs prior day.</p>
           <ul>
-            <li><strong>Durango / La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 12%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5.</li><li><strong>Arboles / southwest county</strong>: WATCH 48/100. Weather score 48/100: RH 11%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 3.</li>
+            <li><strong>Durango / La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5. Risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 12%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5. Risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 5. Risk window: 2 PM-6 PM local; 5 near/red-flag threshold hours.</li><li><strong>Arboles / southwest county</strong>: WATCH 48/100. Weather score 48/100: RH 11%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 3. Risk window: 4 PM-6 PM local; 3 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -966,16 +1175,49 @@
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Model Calibration</p>
+      <h2>Forecast Accuracy Scorecard</h2>
+      <p class="footer-note">No confirmed LPEA PSPS events logged yet; calibration will start once events are added.</p>
+      <div class="calibration-grid">
+        
+        <article class="calibration-card">
+          <p class="eyebrow">Confirmed events</p>
+          <strong>0</strong>
+          <span>logged PSPS events</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Hit rate</p>
+          <strong>Pending</strong>
+          <span>WATCH+ before confirmed PSPS</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">False-watch days</p>
+          <strong>0</strong>
+          <span>past WATCH/LIKELY days without logged PSPS</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Pending</p>
+          <strong>6</strong>
+          <span>current WATCH/LIKELY dates</span>
+        </article>
+    
+      </div>
+      <p class="footer-note">Event log: archuleta_red_flag_monitor/psps_events.json</p>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">LPEA Monitor</p>
       <h2>Power Interruption Signals</h2>
       <p class="footer-note">LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.</p>
       <p class="footer-note">Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.</p>
+      <p class="footer-note">Evidence quality: 0 operational, 3 active/update, 1 archive/context, 4 reference source matches.</p>
       <p class="footer-note">Coverage: 13 sources; 5/5 official social sources reachable</p>
       <div class="source-grid">
         
         <article class="source-card">
           <p class="source-name"><a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">Site-wide red flag banner</a></p>
           <p class="source-meta">3 sources: <a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">LPEA homepage</a>, <a href="https://lpea.coop/Posts" target="_blank" rel="noopener noreferrer">LPEA latest news</a>, <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
+          <p class="quality-pill quality-active">Current banner</p>
           <p class="source-tags">red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation</p>
           <p class="source-snippet">Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.</p>
         </article>
@@ -983,6 +1225,7 @@
         <article class="source-card">
           <p class="source-name"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">News-release archive PSPS item</a></p>
           <p class="source-meta">1 source: <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
+          <p class="quality-pill quality-context">Archive/context</p>
           <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
           <p class="source-snippet">...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...</p>
         </article>
@@ -990,6 +1233,7 @@
         <article class="source-card">
           <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn wildfire preparedness post</a></p>
           <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="quality-pill quality-active">Social/update cue</p>
           <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
           <p class="source-snippet">...omment Share La Plata Electric Association 1,776 followers 1mo Report this post Wildfire season doesn&#x27;t wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...</p>
         </article>
@@ -997,6 +1241,7 @@
         <article class="source-card">
           <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn PSPS explainer post</a></p>
           <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="quality-pill quality-active">Social/update cue</p>
           <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
           <p class="source-snippet">...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...</p>
         </article>

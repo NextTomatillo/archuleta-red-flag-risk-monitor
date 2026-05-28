@@ -1,0 +1,16 @@
+{
+  "description": "Manually add confirmed or candidate LPEA Public Safety Power Shutoff events here. Confirmed events are used to calibrate dashboard predictions.",
+  "events": [],
+  "example_event": {
+    "date": "2026-07-26",
+    "status": "confirmed",
+    "source": "LPEA",
+    "source_url": "https://lpea.coop/",
+    "locations": [
+      "Pagosa Springs"
+    ],
+    "started_at": "2026-07-26T14:00:00-06:00",
+    "ended_at": "2026-07-26T18:00:00-06:00",
+    "summary": "Example only; remove or replace with a real PSPS event."
+  }
+}

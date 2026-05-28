@@ -175,6 +175,79 @@ def max_psps_level(*levels: str) -> str:
     return max(levels, key=lambda level: PSPS_RANK.get(level, -1))
 
 
+def output_path(config_path: Path, config: Dict[str, Any], key: str, default_name: str) -> Path:
+    return config_path.resolve().parent / config.get("output", {}).get(key, default_name)
+
+
+def event_log_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "psps_event_log", "psps_events.json")
+
+
+def forecast_history_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "forecast_history_csv", "forecast_history.csv")
+
+
+def safe_int(value: Any, default: int = 0) -> int:
+    try:
+        return int(float(value))
+    except (TypeError, ValueError):
+        return default
+
+
+def safe_float(value: Any) -> Optional[float]:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def hour_label(value: Optional[dt.datetime]) -> str:
+    if value is None:
+        return "n/a"
+    hour = value.hour % 12 or 12
+    suffix = "AM" if value.hour < 12 else "PM"
+    return f"{hour} {suffix}"
+
+
+def local_hour_value(record: Dict[str, Any]) -> Optional[dt.datetime]:
+    value = record.get("local_hour") or record.get("utc_hour")
+    return value if isinstance(value, dt.datetime) else None
+
+
+def risk_window_summary(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> str:
+    if not records:
+        return "No forecast hours available."
+    threshold_hours = [
+        record
+        for record in records
+        if record.get("relative_humidity") is not None
+        and record.get("usable_wind_mph") is not None
+        and record["relative_humidity"] <= thresholds["near_rh_percent"]
+        and record["usable_wind_mph"] >= thresholds["near_wind_mph"]
+    ]
+    if threshold_hours:
+        ordered = sorted(threshold_hours, key=lambda item: item["utc_hour"])
+        start = local_hour_value(ordered[0])
+        end = local_hour_value(ordered[-1])
+        return f"{hour_label(start)}-{hour_label(end)} local; {len(ordered)} near/red-flag threshold hour{'s' if len(ordered) != 1 else ''}."
+
+    ranked = sorted(
+        records,
+        key=lambda item: (
+            item.get("usable_wind_mph") is not None,
+            item.get("usable_wind_mph") or -1,
+            -(item.get("relative_humidity") or 1000),
+        ),
+        reverse=True,
+    )
+    peak = ranked[0]
+    peak_hour = hour_label(local_hour_value(peak))
+    return (
+        f"Peak ingredients near {peak_hour} local; "
+        f"RH {format_metric(peak.get('relative_humidity'), '%')}, wind {format_metric(peak.get('usable_wind_mph'), ' mph')}."
+    )
+
+
 def build_hourly_records(
     grid_properties: Dict[str, Any],
     now_utc: dt.datetime,
@@ -237,6 +310,7 @@ def score_day(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> Dict
             "max_precip_percent": None,
             "red_flag_hours": 0,
             "near_hours": 0,
+            "highest_risk_window": "No forecast hours available.",
             "reasons": ["No forecast hours available for this day."],
         }
 
@@ -321,6 +395,7 @@ def score_day(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> Dict
         "max_precip_percent": round(max_precip, 1) if max_precip is not None else None,
         "red_flag_hours": len(set(critical_hours)),
         "near_hours": len(set(near_hours)),
+        "highest_risk_window": risk_window_summary(records, thresholds),
         "reasons": reasons,
     }
 
@@ -793,6 +868,7 @@ def combine_daily_results(
                     "max_precip_percent": day["max_precip_percent"],
                     "red_flag_hours": day["red_flag_hours"],
                     "near_hours": day["near_hours"],
+                    "highest_risk_window": day.get("highest_risk_window", "n/a"),
                     "reasons": day["reasons"],
                 }
             )
@@ -1027,6 +1103,7 @@ def location_weather_score(point: Dict[str, Any], date_key: str, official_alerts
         "summary": scored["summary"],
         "factors": scored["factors"],
         "metrics": scored["metrics"],
+        "highest_risk_window": point.get("highest_risk_window", "n/a"),
         "fire_weather_tier": point.get("tier"),
     }
 
@@ -1054,6 +1131,73 @@ def weather_score_for_day(day: Dict[str, Any], official_alerts: Dict[str, Any]) 
     scored["location_scores"] = location_scores
     scored["driver_locations"] = driver_locations[:5]
     return scored
+
+
+def metric_delta(current: Optional[float], previous: Optional[float]) -> Optional[float]:
+    if current is None or previous is None:
+        return None
+    return current - previous
+
+
+def trend_label(score_delta: Optional[float], wind_delta: Optional[float], rh_delta: Optional[float], red_flag_delta: Optional[float]) -> str:
+    worsening = (
+        (score_delta is not None and score_delta >= 8)
+        or (wind_delta is not None and wind_delta >= 5)
+        or (rh_delta is not None and rh_delta <= -4)
+        or (red_flag_delta is not None and red_flag_delta >= 2)
+    )
+    easing = (
+        (score_delta is not None and score_delta <= -8)
+        or (wind_delta is not None and wind_delta <= -5)
+        or (rh_delta is not None and rh_delta >= 4)
+        or (red_flag_delta is not None and red_flag_delta <= -2)
+    )
+    if worsening and not easing:
+        return "Worsening"
+    if easing and not worsening:
+        return "Easing"
+    return "Steady"
+
+
+def signed_metric(value: Optional[float], suffix: str = "") -> str:
+    if value is None:
+        return "n/a"
+    sign = "+" if value > 0 else ""
+    return f"{sign}{value:.0f}{suffix}"
+
+
+def add_weather_trends(forecast_days: List[Dict[str, Any]]) -> None:
+    previous: Optional[Dict[str, Any]] = None
+    for day in forecast_days:
+        metrics = day.get("weather_metrics", {})
+        if previous is None:
+            day["trend"] = {
+                "label": "Starting point",
+                "score_delta": None,
+                "wind_delta_mph": None,
+                "rh_delta_percent": None,
+                "red_flag_hours_delta": None,
+                "summary": "First day in this forecast run; trend builds from following days.",
+            }
+        else:
+            previous_metrics = previous.get("weather_metrics", {})
+            score_delta = metric_delta(safe_float(day.get("weather_score")), safe_float(previous.get("weather_score")))
+            wind_delta = metric_delta(safe_float(metrics.get("max_usable_wind_mph")), safe_float(previous_metrics.get("max_usable_wind_mph")))
+            rh_delta = metric_delta(safe_float(metrics.get("min_rh_percent")), safe_float(previous_metrics.get("min_rh_percent")))
+            red_flag_delta = metric_delta(safe_float(metrics.get("max_red_flag_hours")), safe_float(previous_metrics.get("max_red_flag_hours")))
+            label = trend_label(score_delta, wind_delta, rh_delta, red_flag_delta)
+            day["trend"] = {
+                "label": label,
+                "score_delta": score_delta,
+                "wind_delta_mph": wind_delta,
+                "rh_delta_percent": rh_delta,
+                "red_flag_hours_delta": red_flag_delta,
+                "summary": (
+                    f"{label}: score {signed_metric(score_delta)}, wind {signed_metric(wind_delta, ' mph')}, "
+                    f"RH {signed_metric(rh_delta, '%')}, red-flag hours {signed_metric(red_flag_delta)} vs prior day."
+                ),
+            }
+        previous = day
 
 
 def build_psps_forecast(days: List[Dict[str, Any]], official_alerts: Dict[str, Any], lpea: Dict[str, Any]) -> Dict[str, Any]:
@@ -1089,6 +1233,7 @@ def build_psps_forecast(days: List[Dict[str, Any]], official_alerts: Dict[str, A
             }
         )
 
+    add_weather_trends(forecast_days)
     overall_level = max((day["level"] for day in forecast_days), key=lambda level: PSPS_RANK[level])
     if overall_level == "LIKELY":
         headline = "PSPS likelihood is high on weather-driven red-flag days; prepare for possible LPEA safety-related interruption behavior."
@@ -1119,6 +1264,212 @@ def previous_tier(history_path: Path) -> Optional[str]:
     return rows[-1].get("overall_tier") if rows else None
 
 
+def load_psps_events(path: Path) -> List[Dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if isinstance(payload, list):
+        events = payload
+    else:
+        events = payload.get("events", [])
+    return [event for event in events if isinstance(event, dict)]
+
+
+def ensure_psps_event_log(path: Path) -> None:
+    if path.exists():
+        return
+    template = {
+        "description": "Manually add confirmed or candidate LPEA Public Safety Power Shutoff events here. The dashboard uses confirmed events to calibrate predictions.",
+        "events": [],
+        "example_event": {
+            "date": "2026-07-26",
+            "status": "confirmed",
+            "source": "LPEA",
+            "source_url": "https://lpea.coop/",
+            "locations": ["Pagosa Springs"],
+            "started_at": "2026-07-26T14:00:00-06:00",
+            "ended_at": "2026-07-26T18:00:00-06:00",
+            "summary": "Example only; remove or replace with a real PSPS event.",
+        },
+    }
+    path.write_text(json.dumps(template, indent=2), encoding="utf-8")
+
+
+def load_forecast_history(path: Path) -> List[Dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        with path.open("r", encoding="utf-8", newline="") as fh:
+            return list(csv.DictReader(fh))
+    except OSError:
+        return []
+
+
+def event_date(event: Dict[str, Any]) -> Optional[str]:
+    if event.get("date"):
+        return str(event["date"])
+    parsed = parse_datetime(event.get("started_at"))
+    return parsed.date().isoformat() if parsed else None
+
+
+def event_locations(event: Dict[str, Any]) -> List[str]:
+    locations = event.get("locations") or []
+    if isinstance(locations, str):
+        return [locations]
+    return [str(location) for location in locations]
+
+
+def history_row_matches_event(row: Dict[str, Any], event: Dict[str, Any]) -> bool:
+    date_key = event_date(event)
+    if not date_key or row.get("date") != date_key:
+        return False
+    locations = event_locations(event)
+    if not locations:
+        return True
+    row_location = row.get("location", "")
+    return any(location.lower() in row_location.lower() or row_location.lower() in location.lower() for location in locations)
+
+
+def best_prediction_level(rows: List[Dict[str, Any]]) -> str:
+    if not rows:
+        return "NONE"
+    return max((row.get("psps_level", "LOW") for row in rows), key=lambda level: PSPS_RANK.get(level, -1))
+
+
+def build_calibration_summary(
+    events: List[Dict[str, Any]],
+    forecast_history: List[Dict[str, Any]],
+    current_psps: Dict[str, Any],
+    today: dt.date,
+    event_path: Path,
+    forecast_path: Path,
+) -> Dict[str, Any]:
+    confirmed_events = [event for event in events if str(event.get("status", "confirmed")).lower() == "confirmed"]
+    candidate_events = [event for event in events if str(event.get("status", "")).lower() != "confirmed"]
+    event_dates = {date for date in (event_date(event) for event in confirmed_events) if date}
+    hits = []
+    misses = []
+    for event in confirmed_events:
+        matching_rows = [row for row in forecast_history if history_row_matches_event(row, event)]
+        level = best_prediction_level(matching_rows)
+        scored_event = {
+            "date": event_date(event),
+            "locations": event_locations(event),
+            "summary": event.get("summary", "Confirmed PSPS event."),
+            "source_url": event.get("source_url"),
+            "best_predicted_level": level,
+        }
+        if PSPS_RANK.get(level, -1) >= PSPS_RANK["WATCH"]:
+            hits.append(scored_event)
+        else:
+            misses.append(scored_event)
+
+    past_watch_days = set()
+    false_watch_days = set()
+    for row in forecast_history:
+        date_key = row.get("date")
+        if not date_key:
+            continue
+        try:
+            row_date = dt.date.fromisoformat(date_key)
+        except ValueError:
+            continue
+        if row_date >= today:
+            continue
+        if PSPS_RANK.get(row.get("psps_level", "LOW"), 0) >= PSPS_RANK["WATCH"]:
+            past_watch_days.add(date_key)
+            if date_key not in event_dates:
+                false_watch_days.add(date_key)
+
+    pending_watch_days = [
+        day["date"]
+        for day in current_psps.get("days", [])
+        if PSPS_RANK.get(day.get("level", "LOW"), 0) >= PSPS_RANK["WATCH"]
+    ]
+    if confirmed_events:
+        hit_rate = round((len(hits) / len(confirmed_events)) * 100)
+        summary = f"{len(hits)}/{len(confirmed_events)} confirmed PSPS event{'s' if len(confirmed_events) != 1 else ''} had WATCH-or-higher monitor signal."
+    else:
+        hit_rate = None
+        summary = "No confirmed LPEA PSPS events logged yet; calibration will start once events are added."
+
+    return {
+        "event_log_path": f"archuleta_red_flag_monitor/{event_path.name}",
+        "forecast_history_path": f"archuleta_red_flag_monitor/{forecast_path.name}",
+        "confirmed_event_count": len(confirmed_events),
+        "candidate_event_count": len(candidate_events),
+        "hit_count": len(hits),
+        "miss_count": len(misses),
+        "hit_rate_percent": hit_rate,
+        "false_watch_day_count": len(false_watch_days),
+        "false_watch_examples": sorted(false_watch_days)[-5:],
+        "pending_watch_dates": pending_watch_days,
+        "summary": summary,
+        "hits": hits[-5:],
+        "misses": misses[-5:],
+        "logged_events": confirmed_events[-5:],
+    }
+
+
+def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
+    rows = []
+    official_count = report.get("official_alerts", {}).get("fire_alert_count", 0)
+    lpea_signal_level = report.get("psps", {}).get("lpea_signal", {}).get("level", "none")
+    for day in report.get("psps", {}).get("days", []):
+        for location in day.get("location_scores", []) or [{"name": "Area", "level": day.get("level"), "score": day.get("weather_score"), "metrics": day.get("weather_metrics", {})}]:
+            metrics = location.get("metrics", {})
+            rows.append(
+                {
+                    "generated_at": report.get("generated_at_local") or report.get("generated_at"),
+                    "date": day.get("date"),
+                    "location": location.get("name", "Unknown location"),
+                    "psps_level": location.get("level", day.get("level", "LOW")),
+                    "weather_score": location.get("score", day.get("weather_score")),
+                    "fire_weather_tier": location.get("fire_weather_tier", day.get("fire_weather_tier")),
+                    "min_rh_percent": metrics.get("min_rh_percent"),
+                    "max_wind_mph": metrics.get("max_usable_wind_mph"),
+                    "max_thunder_percent": metrics.get("max_thunder_percent"),
+                    "red_flag_hours": metrics.get("max_red_flag_hours"),
+                    "near_hours": metrics.get("max_near_hours"),
+                    "highest_risk_window": location.get("highest_risk_window", "n/a"),
+                    "overall_psps_level": report.get("psps", {}).get("overall_level"),
+                    "lpea_signal_level": lpea_signal_level,
+                    "official_fire_alert_count": official_count,
+                }
+            )
+    return rows
+
+
+def append_forecast_history(report: Dict[str, Any], path: Path) -> None:
+    rows = forecast_history_rows(report)
+    exists = path.exists()
+    fieldnames = [
+        "generated_at",
+        "date",
+        "location",
+        "psps_level",
+        "weather_score",
+        "fire_weather_tier",
+        "min_rh_percent",
+        "max_wind_mph",
+        "max_thunder_percent",
+        "red_flag_hours",
+        "near_hours",
+        "highest_risk_window",
+        "overall_psps_level",
+        "lpea_signal_level",
+        "official_fire_alert_count",
+    ]
+    with path.open("a", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fieldnames)
+        if not exists:
+            writer.writeheader()
+        writer.writerows(rows)
+
+
 def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, Any]) -> None:
     base = config_path.resolve().parent
     output = config["output"]
@@ -1126,10 +1477,14 @@ def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, A
     latest_md = base / output["latest_markdown"]
     latest_html = base / output["latest_html"]
     history_csv = base / output["history_csv"]
+    psps_events_path = event_log_path(config_path, config)
+    forecast_csv = forecast_history_path(config_path, config)
 
     latest_json.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     latest_md.write_text(render_markdown(report), encoding="utf-8")
     latest_html.write_text(render_html(report), encoding="utf-8")
+    ensure_psps_event_log(psps_events_path)
+    append_forecast_history(report, forecast_csv)
 
     exists = history_csv.exists()
     with history_csv.open("a", encoding="utf-8", newline="") as fh:
@@ -1360,6 +1715,49 @@ def lpea_summary_note(lpea: Dict[str, Any]) -> str:
     return lpea.get("headline", "No LPEA signal detail available.")
 
 
+def lpea_group_quality(group: Dict[str, Any]) -> Dict[str, str]:
+    snippet = group.get("snippet", "").lower()
+    names = " ".join(group.get("source_names", [])).lower()
+    types = set(group.get("types", []))
+    if "outage map" in names:
+        return {"label": "Operational source", "class": "quality-operational", "detail": "Live outage-map source; strongest public operational cue."}
+    if re.search(r"\b\d{2}/\d{2}/20\d{2}\b", snippet) or "archive" in group.get("name", "").lower():
+        return {"label": "Archive/context", "class": "quality-context", "detail": "Useful background, but not current outage intent by itself."}
+    if "site-wide lpea banner" in snippet or "red flag warnings are in place" in snippet:
+        return {"label": "Current banner", "class": "quality-active", "detail": "Active public-site banner; current watch cue."}
+    if "official_social" in types:
+        return {"label": "Social/update cue", "class": "quality-active", "detail": "Public social/update source; review timing and wording."}
+    if types & {"official_updates", "outage_map"}:
+        return {"label": "Active/update cue", "class": "quality-active", "detail": "Active monitored source; review link for specificity."}
+    return {"label": "Reference/context", "class": "quality-context", "detail": "Reference safety material; should not move prediction alone."}
+
+
+def lpea_evidence_quality(lpea: Dict[str, Any]) -> Dict[str, Any]:
+    active_groups = lpea.get("active_signal_groups") or group_lpea_signal_hits(lpea.get("active_hits", []))
+    annotated = []
+    counts = {"operational": 0, "active": 0, "context": 0}
+    for group in active_groups:
+        quality = lpea_group_quality(group)
+        annotated.append({**group, "quality": quality})
+        if quality["class"] == "quality-operational":
+            counts["operational"] += 1
+        elif quality["class"] == "quality-active":
+            counts["active"] += 1
+        else:
+            counts["context"] += 1
+    reference_count = len(lpea.get("reference_hits", []))
+    summary = (
+        f"{counts['operational']} operational, {counts['active']} active/update, "
+        f"{counts['context']} archive/context, {reference_count} reference source match{'es' if reference_count != 1 else ''}."
+    )
+    return {
+        "summary": summary,
+        "counts": counts,
+        "reference_match_count": reference_count,
+        "groups": annotated,
+    }
+
+
 def find_named_entry(entries: Iterable[Dict[str, Any]], preferred_name: str) -> Optional[Dict[str, Any]]:
     preferred = preferred_name.lower()
     fallback_prefix = preferred.split()[0]
@@ -1419,6 +1817,40 @@ def pagosa_outlook_card(report: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def short_location_name(name: str) -> str:
+    return name.split(" / ")[0]
+
+
+def build_area_outlook(report: Dict[str, Any]) -> List[Dict[str, Any]]:
+    psps_days = report.get("psps", {}).get("days", [])
+    sample_names = [point.get("name") for point in report.get("points", []) if point.get("name")]
+    if not sample_names:
+        sample_names = sorted({score.get("name") for day in psps_days for score in day.get("location_scores", []) if score.get("name")})
+    cards = []
+    for name in sample_names:
+        scores = []
+        for day in psps_days:
+            score = find_named_entry(day.get("location_scores", []), name)
+            if score:
+                scores.append({**score, "date": day.get("date")})
+        if not scores:
+            continue
+        today = scores[0]
+        peak = max(scores, key=lambda item: (PSPS_RANK.get(item.get("level", "LOW"), 0), safe_int(item.get("score"))))
+        cards.append(
+            {
+                "name": name,
+                "short_name": short_location_name(name),
+                "today": today,
+                "peak": peak,
+                "sort_score": safe_int(peak.get("score")),
+                "sort_rank": PSPS_RANK.get(peak.get("level", "LOW"), 0),
+            }
+        )
+    cards.sort(key=lambda item: (item["sort_rank"], item["sort_score"]), reverse=True)
+    return cards
+
+
 def render_lpea_markdown(report: Dict[str, Any]) -> List[str]:
     lpea = report.get("lpea", {})
     lines = [
@@ -1427,6 +1859,7 @@ def render_lpea_markdown(report: Dict[str, Any]) -> List[str]:
         f"- Status: `{lpea.get('status', 'unknown')}` - {lpea.get('headline', 'No LPEA headline available.')}",
         f"- Meaning: {lpea_active_source_meaning()}",
         f"- Source coverage: {lpea.get('monitored_source_count', 0)} sources; {lpea.get('social_status', 'social sources not configured')}",
+        f"- Evidence quality: {lpea.get('evidence_quality', {}).get('summary', 'Evidence quality not classified.')}",
     ]
     active_hits = lpea.get("active_hits", [])
     reference_hits = lpea.get("reference_hits", [])
@@ -1503,6 +1936,40 @@ def render_psps_markdown(report: Dict[str, Any]) -> List[str]:
     return lines
 
 
+def render_area_outlook_markdown(report: Dict[str, Any]) -> List[str]:
+    cards = build_area_outlook(report)
+    if not cards:
+        return ["## Area-Specific Outlook", "", "No area-specific PSPS scores available."]
+    lines = [
+        "## Area-Specific Outlook",
+        "",
+        "| Area | Today | Peak this run | Highest-risk window |",
+        "| --- | --- | --- | --- |",
+    ]
+    for card in cards:
+        today = card["today"]
+        peak = card["peak"]
+        lines.append(
+            f"| {card['short_name']} | {today.get('level', 'LOW')} {today.get('score', 'n/a')}/100 | {format_display_date(peak.get('date'))}: {peak.get('level', 'LOW')} {peak.get('score', 'n/a')}/100 | {peak.get('highest_risk_window', 'n/a')} |"
+        )
+    return lines
+
+
+def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
+    calibration = report.get("calibration", {})
+    return [
+        "## Forecast Calibration",
+        "",
+        f"- Summary: {calibration.get('summary', 'No calibration summary available.')}",
+        f"- Confirmed PSPS events logged: {calibration.get('confirmed_event_count', 0)}",
+        f"- Candidate/unconfirmed events logged: {calibration.get('candidate_event_count', 0)}",
+        f"- WATCH/LIKELY false-watch past days: {calibration.get('false_watch_day_count', 0)}",
+        f"- Pending WATCH/LIKELY dates in current forecast: {format_date_list(calibration.get('pending_watch_dates', []))}",
+        f"- Event log: `{calibration.get('event_log_path', 'psps_events.json')}`",
+        f"- Forecast history: `{calibration.get('forecast_history_path', 'forecast_history.csv')}`",
+    ]
+
+
 def render_markdown(report: Dict[str, Any]) -> str:
     high_dates = collect_dates_by_tier(report["days"], "HIGH")
     concern_dates = collect_dates_by_tier(report["days"], "CONCERN")
@@ -1533,6 +2000,10 @@ def render_markdown(report: Dict[str, Any]) -> str:
         f"- NWS discussion: {report['discussion']['headline']}",
         "",
         *render_psps_markdown(report),
+        "",
+        *render_area_outlook_markdown(report),
+        "",
+        *render_calibration_markdown(report),
         "",
         *render_official_alerts_markdown(report),
         "",
@@ -1692,6 +2163,7 @@ def render_html(report: Dict[str, Any]) -> str:
         psps_day = psps_days_by_date.get(weather_day["date"], {})
         day_name, month_day = split_display_date(weather_day["date"])
         psps_level = psps_day.get("level", "LOW")
+        trend = psps_day.get("trend", {}).get("label", "Trend pending")
         driver_names = ", ".join(
             location["name"].split(" / ")[0]
             for location in psps_day.get("driver_locations", [])[:2]
@@ -1705,6 +2177,7 @@ def render_html(report: Dict[str, Any]) -> str:
               <small>{escape_html(month_day)}</small>
               <strong>PSPS {escape_html(psps_level)}</strong>
               <em>Weather {escape_html(weather_day['tier'])}</em>
+              <em>{escape_html(trend)}</em>
               <b>{escape_html(driver_names)}</b>
             </div>
             """
@@ -1718,8 +2191,9 @@ def render_html(report: Dict[str, Any]) -> str:
             <h3>{escape_html(day['level'])}</h3>
           </div>
           <p class="weather-score">Weather score {escape_html(day.get('weather_score', 'n/a'))}/100</p>
+          <p class="source-meta">{escape_html(day.get('trend', {}).get('summary', 'Trend not available.'))}</p>
           <ul>
-            {''.join(f'<li><strong>{escape_html(location["name"])}</strong>: {escape_html(location["level"])} {escape_html(location["score"])}/100. {escape_html(location["summary"])}</li>' for location in day.get("driver_locations", [])[:5])}
+            {''.join(f'<li><strong>{escape_html(location["name"])}</strong>: {escape_html(location["level"])} {escape_html(location["score"])}/100. {escape_html(location["summary"])} Risk window: {escape_html(location.get("highest_risk_window", "n/a"))}</li>' for location in day.get("driver_locations", [])[:5])}
           </ul>
         </article>
         """
@@ -1727,13 +2201,55 @@ def render_html(report: Dict[str, Any]) -> str:
         if day.get("level") in ("WATCH", "LIKELY", "CONFIRMED")
     )
     psps_detail_day_count = sum(1 for day in psps.get("days", []) if day.get("level") in ("WATCH", "LIKELY", "CONFIRMED"))
+    area_cards_html = "".join(
+        f"""
+        <article class="area-card psps-{escape_html(card['today'].get('level', 'low').lower())}">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">{escape_html(card['short_name'])}</p>
+              <h3>{escape_html(card['today'].get('level', 'LOW'))}</h3>
+            </div>
+            <span class="score-badge">{escape_html(str(card['today'].get('score', 'n/a')))}/100</span>
+          </div>
+          <p class="source-meta">Today: {escape_html(card['today'].get('summary', 'No score summary available.'))}</p>
+          <p class="source-meta">Peak: {escape_html(format_display_date(card['peak'].get('date')))} at {escape_html(card['peak'].get('level', 'LOW'))} {escape_html(str(card['peak'].get('score', 'n/a')))}/100.</p>
+          <p class="risk-window">Highest-risk window: {escape_html(card['peak'].get('highest_risk_window', 'n/a'))}</p>
+        </article>
+        """
+        for card in build_area_outlook(report)
+    ) or '<p class="empty-state">No area-specific PSPS scores available.</p>'
+    calibration = report.get("calibration", {})
+    calibration_cards_html = f"""
+        <article class="calibration-card">
+          <p class="eyebrow">Confirmed events</p>
+          <strong>{escape_html(str(calibration.get('confirmed_event_count', 0)))}</strong>
+          <span>logged PSPS events</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Hit rate</p>
+          <strong>{escape_html(str(calibration.get('hit_rate_percent')) + '%' if calibration.get('hit_rate_percent') is not None else 'Pending')}</strong>
+          <span>WATCH+ before confirmed PSPS</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">False-watch days</p>
+          <strong>{escape_html(str(calibration.get('false_watch_day_count', 0)))}</strong>
+          <span>past WATCH/LIKELY days without logged PSPS</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Pending</p>
+          <strong>{escape_html(str(len(calibration.get('pending_watch_dates', []))))}</strong>
+          <span>current WATCH/LIKELY dates</span>
+        </article>
+    """
     lpea = report.get("lpea", {})
-    active_signal_groups = lpea.get("active_signal_groups") or group_lpea_signal_hits(lpea.get("active_hits", []))
+    evidence_quality = lpea.get("evidence_quality") or lpea_evidence_quality(lpea)
+    active_signal_groups = evidence_quality.get("groups") or lpea.get("active_signal_groups") or group_lpea_signal_hits(lpea.get("active_hits", []))
     active_hits_html = "".join(
         f"""
         <article class="source-card">
           <p class="source-name">{linked_text_html(group.get('name', 'LPEA signal'), group.get('primary_url'))}</p>
           <p class="source-meta">{escape_html(str(group.get('source_count', 1)))} source{'s' if group.get('source_count', 1) != 1 else ''}: {source_group_links_html(group)}</p>
+          <p class="quality-pill {escape_html(group.get('quality', {}).get('class', 'quality-context'))}">{escape_html(group.get('quality', {}).get('label', 'Evidence cue'))}</p>
           <p class="source-tags">{escape_html(', '.join(group.get('matches', [])[:6]))}</p>
           <p class="source-snippet">{escape_html(group.get('snippet', 'No snippet available.'))}</p>
         </article>
@@ -2044,6 +2560,12 @@ def render_html(report: Dict[str, Any]) -> str:
       margin-top: 24px;
       padding: 22px;
     }}
+    .subsection-heading {{
+      margin-top: 18px;
+    }}
+    .subsection-heading h3 {{
+      font-size: 1.15rem;
+    }}
     .compact-panel {{
       padding: 0;
       overflow: hidden;
@@ -2144,6 +2666,20 @@ def render_html(report: Dict[str, Any]) -> str:
       font-size: 0.9rem;
       font-weight: 700;
     }}
+    .quality-pill {{
+      display: inline-flex;
+      margin: 0 0 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }}
+    .quality-operational {{ background: rgba(60, 122, 68, 0.16); color: #204923; }}
+    .quality-active {{ background: rgba(203, 90, 27, 0.16); color: #5b2209; }}
+    .quality-context {{ background: rgba(29, 42, 42, 0.08); color: #344241; }}
     .empty-state {{
       margin: 8px 0 0;
       color: var(--muted);
@@ -2211,6 +2747,71 @@ def render_html(report: Dict[str, Any]) -> str:
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 12px;
       margin-top: 16px;
+    }}
+    .area-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }}
+    .area-card {{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.64);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }}
+    .area-card.psps-watch {{ border-left: 7px solid var(--concern); }}
+    .area-card.psps-likely,
+    .area-card.psps-confirmed {{ border-left: 7px solid var(--high); }}
+    .area-card.psps-elevated {{ border-left: 7px solid var(--elevated); }}
+    .area-card.psps-low {{ border-left: 7px solid var(--green); }}
+    .area-card-top {{
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }}
+    .score-badge {{
+      display: inline-flex;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.08);
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }}
+    .risk-window {{
+      margin: 10px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      color: #344241;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }}
+    .calibration-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }}
+    .calibration-card {{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(29, 42, 42, 0.045);
+      padding: 14px;
+    }}
+    .calibration-card strong {{
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+    }}
+    .calibration-card span {{
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.25;
     }}
     .psps-location-card {{
       border: 1px solid var(--line);
@@ -2455,6 +3056,13 @@ def render_html(report: Dict[str, Any]) -> str:
       <div class="risk-strip">
         {combined_outlook_html}
       </div>
+      <div class="subsection-heading">
+        <p class="eyebrow">Area-specific PSPS outlook</p>
+        <h3>Where the risk is strongest</h3>
+      </div>
+      <div class="area-grid">
+        {area_cards_html}
+      </div>
       <details class="detail-disclosure">
         <summary>Location driver detail ({escape_html(str(psps_detail_day_count))} watch/likely days)</summary>
         <div class="detail-disclosure-content">
@@ -2474,10 +3082,21 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Model Calibration</p>
+      <h2>Forecast Accuracy Scorecard</h2>
+      <p class="footer-note">{escape_html(calibration.get('summary', 'No calibration summary available.'))}</p>
+      <div class="calibration-grid">
+        {calibration_cards_html}
+      </div>
+      <p class="footer-note">Event log: {escape_html(calibration.get('event_log_path', 'psps_events.json'))}</p>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">LPEA Monitor</p>
       <h2>Power Interruption Signals</h2>
       <p class="footer-note">{escape_html(lpea.get('headline', 'No LPEA headline available.'))}</p>
       <p class="footer-note">{escape_html(lpea_active_source_meaning())}</p>
+      <p class="footer-note">Evidence quality: {escape_html(evidence_quality.get('summary', 'Evidence quality not classified.'))}</p>
       <p class="footer-note">Coverage: {escape_html(str(lpea.get('monitored_source_count', 0)))} sources; {escape_html(lpea.get('social_status', 'social sources not configured'))}</p>
       <div class="source-grid">
         {active_hits_html}
@@ -2581,11 +3200,22 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     alert_summary["monitored_zones"] = alert_zones
     discussion = fetch_discussion_signal(session)
     lpea = check_lpea(session, config)
+    lpea["evidence_quality"] = lpea_evidence_quality(lpea)
     days = combine_daily_results(point_results, alert_summary, discussion, config, now_utc, tz)
     tier = overall_tier(days, point_results, discussion)
     psps = build_psps_forecast(days, alert_summary, lpea)
 
     history_path = config_path.resolve().parent / config["output"]["history_csv"]
+    psps_events_path = event_log_path(config_path, config)
+    forecast_csv = forecast_history_path(config_path, config)
+    calibration = build_calibration_summary(
+        load_psps_events(psps_events_path),
+        load_forecast_history(forecast_csv),
+        psps,
+        now_local.date(),
+        psps_events_path,
+        forecast_csv,
+    )
     prev_tier = previous_tier(history_path)
     notify_recommended = tier != "GREEN" or (prev_tier is not None and prev_tier != "GREEN")
 
@@ -2611,6 +3241,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "discussion": discussion,
         "lpea": lpea,
         "psps": psps,
+        "calibration": calibration,
         "days": days,
         "points": point_results,
     }
@@ -2644,6 +3275,8 @@ def main() -> int:
             print(f"- {base / config['output']['latest_json']}")
             print(f"- {base / config['output']['latest_html']}")
             print(f"- {base / config['output']['history_csv']}")
+            print(f"- {forecast_history_path(config_path, config)}")
+            print(f"- {event_log_path(config_path, config)}")
     return 0
 
 

@@ -269,8 +269,76 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(psps["days"][0]["level"], "LIKELY")
         self.assertEqual(psps["days"][1]["level"], "WATCH")
         self.assertEqual(psps["days"][1]["driver_locations"][0]["name"], "Durango")
+        self.assertEqual(psps["days"][1]["trend"]["label"], "Easing")
         self.assertEqual(psps["days"][2]["level"], "ELEVATED")
         self.assertEqual(psps["days"][3]["level"], "LOW")
+
+    def test_risk_window_summary_uses_local_near_threshold_hours(self):
+        base = dt.datetime(2026, 6, 1, 18, tzinfo=dt.timezone.utc)
+        records = [
+            record(base, rh=19, wind=19),
+            record(base + dt.timedelta(hours=1), rh=17, wind=21),
+            record(base + dt.timedelta(hours=3), rh=14, gust=27),
+        ]
+        for item in records:
+            item["local_hour"] = item["utc_hour"].astimezone(ZoneInfo("America/Denver"))
+        summary = monitor.risk_window_summary(records, THRESHOLDS)
+        self.assertIn("1 PM-3 PM local", summary)
+        self.assertIn("2 near/red-flag threshold hours", summary)
+
+    def test_calibration_summary_scores_confirmed_event_against_history(self):
+        events = [
+            {
+                "date": "2026-06-01",
+                "status": "confirmed",
+                "locations": ["Pagosa Springs"],
+                "source_url": "https://example.test/psps",
+                "summary": "Confirmed PSPS.",
+            }
+        ]
+        history = [
+            {"date": "2026-06-01", "location": "Pagosa Springs", "psps_level": "LIKELY"},
+            {"date": "2026-06-02", "location": "Pagosa Springs", "psps_level": "WATCH"},
+        ]
+        current_psps = {"days": [{"date": "2026-06-03", "level": "WATCH"}]}
+        summary = monitor.build_calibration_summary(
+            events,
+            history,
+            current_psps,
+            dt.date(2026, 6, 4),
+            Path("psps_events.json"),
+            Path("forecast_history.csv"),
+        )
+        self.assertEqual(summary["confirmed_event_count"], 1)
+        self.assertEqual(summary["hit_count"], 1)
+        self.assertEqual(summary["hit_rate_percent"], 100)
+        self.assertEqual(summary["false_watch_day_count"], 1)
+        self.assertEqual(summary["pending_watch_dates"], ["2026-06-03"])
+
+    def test_lpea_evidence_quality_labels_archived_items(self):
+        lpea = {
+            "active_signal_groups": [
+                {
+                    "name": "News-release archive PSPS item",
+                    "source_names": ["LPEA news releases"],
+                    "types": ["official_updates"],
+                    "snippet": "Power Shutoffs Possible to Protect Public Safety 07/22/2025",
+                    "matches": ["power shutoff"],
+                },
+                {
+                    "name": "Site-wide red flag banner",
+                    "source_names": ["LPEA homepage"],
+                    "types": ["official_updates"],
+                    "snippet": "Site-wide LPEA banner: Red Flag Warnings are in place across the service territory.",
+                    "matches": ["red flag"],
+                },
+            ],
+            "reference_hits": [{"name": "PSPS guidance"}],
+        }
+        quality = monitor.lpea_evidence_quality(lpea)
+        self.assertEqual(quality["groups"][0]["quality"]["label"], "Archive/context")
+        self.assertEqual(quality["groups"][1]["quality"]["label"], "Current banner")
+        self.assertIn("1 active/update", quality["summary"])
 
     def test_render_markdown_includes_at_a_glance(self):
         report = {
@@ -306,6 +374,15 @@ class MonitorTests(unittest.TestCase):
             },
             "lpea": {"status": "keyword_match", "headline": "Keyword detected."},
             "discussion": {"headline": "Concern language found."},
+            "calibration": {
+                "summary": "No confirmed LPEA PSPS events logged yet.",
+                "confirmed_event_count": 0,
+                "candidate_event_count": 0,
+                "false_watch_day_count": 0,
+                "pending_watch_dates": ["2026-06-01"],
+                "event_log_path": "psps_events.json",
+                "forecast_history_path": "forecast_history.csv",
+            },
             "days": [
                 {"date": "2026-06-01", "tier": "HIGH", "reasons": ["Critical winds."], "points": []},
                 {"date": "2026-06-02", "tier": "CONCERN", "reasons": ["Near threshold."], "points": []},
@@ -434,6 +511,10 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Mon</strong><span>Jun 1", rendered)
         self.assertIn("<small>Jun 1</small>", rendered)
         self.assertIn("day-card tier-high", rendered)
+        self.assertIn("Forecast Accuracy Scorecard", rendered)
+        self.assertIn("Area-specific", rendered)
+        self.assertIn("Highest-risk window", rendered)
+        self.assertIn("Evidence quality", rendered)
         self.assertIn("Keyword Match", rendered)
         self.assertIn("Keyword detected.", rendered)
 
