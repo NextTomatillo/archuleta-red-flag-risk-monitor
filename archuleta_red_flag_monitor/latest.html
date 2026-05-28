@@ -477,6 +477,50 @@
       gap: 12px;
       margin-top: 14px;
     }
+    .fire-posture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .fire-posture-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.62);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .fire-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .fire-chip {
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.08);
+      color: #344241;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .fire-stage-1,
+    .fire-stage-2,
+    .fire-stage-3,
+    .fire-restrictions,
+    .fire-very-high,
+    .fire-extreme { background: rgba(203, 90, 27, 0.16); color: #5b2209; }
+    .fire-stage-2,
+    .fire-stage-3,
+    .fire-extreme { background: rgba(167, 47, 35, 0.16); color: #5b2209; }
+    .fire-none,
+    .fire-low { background: rgba(60, 122, 68, 0.14); color: #204923; }
+    .fire-moderate,
+    .fire-high { background: rgba(184, 132, 24, 0.16); color: #4b3400; }
     .area-card {
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -735,12 +779,12 @@
         <div>
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 28, 2026 at 1:38 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 28, 2026 at 3:46 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
           </div>
-          <p class="next-update-note">Next update: May 28, 2026 at 2:38 PM MDT (Pagosa Springs, CO local time)</p>
+          <p class="next-update-note">Next update: May 28, 2026 at 4:46 PM MDT (Pagosa Springs, CO local time)</p>
           <p class="time-note">All dates and times use Pagosa Springs, CO local time (America/Denver).</p>
         </div>
         <span class="chip tier-high">HIGH</span>
@@ -894,9 +938,9 @@
               <p class="eyebrow">Arboles</p>
               <h3>WATCH</h3>
             </div>
-            <span class="score-badge">61/100</span>
+            <span class="score-badge">57/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7.</p>
+          <p class="source-meta">Today: Weather score 57/100: RH 13%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 5.</p>
           <p class="source-meta">Peak: Fri, May 29 at LIKELY 81/100.</p>
           <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
         </article>
@@ -909,7 +953,7 @@
             </div>
             <span class="score-badge">52/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</p>
+          <p class="source-meta">Today: Weather score 52/100: RH 11%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</p>
           <p class="source-meta">Peak: Fri, May 29 at LIKELY 81/100.</p>
           <p class="risk-window">Highest-risk window: 1 PM-9 PM local; 9 near/red-flag threshold hours.</p>
         </article>
@@ -922,7 +966,7 @@
             </div>
             <span class="score-badge">67/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7.</p>
+          <p class="source-meta">Today: Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 5.</p>
           <p class="source-meta">Peak: Fri, May 29 at LIKELY 81/100.</p>
           <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
         </article>
@@ -935,7 +979,7 @@
             </div>
             <span class="score-badge">67/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7.</p>
+          <p class="source-meta">Today: Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5.</p>
           <p class="source-meta">Peak: Fri, May 29 at LIKELY 77/100.</p>
           <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
         </article>
@@ -948,7 +992,7 @@
             </div>
             <span class="score-badge">63/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7.</p>
+          <p class="source-meta">Today: Weather score 63/100: RH 14%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 5.</p>
           <p class="source-meta">Peak: Fri, May 29 at LIKELY 77/100.</p>
           <p class="risk-window">Highest-risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
         </article>
@@ -1006,7 +1050,7 @@
           <p class="weather-score">Weather score 67/100</p>
           <p class="source-meta">First day in this forecast run; trend builds from following days.</p>
           <ul>
-            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7. Risk window: 1 PM-7 PM local; 7 near/red-flag threshold hours.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6. Risk window: 3 PM-8 PM local; 6 near/red-flag threshold hours.</li>
+            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5. Risk window: 3 PM-7 PM local; 5 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 5. Risk window: 3 PM-7 PM local; 5 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 14%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 5. Risk window: 3 PM-7 PM local; 5 near/red-flag threshold hours.</li><li><strong>Arboles / southwest county</strong>: WATCH 57/100. Weather score 57/100: RH 13%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 5. Risk window: 3 PM-7 PM local; 5 near/red-flag threshold hours.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 11%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6. Risk window: 3 PM-8 PM local; 6 near/red-flag threshold hours.</li>
           </ul>
         </article>
         
@@ -1016,7 +1060,7 @@
             <h3>LIKELY</h3>
           </div>
           <p class="weather-score">Weather score 81/100</p>
-          <p class="source-meta">Worsening: score +14, wind +10 mph, RH -1%, red-flag hours 0 vs prior day.</p>
+          <p class="source-meta">Worsening: score +14, wind +10 mph, RH -1%, red-flag hours +1 vs prior day.</p>
           <ul>
             <li><strong>Arboles / southwest county</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li><li><strong>Chimney Rock / west county</strong>: LIKELY 81/100. Weather score 81/100: RH 11%, wind/gust 37 mph, red-flag hours 5, near-threshold hours 9. Risk window: 1 PM-9 PM local; 9 near/red-flag threshold hours.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 81/100. Weather score 81/100: RH 12%, wind/gust 41 mph, red-flag hours 7, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li><li><strong>Durango / La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 13%, wind/gust 40 mph, red-flag hours 6, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li><li><strong>Bayfield / east La Plata County</strong>: LIKELY 77/100. Weather score 77/100: RH 14%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9. Risk window: 12 PM-8 PM local; 9 near/red-flag threshold hours.</li>
           </ul>
@@ -1076,6 +1120,87 @@
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Official Source Context</p>
+      <h2>Fire Posture + Restrictions</h2>
+      <p class="footer-note">2 official sources indicate fire restrictions or staged restrictions.</p>
+      <p class="footer-note">Detected max: restrictions STAGE 1; fire danger VERY HIGH. Sources reachable: 7/7.</p>
+      <p class="footer-note">Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.</p>
+      <div class="fire-posture-grid">
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/" target="_blank" rel="noopener noreferrer">Archuleta County Sheriff fire updates</a></p>
+          <p class="source-meta">Archuleta County · county</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
+            <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
+          </div>
+          <p class="source-snippet">...a permit in accordance with Archuleta County Resolution 18-2017 *Please observe fire restrictions outside of Archuleta County. Make sure your fire is DEAD OUT before leaving the area. To get the latest updates on emer...</p>
+        </article>
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://www.pagosasprings.co.gov/" target="_blank" rel="noopener noreferrer">Town of Pagosa Springs</a></p>
+          <p class="source-meta">Pagosa Springs · town</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
+            <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
+          </div>
+          <p class="source-snippet">No specific fire posture snippet found.</p>
+        </article>
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://www.fs.usda.gov/r02/sanjuan/fire" target="_blank" rel="noopener noreferrer">San Juan National Forest fire</a></p>
+          <p class="source-meta">San Juan National Forest · federal_forest</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-stage-1">Restrictions: STAGE 1</span>
+            <span class="fire-chip fire-very-high">Danger: VERY HIGH</span>
+          </div>
+          <p class="source-snippet">...an Juan National Forest Alerts and Fire Danger Status Alerts: View All Alerts 🡪 STAGE 1 FIRE PROHIBITIONS Multiple roads and trails damaged by flooding on SJNF West Fork Road and Bridge Closure Order Fire Da...</p>
+        </article>
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://www.blm.gov/office/tres-rios-field-office" target="_blank" rel="noopener noreferrer">BLM Tres Rios Field Office</a></p>
+          <p class="source-meta">BLM Tres Rios · federal_blm</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-stage-1">Restrictions: STAGE 1</span>
+            <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
+          </div>
+          <p class="source-snippet">...urces Phone: (970) 882-1121 Email: [email protected] Latest News BLM implements stage 1 fire restrictions for 6 counties in southwest Colorado Colorado, Southwest DO, Tres Rios FO | May 28, 2026 CANM hosts l...</p>
+        </article>
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://www.durangofire.org/fire-conditions" target="_blank" rel="noopener noreferrer">Durango Fire &amp; Rescue fire conditions</a></p>
+          <p class="source-meta">La Plata County / Durango Fire · county_fire_district</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-none">Restrictions: NONE</span>
+            <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
+          </div>
+          <p class="source-snippet">...city limits. Exception: Small campfires on private property. La Plata County – Stage 1 Restrictions Rescinded, August 31, 2023 San Juan National Forest – Stage 1 Restrictions Rescinded, August 31, 2023 Bure...</p>
+        </article>
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://www.durangoco.gov/" target="_blank" rel="noopener noreferrer">City of Durango</a></p>
+          <p class="source-meta">Durango · city</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
+            <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
+          </div>
+          <p class="source-snippet">...e® News &amp; Announcements Stay up to date with Durango City of Durango implements Stage 1 mandatory water restrictions effective April 10 Posted on April 10, 2026 The City of Durango has enacted Stage 1 mandat...</p>
+        </article>
+        
+        <article class="fire-posture-card">
+          <p class="source-name"><a href="https://www.southernute-nsn.gov/" target="_blank" rel="noopener noreferrer">Southern Ute Indian Tribe</a></p>
+          <p class="source-meta">Southern Ute / Ignacio · tribal</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip fire-unknown">Restrictions: UNKNOWN</span>
+            <span class="fire-chip fire-unknown">Danger: UNKNOWN</span>
+          </div>
+          <p class="source-snippet">No specific fire posture snippet found.</p>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">Daily Breakdown</p>
       <h2>What Drives Each Day</h2>
       <div class="days-grid">
@@ -1090,7 +1215,7 @@
                 <span class="chip tier-high">HIGH</span>
               </div>
               <p class="reason">Durango / La Plata County: Forecast meets red-flag screen: RH &lt;= 15% and wind/gust &gt;= 25 mph for at least 3 hours in a 12-hour window.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 14% / wind 23 mph</li><li>Arboles / southwest county: RH 12% / wind 25 mph</li></ul>
+              <ul class="metrics"><li>Pagosa Springs: RH 14% / wind 23 mph</li><li>Arboles / southwest county: RH 13% / wind 25 mph</li></ul>
             </article>
             
             <article class="day-card tier-high">

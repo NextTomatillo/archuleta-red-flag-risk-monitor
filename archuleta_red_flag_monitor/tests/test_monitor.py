@@ -340,6 +340,22 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(quality["groups"][1]["quality"]["label"], "Current banner")
         self.assertIn("1 active/update", quality["summary"])
 
+    def test_fire_posture_parser_detects_stage_and_danger(self):
+        text = "Current fire danger is Very High. Stage 1 Fire Restrictions are in effect for public lands."
+        self.assertEqual(monitor.detect_restriction_stage(text), "STAGE 1")
+        self.assertEqual(monitor.detect_fire_danger_level(text), "VERY HIGH")
+
+    def test_fire_posture_signal_bumps_to_watch_for_stage_two(self):
+        signal = monitor.fire_posture_psps_signal(
+            {
+                "status": "checked",
+                "max_restriction_stage": "STAGE 2",
+                "max_fire_danger": "HIGH",
+            }
+        )
+        self.assertEqual(signal["level_floor"], "WATCH")
+        self.assertIn("STAGE 2", signal["reason"])
+
     def test_render_markdown_includes_at_a_glance(self):
         report = {
             "generated_at_local": "2026-06-01T08:00:00-06:00",

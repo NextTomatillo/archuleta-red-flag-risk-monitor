@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 28, 2026 at 1:38 PM MDT (Pagosa Springs, CO local time)
-Next update: May 28, 2026 at 2:38 PM MDT (Pagosa Springs, CO local time)
+Generated: May 28, 2026 at 3:46 PM MDT (Pagosa Springs, CO local time)
+Next update: May 28, 2026 at 4:46 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -31,7 +31,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 | Date | PSPS likelihood | Driver locations | Weather basis |
 | --- | --- | --- | --- |
-| Thu, May 28 | LIKELY | Durango / La Plata County (LIKELY 67/100); Ignacio / southeast La Plata County (LIKELY 67/100); Bayfield / east La Plata County (WATCH 63/100); Arboles / southwest county (WATCH 61/100) | Top weather score 67/100 at Durango / La Plata County. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7. |
+| Thu, May 28 | LIKELY | Durango / La Plata County (LIKELY 67/100); Ignacio / southeast La Plata County (LIKELY 67/100); Bayfield / east La Plata County (WATCH 63/100); Arboles / southwest county (WATCH 57/100) | Top weather score 67/100 at Durango / La Plata County. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5. |
 | Fri, May 29 | LIKELY | Arboles / southwest county (LIKELY 81/100); Chimney Rock / west county (LIKELY 81/100); Ignacio / southeast La Plata County (LIKELY 81/100); Durango / La Plata County (LIKELY 77/100) | Top weather score 81/100 at Arboles / southwest county. Weather score 81/100: RH 12%, wind/gust 39 mph, red-flag hours 5, near-threshold hours 9. |
 | Sat, May 30 | LIKELY | Arboles / southwest county (LIKELY 67/100); Chimney Rock / west county (LIKELY 67/100); Ignacio / southeast La Plata County (WATCH 63/100); Bayfield / east La Plata County (WATCH 57/100) | Top weather score 67/100 at Arboles / southwest county. Weather score 67/100: RH 14%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 6. |
 | Sun, May 31 | LIKELY | Durango / La Plata County (LIKELY 71/100); Bayfield / east La Plata County (LIKELY 71/100); Ignacio / southeast La Plata County (LIKELY 71/100); Pagosa Springs (WATCH 63/100) | Top weather score 71/100 at Durango / La Plata County. Weather score 71/100: RH 12%, wind/gust 26 mph, red-flag hours 5, near-threshold hours 7. |
@@ -43,7 +43,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 | Area | Today | Peak this run | Highest-risk window |
 | --- | --- | --- | --- |
-| Arboles | WATCH 61/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
+| Arboles | WATCH 57/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
 | Chimney Rock | WATCH 52/100 | Fri, May 29: LIKELY 81/100 | 1 PM-9 PM local; 9 near/red-flag threshold hours. |
 | Ignacio | LIKELY 67/100 | Fri, May 29: LIKELY 81/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
 | Durango | LIKELY 67/100 | Fri, May 29: LIKELY 77/100 | 12 PM-8 PM local; 9 near/red-flag threshold hours. |
@@ -51,6 +51,24 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 | Pagosa Springs | WATCH 48/100 | Sun, May 31: WATCH 63/100 | 1 PM-6 PM local; 6 near/red-flag threshold hours. |
 | Piedra | ELEVATED 38/100 | Sun, May 31: WATCH 57/100 | 2 PM-6 PM local; 5 near/red-flag threshold hours. |
 | Chromo | ELEVATED 44/100 | Fri, May 29: WATCH 53/100 | 4 PM-6 PM local; 3 near/red-flag threshold hours. |
+
+## Fire Posture + Restrictions
+
+- Summary: 2 official sources indicate fire restrictions or staged restrictions.
+- Max restriction stage detected: STAGE 1
+- Max fire danger detected: VERY HIGH
+- Sources reachable: 7/7
+- Note: Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.
+
+| Jurisdiction | Restrictions | Fire danger | Source |
+| --- | --- | --- | --- |
+| Archuleta County | UNKNOWN | UNKNOWN | [Archuleta County Sheriff fire updates](https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/) |
+| Pagosa Springs | UNKNOWN | UNKNOWN | [Town of Pagosa Springs](https://www.pagosasprings.co.gov/) |
+| San Juan National Forest | STAGE 1 | VERY HIGH | [San Juan National Forest fire](https://www.fs.usda.gov/r02/sanjuan/fire) |
+| BLM Tres Rios | STAGE 1 | UNKNOWN | [BLM Tres Rios Field Office](https://www.blm.gov/office/tres-rios-field-office) |
+| La Plata County / Durango Fire | NONE | UNKNOWN | [Durango Fire & Rescue fire conditions](https://www.durangofire.org/fire-conditions) |
+| Durango | UNKNOWN | UNKNOWN | [City of Durango](https://www.durangoco.gov/) |
+| Southern Ute / Ignacio | UNKNOWN | UNKNOWN | [Southern Ute Indian Tribe](https://www.southernute-nsn.gov/) |
 
 ## Forecast Calibration
 
@@ -84,7 +102,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 | Date | Tier | Main reason | Worst sampled metrics |
 | --- | --- | --- | --- |
-| Thu, May 28 | HIGH | Durango / La Plata County: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Pagosa Springs: RH 14%, wind/gust 23 mph, thunder 3%<br>Arboles / southwest county: RH 12%, wind/gust 25 mph, thunder 5%<br>Chimney Rock / west county: RH 10%, wind/gust 23 mph, thunder 5% |
+| Thu, May 28 | HIGH | Durango / La Plata County: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Pagosa Springs: RH 14%, wind/gust 23 mph, thunder 3%<br>Arboles / southwest county: RH 13%, wind/gust 25 mph, thunder 5%<br>Chimney Rock / west county: RH 11%, wind/gust 23 mph, thunder 5% |
 | Fri, May 29 | HIGH | Arboles / southwest county: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Pagosa Springs: RH 16%, wind/gust 34 mph, thunder 13%<br>Arboles / southwest county: RH 12%, wind/gust 39 mph, thunder 5%<br>Chimney Rock / west county: RH 11%, wind/gust 37 mph, thunder 8% |
 | Sat, May 30 | HIGH | Arboles / southwest county: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Pagosa Springs: RH 17%, wind/gust 29 mph, thunder 1%<br>Arboles / southwest county: RH 14%, wind/gust 29 mph, thunder 0%<br>Chimney Rock / west county: RH 13%, wind/gust 28 mph, thunder 0% |
 | Sun, May 31 | HIGH | Pagosa Springs: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Pagosa Springs: RH 13%, wind/gust 28 mph, thunder 0%<br>Arboles / southwest county: RH 10%, wind/gust 25 mph, thunder 0%<br>Chimney Rock / west county: RH 10%, wind/gust 25 mph, thunder 0% |

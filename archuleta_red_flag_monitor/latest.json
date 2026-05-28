@@ -42,13 +42,13 @@
           "tier": "CONCERN"
         },
         {
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 25.3,
-          "min_rh_percent": 12.0,
+          "min_rh_percent": 13.0,
           "name": "Arboles / southwest county",
-          "near_hours": 7,
+          "near_hours": 5,
           "reasons": [
             "Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours."
           ],
@@ -60,7 +60,7 @@
           "max_precip_percent": 13.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 23.0,
-          "min_rh_percent": 10.0,
+          "min_rh_percent": 11.0,
           "name": "Chimney Rock / west county",
           "near_hours": 6,
           "reasons": [
@@ -98,27 +98,27 @@
           "tier": "CONCERN"
         },
         {
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 8.0,
           "max_thunder_percent": 4.0,
           "max_usable_wind_mph": 28.8,
           "min_rh_percent": 13.0,
           "name": "Durango / La Plata County",
-          "near_hours": 7,
+          "near_hours": 5,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
-          "red_flag_hours": 5,
+          "red_flag_hours": 4,
           "tier": "HIGH"
         },
         {
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 12.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 26.5,
-          "min_rh_percent": 13.0,
+          "min_rh_percent": 14.0,
           "name": "Bayfield / east La Plata County",
-          "near_hours": 7,
+          "near_hours": 5,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
@@ -126,13 +126,13 @@
           "tier": "HIGH"
         },
         {
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 27.6,
           "min_rh_percent": 13.0,
           "name": "Ignacio / southeast La Plata County",
-          "near_hours": 7,
+          "near_hours": 5,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
@@ -914,11 +914,116 @@
     "tier": "CONCERN"
   },
   "expected_update_interval_minutes": 60,
+  "fire_posture": {
+    "active_restriction_count": 2,
+    "disclaimer": "Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.",
+    "headline": "2 official sources indicate fire restrictions or staged restrictions.",
+    "high_danger_source_count": 1,
+    "max_fire_danger": "VERY HIGH",
+    "max_restriction_stage": "STAGE 1",
+    "reachable_source_count": 7,
+    "source_count": 7,
+    "sources": [
+      {
+        "area": "Archuleta County",
+        "fire_danger": "UNKNOWN",
+        "jurisdiction_type": "county",
+        "name": "Archuleta County Sheriff fire updates",
+        "restriction_stage": "UNKNOWN",
+        "snippets": [
+          "...a permit in accordance with Archuleta County Resolution 18-2017 *Please observe fire restrictions outside of Archuleta County. Make sure your fire is DEAD OUT before leaving the area. To get the latest updates on emer..."
+        ],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/"
+      },
+      {
+        "area": "Pagosa Springs",
+        "fire_danger": "UNKNOWN",
+        "jurisdiction_type": "town",
+        "name": "Town of Pagosa Springs",
+        "restriction_stage": "UNKNOWN",
+        "snippets": [],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://www.pagosasprings.co.gov/"
+      },
+      {
+        "area": "San Juan National Forest",
+        "fire_danger": "VERY HIGH",
+        "jurisdiction_type": "federal_forest",
+        "name": "San Juan National Forest fire",
+        "restriction_stage": "STAGE 1",
+        "snippets": [
+          "...an Juan National Forest Alerts and Fire Danger Status Alerts: View All Alerts \ud83e\udc6a STAGE 1 FIRE PROHIBITIONS Multiple roads and trails damaged by flooding on SJNF West Fork Road and Bridge Closure Order Fire Da...",
+          "...ust, professional wildland fire organization. We invite you to learn more about fire restrictions and active wild and prescribed fires, as well as information about our organization and firefighting resources. Fire In...",
+          "...National Forest Alerts and Fire Danger Status Alerts: View All Alerts \ud83e\udc6a STAGE 1 FIRE PROHIBITIONS Multiple roads and trails damaged by flooding on SJNF West Fork Road and Bridge Closure Order Fire Danger Status Very H..."
+        ],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://www.fs.usda.gov/r02/sanjuan/fire"
+      },
+      {
+        "area": "BLM Tres Rios",
+        "fire_danger": "UNKNOWN",
+        "jurisdiction_type": "federal_blm",
+        "name": "BLM Tres Rios Field Office",
+        "restriction_stage": "STAGE 1",
+        "snippets": [
+          "...urces Phone: (970) 882-1121 Email: [email protected] Latest News BLM implements stage 1 fire restrictions for 6 counties in southwest Colorado Colorado, Southwest DO, Tres Rios FO | May 28, 2026 CANM hosts l...",
+          "...ency Fire Center National Operations Center National Training Center Contact Us Fire Restrictions Search Southwest District Office Gunnison Field Office Gunnison Gorge National Conservation Area Tres Rios Field Office..."
+        ],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://www.blm.gov/office/tres-rios-field-office"
+      },
+      {
+        "area": "La Plata County / Durango Fire",
+        "fire_danger": "UNKNOWN",
+        "jurisdiction_type": "county_fire_district",
+        "name": "Durango Fire & Rescue fire conditions",
+        "restriction_stage": "NONE",
+        "snippets": [
+          "...city limits. Exception: Small campfires on private property. La Plata County \u2013 Stage 1 Restrictions Rescinded, August 31, 2023 San Juan National Forest \u2013 Stage 1 Restrictions Rescinded, August 31, 2023 Bure...",
+          "...Durango Fire & Rescue Skip to main content Emergency Notifications Evacuations Fire Restrictions Log your Open Burn Search: Search Toggle navigation Home How Do I... Ask a Question Apply for a Job Become a Volunteer...",
+          "...of strong winds, low relative humidity, and warm temperatures can contribute to extreme fire behavior. NOAA \u2013 Current Fire Weather Link What does a Watch or Warning mean in the Durango Fire District? Suspend..."
+        ],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://www.durangofire.org/fire-conditions"
+      },
+      {
+        "area": "Durango",
+        "fire_danger": "UNKNOWN",
+        "jurisdiction_type": "city",
+        "name": "City of Durango",
+        "restriction_stage": "UNKNOWN",
+        "snippets": [
+          "...e\u00ae News & Announcements Stay up to date with Durango City of Durango implements Stage 1 mandatory water restrictions effective April 10 Posted on April 10, 2026 The City of Durango has enacted Stage 1 mandat..."
+        ],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://www.durangoco.gov/"
+      },
+      {
+        "area": "Southern Ute / Ignacio",
+        "fire_danger": "UNKNOWN",
+        "jurisdiction_type": "tribal",
+        "name": "Southern Ute Indian Tribe",
+        "restriction_stage": "UNKNOWN",
+        "snippets": [],
+        "status": "reachable",
+        "status_code": 200,
+        "url": "https://www.southernute-nsn.gov/"
+      }
+    ],
+    "status": "checked"
+  },
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-28T13:38:47.922302-06:00",
-  "generated_at_local": "2026-05-28T13:38:47.922302-06:00",
-  "generated_at_utc": "2026-05-28T19:38:47.922302+00:00",
+  "generated_at": "2026-05-28T15:46:03.174550-06:00",
+  "generated_at_local": "2026-05-28T15:46:03.174550-06:00",
+  "generated_at_utc": "2026-05-28T21:46:03.174550+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -1679,7 +1784,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-28T14:38:47.922302-06:00",
+  "next_update_at": "2026-05-28T16:46:03.174550-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],
@@ -1828,14 +1933,14 @@
       "days": [
         {
           "date": "2026-05-28",
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 25.3,
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 25.3,
           "max_wind_mph": 11.5,
-          "min_rh_percent": 12.0,
-          "near_hours": 7,
+          "min_rh_percent": 13.0,
+          "near_hours": 5,
           "reasons": [
             "Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours."
           ],
@@ -1960,7 +2065,7 @@
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 23.0,
           "max_wind_mph": 10.4,
-          "min_rh_percent": 10.0,
+          "min_rh_percent": 11.0,
           "near_hours": 6,
           "reasons": [
             "Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours."
@@ -2332,18 +2437,18 @@
       "days": [
         {
           "date": "2026-05-28",
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 28.8,
           "max_precip_percent": 8.0,
           "max_thunder_percent": 4.0,
           "max_usable_wind_mph": 28.8,
           "max_wind_mph": 13.8,
           "min_rh_percent": 13.0,
-          "near_hours": 7,
+          "near_hours": 5,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
-          "red_flag_hours": 5,
+          "red_flag_hours": 4,
           "tier": "HIGH"
         },
         {
@@ -2458,14 +2563,14 @@
       "days": [
         {
           "date": "2026-05-28",
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 26.5,
           "max_precip_percent": 12.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 26.5,
           "max_wind_mph": 12.7,
-          "min_rh_percent": 13.0,
-          "near_hours": 7,
+          "min_rh_percent": 14.0,
+          "near_hours": 5,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
@@ -2584,14 +2689,14 @@
       "days": [
         {
           "date": "2026-05-28",
-          "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+          "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
           "max_gust_mph": 27.6,
           "max_precip_percent": 11.0,
           "max_thunder_percent": 5.0,
           "max_usable_wind_mph": 27.6,
           "max_wind_mph": 15.0,
           "min_rh_percent": 13.0,
-          "near_hours": 7,
+          "near_hours": 5,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
@@ -2716,22 +2821,22 @@
             "factors": [
               "red-flag wind/gust signal near 29 mph",
               "red-flag RH near 13%",
-              "5 sampled hours meet red-flag screen"
+              "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 8.0,
-              "max_red_flag_hours": 5,
+              "max_red_flag_hours": 4,
               "max_thunder_percent": 4.0,
               "max_usable_wind_mph": 28.8,
               "min_rh_percent": 13.0
             },
             "name": "Durango / La Plata County",
             "score": 67,
-            "summary": "Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7."
+            "summary": "Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5."
           },
           {
             "factors": [
@@ -2740,10 +2845,10 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 11.0,
               "max_red_flag_hours": 4,
               "max_thunder_percent": 5.0,
@@ -2752,54 +2857,54 @@
             },
             "name": "Ignacio / southeast La Plata County",
             "score": 67,
-            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7."
+            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 5."
           },
           {
             "factors": [
               "red-flag wind/gust signal near 26 mph",
-              "red-flag RH near 13%",
+              "red-flag RH near 14%",
               "3 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 12.0,
               "max_red_flag_hours": 3,
               "max_thunder_percent": 5.0,
               "max_usable_wind_mph": 26.5,
-              "min_rh_percent": 13.0
+              "min_rh_percent": 14.0
             },
             "name": "Bayfield / east La Plata County",
             "score": 63,
-            "summary": "Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7."
+            "summary": "Weather score 63/100: RH 14%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 5."
           },
           {
             "factors": [
               "red-flag wind/gust signal near 25 mph",
-              "very dry RH near 12%",
-              "7 sampled hours are near red-flag thresholds"
+              "red-flag RH near 13%",
+              "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 11.0,
               "max_red_flag_hours": 1,
               "max_thunder_percent": 5.0,
               "max_usable_wind_mph": 25.3,
-              "min_rh_percent": 12.0
+              "min_rh_percent": 13.0
             },
             "name": "Arboles / southwest county",
-            "score": 61,
-            "summary": "Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7."
+            "score": 57,
+            "summary": "Weather score 57/100: RH 13%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 5."
           },
           {
             "factors": [
               "near-threshold wind/gust signal near 23 mph",
-              "very dry RH near 10%",
+              "very dry RH near 11%",
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
@@ -2811,11 +2916,11 @@
               "max_red_flag_hours": 0,
               "max_thunder_percent": 5.0,
               "max_usable_wind_mph": 23.0,
-              "min_rh_percent": 10.0
+              "min_rh_percent": 11.0
             },
             "name": "Chimney Rock / west county",
             "score": 52,
-            "summary": "Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6."
+            "summary": "Weather score 52/100: RH 11%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6."
           }
         ],
         "fire_weather_tier": "HIGH",
@@ -2825,22 +2930,22 @@
             "factors": [
               "red-flag wind/gust signal near 29 mph",
               "red-flag RH near 13%",
-              "5 sampled hours meet red-flag screen"
+              "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 8.0,
-              "max_red_flag_hours": 5,
+              "max_red_flag_hours": 4,
               "max_thunder_percent": 4.0,
               "max_usable_wind_mph": 28.8,
               "min_rh_percent": 13.0
             },
             "name": "Durango / La Plata County",
             "score": 67,
-            "summary": "Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7."
+            "summary": "Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5."
           },
           {
             "factors": [
@@ -2849,10 +2954,10 @@
               "4 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "LIKELY",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 11.0,
               "max_red_flag_hours": 4,
               "max_thunder_percent": 5.0,
@@ -2861,54 +2966,54 @@
             },
             "name": "Ignacio / southeast La Plata County",
             "score": 67,
-            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7."
+            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 5."
           },
           {
             "factors": [
               "red-flag wind/gust signal near 26 mph",
-              "red-flag RH near 13%",
+              "red-flag RH near 14%",
               "3 sampled hours meet red-flag screen"
             ],
             "fire_weather_tier": "HIGH",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 12.0,
               "max_red_flag_hours": 3,
               "max_thunder_percent": 5.0,
               "max_usable_wind_mph": 26.5,
-              "min_rh_percent": 13.0
+              "min_rh_percent": 14.0
             },
             "name": "Bayfield / east La Plata County",
             "score": 63,
-            "summary": "Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7."
+            "summary": "Weather score 63/100: RH 14%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 5."
           },
           {
             "factors": [
               "red-flag wind/gust signal near 25 mph",
-              "very dry RH near 12%",
-              "7 sampled hours are near red-flag thresholds"
+              "red-flag RH near 13%",
+              "5 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
-            "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+            "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
-              "max_near_hours": 7,
+              "max_near_hours": 5,
               "max_precip_percent": 11.0,
               "max_red_flag_hours": 1,
               "max_thunder_percent": 5.0,
               "max_usable_wind_mph": 25.3,
-              "min_rh_percent": 12.0
+              "min_rh_percent": 13.0
             },
             "name": "Arboles / southwest county",
-            "score": 61,
-            "summary": "Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7."
+            "score": 57,
+            "summary": "Weather score 57/100: RH 13%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 5."
           },
           {
             "factors": [
               "near-threshold wind/gust signal near 23 mph",
-              "very dry RH near 10%",
+              "very dry RH near 11%",
               "6 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
@@ -2920,11 +3025,11 @@
               "max_red_flag_hours": 0,
               "max_thunder_percent": 5.0,
               "max_usable_wind_mph": 23.0,
-              "min_rh_percent": 10.0
+              "min_rh_percent": 11.0
             },
             "name": "Chimney Rock / west county",
             "score": 52,
-            "summary": "Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6."
+            "summary": "Weather score 52/100: RH 11%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6."
           },
           {
             "factors": [
@@ -2991,10 +3096,11 @@
           }
         ],
         "reasons": [
-          "Top weather score 67/100 at Durango / La Plata County. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7.",
+          "Top weather score 67/100 at Durango / La Plata County. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 4, near-threshold hours 5.",
           "red-flag wind/gust signal near 29 mph",
           "red-flag RH near 13%",
-          "5 sampled hours meet red-flag screen",
+          "4 sampled hours meet red-flag screen",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
@@ -3008,12 +3114,12 @@
         "weather_factors": [
           "red-flag wind/gust signal near 29 mph",
           "red-flag RH near 13%",
-          "5 sampled hours meet red-flag screen"
+          "4 sampled hours meet red-flag screen"
         ],
         "weather_metrics": {
-          "max_near_hours": 7,
+          "max_near_hours": 5,
           "max_precip_percent": 8.0,
-          "max_red_flag_hours": 5,
+          "max_red_flag_hours": 4,
           "max_thunder_percent": 4.0,
           "max_usable_wind_mph": 28.8,
           "min_rh_percent": 13.0
@@ -3306,14 +3412,15 @@
           "very strong wind/gust signal near 39 mph",
           "very dry RH near 12%",
           "5 sampled hours meet red-flag screen",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
           "label": "Worsening",
-          "red_flag_hours_delta": 0.0,
+          "red_flag_hours_delta": 1.0,
           "rh_delta_percent": -1.0,
           "score_delta": 14.0,
-          "summary": "Worsening: score +14, wind +10 mph, RH -1%, red-flag hours 0 vs prior day.",
+          "summary": "Worsening: score +14, wind +10 mph, RH -1%, red-flag hours +1 vs prior day.",
           "wind_delta_mph": 10.3
         },
         "weather_factors": [
@@ -3616,6 +3723,7 @@
           "red-flag wind/gust signal near 29 mph",
           "red-flag RH near 14%",
           "4 sampled hours meet red-flag screen",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
@@ -3927,6 +4035,7 @@
           "red-flag wind/gust signal near 26 mph",
           "very dry RH near 12%",
           "5 sampled hours meet red-flag screen",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
@@ -4238,6 +4347,7 @@
           "near-threshold wind/gust signal near 22 mph",
           "critically dry RH near 8%",
           "4 sampled hours are near red-flag thresholds",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
@@ -4524,6 +4634,7 @@
           "near-threshold wind/gust signal near 22 mph",
           "very dry RH near 11%",
           "5 sampled hours are near red-flag thresholds",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
@@ -4789,6 +4900,7 @@
           "breezy wind/gust signal near 16 mph",
           "near-threshold RH near 18%",
           "modest thunder signal near 29%",
+          "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
           "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
         ],
         "trend": {
@@ -4816,6 +4928,10 @@
       }
     ],
     "disclaimer": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
+    "fire_posture_signal": {
+      "level_floor": "ELEVATED",
+      "reason": "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context."
+    },
     "headline": "PSPS likelihood is high on weather-driven red-flag days; prepare for possible LPEA safety-related interruption behavior.",
     "lpea_signal": {
       "level": "active_wildfire_power_language",

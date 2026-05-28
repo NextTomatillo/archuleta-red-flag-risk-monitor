@@ -68,6 +68,53 @@
       "lon": -107.6331
     }
   ],
+  "fire_posture": {
+    "enabled": true,
+    "sources": [
+      {
+        "name": "Archuleta County Sheriff fire updates",
+        "area": "Archuleta County",
+        "type": "county",
+        "url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/"
+      },
+      {
+        "name": "Town of Pagosa Springs",
+        "area": "Pagosa Springs",
+        "type": "town",
+        "url": "https://www.pagosasprings.co.gov/"
+      },
+      {
+        "name": "San Juan National Forest fire",
+        "area": "San Juan National Forest",
+        "type": "federal_forest",
+        "url": "https://www.fs.usda.gov/r02/sanjuan/fire"
+      },
+      {
+        "name": "BLM Tres Rios Field Office",
+        "area": "BLM Tres Rios",
+        "type": "federal_blm",
+        "url": "https://www.blm.gov/office/tres-rios-field-office"
+      },
+      {
+        "name": "Durango Fire & Rescue fire conditions",
+        "area": "La Plata County / Durango Fire",
+        "type": "county_fire_district",
+        "url": "https://www.durangofire.org/fire-conditions"
+      },
+      {
+        "name": "City of Durango",
+        "area": "Durango",
+        "type": "city",
+        "url": "https://www.durangoco.gov/"
+      },
+      {
+        "name": "Southern Ute Indian Tribe",
+        "area": "Southern Ute / Ignacio",
+        "type": "tribal",
+        "url": "https://www.southernute-nsn.gov/"
+      }
+    ]
+  },
   "lpea": {
     "enabled": true,
     "sources": [

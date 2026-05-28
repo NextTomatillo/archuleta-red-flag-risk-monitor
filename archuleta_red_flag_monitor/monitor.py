@@ -30,6 +30,24 @@ PSPS_RANK = {
     "CONFIRMED": 4,
 }
 
+FIRE_RESTRICTION_RANK = {
+    "NONE": 0,
+    "UNKNOWN": 0,
+    "RESTRICTIONS": 1,
+    "STAGE 1": 2,
+    "STAGE 2": 3,
+    "STAGE 3": 4,
+}
+
+FIRE_DANGER_RANK = {
+    "UNKNOWN": 0,
+    "LOW": 1,
+    "MODERATE": 2,
+    "HIGH": 3,
+    "VERY HIGH": 4,
+    "EXTREME": 5,
+}
+
 NWS_API_BASE = "https://api.weather.gov"
 LPEA_DEFAULT_OUTAGE_URL = "https://lpea.coop/outage-center"
 LPEA_DEFAULT_PSPS_URL = "https://lpea.coop/psps"
@@ -595,6 +613,153 @@ def keyword_snippets(text: str, matches: List[str], max_snippets: int = 2) -> Li
         if len(snippets) >= max_snippets:
             break
     return snippets
+
+
+def configured_fire_posture_sources(config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    return config.get("fire_posture", {}).get("sources", [])
+
+
+def detect_restriction_stage(text: str) -> str:
+    lowered = text.lower()
+    no_restriction_phrases = [
+        "no fire restrictions are currently in effect",
+        "no fire restrictions in effect",
+        "there are no fire restrictions",
+        "no restrictions are currently in effect",
+        "fire restrictions have been lifted",
+        "fire restrictions lifted",
+        "fire restrictions rescinded",
+        "restrictions rescinded",
+    ]
+    if any(phrase in lowered for phrase in no_restriction_phrases):
+        return "NONE"
+    stage_patterns = [
+        ("STAGE 3", r"\bstage\s*(?:3|iii)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:3|iii)\b"),
+        ("STAGE 2", r"\bstage\s*(?:2|ii)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:2|ii)\b"),
+        ("STAGE 1", r"\bstage\s*(?:1|i)\b.{0,80}\bfire (?:restrictions?|prohibitions?|bans?)\b|\bfire (?:restrictions?|prohibitions?|bans?)\b.{0,80}\bstage\s*(?:1|i)\b"),
+    ]
+    for label, pattern in stage_patterns:
+        if re.search(pattern, lowered):
+            return label
+    if "fire restrictions are in place" in lowered or "fire restrictions in effect" in lowered:
+        return "RESTRICTIONS"
+    return "UNKNOWN"
+
+
+def detect_fire_danger_level(text: str) -> str:
+    lowered = text.lower()
+    levels = [("EXTREME", "extreme"), ("VERY HIGH", "very high"), ("HIGH", "high"), ("MODERATE", "moderate"), ("LOW", "low")]
+    for label, word in levels:
+        for match in re.finditer(re.escape(word), lowered):
+            start = max(0, match.start() - 100)
+            end = min(len(lowered), match.end() + 100)
+            if "fire danger" in lowered[start:end]:
+                return label
+    return "UNKNOWN"
+
+
+def fire_posture_snippets(text: str, max_snippets: int = 3) -> List[str]:
+    keywords = [
+        "stage 1",
+        "stage i",
+        "stage 2",
+        "stage ii",
+        "fire restrictions",
+        "fire prohibitions",
+        "fire bans",
+        "fire danger",
+        "very high",
+        "extreme",
+        "no fire restrictions",
+    ]
+    return keyword_snippets(text, [keyword for keyword in keywords if keyword in text.lower()], max_snippets=max_snippets)
+
+
+def check_fire_posture(session: requests.Session, config: Dict[str, Any]) -> Dict[str, Any]:
+    posture_config = config.get("fire_posture", {})
+    if not posture_config.get("enabled", False):
+        return {"status": "disabled", "headline": "Fire posture check disabled.", "sources": []}
+
+    sources = []
+    for source in configured_fire_posture_sources(config):
+        result = {
+            "name": source.get("name", source.get("url", "Unknown source")),
+            "jurisdiction_type": source.get("type", "official"),
+            "area": source.get("area", source.get("name", "Unknown area")),
+            "url": source.get("url"),
+            "status": "unavailable",
+            "restriction_stage": "UNKNOWN",
+            "fire_danger": "UNKNOWN",
+            "snippets": [],
+        }
+        if not result.get("url"):
+            result["status"] = "missing_url"
+            sources.append(result)
+            continue
+        try:
+            resp = session.get(result["url"], timeout=20)
+            result["status_code"] = resp.status_code
+            if resp.status_code < 400:
+                text = visible_source_text(resp.text[:300000])
+                result["status"] = "reachable"
+                result["restriction_stage"] = detect_restriction_stage(text)
+                result["fire_danger"] = detect_fire_danger_level(text)
+                result["snippets"] = fire_posture_snippets(text)
+            else:
+                result["status"] = f"http_{resp.status_code}"
+        except requests.RequestException as exc:
+            result["error"] = exc.__class__.__name__
+        sources.append(result)
+
+    reachable = [source for source in sources if source["status"] == "reachable"]
+    max_stage = max((source["restriction_stage"] for source in reachable), key=lambda item: FIRE_RESTRICTION_RANK.get(item, 0), default="UNKNOWN")
+    max_danger = max((source["fire_danger"] for source in reachable), key=lambda item: FIRE_DANGER_RANK.get(item, 0), default="UNKNOWN")
+    active_restrictions = [source for source in reachable if FIRE_RESTRICTION_RANK.get(source["restriction_stage"], 0) >= FIRE_RESTRICTION_RANK["RESTRICTIONS"]]
+    danger_sources = [source for source in reachable if FIRE_DANGER_RANK.get(source["fire_danger"], 0) >= FIRE_DANGER_RANK["HIGH"]]
+
+    if active_restrictions:
+        source_word = "source indicates" if len(active_restrictions) == 1 else "sources indicate"
+        headline = f"{len(active_restrictions)} official {source_word} fire restrictions or staged restrictions."
+    elif danger_sources:
+        headline = f"Official sources indicate elevated fire danger; no staged restrictions detected by this check."
+    elif reachable:
+        headline = "Official fire-posture sources reachable; no staged restrictions detected by this check."
+    else:
+        headline = "Official fire-posture sources unavailable."
+
+    return {
+        "status": "checked" if reachable else "unavailable",
+        "headline": headline,
+        "source_count": len(sources),
+        "reachable_source_count": len(reachable),
+        "active_restriction_count": len(active_restrictions),
+        "high_danger_source_count": len(danger_sources),
+        "max_restriction_stage": max_stage,
+        "max_fire_danger": max_danger,
+        "sources": sources,
+        "disclaimer": "Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.",
+    }
+
+
+def fire_posture_psps_signal(fire_posture: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    if not fire_posture or fire_posture.get("status") == "disabled":
+        return {"level_floor": "LOW", "reason": "Fire posture check disabled or unavailable."}
+    max_stage = fire_posture.get("max_restriction_stage", "UNKNOWN")
+    max_danger = fire_posture.get("max_fire_danger", "UNKNOWN")
+    if FIRE_RESTRICTION_RANK.get(max_stage, 0) >= FIRE_RESTRICTION_RANK["STAGE 2"] or max_danger == "EXTREME":
+        return {
+            "level_floor": "WATCH",
+            "reason": f"Official fire-posture context is escalated ({max_stage}; fire danger {max_danger}), supporting PSPS watch posture.",
+        }
+    if FIRE_RESTRICTION_RANK.get(max_stage, 0) >= FIRE_RESTRICTION_RANK["STAGE 1"] or FIRE_DANGER_RANK.get(max_danger, 0) >= FIRE_DANGER_RANK["VERY HIGH"]:
+        return {
+            "level_floor": "ELEVATED",
+            "reason": f"Official fire-posture context is elevated ({max_stage}; fire danger {max_danger}), used as supporting context.",
+        }
+    return {
+        "level_floor": "LOW",
+        "reason": f"Official fire-posture context is {max_stage}; fire danger {max_danger}.",
+    }
 
 
 def clean_lpea_signal_snippet(snippet: str) -> str:
@@ -1200,8 +1365,14 @@ def add_weather_trends(forecast_days: List[Dict[str, Any]]) -> None:
         previous = day
 
 
-def build_psps_forecast(days: List[Dict[str, Any]], official_alerts: Dict[str, Any], lpea: Dict[str, Any]) -> Dict[str, Any]:
+def build_psps_forecast(
+    days: List[Dict[str, Any]],
+    official_alerts: Dict[str, Any],
+    lpea: Dict[str, Any],
+    fire_posture: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     lpea_signal = lpea_psps_signal(lpea)
+    posture_signal = fire_posture_psps_signal(fire_posture)
     active_lpea_signal = bool(lpea.get("active_hits"))
     forecast_days = []
 
@@ -1209,6 +1380,10 @@ def build_psps_forecast(days: List[Dict[str, Any]], official_alerts: Dict[str, A
         weather_score = weather_score_for_day(day, official_alerts)
         level = weather_score["level"]
         reasons = [weather_score["summary"], *weather_score["factors"][:3]]
+
+        if posture_signal["level_floor"] != "LOW":
+            level = max_psps_level(level, posture_signal["level_floor"])
+            reasons.append(posture_signal["reason"])
 
         if lpea_signal["level"] == "direct_psps_language":
             level = max_psps_level(level, "WATCH")
@@ -1248,6 +1423,7 @@ def build_psps_forecast(days: List[Dict[str, Any]], official_alerts: Dict[str, A
         "overall_level": overall_level,
         "headline": headline,
         "lpea_signal": lpea_signal,
+        "fire_posture_signal": posture_signal,
         "days": forecast_days,
         "disclaimer": UNOFFICIAL_MONITOR_DISCLAIMER,
     }
@@ -1418,6 +1594,7 @@ def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
     rows = []
     official_count = report.get("official_alerts", {}).get("fire_alert_count", 0)
     lpea_signal_level = report.get("psps", {}).get("lpea_signal", {}).get("level", "none")
+    posture = report.get("fire_posture", {})
     for day in report.get("psps", {}).get("days", []):
         for location in day.get("location_scores", []) or [{"name": "Area", "level": day.get("level"), "score": day.get("weather_score"), "metrics": day.get("weather_metrics", {})}]:
             metrics = location.get("metrics", {})
@@ -1438,6 +1615,8 @@ def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
                     "overall_psps_level": report.get("psps", {}).get("overall_level"),
                     "lpea_signal_level": lpea_signal_level,
                     "official_fire_alert_count": official_count,
+                    "max_fire_restriction_stage": posture.get("max_restriction_stage", "UNKNOWN"),
+                    "max_fire_danger": posture.get("max_fire_danger", "UNKNOWN"),
                 }
             )
     return rows
@@ -1445,7 +1624,6 @@ def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 def append_forecast_history(report: Dict[str, Any], path: Path) -> None:
     rows = forecast_history_rows(report)
-    exists = path.exists()
     fieldnames = [
         "generated_at",
         "date",
@@ -1462,7 +1640,25 @@ def append_forecast_history(report: Dict[str, Any], path: Path) -> None:
         "overall_psps_level",
         "lpea_signal_level",
         "official_fire_alert_count",
+        "max_fire_restriction_stage",
+        "max_fire_danger",
     ]
+    exists = path.exists()
+    if exists:
+        try:
+            with path.open("r", encoding="utf-8", newline="") as fh:
+                reader = csv.DictReader(fh)
+                existing_fieldnames = reader.fieldnames or []
+                existing_rows = list(reader)
+            if existing_fieldnames != fieldnames:
+                with path.open("w", encoding="utf-8", newline="") as fh:
+                    writer = csv.DictWriter(fh, fieldnames=fieldnames)
+                    writer.writeheader()
+                    for row in existing_rows:
+                        writer.writerow({key: row.get(key, "") for key in fieldnames})
+                exists = True
+        except OSError:
+            exists = False
     with path.open("a", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=fieldnames)
         if not exists:
@@ -1595,6 +1791,10 @@ def tier_badge_class(tier: str) -> str:
     return f"tier-{tier.lower()}"
 
 
+def fire_status_class(value: str) -> str:
+    return "fire-" + re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
 def escape_html(value: Any) -> str:
     return html.escape("" if value is None else str(value))
 
@@ -1656,6 +1856,7 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
         f"{official_fire_alert_label(report)}: {report['official_alerts']['fire_alert_count']}",
         f"LPEA status: {report['lpea']['status']} - {report['lpea']['headline']}",
         f"LPEA source coverage: {report['lpea'].get('monitored_source_count', 0)} sources; {report['lpea'].get('social_status', 'social sources not configured')}",
+        f"Fire posture: {report.get('fire_posture', {}).get('max_restriction_stage', 'UNKNOWN')} restrictions; fire danger {report.get('fire_posture', {}).get('max_fire_danger', 'UNKNOWN')}",
         f"NWS discussion: {report['discussion']['headline']}",
     ]
 
@@ -1970,6 +2171,30 @@ def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
     ]
 
 
+def render_fire_posture_markdown(report: Dict[str, Any]) -> List[str]:
+    posture = report.get("fire_posture", {})
+    lines = [
+        "## Fire Posture + Restrictions",
+        "",
+        f"- Summary: {posture.get('headline', 'Fire-posture check not available.')}",
+        f"- Max restriction stage detected: {posture.get('max_restriction_stage', 'UNKNOWN')}",
+        f"- Max fire danger detected: {posture.get('max_fire_danger', 'UNKNOWN')}",
+        f"- Sources reachable: {posture.get('reachable_source_count', 0)}/{posture.get('source_count', 0)}",
+        f"- Note: {posture.get('disclaimer', 'Verify directly with the responsible jurisdiction.')}",
+        "",
+        "| Jurisdiction | Restrictions | Fire danger | Source |",
+        "| --- | --- | --- | --- |",
+    ]
+    for source in posture.get("sources", []):
+        label = source.get("name", "Unknown source")
+        if source.get("url"):
+            label = f"[{label}]({source['url']})"
+        lines.append(
+            f"| {source.get('area', source.get('name', 'Unknown'))} | {source.get('restriction_stage', 'UNKNOWN')} | {source.get('fire_danger', 'UNKNOWN')} | {label} |"
+        )
+    return lines
+
+
 def render_markdown(report: Dict[str, Any]) -> str:
     high_dates = collect_dates_by_tier(report["days"], "HIGH")
     concern_dates = collect_dates_by_tier(report["days"], "CONCERN")
@@ -2002,6 +2227,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         *render_psps_markdown(report),
         "",
         *render_area_outlook_markdown(report),
+        "",
+        *render_fire_posture_markdown(report),
         "",
         *render_calibration_markdown(report),
         "",
@@ -2241,6 +2468,21 @@ def render_html(report: Dict[str, Any]) -> str:
           <span>current WATCH/LIKELY dates</span>
         </article>
     """
+    fire_posture = report.get("fire_posture", {})
+    fire_posture_cards_html = "".join(
+        f"""
+        <article class="fire-posture-card">
+          <p class="source-name">{linked_text_html(source.get('name', 'Unknown source'), source.get('url'))}</p>
+          <p class="source-meta">{escape_html(source.get('area', 'Unknown area'))} · {escape_html(source.get('jurisdiction_type', 'official'))}</p>
+          <div class="fire-chip-row">
+            <span class="fire-chip {escape_html(fire_status_class(source.get('restriction_stage', 'unknown')))}">Restrictions: {escape_html(source.get('restriction_stage', 'UNKNOWN'))}</span>
+            <span class="fire-chip {escape_html(fire_status_class(source.get('fire_danger', 'unknown')))}">Danger: {escape_html(source.get('fire_danger', 'UNKNOWN'))}</span>
+          </div>
+          <p class="source-snippet">{escape_html((source.get('snippets') or ['No specific fire posture snippet found.'])[0])}</p>
+        </article>
+        """
+        for source in fire_posture.get("sources", [])
+    ) or '<p class="empty-state">No fire-posture sources configured.</p>'
     lpea = report.get("lpea", {})
     evidence_quality = lpea.get("evidence_quality") or lpea_evidence_quality(lpea)
     active_signal_groups = evidence_quality.get("groups") or lpea.get("active_signal_groups") or group_lpea_signal_hits(lpea.get("active_hits", []))
@@ -2754,6 +2996,50 @@ def render_html(report: Dict[str, Any]) -> str:
       gap: 12px;
       margin-top: 14px;
     }}
+    .fire-posture-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }}
+    .fire-posture-card {{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.62);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }}
+    .fire-chip-row {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }}
+    .fire-chip {{
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.08);
+      color: #344241;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
+    .fire-stage-1,
+    .fire-stage-2,
+    .fire-stage-3,
+    .fire-restrictions,
+    .fire-very-high,
+    .fire-extreme {{ background: rgba(203, 90, 27, 0.16); color: #5b2209; }}
+    .fire-stage-2,
+    .fire-stage-3,
+    .fire-extreme {{ background: rgba(167, 47, 35, 0.16); color: #5b2209; }}
+    .fire-none,
+    .fire-low {{ background: rgba(60, 122, 68, 0.14); color: #204923; }}
+    .fire-moderate,
+    .fire-high {{ background: rgba(184, 132, 24, 0.16); color: #4b3400; }}
     .area-card {{
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -3074,6 +3360,17 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Official Source Context</p>
+      <h2>Fire Posture + Restrictions</h2>
+      <p class="footer-note">{escape_html(fire_posture.get('headline', 'Fire-posture check not available.'))}</p>
+      <p class="footer-note">Detected max: restrictions {escape_html(fire_posture.get('max_restriction_stage', 'UNKNOWN'))}; fire danger {escape_html(fire_posture.get('max_fire_danger', 'UNKNOWN'))}. Sources reachable: {escape_html(str(fire_posture.get('reachable_source_count', 0)))}/{escape_html(str(fire_posture.get('source_count', 0)))}.</p>
+      <p class="footer-note">{escape_html(fire_posture.get('disclaimer', 'Verify directly with the responsible jurisdiction.'))}</p>
+      <div class="fire-posture-grid">
+        {fire_posture_cards_html}
+      </div>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">Daily Breakdown</p>
       <h2>What Drives Each Day</h2>
       <div class="days-grid">
@@ -3201,9 +3498,10 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     discussion = fetch_discussion_signal(session)
     lpea = check_lpea(session, config)
     lpea["evidence_quality"] = lpea_evidence_quality(lpea)
+    fire_posture = check_fire_posture(session, config)
     days = combine_daily_results(point_results, alert_summary, discussion, config, now_utc, tz)
     tier = overall_tier(days, point_results, discussion)
-    psps = build_psps_forecast(days, alert_summary, lpea)
+    psps = build_psps_forecast(days, alert_summary, lpea, fire_posture)
 
     history_path = config_path.resolve().parent / config["output"]["history_csv"]
     psps_events_path = event_log_path(config_path, config)
@@ -3240,6 +3538,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "official_alerts": alert_summary,
         "discussion": discussion,
         "lpea": lpea,
+        "fire_posture": fire_posture,
         "psps": psps,
         "calibration": calibration,
         "days": days,
