@@ -3,3 +3,23 @@ __pycache__/
 *.pyc
 .DS_Store
 archuleta_red_flag_monitor/history.csv
+
+# Local credentials and machine-specific automation state.
+.env
+.env.*
+*.env
+*.local
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+secrets/
+private/
+automation.toml
+memory.md
+archuleta_red_flag_monitor/local_config.json
+archuleta_red_flag_monitor/email_config.json
