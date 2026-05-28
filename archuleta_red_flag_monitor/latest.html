@@ -118,6 +118,42 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
+    .hero-alert-panel {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(29, 42, 42, 0.12);
+      border-radius: 18px;
+      background: rgba(29, 42, 42, 0.045);
+    }
+    .hero-alert-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .hero-alert-panel h2 {
+      margin-bottom: 0;
+      font-size: 1.1rem;
+    }
+    .hero-alert-panel .footer-note {
+      margin: 6px 0 0;
+      font-size: 0.94rem;
+    }
+    .alert-count-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 74px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: #344241;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
     .chip {
       display: inline-flex;
       align-items: center;
@@ -291,6 +327,10 @@
       gap: 12px;
       margin-top: 14px;
     }
+    .hero-alert-panel .alert-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 12px;
+    }
     .alert-card {
       border: 1px solid rgba(167, 47, 35, 0.2);
       border-radius: 14px;
@@ -347,6 +387,12 @@
       margin: 8px 0 0;
       color: var(--muted);
       font-style: italic;
+    }
+    .hero-alert-panel .empty-state {
+      margin: 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.62);
     }
     .risk-strip {
       display: grid;
@@ -604,12 +650,12 @@
         <div>
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 28, 2026 at 12:57 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 28, 2026 at 1:12 PM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
           </div>
-          <p class="next-update-note">Next update: May 28, 2026 at 1:57 PM MDT (Pagosa Springs, CO local time)</p>
+          <p class="next-update-note">Next update: May 28, 2026 at 2:12 PM MDT (Pagosa Springs, CO local time)</p>
           <p class="time-note">All dates and times use Pagosa Springs, CO local time (America/Denver).</p>
         </div>
         <span class="chip tier-high">HIGH</span>
@@ -652,16 +698,24 @@
             </section>
             
             <section class="summary-card">
-              <p class="eyebrow">Official NWS alerts</p>
-              <p class="summary-value ">0</p><p class="summary-note">COZ295 Red Flag / Fire Weather alerts</p>
-            </section>
-            
-            <section class="summary-card">
               <p class="eyebrow">LPEA signal</p>
               <p class="summary-value signal-watch">Active source match</p><p class="summary-note">Site-wide red flag banner across 3 sources. Review source links before treating as a confirmed outage or PSPS notice.</p>
             </section>
             
       </div>
+      <section class="hero-alert-panel">
+        <div class="hero-alert-head">
+          <div>
+            <p class="eyebrow">Official Weather Alerts</p>
+            <h2>Official NWS alerts</h2>
+            <p class="footer-note">Active NWS alerts for monitored zones: COC007, COC067, COZ019, COZ022, COZ023, COZ295.</p>
+          </div>
+          <span class="alert-count-chip">0 active</span>
+        </div>
+        <div class="alert-grid">
+          <p class="empty-state">No active official NWS Red Flag / Fire Weather or related weather alerts found for monitored zones.</p>
+        </div>
+      </section>
     </section>
 
     <section class="section-panel">
@@ -748,7 +802,7 @@
           </div>
           <p class="weather-score">Weather score 67/100</p>
           <ul>
-            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 8.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</li>
+            <li><strong>Durango / La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 29 mph, red-flag hours 5, near-threshold hours 7.</li><li><strong>Ignacio / southeast La Plata County</strong>: LIKELY 67/100. Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7.</li><li><strong>Bayfield / east La Plata County</strong>: WATCH 63/100. Weather score 63/100: RH 13%, wind/gust 26 mph, red-flag hours 3, near-threshold hours 7.</li><li><strong>Arboles / southwest county</strong>: WATCH 61/100. Weather score 61/100: RH 12%, wind/gust 25 mph, red-flag hours 1, near-threshold hours 7.</li><li><strong>Chimney Rock / west county</strong>: WATCH 52/100. Weather score 52/100: RH 10%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 6.</li>
           </ul>
         </article>
         
@@ -810,57 +864,6 @@
           </div>
         </div>
       </details>
-    </section>
-
-    <section class="section-panel">
-      <p class="eyebrow">Official Sources</p>
-      <h2>Official Weather Alerts</h2>
-      <p class="footer-note">Active NWS alerts for monitored zones: COC007, COC067, COZ019, COZ022, COZ023, COZ295.</p>
-      <div class="alert-grid">
-        <p class="empty-state">No active official NWS Red Flag / Fire Weather or related weather alerts found for monitored zones.</p>
-      </div>
-    </section>
-
-    <section class="section-panel">
-      <p class="eyebrow">LPEA Monitor</p>
-      <h2>Power Interruption Signals</h2>
-      <p class="footer-note">LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.</p>
-      <p class="footer-note">Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.</p>
-      <p class="footer-note">Coverage: 13 sources; 5/5 official social sources reachable</p>
-      <div class="source-grid">
-        
-        <article class="source-card">
-          <p class="source-name"><a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">Site-wide red flag banner</a></p>
-          <p class="source-meta">3 sources: <a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">LPEA homepage</a>, <a href="https://lpea.coop/Posts" target="_blank" rel="noopener noreferrer">LPEA latest news</a>, <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
-          <p class="source-tags">red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation</p>
-          <p class="source-snippet">Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.</p>
-        </article>
-        
-        <article class="source-card">
-          <p class="source-name"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">News-release archive PSPS item</a></p>
-          <p class="source-meta">1 source: <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
-          <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
-          <p class="source-snippet">...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...</p>
-        </article>
-        
-        <article class="source-card">
-          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn wildfire preparedness post</a></p>
-          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
-          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
-          <p class="source-snippet">...omment Share La Plata Electric Association 1,776 followers 1mo Report this post Wildfire season doesn&#x27;t wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...</p>
-        </article>
-        
-        <article class="source-card">
-          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn PSPS explainer post</a></p>
-          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
-          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
-          <p class="source-snippet">...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...</p>
-        </article>
-        
-      </div>
-      <div class="reference-pills">
-        <span class="reference-pill"><a href="https://lpea.coop/outage-center" target="_blank" rel="noopener noreferrer">LPEA outage center</a></span><span class="reference-pill"><a href="https://lpea.coop/psps" target="_blank" rel="noopener noreferrer">LPEA wildfire / public safety power shutoffs</a></span><span class="reference-pill"><a href="https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members" target="_blank" rel="noopener noreferrer">LPEA red flag outage impact page</a></span><span class="reference-pill"><a href="https://lpea.coop/fire-mitigation" target="_blank" rel="noopener noreferrer">LPEA fire mitigation</a></span>
-      </div>
     </section>
 
     <section class="section-panel">
@@ -959,6 +962,48 @@
               <ul class="metrics"><li>Pagosa Springs: RH 23% / wind 15 mph</li><li>Arboles / southwest county: RH 19% / wind 17 mph</li></ul>
             </article>
             
+      </div>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">LPEA Monitor</p>
+      <h2>Power Interruption Signals</h2>
+      <p class="footer-note">LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.</p>
+      <p class="footer-note">Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.</p>
+      <p class="footer-note">Coverage: 13 sources; 5/5 official social sources reachable</p>
+      <div class="source-grid">
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">Site-wide red flag banner</a></p>
+          <p class="source-meta">3 sources: <a href="https://lpea.coop" target="_blank" rel="noopener noreferrer">LPEA homepage</a>, <a href="https://lpea.coop/Posts" target="_blank" rel="noopener noreferrer">LPEA latest news</a>, <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
+          <p class="source-tags">red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation</p>
+          <p class="source-snippet">Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">News-release archive PSPS item</a></p>
+          <p class="source-meta">1 source: <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
+          <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
+          <p class="source-snippet">...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn wildfire preparedness post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
+          <p class="source-snippet">...omment Share La Plata Electric Association 1,776 followers 1mo Report this post Wildfire season doesn&#x27;t wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn PSPS explainer post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
+          <p class="source-snippet">...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...</p>
+        </article>
+        
+      </div>
+      <div class="reference-pills">
+        <span class="reference-pill"><a href="https://lpea.coop/outage-center" target="_blank" rel="noopener noreferrer">LPEA outage center</a></span><span class="reference-pill"><a href="https://lpea.coop/psps" target="_blank" rel="noopener noreferrer">LPEA wildfire / public safety power shutoffs</a></span><span class="reference-pill"><a href="https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members" target="_blank" rel="noopener noreferrer">LPEA red flag outage impact page</a></span><span class="reference-pill"><a href="https://lpea.coop/fire-mitigation" target="_blank" rel="noopener noreferrer">LPEA fire mitigation</a></span>
       </div>
     </section>
 

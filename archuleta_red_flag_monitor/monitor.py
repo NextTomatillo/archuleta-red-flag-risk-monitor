@@ -1610,12 +1610,6 @@ def render_html(report: Dict[str, Any]) -> str:
         {"label": "HIGH dates", "value": format_date_list(high_dates), "class": "", "dates": high_dates},
         {"label": "CONCERN dates", "value": format_date_list(concern_dates), "class": "", "dates": concern_dates},
         {
-            "label": "Official NWS alerts",
-            "value": str(report["official_alerts"]["fire_alert_count"]),
-            "class": "",
-            "note": f"{report.get('fire_weather_zone', 'COZ295')} Red Flag / Fire Weather alerts",
-        },
-        {
             "label": "LPEA signal",
             "value": lpea_status_label(report["lpea"].get("status", "unknown")),
             "class": "signal-watch" if report["lpea"].get("status") in ("active_keyword_match", "reference_keyword_match") else "",
@@ -1762,6 +1756,8 @@ def render_html(report: Dict[str, Any]) -> str:
         for alert in report.get("official_alerts", {}).get("alerts", [])[:6]
     ) or '<p class="empty-state">No active official NWS Red Flag / Fire Weather or related weather alerts found for monitored zones.</p>'
     monitored_zone_text = ", ".join(report.get("official_alerts", {}).get("monitored_zones", [])) or report.get("fire_weather_zone", "COZ295")
+    official_alert_count = int(report.get("official_alerts", {}).get("fire_alert_count", 0))
+    official_alert_count_label = f"{official_alert_count} active" if official_alert_count != 1 else "1 active"
 
     return f"""<!doctype html>
 <html lang="en">
@@ -1881,6 +1877,42 @@ def render_html(report: Dict[str, Any]) -> str:
       font-size: 0.94rem;
       font-weight: 800;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
+    .hero-alert-panel {{
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(29, 42, 42, 0.12);
+      border-radius: 18px;
+      background: rgba(29, 42, 42, 0.045);
+    }}
+    .hero-alert-head {{
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }}
+    .hero-alert-panel h2 {{
+      margin-bottom: 0;
+      font-size: 1.1rem;
+    }}
+    .hero-alert-panel .footer-note {{
+      margin: 6px 0 0;
+      font-size: 0.94rem;
+    }}
+    .alert-count-chip {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 74px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: #344241;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }}
     .chip {{
@@ -2056,6 +2088,10 @@ def render_html(report: Dict[str, Any]) -> str:
       gap: 12px;
       margin-top: 14px;
     }}
+    .hero-alert-panel .alert-grid {{
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 12px;
+    }}
     .alert-card {{
       border: 1px solid rgba(167, 47, 35, 0.2);
       border-radius: 14px;
@@ -2112,6 +2148,12 @@ def render_html(report: Dict[str, Any]) -> str:
       margin: 8px 0 0;
       color: var(--muted);
       font-style: italic;
+    }}
+    .hero-alert-panel .empty-state {{
+      margin: 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.62);
     }}
     .risk-strip {{
       display: grid;
@@ -2382,6 +2424,19 @@ def render_html(report: Dict[str, Any]) -> str:
       <div class="summary-grid">
         {summary_cards_html}
       </div>
+      <section class="hero-alert-panel">
+        <div class="hero-alert-head">
+          <div>
+            <p class="eyebrow">Official Weather Alerts</p>
+            <h2>Official NWS alerts</h2>
+            <p class="footer-note">Active NWS alerts for monitored zones: {escape_html(monitored_zone_text)}.</p>
+          </div>
+          <span class="alert-count-chip">{escape_html(official_alert_count_label)}</span>
+        </div>
+        <div class="alert-grid">
+          {alert_cards_html}
+        </div>
+      </section>
     </section>
 
     <section class="section-panel">
@@ -2411,11 +2466,10 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
-      <p class="eyebrow">Official Sources</p>
-      <h2>Official Weather Alerts</h2>
-      <p class="footer-note">Active NWS alerts for monitored zones: {escape_html(monitored_zone_text)}.</p>
-      <div class="alert-grid">
-        {alert_cards_html}
+      <p class="eyebrow">Daily Breakdown</p>
+      <h2>What Drives Each Day</h2>
+      <div class="days-grid">
+        {''.join(day_tiles)}
       </div>
     </section>
 
@@ -2430,14 +2484,6 @@ def render_html(report: Dict[str, Any]) -> str:
       </div>
       <div class="reference-pills">
         {reference_hits_html}
-      </div>
-    </section>
-
-    <section class="section-panel">
-      <p class="eyebrow">Daily Breakdown</p>
-      <h2>What Drives Each Day</h2>
-      <div class="days-grid">
-        {''.join(day_tiles)}
       </div>
     </section>
 

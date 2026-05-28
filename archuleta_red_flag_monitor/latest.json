@@ -101,7 +101,7 @@
           "max_usable_wind_mph": 27.6,
           "min_rh_percent": 13.0,
           "name": "Ignacio / southeast La Plata County",
-          "near_hours": 8,
+          "near_hours": 7,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
@@ -837,9 +837,9 @@
   "expected_update_interval_minutes": 60,
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-28T12:57:48.205570-06:00",
-  "generated_at_local": "2026-05-28T12:57:48.205570-06:00",
-  "generated_at_utc": "2026-05-28T18:57:48.205570+00:00",
+  "generated_at": "2026-05-28T13:12:39.827111-06:00",
+  "generated_at_local": "2026-05-28T13:12:39.827111-06:00",
+  "generated_at_utc": "2026-05-28T19:12:39.827111+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -1465,7 +1465,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-28T13:57:48.205570-06:00",
+  "next_update_at": "2026-05-28T14:12:39.827111-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],
@@ -2327,7 +2327,7 @@
           "max_usable_wind_mph": 27.6,
           "max_wind_mph": 15.0,
           "min_rh_percent": 13.0,
-          "near_hours": 8,
+          "near_hours": 7,
           "reasons": [
             "Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window."
           ],
@@ -2471,7 +2471,7 @@
             "fire_weather_tier": "HIGH",
             "level": "LIKELY",
             "metrics": {
-              "max_near_hours": 8,
+              "max_near_hours": 7,
               "max_precip_percent": 11.0,
               "max_red_flag_hours": 4,
               "max_thunder_percent": 5.0,
@@ -2480,7 +2480,7 @@
             },
             "name": "Ignacio / southeast La Plata County",
             "score": 67,
-            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 8."
+            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7."
           },
           {
             "factors": [
@@ -2575,7 +2575,7 @@
             "fire_weather_tier": "HIGH",
             "level": "LIKELY",
             "metrics": {
-              "max_near_hours": 8,
+              "max_near_hours": 7,
               "max_precip_percent": 11.0,
               "max_red_flag_hours": 4,
               "max_thunder_percent": 5.0,
@@ -2584,7 +2584,7 @@
             },
             "name": "Ignacio / southeast La Plata County",
             "score": 67,
-            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 8."
+            "summary": "Weather score 67/100: RH 13%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 7."
           },
           {
             "factors": [
