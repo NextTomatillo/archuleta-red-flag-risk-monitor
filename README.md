@@ -12,6 +12,8 @@ This repository includes:
 
 Important: this is an unofficial monitor. It is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice.
 
+Security note: this repo is public for GitHub Pages. See [SECURITY.md](SECURITY.md) for what is safe to publish and what must stay out of the repo.
+
 ## Run Locally
 
 ```bash
