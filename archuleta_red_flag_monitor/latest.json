@@ -1014,9 +1014,9 @@
   },
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-29T05:34:43.127427-06:00",
-  "generated_at_local": "2026-05-29T05:34:43.127427-06:00",
-  "generated_at_utc": "2026-05-29T11:34:43.127427+00:00",
+  "generated_at": "2026-05-29T08:37:32.203446-06:00",
+  "generated_at_local": "2026-05-29T08:37:32.203446-06:00",
+  "generated_at_utc": "2026-05-29T14:37:32.203446+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -1074,21 +1074,6 @@
         ],
         "type": "official_updates",
         "url": "https://lpea.coop/news-releases"
-      },
-      {
-        "matches": [
-          "wildfire",
-          "public safety power shutoff",
-          "power shutoff",
-          "shutoff"
-        ],
-        "name": "LPEA LinkedIn",
-        "snippets": [
-          "...omment Share La Plata Electric Association 1,777 followers 1mo Report this post Wildfire season doesn't wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...",
-          "...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether..."
-        ],
-        "type": "official_social",
-        "url": "https://www.linkedin.com/company/la-plata-electric-association/"
       }
     ],
     "active_signal_groups": [
@@ -1149,57 +1134,11 @@
         "urls": [
           "https://lpea.coop/news-releases"
         ]
-      },
-      {
-        "matches": [
-          "wildfire",
-          "public safety power shutoff",
-          "power shutoff",
-          "shutoff"
-        ],
-        "name": "LinkedIn wildfire preparedness post",
-        "primary_url": "https://www.linkedin.com/company/la-plata-electric-association/",
-        "snippet": "...omment Share La Plata Electric Association 1,777 followers 1mo Report this post Wildfire season doesn't wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...",
-        "source_count": 1,
-        "source_label": "LPEA LinkedIn",
-        "source_names": [
-          "LPEA LinkedIn"
-        ],
-        "type": "official_social",
-        "types": [
-          "official_social"
-        ],
-        "urls": [
-          "https://www.linkedin.com/company/la-plata-electric-association/"
-        ]
-      },
-      {
-        "matches": [
-          "wildfire",
-          "public safety power shutoff",
-          "power shutoff",
-          "shutoff"
-        ],
-        "name": "LinkedIn PSPS explainer post",
-        "primary_url": "https://www.linkedin.com/company/la-plata-electric-association/",
-        "snippet": "...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...",
-        "source_count": 1,
-        "source_label": "LPEA LinkedIn",
-        "source_names": [
-          "LPEA LinkedIn"
-        ],
-        "type": "official_social",
-        "types": [
-          "official_social"
-        ],
-        "urls": [
-          "https://www.linkedin.com/company/la-plata-electric-association/"
-        ]
       }
     ],
     "evidence_quality": {
       "counts": {
-        "active": 3,
+        "active": 1,
         "context": 1,
         "operational": 0
       },
@@ -1271,66 +1210,10 @@
           "urls": [
             "https://lpea.coop/news-releases"
           ]
-        },
-        {
-          "matches": [
-            "wildfire",
-            "public safety power shutoff",
-            "power shutoff",
-            "shutoff"
-          ],
-          "name": "LinkedIn wildfire preparedness post",
-          "primary_url": "https://www.linkedin.com/company/la-plata-electric-association/",
-          "quality": {
-            "class": "quality-active",
-            "detail": "Public social/update source; review timing and wording.",
-            "label": "Social/update cue"
-          },
-          "snippet": "...omment Share La Plata Electric Association 1,777 followers 1mo Report this post Wildfire season doesn't wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...",
-          "source_count": 1,
-          "source_label": "LPEA LinkedIn",
-          "source_names": [
-            "LPEA LinkedIn"
-          ],
-          "type": "official_social",
-          "types": [
-            "official_social"
-          ],
-          "urls": [
-            "https://www.linkedin.com/company/la-plata-electric-association/"
-          ]
-        },
-        {
-          "matches": [
-            "wildfire",
-            "public safety power shutoff",
-            "power shutoff",
-            "shutoff"
-          ],
-          "name": "LinkedIn PSPS explainer post",
-          "primary_url": "https://www.linkedin.com/company/la-plata-electric-association/",
-          "quality": {
-            "class": "quality-active",
-            "detail": "Public social/update source; review timing and wording.",
-            "label": "Social/update cue"
-          },
-          "snippet": "...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...",
-          "source_count": 1,
-          "source_label": "LPEA LinkedIn",
-          "source_names": [
-            "LPEA LinkedIn"
-          ],
-          "type": "official_social",
-          "types": [
-            "official_social"
-          ],
-          "urls": [
-            "https://www.linkedin.com/company/la-plata-electric-association/"
-          ]
         }
       ],
       "reference_match_count": 4,
-      "summary": "0 operational, 3 active/update, 1 archive/context, 4 reference source matches."
+      "summary": "0 operational, 1 active/update, 1 archive/context, 4 reference source matches."
     },
     "headline": "LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.",
     "monitored_source_count": 13,
@@ -1545,7 +1428,7 @@
         ]
       }
     ],
-    "social_status": "5/5 official social sources reachable",
+    "social_status": "4/5 official social sources reachable",
     "sources": [
       {
         "matches": [],
@@ -1747,20 +1630,12 @@
         "url": "https://www.instagram.com/LaPlataElectric"
       },
       {
-        "matches": [
-          "wildfire",
-          "public safety power shutoff",
-          "power shutoff",
-          "shutoff"
-        ],
+        "matches": [],
         "name": "LPEA LinkedIn",
         "signal_mode": "active",
-        "snippets": [
-          "...omment Share La Plata Electric Association 1,777 followers 1mo Report this post Wildfire season doesn't wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...",
-          "...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether..."
-        ],
-        "status": "reachable",
-        "status_code": 200,
+        "snippets": [],
+        "status": "http_429",
+        "status_code": 429,
         "type": "official_social",
         "url": "https://www.linkedin.com/company/la-plata-electric-association/"
       },
@@ -1777,7 +1652,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-29T06:34:43.127427-06:00",
+  "next_update_at": "2026-05-29T09:37:32.203446-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],

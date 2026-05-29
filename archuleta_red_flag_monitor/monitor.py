@@ -2068,6 +2068,61 @@ def pagosa_outlook_card(report: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def psps_likelihood_rail_context(report: Dict[str, Any]) -> Dict[str, str]:
+    psps = report.get("psps", {})
+    psps_days = psps.get("days", [])
+    if not psps_days:
+        return {
+            "scope": "Area-wide screen, no outlook days loaded",
+            "detail": "No PSPS forecast window is available for this run.",
+        }
+
+    overall_level = psps.get("overall_level", "UNKNOWN")
+    first_date = psps_days[0].get("date", "")
+    last_date = psps_days[-1].get("date", "")
+    if first_date and last_date and first_date != last_date:
+        date_span = f"{format_display_date(first_date)} to {format_display_date(last_date)}"
+    elif first_date:
+        date_span = format_display_date(first_date)
+    else:
+        date_span = f"next {len(psps_days)} days"
+
+    scope = f"LPEA area-wide screen, {date_span}"
+    ranked_days = sorted(
+        psps_days,
+        key=lambda day: (
+            PSPS_RANK.get(day.get("level", "LOW"), 0),
+            safe_int(day.get("weather_score")),
+        ),
+        reverse=True,
+    )
+    peak_days = [day for day in psps_days if day.get("level") == overall_level] or ranked_days[:1]
+    peak_dates = ", ".join(format_display_date(day.get("date", "")) for day in peak_days[:3] if day.get("date"))
+
+    driver_names = []
+    seen = set()
+    for day in peak_days:
+        for location in day.get("driver_locations", [])[:3]:
+            name = short_location_name(str(location.get("name", ""))).strip()
+            if name and name.lower() not in seen:
+                driver_names.append(name)
+                seen.add(name.lower())
+            if len(driver_names) >= 4:
+                break
+        if len(driver_names) >= 4:
+            break
+    driver_text = ", ".join(driver_names) if driver_names else "no standout sampled location"
+
+    if overall_level in ("LIKELY", "WATCH", "ELEVATED"):
+        detail = f"Peak {overall_level.lower()} dates: {peak_dates or 'not available'}; drivers: {driver_text}."
+    elif overall_level == "CONFIRMED":
+        detail = f"Confirmed PSPS signal dates: {peak_dates or 'not available'}; locations: {driver_text}."
+    else:
+        detail = f"No watch/likely PSPS days in this window; strongest sampled areas: {driver_text}."
+
+    return {"scope": scope, "detail": detail}
+
+
 def short_location_name(name: str) -> str:
     return name.split(" / ")[0]
 
@@ -2344,6 +2399,7 @@ def render_html(report: Dict[str, Any]) -> str:
     psps_url = lpea_psps_url(report)
     outage_map_url = lpea_outage_map_url(report)
     pagosa_card = pagosa_outlook_card(report)
+    psps_rail_context = psps_likelihood_rail_context(report)
 
     summary_cards = [
         pagosa_card,
@@ -2650,6 +2706,14 @@ def render_html(report: Dict[str, Any]) -> str:
       border-radius: 16px;
       background: rgba(255, 250, 243, 0.68);
     }}
+    .hero-status-row-detail {{
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }}
+    .hero-status-copy {{
+      min-width: 0;
+      flex: 1 1 180px;
+    }}
     .hero-status-time {{
       display: block;
     }}
@@ -2661,6 +2725,18 @@ def render_html(report: Dict[str, Any]) -> str:
       font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+    }}
+    .hero-status-copy p,
+    .hero-status-copy small {{
+      display: block;
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.18;
+    }}
+    .hero-status-copy small {{
+      color: rgba(29, 42, 42, 0.78);
+      font-size: 0.82rem;
     }}
     .hero-status-time strong {{
       display: block;
@@ -3474,8 +3550,12 @@ def render_html(report: Dict[str, Any]) -> str:
             <p class="eyebrow">Overall tier</p>
             <span class="chip {tier_badge_class(report['overall_tier'])}">{escape_html(report['overall_tier'])}</span>
           </div>
-          <div class="hero-status-row">
-            <span>PSPS likelihood</span>
+          <div class="hero-status-row hero-status-row-detail">
+            <div class="hero-status-copy">
+              <span>PSPS likelihood</span>
+              <p>{escape_html(psps_rail_context['scope'])}</p>
+              <small>{escape_html(psps_rail_context['detail'])}</small>
+            </div>
             <strong class="hero-mini-chip psps-{escape_html(psps.get('overall_level', 'unknown').lower())}">{escape_html(psps.get('overall_level', 'UNKNOWN'))}</strong>
           </div>
           <div class="hero-status-row">

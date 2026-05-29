@@ -556,6 +556,8 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("1 active", rendered)
         self.assertIn("hero-status-rail", rendered)
         self.assertIn("Current monitor status", rendered)
+        self.assertIn("LPEA area-wide screen, Mon, Jun 1 to Tue, Jun 2", rendered)
+        self.assertIn("Peak likely dates: Mon, Jun 1; drivers: Pagosa Springs.", rendered)
         self.assertIn("Official NWS", rendered)
         self.assertIn("https://api.weather.gov/alerts/test-red-flag", rendered)
         self.assertLess(rendered.index("Official Weather Alerts"), rendered.index("Weather + PSPS Outlook"))

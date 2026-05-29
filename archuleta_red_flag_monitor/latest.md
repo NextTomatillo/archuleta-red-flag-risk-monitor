@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 29, 2026 at 5:34 AM MDT (Pagosa Springs, CO local time)
-Next update: May 29, 2026 at 6:34 AM MDT (Pagosa Springs, CO local time)
+Generated: May 29, 2026 at 8:37 AM MDT (Pagosa Springs, CO local time)
+Next update: May 29, 2026 at 9:37 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -17,7 +17,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 - ELEVATED dates: None
 - Official NWS Red Flag / Fire Weather alerts (COZ295): 0
 - LPEA signal: `active_keyword_match` - LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.
-- LPEA source coverage: 13 sources; 5/5 official social sources reachable
+- LPEA source coverage: 13 sources; 4/5 official social sources reachable
 - NWS discussion: NWS discussion contains fire-weather concern language.
 
 ## PSPS Likelihood
@@ -89,10 +89,10 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 - Status: `active_keyword_match` - LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.
 - Meaning: Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.
-- Source coverage: 13 sources; 5/5 official social sources reachable
-- Evidence quality: 0 operational, 3 active/update, 1 archive/context, 4 reference source matches.
-- Active/update source pages with matches: LPEA homepage (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); LPEA latest news (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); LPEA news releases (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); LPEA LinkedIn (wildfire, public safety power shutoff, power shutoff, shutoff)
-- Distinct active/update signals: Site-wide red flag banner across 3 sources: LPEA homepage, LPEA latest news, and LPEA news releases (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); News-release archive PSPS item (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); LinkedIn wildfire preparedness post (wildfire, public safety power shutoff, power shutoff, shutoff); LinkedIn PSPS explainer post (wildfire, public safety power shutoff, power shutoff, shutoff)
+- Source coverage: 13 sources; 4/5 official social sources reachable
+- Evidence quality: 0 operational, 1 active/update, 1 archive/context, 4 reference source matches.
+- Active/update source pages with matches: LPEA homepage (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); LPEA latest news (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); LPEA news releases (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage)
+- Distinct active/update signals: Site-wide red flag banner across 3 sources: LPEA homepage, LPEA latest news, and LPEA news releases (red flag, public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation); News-release archive PSPS item (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage)
 - Example signal: Site-wide LPEA banner: Red Flag Warnings are in place across the service territory; LPEA links members to outage-impact guidance.
 - Reference/context hits: [LPEA outage center](https://lpea.coop/outage-center); [LPEA wildfire / public safety power shutoffs](https://lpea.coop/psps); [LPEA red flag outage impact page](https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members); [LPEA fire mitigation](https://lpea.coop/fire-mitigation)
 
