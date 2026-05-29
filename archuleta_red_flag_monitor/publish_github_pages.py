@@ -19,6 +19,7 @@ PACKAGE_FILES = [
     "monitor.py",
     "publish_github_pages.py",
     "psps_events.json",
+    "public_analysis_export.json",
     "tests/test_monitor.py",
 ]
 

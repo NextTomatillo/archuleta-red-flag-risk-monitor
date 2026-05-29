@@ -209,6 +209,10 @@ def analyst_review_packet_path(config_path: Path, config: Dict[str, Any]) -> Pat
     return output_path(config_path, config, "analyst_review_packet_json", "analyst_review_packet.json")
 
 
+def public_analysis_export_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "public_analysis_export_json", "public_analysis_export.json")
+
+
 def safe_int(value: Any, default: int = 0) -> int:
     try:
         return int(float(value))
@@ -2368,6 +2372,73 @@ def build_analyst_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def public_prediction_snapshot(prediction: Optional[Dict[str, Any]], score_key: str, level_key: str, driver_key: str) -> Dict[str, Any]:
+    prediction = prediction or {}
+    return {
+        "date": prediction.get("date"),
+        "display_date": prediction.get("display_date") or format_display_date(prediction.get("date", "")),
+        "location": prediction.get("location"),
+        "level": prediction.get(level_key),
+        "score": prediction.get(score_key),
+        "highest_risk_window": prediction.get("highest_risk_window"),
+        "drivers": prediction.get(driver_key, [])[:5],
+    }
+
+
+def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
+    analysis = report.get("ai_analysis", {})
+    intelligence = report.get("forecast_intelligence", {})
+    volatility = intelligence.get("forecast_volatility", {})
+    psps = report.get("psps", {})
+    return {
+        "export_type": "archuleta_red_flag_psps_public_analysis",
+        "generated_at": report.get("generated_at_local") or report.get("generated_at"),
+        "timezone": report.get("timezone"),
+        "local_time_name": report.get("local_time_name"),
+        "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
+        "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
+        "headline": {
+            "overall_tier": report.get("overall_tier"),
+            "psps_likelihood": psps.get("overall_level"),
+            "monitor_heads_up_recommended": report.get("notify_recommended"),
+            "summary": analysis.get("summary", "No decision-support summary available."),
+            "trend_summary": intelligence.get("summary", "Trend intelligence unavailable."),
+        },
+        "confidence": analysis.get("confidence", {}),
+        "peaks": {
+            "fire_danger": public_prediction_snapshot(
+                analysis.get("top_fire_danger"),
+                "fire_danger_score",
+                "fire_danger_level",
+                "fire_danger_drivers",
+            ),
+            "red_flag": public_prediction_snapshot(
+                analysis.get("top_red_flag"),
+                "red_flag_score",
+                "red_flag_likelihood",
+                "red_flag_drivers",
+            ),
+            "psps": public_prediction_snapshot(
+                analysis.get("top_psps"),
+                "psps_score",
+                "psps_level",
+                "psps_drivers",
+            ),
+        },
+        "trend": {
+            "momentum": intelligence.get("risk_momentum"),
+            "forecast_volatility_label": volatility.get("label"),
+            "forecast_volatility_score": volatility.get("score"),
+            "first_watch_or_likely_date": intelligence.get("first_watch_or_likely_date"),
+            "first_watch_or_likely_display": format_display_date(intelligence.get("first_watch_or_likely_date", "")) if intelligence.get("first_watch_or_likely_date") else None,
+            "first_watch_shift": intelligence.get("first_watch_shift"),
+        },
+        "notable_changes": intelligence.get("notable_changes", [])[:6],
+        "watch_next": intelligence.get("review_cues", [])[:5],
+        "method_notes": analysis.get("notes", []),
+    }
+
+
 def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
     rows = []
     official_count = report.get("official_alerts", {}).get("fire_alert_count", 0)
@@ -2454,11 +2525,13 @@ def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, A
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
     review_packet_json = analyst_review_packet_path(config_path, config)
+    public_analysis_json = public_analysis_export_path(config_path, config)
 
     latest_json.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     latest_md.write_text(render_markdown(report), encoding="utf-8")
     latest_html.write_text(render_html(report), encoding="utf-8")
     review_packet_json.write_text(json.dumps(build_analyst_review_packet(report), indent=2, sort_keys=True), encoding="utf-8")
+    public_analysis_json.write_text(json.dumps(report.get("public_analysis_export", build_public_analysis_export(report)), indent=2, sort_keys=True), encoding="utf-8")
     ensure_psps_event_log(psps_events_path)
     append_forecast_history(report, forecast_csv)
 
@@ -3087,6 +3160,36 @@ def render_forecast_intelligence_markdown(report: Dict[str, Any]) -> List[str]:
     return lines
 
 
+def render_public_analysis_export_markdown(report: Dict[str, Any]) -> List[str]:
+    export = report.get("public_analysis_export") or build_public_analysis_export(report)
+    confidence = export.get("confidence", {})
+    trend = export.get("trend", {})
+    peaks = export.get("peaks", {})
+    psps_peak = peaks.get("psps", {})
+    fire_peak = peaks.get("fire_danger", {})
+    red_peak = peaks.get("red_flag", {})
+    lines = [
+        "## Public Analysis Export",
+        "",
+        f"- Summary: {export.get('headline', {}).get('summary', 'No public analysis summary available.')}",
+        f"- Trend: {export.get('headline', {}).get('trend_summary', 'Trend intelligence unavailable.')}",
+        f"- Confidence: **{confidence.get('label', 'UNKNOWN')}** ({confidence.get('score', 'n/a')}/100)",
+        f"- First WATCH-or-higher PSPS date: {trend.get('first_watch_or_likely_display') or 'None'}",
+        f"- PSPS peak: {psps_peak.get('display_date') or 'n/a'} near {psps_peak.get('location') or 'n/a'} at {psps_peak.get('level') or 'UNKNOWN'} {psps_peak.get('score', 'n/a')}/100",
+        f"- Red Flag peak: {red_peak.get('display_date') or 'n/a'} near {red_peak.get('location') or 'n/a'} at {red_peak.get('level') or 'UNKNOWN'} {red_peak.get('score', 'n/a')}/100",
+        f"- Fire danger peak: {fire_peak.get('display_date') or 'n/a'} near {fire_peak.get('location') or 'n/a'} at {fire_peak.get('level') or 'UNKNOWN'} {fire_peak.get('score', 'n/a')}/100",
+        "- Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`",
+        "",
+        "What changed:",
+    ]
+    for change in export.get("notable_changes", [])[:6]:
+        lines.append(f"- {change}")
+    lines.extend(["", "What to watch next:"])
+    for cue in export.get("watch_next", [])[:5]:
+        lines.append(f"- {cue}")
+    return lines
+
+
 def render_fire_posture_markdown(report: Dict[str, Any]) -> List[str]:
     posture = report.get("fire_posture", {})
     lines = [
@@ -3143,6 +3246,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         *render_ai_analysis_markdown(report),
         "",
         *render_forecast_intelligence_markdown(report),
+        "",
+        *render_public_analysis_export_markdown(report),
         "",
         *render_psps_markdown(report),
         "",
@@ -3457,6 +3562,34 @@ def render_html(report: Dict[str, Any]) -> str:
         f"<li>{escape_html(change)}</li>"
         for change in intelligence.get("notable_changes", [])[:6]
     ) or "<li>No prior comparison available yet.</li>"
+    public_export = report.get("public_analysis_export") or build_public_analysis_export(report)
+    export_peaks = public_export.get("peaks", {})
+    export_peak_cards = [
+        ("PSPS peak", export_peaks.get("psps", {})),
+        ("Red Flag peak", export_peaks.get("red_flag", {})),
+        ("Fire danger peak", export_peaks.get("fire_danger", {})),
+    ]
+    export_peak_cards_html = "".join(
+        f"""
+        <article class="analysis-card analysis-{escape_html(class_slug(peak.get('level', 'unknown')))}">
+          <p class="eyebrow">{escape_html(label)}</p>
+          <h3>{escape_html(peak.get('level') or 'UNKNOWN')}</h3>
+          <p class="analysis-score">{escape_html(str(peak.get('score', 'n/a')))}/100</p>
+          <p class="source-meta">{escape_html(peak.get('display_date') or 'n/a')} · {escape_html(peak.get('location') or 'n/a')}</p>
+          <p class="risk-window">{escape_html(peak.get('highest_risk_window') or 'n/a')}</p>
+        </article>
+        """
+        for label, peak in export_peak_cards
+    )
+    export_watch_next_html = "".join(
+        f"<li>{escape_html(cue)}</li>"
+        for cue in public_export.get("watch_next", [])[:5]
+    ) or "<li>No additional watch cues for this run.</li>"
+    export_method_notes_html = "".join(
+        f"<li>{escape_html(note)}</li>"
+        for note in public_export.get("method_notes", [])[:4]
+    ) or "<li>Public-source screening estimates only.</li>"
+    public_analysis_export_url = "archuleta_red_flag_monitor/public_analysis_export.json"
     calibration = report.get("calibration", {})
     calibration_cards_html = f"""
         <article class="calibration-card">
@@ -4691,6 +4824,28 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Analysis Export</p>
+      <h2>Public Analysis Snapshot</h2>
+      <p class="footer-note">{escape_html(public_export.get('headline', {}).get('summary', 'No public analysis summary available.'))}</p>
+      <div class="analysis-grid">
+        {export_peak_cards_html}
+      </div>
+      <div class="review-grid">
+        <div class="review-box">
+          <h3>What to watch next</h3>
+          <ul class="metrics">{export_watch_next_html}</ul>
+        </div>
+        <div class="review-box">
+          <h3>Method notes</h3>
+          <ul class="metrics">{export_method_notes_html}</ul>
+        </div>
+      </div>
+      <p class="definition-links">
+        <a href="{escape_html(public_analysis_export_url)}" target="_blank" rel="noopener noreferrer">Public analysis JSON</a>
+      </p>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">Official Source Context</p>
       <h2>Fire Posture + Restrictions</h2>
       <p class="footer-note">{escape_html(fire_posture.get('headline', 'Fire-posture check not available.'))}</p>
@@ -4878,6 +5033,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     }
     report["forecast_intelligence"] = build_forecast_intelligence(report, forecast_history)
     report["ai_analysis"] = build_ai_analysis(report)
+    report["public_analysis_export"] = build_public_analysis_export(report)
     return report
 
 
@@ -4908,6 +5064,7 @@ def main() -> int:
             print(f"- {base / config['output']['latest_markdown']}")
             print(f"- {base / config['output']['latest_json']}")
             print(f"- {base / config['output']['latest_html']}")
+            print(f"- {public_analysis_export_path(config_path, config)}")
             print(f"- {base / config['output']['history_csv']}")
             print(f"- {analyst_review_packet_path(config_path, config)}")
             print(f"- {forecast_history_path(config_path, config)}")

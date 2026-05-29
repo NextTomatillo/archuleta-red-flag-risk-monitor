@@ -1032,7 +1032,7 @@
         <div class="hero-copy">
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 29, 2026 at 10:57 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 29, 2026 at 11:27 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -1058,7 +1058,7 @@
           </div>
           <div class="hero-status-time">
             <span>Next update</span>
-            <strong>Next update: May 29, 2026 at 11:57 AM MDT (Pagosa Springs, CO local time)</strong>
+            <strong>Next update: May 29, 2026 at 12:27 PM MDT (Pagosa Springs, CO local time)</strong>
           </div>
         </aside>
       </div>
@@ -1487,13 +1487,13 @@
     <section class="section-panel">
       <p class="eyebrow">Trend Intelligence</p>
       <h2>Trend + Change Detection</h2>
-      <p class="footer-note">Momentum is steady versus the prior run (May 29 at 10:17 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</p>
+      <p class="footer-note">Momentum is steady versus the prior run (May 29 at 10:57 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</p>
       <div class="trend-grid">
         
         <article class="trend-card trend-steady">
           <p class="eyebrow">Momentum</p>
           <strong>Steady</strong>
-          <span>Momentum is steady versus the prior run (May 29 at 10:17 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</span>
+          <span>Momentum is steady versus the prior run (May 29 at 10:57 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</span>
         </article>
         
         <article class="trend-card trend-low-0-100">
@@ -1508,9 +1508,9 @@
           <span>First WATCH-or-higher PSPS date remains Fri, May 29.</span>
         </article>
         
-        <article class="trend-card trend-may-29-at-10-17-am-mdt">
+        <article class="trend-card trend-may-29-at-10-57-am-mdt">
           <p class="eyebrow">Prior run</p>
-          <strong>May 29 at 10:17 AM MDT</strong>
+          <strong>May 29 at 10:57 AM MDT</strong>
           <span>Compared against the most recent prior forecast run in local history.</span>
         </article>
         
@@ -1521,6 +1521,52 @@
           <ul class="metrics"><li>First WATCH-or-higher PSPS date remains Fri, May 29.</li><li>No major day-level movement versus the prior run.</li></ul>
         </div>
       </div>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">Analysis Export</p>
+      <h2>Public Analysis Snapshot</h2>
+      <p class="footer-note">Highest LPEA PSPS concern is Fri, May 29 near Arboles / southwest county (LIKELY 100/100), driven by very strong wind/gust signal near 40 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.</p>
+      <div class="analysis-grid">
+        
+        <article class="analysis-card analysis-likely">
+          <p class="eyebrow">PSPS peak</p>
+          <h3>LIKELY</h3>
+          <p class="analysis-score">100/100</p>
+          <p class="source-meta">Fri, May 29 · Arboles / southwest county</p>
+          <p class="risk-window">1 PM-8 PM local; 8 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="analysis-card analysis-likely">
+          <p class="eyebrow">Red Flag peak</p>
+          <h3>LIKELY</h3>
+          <p class="analysis-score">100/100</p>
+          <p class="source-meta">Fri, May 29 · Ignacio / southeast La Plata County</p>
+          <p class="risk-window">12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+        <article class="analysis-card analysis-extreme">
+          <p class="eyebrow">Fire danger peak</p>
+          <h3>EXTREME</h3>
+          <p class="analysis-score">100/100</p>
+          <p class="source-meta">Fri, May 29 · Ignacio / southeast La Plata County</p>
+          <p class="risk-window">12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+        </article>
+        
+      </div>
+      <div class="review-grid">
+        <div class="review-box">
+          <h3>What to watch next</h3>
+          <ul class="metrics"><li>Check whether the largest day-level changes line up with wind/RH movement or public-source context.</li><li>Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.</li><li>Watch whether the highest-risk locations remain consistent across runs or the driver area is moving.</li><li>If a PSPS occurs, log the confirmed date, location, and source so future hit-rate scoring can improve.</li></ul>
+        </div>
+        <div class="review-box">
+          <h3>Method notes</h3>
+          <ul class="metrics"><li>Rules-based decision support using public weather, fire-posture, and LPEA source signals.</li><li>Scores are screening estimates, not statistically calibrated probabilities or official forecasts.</li><li>LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.</li></ul>
+        </div>
+      </div>
+      <p class="definition-links">
+        <a href="archuleta_red_flag_monitor/public_analysis_export.json" target="_blank" rel="noopener noreferrer">Public analysis JSON</a>
+      </p>
     </section>
 
     <section class="section-panel">

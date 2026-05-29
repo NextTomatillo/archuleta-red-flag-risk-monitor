@@ -13,6 +13,7 @@
     "latest_html": "latest.html",
     "latest_json": "latest.json",
     "latest_markdown": "latest.md",
+    "public_analysis_export_json": "public_analysis_export.json",
     "psps_event_log": "psps_events.json"
   },
   "thresholds": {

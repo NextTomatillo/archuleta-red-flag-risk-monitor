@@ -1,4 +1,5 @@
 import datetime as dt
+import json
 import sys
 import unittest
 from unittest import mock
@@ -411,6 +412,46 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(packet["headline"]["psps_likelihood"], "LIKELY")
         self.assertEqual(packet["forecast_intelligence"]["risk_momentum"], "Rising")
 
+    def test_public_analysis_export_is_public_safe_snapshot(self):
+        report = {
+            "generated_at_local": "2026-06-01T09:00:00-06:00",
+            "timezone": "America/Denver",
+            "local_time_name": "Pagosa Springs, CO",
+            "overall_tier": "HIGH",
+            "notify_recommended": True,
+            "psps": {"overall_level": "LIKELY"},
+            "forecast_intelligence": {
+                "summary": "Momentum is rising.",
+                "risk_momentum": "Rising",
+                "forecast_volatility": {"label": "MEDIUM", "score": 20},
+                "first_watch_or_likely_date": "2026-06-02",
+                "first_watch_shift": "First WATCH date moved earlier.",
+                "notable_changes": ["Overall PSPS likelihood changed."],
+                "review_cues": ["Watch driver area consistency."],
+            },
+            "ai_analysis": {
+                "summary": "Peak PSPS concern is Pagosa Springs.",
+                "confidence": {"label": "MEDIUM", "score": 70},
+                "top_psps": {
+                    "date": "2026-06-02",
+                    "location": "Pagosa Springs",
+                    "psps_level": "LIKELY",
+                    "psps_score": 80,
+                    "highest_risk_window": "1 PM-5 PM local.",
+                    "psps_drivers": ["dry wind"],
+                },
+                "top_red_flag": {"date": "2026-06-02", "location": "Pagosa Springs", "red_flag_likelihood": "LIKELY", "red_flag_score": 76},
+                "top_fire_danger": {"date": "2026-06-02", "location": "Pagosa Springs", "fire_danger_level": "VERY HIGH", "fire_danger_score": 82},
+                "notes": ["Rules-based decision support using public signals."],
+            },
+        }
+        export = monitor.build_public_analysis_export(report)
+        self.assertEqual(export["export_type"], "archuleta_red_flag_psps_public_analysis")
+        self.assertEqual(export["peaks"]["psps"]["location"], "Pagosa Springs")
+        self.assertEqual(export["trend"]["first_watch_or_likely_display"], "Tue, Jun 2")
+        self.assertIn("Watch driver area consistency.", export["watch_next"])
+        self.assertNotIn("Codex", json.dumps(export))
+
     def test_lpea_evidence_quality_labels_archived_items(self):
         lpea = {
             "active_signal_groups": [
@@ -684,6 +725,10 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Forecast Accuracy Scorecard", rendered)
         self.assertIn("Trend Intelligence", rendered)
         self.assertIn("Trend + Change Detection", rendered)
+        self.assertIn("Analysis Export", rendered)
+        self.assertIn("Public Analysis Snapshot", rendered)
+        self.assertIn("public_analysis_export.json", rendered)
+        self.assertNotIn("analyst_review_packet.json", rendered)
         self.assertNotIn("Codex", rendered)
         self.assertNotIn("subscription", rendered.lower())
         self.assertIn("Area-specific", rendered)
