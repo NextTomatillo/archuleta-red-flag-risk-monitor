@@ -13,7 +13,7 @@ Assume every tracked file and every generated Pages artifact is publicly downloa
 ## Do Not Commit
 
 - SMTP usernames, passwords, app passwords, API keys, GitHub tokens, or private keys.
-- `.env` files, local override configs, launchd/cron files, or Codex automation state.
+- `.env` files, local override configs, launchd/cron files, or local automation state.
 - Personal email addresses unless they are intentionally public.
 - Exact home address, street-level coordinates, or private location notes.
 - Manual PSPS-event notes that include private contacts, private property details, or non-public operational information.
