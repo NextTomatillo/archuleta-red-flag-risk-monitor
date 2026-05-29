@@ -205,6 +205,10 @@ def forecast_history_path(config_path: Path, config: Dict[str, Any]) -> Path:
     return output_path(config_path, config, "forecast_history_csv", "forecast_history.csv")
 
 
+def codex_review_packet_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "codex_review_packet_json", "codex_review_packet.json")
+
+
 def safe_int(value: Any, default: int = 0) -> int:
     try:
         return int(float(value))
@@ -1773,9 +1777,32 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
     if report.get("official_alerts", {}).get("monitored_zones"):
         confidence_score += 5
         confidence_reasons.append("official NWS alert zones checked")
-    if report.get("lpea", {}).get("active_hits"):
+    lpea = report.get("lpea", {})
+    lpea_sources = lpea.get("sources", [])
+    if lpea_sources:
+        reachable_lpea = sum(1 for source in lpea_sources if source.get("status") == "reachable")
+        lpea_ratio = reachable_lpea / max(1, len(lpea_sources))
+        if lpea_ratio >= 0.8:
+            confidence_score += 5
+            confidence_reasons.append(f"{reachable_lpea}/{len(lpea_sources)} LPEA public sources reachable")
+        else:
+            confidence_score -= 7
+            confidence_reasons.append(f"only {reachable_lpea}/{len(lpea_sources)} LPEA public sources reachable")
+    if lpea.get("active_hits"):
         confidence_score += 5
         confidence_reasons.append("LPEA active/update sources checked")
+    evidence_counts = lpea.get("evidence_quality", {}).get("counts", {})
+    if lpea.get("active_hits") and safe_int(evidence_counts.get("active")) == 0 and safe_int(evidence_counts.get("operational")) == 0:
+        confidence_score -= 5
+        confidence_reasons.append("LPEA matches are mostly archive/reference context")
+    forecast_intelligence = report.get("forecast_intelligence", {})
+    volatility_label_value = forecast_intelligence.get("forecast_volatility", {}).get("label")
+    if volatility_label_value == "HIGH":
+        confidence_score -= 8
+        confidence_reasons.append("forecast changed substantially versus prior run")
+    elif volatility_label_value == "MEDIUM":
+        confidence_score -= 3
+        confidence_reasons.append("forecast changed moderately versus prior run")
     if report.get("calibration", {}).get("confirmed_event_count", 0) == 0:
         confidence_score -= 8
         confidence_reasons.append("no confirmed PSPS events logged yet for calibration")
@@ -1807,6 +1834,7 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
         "notes": [
             "Rules-first AI-style analysis; no external model call is required.",
             "Scores are screening estimates, not statistically calibrated probabilities.",
+            "Trend intelligence comes from forecast_history.csv and does not require a paid model subscription.",
             "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.",
         ],
     }
@@ -1971,6 +1999,376 @@ def build_calibration_summary(
     }
 
 
+def forecast_history_runs(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    runs: List[Dict[str, Any]] = []
+    by_generated_at: Dict[str, Dict[str, Any]] = {}
+    for row in rows:
+        generated_at = row.get("generated_at") or "unknown"
+        if generated_at not in by_generated_at:
+            by_generated_at[generated_at] = {"generated_at": generated_at, "rows": []}
+            runs.append(by_generated_at[generated_at])
+        by_generated_at[generated_at]["rows"].append(row)
+    return runs
+
+
+def latest_previous_forecast_run(rows: List[Dict[str, Any]], current_generated_at: Optional[str]) -> Optional[Dict[str, Any]]:
+    runs = forecast_history_runs(rows)
+    if not runs:
+        return None
+    current_dt = parse_datetime(current_generated_at)
+    candidates = []
+    for run in runs:
+        generated_at = run.get("generated_at")
+        if generated_at == current_generated_at:
+            continue
+        run_dt = parse_datetime(generated_at)
+        if current_dt and run_dt and run_dt >= current_dt:
+            continue
+        candidates.append(run)
+    return candidates[-1] if candidates else None
+
+
+def ranked_max(current: str, candidate: str, ranks: Dict[str, int]) -> str:
+    if ranks.get(candidate, 0) > ranks.get(current, 0):
+        return candidate
+    return current
+
+
+def aggregate_forecast_rows(rows: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    aggregates: Dict[str, Dict[str, Any]] = {}
+    for row in rows:
+        date_key = row.get("date")
+        if not date_key:
+            continue
+        aggregate = aggregates.setdefault(
+            date_key,
+            {
+                "date": date_key,
+                "best_psps_level": "LOW",
+                "max_weather_score": None,
+                "top_location": None,
+                "min_rh_percent": None,
+                "max_wind_mph": None,
+                "max_thunder_percent": None,
+                "max_red_flag_hours": 0,
+                "max_near_hours": 0,
+                "fire_weather_tier": "GREEN",
+                "lpea_signal_level": row.get("lpea_signal_level", "none"),
+                "official_fire_alert_count": safe_int(row.get("official_fire_alert_count")),
+                "max_fire_restriction_stage": row.get("max_fire_restriction_stage", "UNKNOWN") or "UNKNOWN",
+                "max_fire_danger": row.get("max_fire_danger", "UNKNOWN") or "UNKNOWN",
+            },
+        )
+        level = row.get("psps_level", "LOW") or "LOW"
+        score = safe_float(row.get("weather_score"))
+        aggregate["best_psps_level"] = ranked_max(aggregate["best_psps_level"], level, PSPS_RANK)
+        aggregate["fire_weather_tier"] = ranked_max(aggregate["fire_weather_tier"], row.get("fire_weather_tier", "GREEN") or "GREEN", TIER_RANK)
+        if score is not None and (aggregate["max_weather_score"] is None or score > aggregate["max_weather_score"]):
+            aggregate["max_weather_score"] = score
+            aggregate["top_location"] = row.get("location")
+        rh = safe_float(row.get("min_rh_percent"))
+        if rh is not None and (aggregate["min_rh_percent"] is None or rh < aggregate["min_rh_percent"]):
+            aggregate["min_rh_percent"] = rh
+        wind = safe_float(row.get("max_wind_mph"))
+        if wind is not None and (aggregate["max_wind_mph"] is None or wind > aggregate["max_wind_mph"]):
+            aggregate["max_wind_mph"] = wind
+        thunder = safe_float(row.get("max_thunder_percent"))
+        if thunder is not None and (aggregate["max_thunder_percent"] is None or thunder > aggregate["max_thunder_percent"]):
+            aggregate["max_thunder_percent"] = thunder
+        aggregate["max_red_flag_hours"] = max(aggregate["max_red_flag_hours"], safe_int(row.get("red_flag_hours")))
+        aggregate["max_near_hours"] = max(aggregate["max_near_hours"], safe_int(row.get("near_hours")))
+        aggregate["official_fire_alert_count"] = max(aggregate["official_fire_alert_count"], safe_int(row.get("official_fire_alert_count")))
+        aggregate["max_fire_restriction_stage"] = ranked_max(
+            aggregate["max_fire_restriction_stage"],
+            row.get("max_fire_restriction_stage", "UNKNOWN") or "UNKNOWN",
+            FIRE_RESTRICTION_RANK,
+        )
+        aggregate["max_fire_danger"] = ranked_max(
+            aggregate["max_fire_danger"],
+            row.get("max_fire_danger", "UNKNOWN") or "UNKNOWN",
+            FIRE_DANGER_RANK,
+        )
+    return aggregates
+
+
+def first_watch_or_likely_date(aggregates: Dict[str, Dict[str, Any]]) -> Optional[str]:
+    watch_dates = [
+        date_key
+        for date_key, aggregate in aggregates.items()
+        if PSPS_RANK.get(aggregate.get("best_psps_level", "LOW"), 0) >= PSPS_RANK["WATCH"]
+    ]
+    return min(watch_dates) if watch_dates else None
+
+
+def change_label(
+    level_delta: int,
+    score_delta: Optional[float],
+    wind_delta: Optional[float],
+    rh_delta: Optional[float],
+    red_flag_delta: Optional[float],
+) -> str:
+    worsening = (
+        level_delta > 0
+        or (score_delta is not None and score_delta >= 8)
+        or (wind_delta is not None and wind_delta >= 5)
+        or (rh_delta is not None and rh_delta <= -4)
+        or (red_flag_delta is not None and red_flag_delta >= 2)
+    )
+    easing = (
+        level_delta < 0
+        or (score_delta is not None and score_delta <= -8)
+        or (wind_delta is not None and wind_delta <= -5)
+        or (rh_delta is not None and rh_delta >= 4)
+        or (red_flag_delta is not None and red_flag_delta <= -2)
+    )
+    if worsening and easing:
+        return "Mixed"
+    if worsening:
+        return "Worsening"
+    if easing:
+        return "Easing"
+    return "Steady"
+
+
+def change_severity(change: Dict[str, Any]) -> float:
+    return (
+        abs(safe_float(change.get("score_delta")) or 0)
+        + abs(safe_float(change.get("wind_delta_mph")) or 0)
+        + abs(safe_float(change.get("rh_delta_percent")) or 0)
+        + abs(safe_float(change.get("red_flag_hours_delta")) or 0) * 4
+        + abs(safe_int(change.get("level_rank_delta"))) * 12
+    )
+
+
+def day_change_summary(current: Dict[str, Any], previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    if previous is None:
+        return {
+            "date": current["date"],
+            "display_date": format_display_date(current["date"]),
+            "label": "New date",
+            "summary": (
+                f"{format_display_date(current['date'])}: new forecast-window date at "
+                f"{current.get('best_psps_level', 'LOW')} {format_metric(current.get('max_weather_score'))}/100."
+            ),
+            "level_rank_delta": None,
+            "score_delta": None,
+            "wind_delta_mph": None,
+            "rh_delta_percent": None,
+            "red_flag_hours_delta": None,
+            "current": current,
+            "previous": None,
+        }
+    level_delta = PSPS_RANK.get(current.get("best_psps_level", "LOW"), 0) - PSPS_RANK.get(previous.get("best_psps_level", "LOW"), 0)
+    score_delta = metric_delta(safe_float(current.get("max_weather_score")), safe_float(previous.get("max_weather_score")))
+    wind_delta = metric_delta(safe_float(current.get("max_wind_mph")), safe_float(previous.get("max_wind_mph")))
+    rh_delta = metric_delta(safe_float(current.get("min_rh_percent")), safe_float(previous.get("min_rh_percent")))
+    red_flag_delta = metric_delta(safe_float(current.get("max_red_flag_hours")), safe_float(previous.get("max_red_flag_hours")))
+    label = change_label(level_delta, score_delta, wind_delta, rh_delta, red_flag_delta)
+    level_text = f"{previous.get('best_psps_level', 'LOW')} -> {current.get('best_psps_level', 'LOW')}"
+    summary = (
+        f"{format_display_date(current['date'])}: {label.lower()} vs prior run; PSPS {level_text}; "
+        f"score {signed_metric(score_delta)}, wind {signed_metric(wind_delta, ' mph')}, "
+        f"RH {signed_metric(rh_delta, '%')}, red-flag hours {signed_metric(red_flag_delta)}."
+    )
+    if current.get("top_location") and current.get("top_location") != previous.get("top_location"):
+        summary += f" Driver shifted to {current['top_location']}."
+    return {
+        "date": current["date"],
+        "display_date": format_display_date(current["date"]),
+        "label": label,
+        "summary": summary,
+        "level_rank_delta": level_delta,
+        "score_delta": score_delta,
+        "wind_delta_mph": wind_delta,
+        "rh_delta_percent": rh_delta,
+        "red_flag_hours_delta": red_flag_delta,
+        "current": current,
+        "previous": previous,
+    }
+
+
+def first_watch_shift_summary(current_date: Optional[str], previous_date: Optional[str]) -> str:
+    if not current_date and not previous_date:
+        return "No WATCH-or-higher PSPS dates in current or prior run."
+    if current_date and not previous_date:
+        return f"First WATCH-or-higher PSPS date appeared at {format_display_date(current_date)}."
+    if not current_date and previous_date:
+        return f"Prior WATCH-or-higher PSPS date {format_display_date(previous_date)} dropped below WATCH."
+    if current_date == previous_date:
+        return f"First WATCH-or-higher PSPS date remains {format_display_date(current_date or '')}."
+    if current_date and previous_date and current_date < previous_date:
+        return f"First WATCH-or-higher PSPS date moved earlier from {format_display_date(previous_date)} to {format_display_date(current_date)}."
+    return f"First WATCH-or-higher PSPS date moved later from {format_display_date(previous_date or '')} to {format_display_date(current_date or '')}."
+
+
+def volatility_label(score: int) -> str:
+    if score >= 30:
+        return "HIGH"
+    if score >= 12:
+        return "MEDIUM"
+    return "LOW"
+
+
+def build_forecast_intelligence(report: Dict[str, Any], forecast_history: List[Dict[str, Any]]) -> Dict[str, Any]:
+    previous_run = latest_previous_forecast_run(forecast_history, report.get("generated_at_local") or report.get("generated_at"))
+    current_rows = forecast_history_rows(report)
+    current_by_date = aggregate_forecast_rows(current_rows)
+    current_first_watch = first_watch_or_likely_date(current_by_date)
+    current_overall = report.get("psps", {}).get("overall_level", "LOW")
+
+    if not previous_run:
+        questions = [
+            "After the next run, compare which days and locations moved most versus this baseline.",
+            "If LPEA initiates a PSPS, add a confirmed event to the manual event log so calibration can begin.",
+        ]
+        return {
+            "status": "baseline",
+            "summary": "No prior forecast run is available for comparison; this run becomes the trend baseline.",
+            "previous_run_at": None,
+            "risk_momentum": "Building baseline",
+            "forecast_volatility": {"label": "LOW", "score": 0, "max_score_delta": 0, "changed_day_count": 0},
+            "first_watch_or_likely_date": current_first_watch,
+            "first_watch_shift": first_watch_shift_summary(current_first_watch, None),
+            "day_changes": [day_change_summary(current_by_date[date_key], None) for date_key in sorted(current_by_date)],
+            "notable_changes": ["No previous forecast run available yet; trend intelligence will sharpen after the next scheduled run."],
+            "review_questions": questions,
+        }
+
+    previous_by_date = aggregate_forecast_rows(previous_run.get("rows", []))
+    previous_first_watch = first_watch_or_likely_date(previous_by_date)
+    previous_overall = max(
+        (aggregate.get("best_psps_level", "LOW") for aggregate in previous_by_date.values()),
+        key=lambda level: PSPS_RANK.get(level, 0),
+        default="LOW",
+    )
+    day_changes = [
+        day_change_summary(current_by_date[date_key], previous_by_date.get(date_key))
+        for date_key in sorted(current_by_date)
+    ]
+    changed_days = [
+        change
+        for change in day_changes
+        if change["label"] in {"Worsening", "Easing", "Mixed"}
+    ]
+    max_score_delta = max((abs(safe_float(change.get("score_delta")) or 0) for change in day_changes), default=0)
+    max_level_delta = max((abs(safe_int(change.get("level_rank_delta"))) for change in day_changes), default=0)
+    volatility_score = clamp_score(max_score_delta + (len(changed_days) * 5) + (max_level_delta * 12))
+    overall_delta = PSPS_RANK.get(current_overall, 0) - PSPS_RANK.get(previous_overall, 0)
+    worsening_count = sum(1 for change in day_changes if change["label"] == "Worsening")
+    easing_count = sum(1 for change in day_changes if change["label"] == "Easing")
+    if overall_delta > 0 or worsening_count > easing_count:
+        momentum = "Rising"
+    elif overall_delta < 0 or easing_count > worsening_count:
+        momentum = "Easing"
+    else:
+        momentum = "Steady"
+
+    notable_changes = [first_watch_shift_summary(current_first_watch, previous_first_watch)]
+    if current_overall != previous_overall:
+        notable_changes.append(f"Overall PSPS likelihood changed from {previous_overall} to {current_overall}.")
+    for change in sorted(changed_days, key=change_severity, reverse=True)[:4]:
+        notable_changes.append(change["summary"])
+    if len(notable_changes) == 1:
+        notable_changes.append("No major day-level movement versus the prior run.")
+
+    review_questions = [
+        "Do the biggest day-level changes line up with wind/RH movement, or are they mostly public-source context?",
+        "Are the highest-risk locations consistent across runs, or is the driver area moving around?",
+        "If a PSPS occurs, add the confirmed date/location/source so future false-watch and hit-rate scoring can improve.",
+    ]
+    lpea = report.get("lpea", {})
+    if lpea.get("active_hits") and not any("outage" in " ".join(group.get("source_names", [])).lower() for group in lpea.get("active_signal_groups", [])):
+        review_questions.insert(1, "Review whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.")
+
+    summary = (
+        f"Momentum is {momentum.lower()} versus the prior run ({format_generated_label(previous_run.get('generated_at'))}); "
+        f"forecast volatility is {volatility_label(volatility_score).lower()} and first WATCH-or-higher date is "
+        f"{format_display_date(current_first_watch) if current_first_watch else 'not present'}."
+    )
+    return {
+        "status": "compared",
+        "summary": summary,
+        "previous_run_at": previous_run.get("generated_at"),
+        "previous_run_label": format_generated_label(previous_run.get("generated_at")),
+        "previous_overall_psps_level": previous_overall,
+        "current_overall_psps_level": current_overall,
+        "risk_momentum": momentum,
+        "forecast_volatility": {
+            "label": volatility_label(volatility_score),
+            "score": volatility_score,
+            "max_score_delta": max_score_delta,
+            "changed_day_count": len(changed_days),
+        },
+        "first_watch_or_likely_date": current_first_watch,
+        "previous_first_watch_or_likely_date": previous_first_watch,
+        "first_watch_shift": first_watch_shift_summary(current_first_watch, previous_first_watch),
+        "day_changes": day_changes,
+        "notable_changes": notable_changes[:6],
+        "review_questions": review_questions,
+    }
+
+
+def build_codex_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
+    analysis = report.get("ai_analysis", {})
+    intelligence = report.get("forecast_intelligence", {})
+    psps = report.get("psps", {})
+    return {
+        "packet_type": "archuleta_red_flag_psps_codex_review",
+        "generated_at": report.get("generated_at_local") or report.get("generated_at"),
+        "timezone": report.get("timezone"),
+        "local_time_name": report.get("local_time_name"),
+        "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
+        "how_to_use": "Paste or reference this packet in Codex when you want a manual no-subscription review of the latest PSPS prediction evidence.",
+        "headline": {
+            "overall_tier": report.get("overall_tier"),
+            "psps_likelihood": psps.get("overall_level"),
+            "ai_summary": analysis.get("summary"),
+            "trend_summary": intelligence.get("summary"),
+            "notify_recommended": report.get("notify_recommended"),
+        },
+        "forecast_intelligence": {
+            "risk_momentum": intelligence.get("risk_momentum"),
+            "forecast_volatility": intelligence.get("forecast_volatility"),
+            "first_watch_shift": intelligence.get("first_watch_shift"),
+            "notable_changes": intelligence.get("notable_changes", []),
+            "review_questions": intelligence.get("review_questions", []),
+            "day_changes": intelligence.get("day_changes", [])[:7],
+        },
+        "ai_decision_support": {
+            "confidence": analysis.get("confidence"),
+            "top_fire_danger": analysis.get("top_fire_danger"),
+            "top_red_flag": analysis.get("top_red_flag"),
+            "top_psps": analysis.get("top_psps"),
+            "notes": analysis.get("notes", []),
+        },
+        "psps_days": psps.get("days", []),
+        "official_alerts": report.get("official_alerts", {}),
+        "lpea": {
+            "status": report.get("lpea", {}).get("status"),
+            "headline": report.get("lpea", {}).get("headline"),
+            "evidence_quality": report.get("lpea", {}).get("evidence_quality"),
+            "active_signal_groups": report.get("lpea", {}).get("active_signal_groups", [])[:6],
+            "source_statuses": [
+                {
+                    "name": source.get("name"),
+                    "type": source.get("type"),
+                    "status": source.get("status"),
+                    "matches": source.get("matches", []),
+                }
+                for source in report.get("lpea", {}).get("sources", [])
+            ],
+        },
+        "fire_posture": {
+            "headline": report.get("fire_posture", {}).get("headline"),
+            "max_restriction_stage": report.get("fire_posture", {}).get("max_restriction_stage"),
+            "max_fire_danger": report.get("fire_posture", {}).get("max_fire_danger"),
+            "reachable_source_count": report.get("fire_posture", {}).get("reachable_source_count"),
+            "source_count": report.get("fire_posture", {}).get("source_count"),
+        },
+        "calibration": report.get("calibration", {}),
+    }
+
+
 def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
     rows = []
     official_count = report.get("official_alerts", {}).get("fire_alert_count", 0)
@@ -2056,10 +2454,12 @@ def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, A
     history_csv = base / output["history_csv"]
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
+    review_packet_json = codex_review_packet_path(config_path, config)
 
     latest_json.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     latest_md.write_text(render_markdown(report), encoding="utf-8")
     latest_html.write_text(render_html(report), encoding="utf-8")
+    review_packet_json.write_text(json.dumps(report.get("codex_review_packet", {}), indent=2, sort_keys=True), encoding="utf-8")
     ensure_psps_event_log(psps_events_path)
     append_forecast_history(report, forecast_csv)
 
@@ -2147,6 +2547,20 @@ def format_next_update_at(report: Dict[str, Any]) -> str:
     if not raw_value:
         return "Not scheduled"
     return format_local_datetime(raw_value, report)
+
+
+def format_generated_label(raw_value: Optional[str], timezone_name: str = "America/Denver") -> str:
+    if not raw_value:
+        return "unknown time"
+    try:
+        parsed = dt.datetime.fromisoformat(raw_value)
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=ZoneInfo(timezone_name))
+        parsed = parsed.astimezone(ZoneInfo(timezone_name))
+    except (ValueError, TypeError, ZoneInfoNotFoundError):
+        return str(raw_value)
+    hour = parsed.strftime("%I").lstrip("0") or "0"
+    return f"{parsed.strftime('%b')} {parsed.day} at {hour}:{parsed.strftime('%M %p')} {parsed.tzname() or ''}".strip()
 
 
 def format_local_datetime(raw_value: str, report: Dict[str, Any]) -> str:
@@ -2654,6 +3068,30 @@ def render_ai_analysis_markdown(report: Dict[str, Any]) -> List[str]:
     return lines
 
 
+def render_forecast_intelligence_markdown(report: Dict[str, Any]) -> List[str]:
+    intelligence = report.get("forecast_intelligence", {})
+    volatility = intelligence.get("forecast_volatility", {})
+    lines = [
+        "## Trend Intelligence",
+        "",
+        f"- Summary: {intelligence.get('summary', 'Trend intelligence unavailable.')}",
+        f"- Momentum: **{intelligence.get('risk_momentum', 'Unknown')}**",
+        f"- Forecast volatility: **{volatility.get('label', 'UNKNOWN')}** ({volatility.get('score', 'n/a')}/100)",
+        f"- First WATCH-or-higher PSPS date: {format_display_date(intelligence.get('first_watch_or_likely_date', '')) if intelligence.get('first_watch_or_likely_date') else 'None'}",
+        f"- Watch-date movement: {intelligence.get('first_watch_shift', 'No prior comparison available.')}",
+        "- No-subscription method: compares current forecast evidence against prior local forecast history; no OpenAI API call required.",
+        "",
+        "Notable changes:",
+    ]
+    for change in intelligence.get("notable_changes", [])[:6]:
+        lines.append(f"- {change}")
+    lines.extend(["", "Codex review prompts:"])
+    for question in intelligence.get("review_questions", [])[:5]:
+        lines.append(f"- {question}")
+    lines.append("- Review packet: `archuleta_red_flag_monitor/codex_review_packet.json`")
+    return lines
+
+
 def render_fire_posture_markdown(report: Dict[str, Any]) -> List[str]:
     posture = report.get("fire_posture", {})
     lines = [
@@ -2708,6 +3146,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         f"- NWS discussion: {report['discussion']['headline']}",
         "",
         *render_ai_analysis_markdown(report),
+        "",
+        *render_forecast_intelligence_markdown(report),
         "",
         *render_psps_markdown(report),
         "",
@@ -2984,6 +3424,48 @@ def render_html(report: Dict[str, Any]) -> str:
         f"<li>{escape_html(note)}</li>"
         for note in analysis.get("notes", [])
     )
+    intelligence = report.get("forecast_intelligence", {})
+    volatility = intelligence.get("forecast_volatility", {})
+    trend_cards = [
+        {
+            "label": "Momentum",
+            "value": intelligence.get("risk_momentum", "Unknown"),
+            "note": intelligence.get("summary", "Trend intelligence unavailable."),
+        },
+        {
+            "label": "Forecast volatility",
+            "value": f"{volatility.get('label', 'UNKNOWN')} {volatility.get('score', 'n/a')}/100",
+            "note": f"{volatility.get('changed_day_count', 0)} changed days; max score delta {format_metric(volatility.get('max_score_delta'))}.",
+        },
+        {
+            "label": "First WATCH+ date",
+            "value": format_display_date(intelligence.get("first_watch_or_likely_date", "")) if intelligence.get("first_watch_or_likely_date") else "None",
+            "note": intelligence.get("first_watch_shift", "No prior comparison available."),
+        },
+        {
+            "label": "Prior run",
+            "value": intelligence.get("previous_run_label") or "Baseline",
+            "note": "Compared against the most recent prior forecast run in local history.",
+        },
+    ]
+    trend_cards_html = "".join(
+        f"""
+        <article class="trend-card trend-{escape_html(class_slug(card['value']))}">
+          <p class="eyebrow">{escape_html(card['label'])}</p>
+          <strong>{escape_html(str(card['value']))}</strong>
+          <span>{escape_html(card['note'])}</span>
+        </article>
+        """
+        for card in trend_cards
+    )
+    notable_changes_html = "".join(
+        f"<li>{escape_html(change)}</li>"
+        for change in intelligence.get("notable_changes", [])[:6]
+    ) or "<li>No prior comparison available yet.</li>"
+    review_questions_html = "".join(
+        f"<li>{escape_html(question)}</li>"
+        for question in intelligence.get("review_questions", [])[:5]
+    ) or "<li>Trend review prompts will appear after the next run.</li>"
     calibration = report.get("calibration", {})
     calibration_cards_html = f"""
         <article class="calibration-card">
@@ -3774,6 +4256,63 @@ def render_html(report: Dict[str, Any]) -> str:
       margin-top: 16px;
       overflow-x: auto;
     }}
+    .trend-grid {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }}
+    .trend-card {{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(203, 90, 27, 0.1), transparent 34%),
+        rgba(255, 255, 255, 0.68);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }}
+    .trend-card strong {{
+      display: block;
+      font-size: 1.25rem;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }}
+    .trend-card span {{
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.28;
+    }}
+    .review-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }}
+    .review-box {{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(29, 42, 42, 0.045);
+      padding: 14px;
+    }}
+    .review-box h3 {{
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }}
+    .packet-link {{
+      display: inline-flex;
+      margin-top: 14px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(29, 42, 42, 0.08);
+      color: var(--ink);
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }}
     .risk-window {{
       margin: 10px 0 0;
       padding-top: 10px;
@@ -4029,6 +4568,10 @@ def render_html(report: Dict[str, Any]) -> str:
       .analysis-grid {{
         grid-template-columns: 1fr;
       }}
+      .trend-grid,
+      .review-grid {{
+        grid-template-columns: 1fr;
+      }}
       .risk-strip {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .source-meta {{ font-size: 0.92rem; }}
       .audit-summary {{ align-items: start; flex-direction: column; }}
@@ -4152,6 +4695,26 @@ def render_html(report: Dict[str, Any]) -> str:
       </div>
       <p class="footer-note">Method notes:</p>
       <ul class="metrics">{analysis_notes_html}</ul>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">No-Subscription Intelligence</p>
+      <h2>Trend + Change Detection</h2>
+      <p class="footer-note">{escape_html(intelligence.get('summary', 'Trend intelligence unavailable.'))}</p>
+      <div class="trend-grid">
+        {trend_cards_html}
+      </div>
+      <div class="review-grid">
+        <div class="review-box">
+          <h3>What changed</h3>
+          <ul class="metrics">{notable_changes_html}</ul>
+        </div>
+        <div class="review-box">
+          <h3>Codex review prompts</h3>
+          <ul class="metrics">{review_questions_html}</ul>
+        </div>
+      </div>
+      <a class="packet-link" href="archuleta_red_flag_monitor/codex_review_packet.json">Codex review packet</a>
     </section>
 
     <section class="section-panel">
@@ -4301,9 +4864,10 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     history_path = config_path.resolve().parent / config["output"]["history_csv"]
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
+    forecast_history = load_forecast_history(forecast_csv)
     calibration = build_calibration_summary(
         load_psps_events(psps_events_path),
-        load_forecast_history(forecast_csv),
+        forecast_history,
         psps,
         now_local.date(),
         psps_events_path,
@@ -4339,7 +4903,9 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "days": days,
         "points": point_results,
     }
+    report["forecast_intelligence"] = build_forecast_intelligence(report, forecast_history)
     report["ai_analysis"] = build_ai_analysis(report)
+    report["codex_review_packet"] = build_codex_review_packet(report)
     return report
 
 
@@ -4371,6 +4937,7 @@ def main() -> int:
             print(f"- {base / config['output']['latest_json']}")
             print(f"- {base / config['output']['latest_html']}")
             print(f"- {base / config['output']['history_csv']}")
+            print(f"- {codex_review_packet_path(config_path, config)}")
             print(f"- {forecast_history_path(config_path, config)}")
             print(f"- {event_log_path(config_path, config)}")
     return 0

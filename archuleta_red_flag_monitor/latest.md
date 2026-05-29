@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 29, 2026 at 9:24 AM MDT (Pagosa Springs, CO local time)
-Next update: May 29, 2026 at 10:24 AM MDT (Pagosa Springs, CO local time)
+Generated: May 29, 2026 at 10:17 AM MDT (Pagosa Springs, CO local time)
+Next update: May 29, 2026 at 11:17 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -23,7 +23,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## AI Decision Support
 
 - Summary: Highest LPEA PSPS concern is Fri, May 29 near Arboles / southwest county (LIKELY 100/100), driven by very strong wind/gust signal near 40 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.
-- Confidence: **MEDIUM** (72/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
 - Fire danger peak: Fri, May 29: Ignacio / southeast La Plata County EXTREME 100/100
 - Red Flag likelihood peak: Fri, May 29: Ignacio / southeast La Plata County LIKELY 100/100
 - LPEA PSPS peak: Fri, May 29: Arboles / southwest county LIKELY 100/100
@@ -38,6 +38,26 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 | Tue, Jun 2 | Bayfield / east La Plata County: VERY HIGH 82/100 | Bayfield / east La Plata County: WATCH 74/100 | Bayfield / east La Plata County: LIKELY 85/100 | 2 PM-7 PM local; 6 near/red-flag threshold hours. |
 | Wed, Jun 3 | Arboles / southwest county: HIGH 63/100 | Arboles / southwest county: POSSIBLE 50/100 | Ignacio / southeast La Plata County: WATCH 52/100 | 5 PM-5 PM local; 1 near/red-flag threshold hour. |
 | Thu, Jun 4 | Ignacio / southeast La Plata County: VERY HIGH 71/100 | Ignacio / southeast La Plata County: WATCH 55/100 | Ignacio / southeast La Plata County: LIKELY 68/100 | 4 PM-6 PM local; 3 near/red-flag threshold hours. |
+
+## Trend Intelligence
+
+- Summary: Momentum is steady versus the prior run (May 29 at 9:24 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
+- First WATCH-or-higher PSPS date: Fri, May 29
+- Watch-date movement: First WATCH-or-higher PSPS date remains Fri, May 29.
+- No-subscription method: compares current forecast evidence against prior local forecast history; no OpenAI API call required.
+
+Notable changes:
+- First WATCH-or-higher PSPS date remains Fri, May 29.
+- No major day-level movement versus the prior run.
+
+Codex review prompts:
+- Do the biggest day-level changes line up with wind/RH movement, or are they mostly public-source context?
+- Review whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.
+- Are the highest-risk locations consistent across runs, or is the driver area moving around?
+- If a PSPS occurs, add the confirmed date/location/source so future false-watch and hit-rate scoring can improve.
+- Review packet: `archuleta_red_flag_monitor/codex_review_packet.json`
 
 ## PSPS Likelihood
 

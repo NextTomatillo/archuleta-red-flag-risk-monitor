@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 PACKAGE_FILES = [
     "README.md",
     "config.json",
+    "codex_review_packet.json",
     "forecast_history.csv",
     "latest.html",
     "latest.json",

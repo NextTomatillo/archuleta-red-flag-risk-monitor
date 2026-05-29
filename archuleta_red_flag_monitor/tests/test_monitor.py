@@ -315,6 +315,102 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(summary["false_watch_day_count"], 1)
         self.assertEqual(summary["pending_watch_dates"], ["2026-06-03"])
 
+    def test_forecast_intelligence_detects_worsening_prior_run(self):
+        report = {
+            "generated_at_local": "2026-06-01T09:00:00-06:00",
+            "overall_tier": "HIGH",
+            "notify_recommended": True,
+            "psps": {
+                "overall_level": "LIKELY",
+                "days": [
+                    {
+                        "date": "2026-06-01",
+                        "level": "LIKELY",
+                        "weather_score": 75,
+                        "fire_weather_tier": "HIGH",
+                        "location_scores": [
+                            {
+                                "name": "Pagosa Springs",
+                                "level": "LIKELY",
+                                "score": 75,
+                                "fire_weather_tier": "HIGH",
+                                "highest_risk_window": "1 PM-5 PM local.",
+                                "metrics": {
+                                    "min_rh_percent": 12,
+                                    "max_usable_wind_mph": 31,
+                                    "max_thunder_percent": 4,
+                                    "max_red_flag_hours": 3,
+                                    "max_near_hours": 5,
+                                },
+                            }
+                        ],
+                    }
+                ],
+            },
+            "lpea": {"active_hits": [], "active_signal_groups": [], "sources": []},
+            "fire_posture": {"max_restriction_stage": "STAGE 1", "max_fire_danger": "VERY HIGH"},
+            "official_alerts": {"fire_alert_count": 0},
+            "calibration": {"confirmed_event_count": 0},
+        }
+        history = [
+            {
+                "generated_at": "2026-06-01T07:00:00-06:00",
+                "date": "2026-06-01",
+                "location": "Pagosa Springs",
+                "psps_level": "WATCH",
+                "weather_score": "55",
+                "fire_weather_tier": "CONCERN",
+                "min_rh_percent": "17",
+                "max_wind_mph": "22",
+                "max_thunder_percent": "3",
+                "red_flag_hours": "0",
+                "near_hours": "3",
+                "highest_risk_window": "2 PM-4 PM local.",
+                "overall_psps_level": "WATCH",
+                "lpea_signal_level": "none",
+                "official_fire_alert_count": "0",
+                "max_fire_restriction_stage": "STAGE 1",
+                "max_fire_danger": "VERY HIGH",
+            }
+        ]
+        intelligence = monitor.build_forecast_intelligence(report, history)
+        self.assertEqual(intelligence["status"], "compared")
+        self.assertEqual(intelligence["risk_momentum"], "Rising")
+        self.assertEqual(intelligence["day_changes"][0]["label"], "Worsening")
+        self.assertIn("Overall PSPS likelihood changed from WATCH to LIKELY", " ".join(intelligence["notable_changes"]))
+
+    def test_codex_review_packet_is_compact_evidence_bundle(self):
+        report = {
+            "generated_at_local": "2026-06-01T09:00:00-06:00",
+            "timezone": "America/Denver",
+            "local_time_name": "Pagosa Springs, CO",
+            "overall_tier": "HIGH",
+            "notify_recommended": True,
+            "psps": {"overall_level": "LIKELY", "days": []},
+            "forecast_intelligence": {
+                "summary": "Momentum is rising.",
+                "risk_momentum": "Rising",
+                "forecast_volatility": {"label": "MEDIUM", "score": 20},
+                "first_watch_shift": "First WATCH date unchanged.",
+                "notable_changes": ["Overall PSPS likelihood changed."],
+                "review_questions": ["Review LPEA language."],
+            },
+            "ai_analysis": {
+                "summary": "Peak PSPS concern is Pagosa Springs.",
+                "confidence": {"label": "MEDIUM", "score": 70},
+                "top_psps": {"location": "Pagosa Springs"},
+            },
+            "official_alerts": {"fire_alert_count": 0},
+            "lpea": {"status": "active_keyword_match", "headline": "Active match.", "sources": []},
+            "fire_posture": {"headline": "Stage 1.", "source_count": 1, "reachable_source_count": 1},
+            "calibration": {"confirmed_event_count": 0},
+        }
+        packet = monitor.build_codex_review_packet(report)
+        self.assertEqual(packet["packet_type"], "archuleta_red_flag_psps_codex_review")
+        self.assertIn("no-subscription", packet["how_to_use"])
+        self.assertEqual(packet["headline"]["psps_likelihood"], "LIKELY")
+        self.assertEqual(packet["forecast_intelligence"]["risk_momentum"], "Rising")
+
     def test_lpea_evidence_quality_labels_archived_items(self):
         lpea = {
             "active_signal_groups": [
@@ -586,6 +682,9 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("<small>Jun 1</small>", rendered)
         self.assertIn("day-card tier-high", rendered)
         self.assertIn("Forecast Accuracy Scorecard", rendered)
+        self.assertIn("No-Subscription Intelligence", rendered)
+        self.assertIn("Trend + Change Detection", rendered)
+        self.assertIn("Codex review packet", rendered)
         self.assertIn("Area-specific", rendered)
         self.assertIn("Highest-risk window", rendered)
         self.assertIn("Evidence quality", rendered)
