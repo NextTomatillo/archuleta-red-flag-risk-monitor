@@ -13,7 +13,7 @@ Outputs are written beside the script:
 - `latest.md`
 - `latest.html`
 - `latest.json`
-- `codex_review_packet.json`
+- `analyst_review_packet.json` (local/private review artifact)
 - `history.csv`
 - `forecast_history.csv`
 - `psps_events.json`
@@ -21,7 +21,7 @@ Outputs are written beside the script:
 The Markdown report now starts with an `At A Glance` section that groups `HIGH`, `CONCERN`, and `ELEVATED` dates plus the notification decision and signal status.
 The HTML dashboard provides the same information in a one-page visual layout with colored tier chips and a 7-day risk strip.
 
-The dashboard also includes a no-subscription intelligence layer. It compares the current forecast against `forecast_history.csv`, reports whether risk is rising/easing/steady, flags forecast volatility, tracks the first WATCH-or-higher PSPS date, and writes `codex_review_packet.json` for manual Codex review. This uses local rules and history only; it does not call the OpenAI API.
+The dashboard also includes a trend-intelligence layer. It compares the current forecast against `forecast_history.csv`, reports whether risk is rising/easing/steady, flags forecast volatility, and tracks the first WATCH-or-higher PSPS date. A local analyst review packet is also written for private/manual review.
 
 When LPEA confirms a real PSPS event, add the date, affected location, source URL, and summary to `psps_events.json`. Confirmed events are used to calibrate future hit-rate and false-watch scoring.
 

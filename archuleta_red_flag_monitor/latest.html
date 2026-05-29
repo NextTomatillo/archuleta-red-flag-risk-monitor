@@ -746,7 +746,7 @@
     }
     .review-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 14px;
       margin-top: 16px;
     }
@@ -759,19 +759,6 @@
     .review-box h3 {
       margin-bottom: 10px;
       font-size: 1.05rem;
-    }
-    .packet-link {
-      display: inline-flex;
-      margin-top: 14px;
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: rgba(29, 42, 42, 0.08);
-      color: var(--ink);
-      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      text-transform: uppercase;
     }
     .risk-window {
       margin: 10px 0 0;
@@ -1045,7 +1032,7 @@
         <div class="hero-copy">
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 29, 2026 at 10:17 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 29, 2026 at 10:57 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -1071,7 +1058,7 @@
           </div>
           <div class="hero-status-time">
             <span>Next update</span>
-            <strong>Next update: May 29, 2026 at 11:17 AM MDT (Pagosa Springs, CO local time)</strong>
+            <strong>Next update: May 29, 2026 at 11:57 AM MDT (Pagosa Springs, CO local time)</strong>
           </div>
         </aside>
       </div>
@@ -1384,7 +1371,7 @@
     </section>
 
     <section class="section-panel">
-      <p class="eyebrow">AI Decision Support</p>
+      <p class="eyebrow">Decision Support</p>
       <h2>Fire + Red Flag + PSPS Prediction</h2>
       <div class="analysis-summary">
         <strong>HIGH confidence · 77/100</strong>
@@ -1494,19 +1481,19 @@
         </table>
       </div>
       <p class="footer-note">Method notes:</p>
-      <ul class="metrics"><li>Rules-first AI-style analysis; no external model call is required.</li><li>Scores are screening estimates, not statistically calibrated probabilities.</li><li>Trend intelligence comes from forecast_history.csv and does not require a paid model subscription.</li><li>LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.</li></ul>
+      <ul class="metrics"><li>Rules-based decision support using public weather, fire-posture, and LPEA source signals.</li><li>Scores are screening estimates, not statistically calibrated probabilities or official forecasts.</li><li>LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.</li></ul>
     </section>
 
     <section class="section-panel">
-      <p class="eyebrow">No-Subscription Intelligence</p>
+      <p class="eyebrow">Trend Intelligence</p>
       <h2>Trend + Change Detection</h2>
-      <p class="footer-note">Momentum is steady versus the prior run (May 29 at 9:24 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</p>
+      <p class="footer-note">Momentum is steady versus the prior run (May 29 at 10:17 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</p>
       <div class="trend-grid">
         
         <article class="trend-card trend-steady">
           <p class="eyebrow">Momentum</p>
           <strong>Steady</strong>
-          <span>Momentum is steady versus the prior run (May 29 at 9:24 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</span>
+          <span>Momentum is steady versus the prior run (May 29 at 10:17 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.</span>
         </article>
         
         <article class="trend-card trend-low-0-100">
@@ -1521,9 +1508,9 @@
           <span>First WATCH-or-higher PSPS date remains Fri, May 29.</span>
         </article>
         
-        <article class="trend-card trend-may-29-at-9-24-am-mdt">
+        <article class="trend-card trend-may-29-at-10-17-am-mdt">
           <p class="eyebrow">Prior run</p>
-          <strong>May 29 at 9:24 AM MDT</strong>
+          <strong>May 29 at 10:17 AM MDT</strong>
           <span>Compared against the most recent prior forecast run in local history.</span>
         </article>
         
@@ -1533,12 +1520,7 @@
           <h3>What changed</h3>
           <ul class="metrics"><li>First WATCH-or-higher PSPS date remains Fri, May 29.</li><li>No major day-level movement versus the prior run.</li></ul>
         </div>
-        <div class="review-box">
-          <h3>Codex review prompts</h3>
-          <ul class="metrics"><li>Do the biggest day-level changes line up with wind/RH movement, or are they mostly public-source context?</li><li>Review whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.</li><li>Are the highest-risk locations consistent across runs, or is the driver area moving around?</li><li>If a PSPS occurs, add the confirmed date/location/source so future false-watch and hit-rate scoring can improve.</li></ul>
-        </div>
       </div>
-      <a class="packet-link" href="archuleta_red_flag_monitor/codex_review_packet.json">Codex review packet</a>
     </section>
 
     <section class="section-panel">

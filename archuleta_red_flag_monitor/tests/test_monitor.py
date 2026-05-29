@@ -379,7 +379,7 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(intelligence["day_changes"][0]["label"], "Worsening")
         self.assertIn("Overall PSPS likelihood changed from WATCH to LIKELY", " ".join(intelligence["notable_changes"]))
 
-    def test_codex_review_packet_is_compact_evidence_bundle(self):
+    def test_analyst_review_packet_is_compact_evidence_bundle(self):
         report = {
             "generated_at_local": "2026-06-01T09:00:00-06:00",
             "timezone": "America/Denver",
@@ -393,7 +393,7 @@ class MonitorTests(unittest.TestCase):
                 "forecast_volatility": {"label": "MEDIUM", "score": 20},
                 "first_watch_shift": "First WATCH date unchanged.",
                 "notable_changes": ["Overall PSPS likelihood changed."],
-                "review_questions": ["Review LPEA language."],
+                "review_cues": ["Review LPEA language."],
             },
             "ai_analysis": {
                 "summary": "Peak PSPS concern is Pagosa Springs.",
@@ -405,9 +405,9 @@ class MonitorTests(unittest.TestCase):
             "fire_posture": {"headline": "Stage 1.", "source_count": 1, "reachable_source_count": 1},
             "calibration": {"confirmed_event_count": 0},
         }
-        packet = monitor.build_codex_review_packet(report)
-        self.assertEqual(packet["packet_type"], "archuleta_red_flag_psps_codex_review")
-        self.assertIn("no-subscription", packet["how_to_use"])
+        packet = monitor.build_analyst_review_packet(report)
+        self.assertEqual(packet["packet_type"], "archuleta_red_flag_psps_analyst_review")
+        self.assertIn("manual review", packet["how_to_use"])
         self.assertEqual(packet["headline"]["psps_likelihood"], "LIKELY")
         self.assertEqual(packet["forecast_intelligence"]["risk_momentum"], "Rising")
 
@@ -641,9 +641,9 @@ class MonitorTests(unittest.TestCase):
         }
         report["ai_analysis"] = monitor.build_ai_analysis(report)
         rendered = monitor.render_html(report)
-        self.assertIn("AI Decision Support", rendered)
+        self.assertIn("Decision Support", rendered)
         self.assertIn("Fire + Red Flag + PSPS Prediction", rendered)
-        self.assertIn("Rules-first AI-style analysis", rendered)
+        self.assertIn("Rules-based decision support", rendered)
         self.assertIn("LPEA PSPS peak", rendered)
         self.assertIn("Weather + PSPS Outlook", rendered)
         self.assertIn("PSPS = Public Safety Power Shutoff", rendered)
@@ -682,9 +682,10 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("<small>Jun 1</small>", rendered)
         self.assertIn("day-card tier-high", rendered)
         self.assertIn("Forecast Accuracy Scorecard", rendered)
-        self.assertIn("No-Subscription Intelligence", rendered)
+        self.assertIn("Trend Intelligence", rendered)
         self.assertIn("Trend + Change Detection", rendered)
-        self.assertIn("Codex review packet", rendered)
+        self.assertNotIn("Codex", rendered)
+        self.assertNotIn("subscription", rendered.lower())
         self.assertIn("Area-specific", rendered)
         self.assertIn("Highest-risk window", rendered)
         self.assertIn("Evidence quality", rendered)

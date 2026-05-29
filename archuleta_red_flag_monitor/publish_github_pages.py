@@ -12,7 +12,6 @@ from zoneinfo import ZoneInfo
 PACKAGE_FILES = [
     "README.md",
     "config.json",
-    "codex_review_packet.json",
     "forecast_history.csv",
     "latest.html",
     "latest.json",
@@ -22,7 +21,6 @@ PACKAGE_FILES = [
     "psps_events.json",
     "tests/test_monitor.py",
 ]
-
 
 def run(cmd: list[str], cwd: Path, check: bool = True) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, cwd=cwd, check=check, text=True, capture_output=True)
@@ -58,6 +56,9 @@ def copy_outputs(source_dir: Path, pages_repo: Path) -> None:
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
 
+    for stale_review_packet in package_target.glob("*_review_packet.json"):
+        stale_review_packet.unlink()
+
     shutil.copy2(source_dir / "latest.html", pages_repo / "index.html")
 
 
@@ -67,10 +68,7 @@ def publish(source_dir: Path, pages_repo: Path, no_push: bool = False) -> str:
 
     copy_outputs(source_dir, pages_repo)
 
-    tracked_paths = [
-        "index.html",
-        *[f"archuleta_red_flag_monitor/{relative}" for relative in PACKAGE_FILES],
-    ]
+    tracked_paths = ["index.html", "archuleta_red_flag_monitor"]
     run(["git", "add", *tracked_paths], pages_repo)
 
     diff_result = run(["git", "diff", "--cached", "--quiet"], pages_repo, check=False)

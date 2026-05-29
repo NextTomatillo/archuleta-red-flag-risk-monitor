@@ -7,7 +7,7 @@
   "expected_update_interval_minutes": 60,
   "user_agent": "archuleta-red-flag-monitor/1.0 local-contact",
   "output": {
-    "codex_review_packet_json": "codex_review_packet.json",
+    "analyst_review_packet_json": "analyst_review_packet.json",
     "forecast_history_csv": "forecast_history.csv",
     "history_csv": "history.csv",
     "latest_html": "latest.html",

@@ -205,8 +205,8 @@ def forecast_history_path(config_path: Path, config: Dict[str, Any]) -> Path:
     return output_path(config_path, config, "forecast_history_csv", "forecast_history.csv")
 
 
-def codex_review_packet_path(config_path: Path, config: Dict[str, Any]) -> Path:
-    return output_path(config_path, config, "codex_review_packet_json", "codex_review_packet.json")
+def analyst_review_packet_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "analyst_review_packet_json", "analyst_review_packet.json")
 
 
 def safe_int(value: Any, default: int = 0) -> int:
@@ -1816,10 +1816,10 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
             f"{'; '.join(top_psps_overall.get('psps_drivers', [])[:3])}."
         )
     else:
-        summary = "No area-level AI decision-support prediction is available for this run."
+        summary = "No area-level decision-support prediction is available for this run."
 
     return {
-        "mode": "rules_first_ai_decision_support",
+        "mode": "rules_first_decision_support",
         "summary": summary,
         "confidence": {
             "score": confidence_score,
@@ -1832,9 +1832,8 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
         "daily_predictions": daily_predictions,
         "area_predictions": all_predictions,
         "notes": [
-            "Rules-first AI-style analysis; no external model call is required.",
-            "Scores are screening estimates, not statistically calibrated probabilities.",
-            "Trend intelligence comes from forecast_history.csv and does not require a paid model subscription.",
+            "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+            "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
             "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.",
         ],
     }
@@ -2217,7 +2216,7 @@ def build_forecast_intelligence(report: Dict[str, Any], forecast_history: List[D
     current_overall = report.get("psps", {}).get("overall_level", "LOW")
 
     if not previous_run:
-        questions = [
+        review_cues = [
             "After the next run, compare which days and locations moved most versus this baseline.",
             "If LPEA initiates a PSPS, add a confirmed event to the manual event log so calibration can begin.",
         ]
@@ -2231,7 +2230,7 @@ def build_forecast_intelligence(report: Dict[str, Any], forecast_history: List[D
             "first_watch_shift": first_watch_shift_summary(current_first_watch, None),
             "day_changes": [day_change_summary(current_by_date[date_key], None) for date_key in sorted(current_by_date)],
             "notable_changes": ["No previous forecast run available yet; trend intelligence will sharpen after the next scheduled run."],
-            "review_questions": questions,
+            "review_cues": review_cues,
         }
 
     previous_by_date = aggregate_forecast_rows(previous_run.get("rows", []))
@@ -2271,14 +2270,14 @@ def build_forecast_intelligence(report: Dict[str, Any], forecast_history: List[D
     if len(notable_changes) == 1:
         notable_changes.append("No major day-level movement versus the prior run.")
 
-    review_questions = [
-        "Do the biggest day-level changes line up with wind/RH movement, or are they mostly public-source context?",
-        "Are the highest-risk locations consistent across runs, or is the driver area moving around?",
-        "If a PSPS occurs, add the confirmed date/location/source so future false-watch and hit-rate scoring can improve.",
+    review_cues = [
+        "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
+        "Watch whether the highest-risk locations remain consistent across runs or the driver area is moving.",
+        "If a PSPS occurs, log the confirmed date, location, and source so future hit-rate scoring can improve.",
     ]
     lpea = report.get("lpea", {})
     if lpea.get("active_hits") and not any("outage" in " ".join(group.get("source_names", [])).lower() for group in lpea.get("active_signal_groups", [])):
-        review_questions.insert(1, "Review whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.")
+        review_cues.insert(1, "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.")
 
     summary = (
         f"Momentum is {momentum.lower()} versus the prior run ({format_generated_label(previous_run.get('generated_at'))}); "
@@ -2304,25 +2303,25 @@ def build_forecast_intelligence(report: Dict[str, Any], forecast_history: List[D
         "first_watch_shift": first_watch_shift_summary(current_first_watch, previous_first_watch),
         "day_changes": day_changes,
         "notable_changes": notable_changes[:6],
-        "review_questions": review_questions,
+        "review_cues": review_cues,
     }
 
 
-def build_codex_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
+def build_analyst_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
     analysis = report.get("ai_analysis", {})
     intelligence = report.get("forecast_intelligence", {})
     psps = report.get("psps", {})
     return {
-        "packet_type": "archuleta_red_flag_psps_codex_review",
+        "packet_type": "archuleta_red_flag_psps_analyst_review",
         "generated_at": report.get("generated_at_local") or report.get("generated_at"),
         "timezone": report.get("timezone"),
         "local_time_name": report.get("local_time_name"),
         "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
-        "how_to_use": "Paste or reference this packet in Codex when you want a manual no-subscription review of the latest PSPS prediction evidence.",
+        "how_to_use": "Use this private packet for manual review of the latest PSPS prediction evidence.",
         "headline": {
             "overall_tier": report.get("overall_tier"),
             "psps_likelihood": psps.get("overall_level"),
-            "ai_summary": analysis.get("summary"),
+            "decision_support_summary": analysis.get("summary"),
             "trend_summary": intelligence.get("summary"),
             "notify_recommended": report.get("notify_recommended"),
         },
@@ -2331,10 +2330,10 @@ def build_codex_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
             "forecast_volatility": intelligence.get("forecast_volatility"),
             "first_watch_shift": intelligence.get("first_watch_shift"),
             "notable_changes": intelligence.get("notable_changes", []),
-            "review_questions": intelligence.get("review_questions", []),
+            "review_cues": intelligence.get("review_cues", []),
             "day_changes": intelligence.get("day_changes", [])[:7],
         },
-        "ai_decision_support": {
+        "decision_support": {
             "confidence": analysis.get("confidence"),
             "top_fire_danger": analysis.get("top_fire_danger"),
             "top_red_flag": analysis.get("top_red_flag"),
@@ -2454,12 +2453,12 @@ def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, A
     history_csv = base / output["history_csv"]
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
-    review_packet_json = codex_review_packet_path(config_path, config)
+    review_packet_json = analyst_review_packet_path(config_path, config)
 
     latest_json.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     latest_md.write_text(render_markdown(report), encoding="utf-8")
     latest_html.write_text(render_html(report), encoding="utf-8")
-    review_packet_json.write_text(json.dumps(report.get("codex_review_packet", {}), indent=2, sort_keys=True), encoding="utf-8")
+    review_packet_json.write_text(json.dumps(build_analyst_review_packet(report), indent=2, sort_keys=True), encoding="utf-8")
     ensure_psps_event_log(psps_events_path)
     append_forecast_history(report, forecast_csv)
 
@@ -3042,14 +3041,14 @@ def render_ai_analysis_markdown(report: Dict[str, Any]) -> List[str]:
     analysis = report.get("ai_analysis", {})
     confidence = analysis.get("confidence", {})
     lines = [
-        "## AI Decision Support",
+        "## Decision Support",
         "",
-        f"- Summary: {analysis.get('summary', 'No AI decision-support summary available.')}",
+        f"- Summary: {analysis.get('summary', 'No decision-support summary available.')}",
         f"- Confidence: **{confidence.get('label', 'UNKNOWN')}** ({confidence.get('score', 'n/a')}/100) - {'; '.join(confidence.get('reasons', []))}",
         f"- Fire danger peak: {top_prediction_label(analysis.get('top_fire_danger'), 'fire_danger_score', 'fire_danger_level')}",
         f"- Red Flag likelihood peak: {top_prediction_label(analysis.get('top_red_flag'), 'red_flag_score', 'red_flag_likelihood')}",
         f"- LPEA PSPS peak: {top_prediction_label(analysis.get('top_psps'), 'psps_score', 'psps_level')}",
-        "- Method: rules-first AI-style decision support; scores are screening estimates, not official or statistically calibrated probabilities.",
+        "- Method: rules-based decision support using public weather, fire-posture, and LPEA source signals; scores are screening estimates, not official or statistically calibrated probabilities.",
         "",
         "| Date | Fire danger | Red Flag likelihood | LPEA PSPS | Main window |",
         "| --- | --- | --- | --- | --- |",
@@ -3079,16 +3078,12 @@ def render_forecast_intelligence_markdown(report: Dict[str, Any]) -> List[str]:
         f"- Forecast volatility: **{volatility.get('label', 'UNKNOWN')}** ({volatility.get('score', 'n/a')}/100)",
         f"- First WATCH-or-higher PSPS date: {format_display_date(intelligence.get('first_watch_or_likely_date', '')) if intelligence.get('first_watch_or_likely_date') else 'None'}",
         f"- Watch-date movement: {intelligence.get('first_watch_shift', 'No prior comparison available.')}",
-        "- No-subscription method: compares current forecast evidence against prior local forecast history; no OpenAI API call required.",
+        "- Method: compares current forecast evidence against prior local forecast history.",
         "",
         "Notable changes:",
     ]
     for change in intelligence.get("notable_changes", [])[:6]:
         lines.append(f"- {change}")
-    lines.extend(["", "Codex review prompts:"])
-    for question in intelligence.get("review_questions", [])[:5]:
-        lines.append(f"- {question}")
-    lines.append("- Review packet: `archuleta_red_flag_monitor/codex_review_packet.json`")
     return lines
 
 
@@ -3419,7 +3414,7 @@ def render_html(report: Dict[str, Any]) -> str:
         </tr>
         """
         for day in analysis.get("daily_predictions", [])
-    ) or '<tr><td colspan="5">No AI decision-support rows available.</td></tr>'
+    ) or '<tr><td colspan="5">No decision-support rows available.</td></tr>'
     analysis_notes_html = "".join(
         f"<li>{escape_html(note)}</li>"
         for note in analysis.get("notes", [])
@@ -3462,10 +3457,6 @@ def render_html(report: Dict[str, Any]) -> str:
         f"<li>{escape_html(change)}</li>"
         for change in intelligence.get("notable_changes", [])[:6]
     ) or "<li>No prior comparison available yet.</li>"
-    review_questions_html = "".join(
-        f"<li>{escape_html(question)}</li>"
-        for question in intelligence.get("review_questions", [])[:5]
-    ) or "<li>Trend review prompts will appear after the next run.</li>"
     calibration = report.get("calibration", {})
     calibration_cards_html = f"""
         <article class="calibration-card">
@@ -4286,7 +4277,7 @@ def render_html(report: Dict[str, Any]) -> str:
     }}
     .review-grid {{
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 14px;
       margin-top: 16px;
     }}
@@ -4299,19 +4290,6 @@ def render_html(report: Dict[str, Any]) -> str:
     .review-box h3 {{
       margin-bottom: 10px;
       font-size: 1.05rem;
-    }}
-    .packet-link {{
-      display: inline-flex;
-      margin-top: 14px;
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: rgba(29, 42, 42, 0.08);
-      color: var(--ink);
-      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      text-transform: uppercase;
     }}
     .risk-window {{
       margin: 10px 0 0;
@@ -4667,11 +4645,11 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
-      <p class="eyebrow">AI Decision Support</p>
+      <p class="eyebrow">Decision Support</p>
       <h2>Fire + Red Flag + PSPS Prediction</h2>
       <div class="analysis-summary">
         <strong>{escape_html(confidence.get('label', 'UNKNOWN'))} confidence · {escape_html(str(confidence.get('score', 'n/a')))}/100</strong>
-        <p>{escape_html(analysis.get('summary', 'No AI decision-support summary available.'))}</p>
+        <p>{escape_html(analysis.get('summary', 'No decision-support summary available.'))}</p>
         <p class="source-meta">Why confidence is {escape_html(str(confidence.get('label', 'UNKNOWN')).lower())}: {escape_html('; '.join(confidence.get('reasons', [])))}</p>
       </div>
       <div class="analysis-grid">
@@ -4698,7 +4676,7 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
-      <p class="eyebrow">No-Subscription Intelligence</p>
+      <p class="eyebrow">Trend Intelligence</p>
       <h2>Trend + Change Detection</h2>
       <p class="footer-note">{escape_html(intelligence.get('summary', 'Trend intelligence unavailable.'))}</p>
       <div class="trend-grid">
@@ -4709,12 +4687,7 @@ def render_html(report: Dict[str, Any]) -> str:
           <h3>What changed</h3>
           <ul class="metrics">{notable_changes_html}</ul>
         </div>
-        <div class="review-box">
-          <h3>Codex review prompts</h3>
-          <ul class="metrics">{review_questions_html}</ul>
-        </div>
       </div>
-      <a class="packet-link" href="archuleta_red_flag_monitor/codex_review_packet.json">Codex review packet</a>
     </section>
 
     <section class="section-panel">
@@ -4905,7 +4878,6 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     }
     report["forecast_intelligence"] = build_forecast_intelligence(report, forecast_history)
     report["ai_analysis"] = build_ai_analysis(report)
-    report["codex_review_packet"] = build_codex_review_packet(report)
     return report
 
 
@@ -4937,7 +4909,7 @@ def main() -> int:
             print(f"- {base / config['output']['latest_json']}")
             print(f"- {base / config['output']['latest_html']}")
             print(f"- {base / config['output']['history_csv']}")
-            print(f"- {codex_review_packet_path(config_path, config)}")
+            print(f"- {analyst_review_packet_path(config_path, config)}")
             print(f"- {forecast_history_path(config_path, config)}")
             print(f"- {event_log_path(config_path, config)}")
     return 0

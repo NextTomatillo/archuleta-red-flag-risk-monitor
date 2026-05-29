@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: May 29, 2026 at 10:17 AM MDT (Pagosa Springs, CO local time)
-Next update: May 29, 2026 at 11:17 AM MDT (Pagosa Springs, CO local time)
+Generated: May 29, 2026 at 10:57 AM MDT (Pagosa Springs, CO local time)
+Next update: May 29, 2026 at 11:57 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -20,14 +20,14 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 - LPEA source coverage: 13 sources; 5/5 official social sources reachable
 - NWS discussion: NWS discussion contains fire-weather concern language.
 
-## AI Decision Support
+## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Fri, May 29 near Arboles / southwest county (LIKELY 100/100), driven by very strong wind/gust signal near 40 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.
 - Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
 - Fire danger peak: Fri, May 29: Ignacio / southeast La Plata County EXTREME 100/100
 - Red Flag likelihood peak: Fri, May 29: Ignacio / southeast La Plata County LIKELY 100/100
 - LPEA PSPS peak: Fri, May 29: Arboles / southwest county LIKELY 100/100
-- Method: rules-first AI-style decision support; scores are screening estimates, not official or statistically calibrated probabilities.
+- Method: rules-based decision support using public weather, fire-posture, and LPEA source signals; scores are screening estimates, not official or statistically calibrated probabilities.
 
 | Date | Fire danger | Red Flag likelihood | LPEA PSPS | Main window |
 | --- | --- | --- | --- | --- |
@@ -41,23 +41,16 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (May 29 at 9:24 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.
+- Summary: Momentum is steady versus the prior run (May 29 at 10:17 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, May 29.
 - Momentum: **Steady**
 - Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Fri, May 29
 - Watch-date movement: First WATCH-or-higher PSPS date remains Fri, May 29.
-- No-subscription method: compares current forecast evidence against prior local forecast history; no OpenAI API call required.
+- Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
 - First WATCH-or-higher PSPS date remains Fri, May 29.
 - No major day-level movement versus the prior run.
-
-Codex review prompts:
-- Do the biggest day-level changes line up with wind/RH movement, or are they mostly public-source context?
-- Review whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.
-- Are the highest-risk locations consistent across runs, or is the driver area moving around?
-- If a PSPS occurs, add the confirmed date/location/source so future false-watch and hit-rate scoring can improve.
-- Review packet: `archuleta_red_flag_monitor/codex_review_packet.json`
 
 ## PSPS Likelihood
 
