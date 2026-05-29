@@ -649,6 +649,73 @@
       font-weight: 900;
       letter-spacing: 0.05em;
     }
+    .analysis-summary {
+      margin-top: 12px;
+      padding: 16px;
+      border: 1px solid rgba(167, 47, 35, 0.22);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 94% 10%, rgba(167, 47, 35, 0.12), transparent 36%),
+        rgba(255, 248, 240, 0.78);
+    }
+    .analysis-summary strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+    }
+    .analysis-summary p {
+      margin: 0;
+      line-height: 1.42;
+    }
+    .analysis-summary .source-meta {
+      margin-top: 8px;
+    }
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .analysis-card {
+      border: 1px solid var(--line);
+      border-left: 7px solid rgba(29, 42, 42, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.68);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .analysis-card.analysis-likely,
+    .analysis-card.analysis-very-high,
+    .analysis-card.analysis-extreme {
+      border-left-color: var(--high);
+    }
+    .analysis-card.analysis-watch,
+    .analysis-card.analysis-high,
+    .analysis-card.analysis-possible {
+      border-left-color: var(--concern);
+    }
+    .analysis-card.analysis-moderate,
+    .analysis-card.analysis-elevated {
+      border-left-color: var(--elevated);
+    }
+    .analysis-card.analysis-low {
+      border-left-color: var(--green);
+    }
+    .analysis-card h3 {
+      font-size: 1.25rem;
+    }
+    .analysis-score {
+      margin: 4px 0 8px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .analysis-table-wrap {
+      margin-top: 16px;
+      overflow-x: auto;
+    }
     .risk-window {
       margin: 10px 0 0;
       padding-top: 10px;
@@ -901,6 +968,9 @@
         margin-top: 18px;
         gap: 12px;
       }
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
       .risk-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .source-meta { font-size: 0.92rem; }
       .audit-summary { align-items: start; flex-direction: column; }
@@ -914,7 +984,7 @@
         <div class="hero-copy">
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated May 29, 2026 at 8:37 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated May 29, 2026 at 9:17 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -940,7 +1010,7 @@
           </div>
           <div class="hero-status-time">
             <span>Next update</span>
-            <strong>Next update: May 29, 2026 at 9:37 AM MDT (Pagosa Springs, CO local time)</strong>
+            <strong>Next update: May 29, 2026 at 10:17 AM MDT (Pagosa Springs, CO local time)</strong>
           </div>
         </aside>
       </div>
@@ -1253,6 +1323,120 @@
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">AI Decision Support</p>
+      <h2>Fire + Red Flag + PSPS Prediction</h2>
+      <div class="analysis-summary">
+        <strong>MEDIUM confidence · 72/100</strong>
+        <p>Highest LPEA PSPS concern is Fri, May 29 near Arboles / southwest county (LIKELY 100/100), driven by very strong wind/gust signal near 40 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.</p>
+        <p class="source-meta">Why confidence is medium: 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration</p>
+      </div>
+      <div class="analysis-grid">
+        
+        <article class="analysis-card analysis-extreme">
+          <p class="eyebrow">Fire danger peak</p>
+          <h3>EXTREME</h3>
+          <p class="analysis-score">100/100</p>
+          <p class="source-meta">Fri, May 29: Ignacio / southeast La Plata County EXTREME 100/100</p>
+          <p class="risk-window">12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+          <ul class="metrics"><li>very dry RH near 12%</li><li>strong wind/gust near 41 mph</li><li>official fire restrictions at STAGE 1</li></ul>
+        </article>
+        
+        <article class="analysis-card analysis-likely">
+          <p class="eyebrow">Red Flag peak</p>
+          <h3>LIKELY</h3>
+          <p class="analysis-score">100/100</p>
+          <p class="source-meta">Fri, May 29: Ignacio / southeast La Plata County LIKELY 100/100</p>
+          <p class="risk-window">12 PM-8 PM local; 9 near/red-flag threshold hours.</p>
+          <ul class="metrics"><li>6 sampled red-flag hours</li><li>RH near 12%</li><li>wind/gust near 41 mph</li></ul>
+        </article>
+        
+        <article class="analysis-card analysis-likely">
+          <p class="eyebrow">LPEA PSPS peak</p>
+          <h3>LIKELY</h3>
+          <p class="analysis-score">100/100</p>
+          <p class="source-meta">Fri, May 29: Arboles / southwest county LIKELY 100/100</p>
+          <p class="risk-window">1 PM-8 PM local; 8 near/red-flag threshold hours.</p>
+          <ul class="metrics"><li>very strong wind/gust signal near 40 mph</li><li>very dry RH near 12%</li><li>5 sampled hours meet red-flag screen</li></ul>
+        </article>
+        
+      </div>
+      <div class="analysis-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Fire danger</th>
+              <th>Red Flag</th>
+              <th>LPEA PSPS</th>
+              <th>Main window</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td>Fri, May 29</td>
+          <td>Ignacio / southeast La Plata County<br><strong>EXTREME 100/100</strong></td>
+          <td>Ignacio / southeast La Plata County<br><strong>LIKELY 100/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LIKELY 100/100</strong></td>
+          <td>1 PM-8 PM local; 8 near/red-flag threshold hours.</td>
+        </tr>
+        
+        <tr>
+          <td>Sat, May 30</td>
+          <td>Chimney Rock / west county<br><strong>EXTREME 90/100</strong></td>
+          <td>Chimney Rock / west county<br><strong>LIKELY 88/100</strong></td>
+          <td>Ignacio / southeast La Plata County<br><strong>LIKELY 99/100</strong></td>
+          <td>2 PM-7 PM local; 6 near/red-flag threshold hours.</td>
+        </tr>
+        
+        <tr>
+          <td>Sun, May 31</td>
+          <td>Ignacio / southeast La Plata County<br><strong>EXTREME 92/100</strong></td>
+          <td>Ignacio / southeast La Plata County<br><strong>LIKELY 92/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LIKELY 100/100</strong></td>
+          <td>12 PM-7 PM local; 8 near/red-flag threshold hours.</td>
+        </tr>
+        
+        <tr>
+          <td>Mon, Jun 1</td>
+          <td>Bayfield / east La Plata County<br><strong>VERY HIGH 82/100</strong></td>
+          <td>Bayfield / east La Plata County<br><strong>WATCH 74/100</strong></td>
+          <td>Bayfield / east La Plata County<br><strong>LIKELY 85/100</strong></td>
+          <td>1 PM-6 PM local; 6 near/red-flag threshold hours.</td>
+        </tr>
+        
+        <tr>
+          <td>Tue, Jun 2</td>
+          <td>Bayfield / east La Plata County<br><strong>VERY HIGH 82/100</strong></td>
+          <td>Bayfield / east La Plata County<br><strong>WATCH 74/100</strong></td>
+          <td>Bayfield / east La Plata County<br><strong>LIKELY 85/100</strong></td>
+          <td>2 PM-7 PM local; 6 near/red-flag threshold hours.</td>
+        </tr>
+        
+        <tr>
+          <td>Wed, Jun 3</td>
+          <td>Arboles / southwest county<br><strong>HIGH 63/100</strong></td>
+          <td>Arboles / southwest county<br><strong>POSSIBLE 50/100</strong></td>
+          <td>Ignacio / southeast La Plata County<br><strong>WATCH 52/100</strong></td>
+          <td>5 PM-5 PM local; 1 near/red-flag threshold hour.</td>
+        </tr>
+        
+        <tr>
+          <td>Thu, Jun 4</td>
+          <td>Ignacio / southeast La Plata County<br><strong>VERY HIGH 71/100</strong></td>
+          <td>Ignacio / southeast La Plata County<br><strong>WATCH 55/100</strong></td>
+          <td>Ignacio / southeast La Plata County<br><strong>LIKELY 68/100</strong></td>
+          <td>4 PM-6 PM local; 3 near/red-flag threshold hours.</td>
+        </tr>
+        
+          </tbody>
+        </table>
+      </div>
+      <p class="footer-note">Method notes:</p>
+      <ul class="metrics"><li>Rules-first AI-style analysis; no external model call is required.</li><li>Scores are screening estimates, not statistically calibrated probabilities.</li><li>LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.</li></ul>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">Official Source Context</p>
       <h2>Fire Posture + Restrictions</h2>
       <p class="footer-note">2 official sources indicate fire restrictions or staged restrictions.</p>
@@ -1468,8 +1652,8 @@
       <h2>Power Interruption Signals</h2>
       <p class="footer-note">LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.</p>
       <p class="footer-note">Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.</p>
-      <p class="footer-note">Evidence quality: 0 operational, 1 active/update, 1 archive/context, 4 reference source matches.</p>
-      <p class="footer-note">Coverage: 13 sources; 4/5 official social sources reachable</p>
+      <p class="footer-note">Evidence quality: 0 operational, 3 active/update, 1 archive/context, 4 reference source matches.</p>
+      <p class="footer-note">Coverage: 13 sources; 5/5 official social sources reachable</p>
       <div class="source-grid">
         
         <article class="source-card">
@@ -1486,6 +1670,22 @@
           <p class="quality-pill quality-context">Archive/context</p>
           <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
           <p class="source-snippet">...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn wildfire preparedness post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="quality-pill quality-active">Social/update cue</p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
+          <p class="source-snippet">...omment Share La Plata Electric Association 1,777 followers 1mo Report this post Wildfire season doesn&#x27;t wait, and neither do we. In our latest Southwest Power Stories episode, host Monica Vick sits down with...</p>
+        </article>
+        
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn PSPS explainer post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="quality-pill quality-active">Social/update cue</p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff</p>
+          <p class="source-snippet">...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...</p>
         </article>
         
       </div>

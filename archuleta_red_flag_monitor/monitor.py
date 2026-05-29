@@ -1465,6 +1465,353 @@ def build_psps_forecast(
     }
 
 
+def clamp_score(value: float) -> int:
+    return max(0, min(100, round(value)))
+
+
+def fire_danger_level_from_score(score: int) -> str:
+    if score >= 85:
+        return "EXTREME"
+    if score >= 70:
+        return "VERY HIGH"
+    if score >= 55:
+        return "HIGH"
+    if score >= 35:
+        return "MODERATE"
+    return "LOW"
+
+
+def red_flag_likelihood_from_score(score: int) -> str:
+    if score >= 75:
+        return "LIKELY"
+    if score >= 55:
+        return "WATCH"
+    if score >= 30:
+        return "POSSIBLE"
+    return "LOW"
+
+
+def confidence_label(score: int) -> str:
+    if score >= 75:
+        return "HIGH"
+    if score >= 50:
+        return "MEDIUM"
+    return "LOW"
+
+
+def fire_posture_boost(fire_posture: Dict[str, Any]) -> Tuple[int, List[str]]:
+    stage = fire_posture.get("max_restriction_stage", "UNKNOWN")
+    danger = fire_posture.get("max_fire_danger", "UNKNOWN")
+    stage_rank = FIRE_RESTRICTION_RANK.get(stage, 0)
+    danger_rank = FIRE_DANGER_RANK.get(danger, 0)
+    boost = 0
+    drivers = []
+    if stage_rank >= FIRE_RESTRICTION_RANK["STAGE 2"]:
+        boost += 14
+        drivers.append(f"official fire restrictions at {stage}")
+    elif stage_rank >= FIRE_RESTRICTION_RANK["STAGE 1"]:
+        boost += 8
+        drivers.append(f"official fire restrictions at {stage}")
+    elif stage_rank >= FIRE_RESTRICTION_RANK["RESTRICTIONS"]:
+        boost += 5
+        drivers.append("official fire restrictions detected")
+
+    if danger_rank >= FIRE_DANGER_RANK["EXTREME"]:
+        boost += 14
+        drivers.append("official fire danger is EXTREME")
+    elif danger_rank >= FIRE_DANGER_RANK["VERY HIGH"]:
+        boost += 10
+        drivers.append("official fire danger is VERY HIGH")
+    elif danger_rank >= FIRE_DANGER_RANK["HIGH"]:
+        boost += 6
+        drivers.append("official fire danger is HIGH")
+    return boost, drivers
+
+
+def red_flag_prediction_score(location: Dict[str, Any], date_key: str, official_alerts: Dict[str, Any]) -> Tuple[int, List[str]]:
+    rh = safe_float(location.get("min_rh_percent"))
+    wind = safe_float(location.get("max_usable_wind_mph"))
+    thunder = safe_float(location.get("max_thunder_percent"))
+    precip = safe_float(location.get("max_precip_percent"))
+    red_flag_hours = safe_int(location.get("red_flag_hours"))
+    near_hours = safe_int(location.get("near_hours"))
+    score = 0
+    drivers = []
+
+    if red_flag_hours >= 3:
+        score += 48 + min(18, (red_flag_hours - 3) * 4)
+        drivers.append(f"{red_flag_hours} sampled red-flag hours")
+    elif near_hours >= 2:
+        score += 30 + min(16, (near_hours - 2) * 3)
+        drivers.append(f"{near_hours} near-threshold hours")
+
+    if rh is not None:
+        if rh <= 8:
+            score += 22
+            drivers.append(f"RH near {rh:.0f}%")
+        elif rh <= 12:
+            score += 18
+            drivers.append(f"RH near {rh:.0f}%")
+        elif rh <= 15:
+            score += 14
+            drivers.append(f"RH near {rh:.0f}%")
+        elif rh <= 18:
+            score += 8
+            drivers.append(f"dry RH near {rh:.0f}%")
+
+    if wind is not None:
+        if wind >= 35:
+            score += 22
+            drivers.append(f"wind/gust near {wind:.0f} mph")
+        elif wind >= 30:
+            score += 18
+            drivers.append(f"wind/gust near {wind:.0f} mph")
+        elif wind >= 25:
+            score += 14
+            drivers.append(f"wind/gust near {wind:.0f} mph")
+        elif wind >= 20:
+            score += 8
+            drivers.append(f"breezy wind/gust near {wind:.0f} mph")
+
+    dry_enough = precip is None or precip <= 20
+    if thunder is not None and thunder >= 20 and dry_enough:
+        score += 10
+        drivers.append(f"dry-thunder probability near {thunder:.0f}%")
+    elif thunder is not None and thunder >= 15:
+        score += 5
+        drivers.append(f"thunder probability near {thunder:.0f}%")
+
+    if date_key in official_alerts.get("high_dates", []):
+        score += 20
+        drivers.append("active official NWS fire-weather alert touches this date")
+
+    tier = location.get("tier")
+    if tier == "HIGH":
+        score = max(score, 78)
+    elif tier == "CONCERN":
+        score = max(score, 50)
+    elif tier == "ELEVATED":
+        score = max(score, 25)
+
+    if not drivers:
+        drivers.append("below red-flag screening thresholds")
+    return clamp_score(score), drivers[:5]
+
+
+def fire_danger_prediction_score(location: Dict[str, Any], red_flag_score: int, fire_posture: Dict[str, Any]) -> Tuple[int, List[str]]:
+    rh = safe_float(location.get("min_rh_percent"))
+    wind = safe_float(location.get("max_usable_wind_mph"))
+    thunder = safe_float(location.get("max_thunder_percent"))
+    posture_boost, posture_drivers = fire_posture_boost(fire_posture)
+    score = round(red_flag_score * 0.58)
+    drivers = []
+
+    if rh is not None and rh <= 15:
+        score += 14
+        drivers.append(f"very dry RH near {rh:.0f}%")
+    elif rh is not None and rh <= 22:
+        score += 8
+        drivers.append(f"dry RH near {rh:.0f}%")
+
+    if wind is not None and wind >= 30:
+        score += 12
+        drivers.append(f"strong wind/gust near {wind:.0f} mph")
+    elif wind is not None and wind >= 20:
+        score += 7
+        drivers.append(f"wind/gust near {wind:.0f} mph")
+
+    if thunder is not None and thunder >= 20:
+        score += 8
+        drivers.append(f"thunder probability near {thunder:.0f}%")
+
+    score += posture_boost
+    drivers.extend(posture_drivers)
+
+    tier = location.get("tier")
+    if tier == "HIGH":
+        score = max(score, 70)
+    elif tier == "CONCERN":
+        score = max(score, 55)
+    elif tier == "ELEVATED":
+        score = max(score, 35)
+
+    if not drivers:
+        drivers.append("no strong fire-weather driver at this sampled point")
+    return clamp_score(score), drivers[:5]
+
+
+def lpea_signal_boost(lpea: Dict[str, Any], psps: Dict[str, Any]) -> Tuple[int, List[str]]:
+    signal = psps.get("lpea_signal", {}).get("level") or lpea_psps_signal(lpea).get("level")
+    if signal == "direct_psps_language":
+        return 16, ["LPEA active source has direct PSPS/power-shutoff language"]
+    if signal == "active_wildfire_power_language":
+        return 8, ["LPEA active sources contain wildfire/red-flag/power language"]
+    if lpea.get("active_hits"):
+        return 5, ["LPEA active source keyword match"]
+    return 0, []
+
+
+def psps_prediction_score(
+    location_score: Dict[str, Any],
+    date_key: str,
+    red_flag_score: int,
+    fire_danger_score: int,
+    report: Dict[str, Any],
+) -> Tuple[int, str, List[str]]:
+    score = safe_int(location_score.get("score"))
+    drivers = list(location_score.get("factors", [])[:3])
+    lpea_boost, lpea_drivers = lpea_signal_boost(report.get("lpea", {}), report.get("psps", {}))
+    posture_boost, posture_drivers = fire_posture_boost(report.get("fire_posture", {}))
+    score += lpea_boost + min(12, posture_boost)
+    drivers.extend(lpea_drivers)
+    drivers.extend(posture_drivers[:2])
+
+    if date_key in report.get("official_alerts", {}).get("high_dates", []):
+        score += 12
+        drivers.append("official NWS fire-weather alert")
+    if red_flag_score >= 75:
+        score += 6
+        drivers.append("red-flag likelihood is high")
+    if fire_danger_score >= 70:
+        score += 4
+        drivers.append("fire danger prediction is very high")
+
+    score = clamp_score(score)
+    return score, psps_level_from_weather_score(score), drivers[:6] or ["weather inputs below PSPS watch threshold"]
+
+
+def top_prediction_label(prediction: Optional[Dict[str, Any]], score_key: str, level_key: str) -> str:
+    if not prediction:
+        return "No prediction available."
+    return (
+        f"{format_display_date(prediction.get('date', ''))}: {prediction.get('location', 'Unknown area')} "
+        f"{prediction.get(level_key, 'UNKNOWN')} {prediction.get(score_key, 'n/a')}/100"
+    )
+
+
+def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
+    psps_days_by_date = {day.get("date"): day for day in report.get("psps", {}).get("days", [])}
+    all_predictions: List[Dict[str, Any]] = []
+    daily_predictions = []
+
+    for day in report.get("days", []):
+        psps_day = psps_days_by_date.get(day.get("date"), {})
+        location_scores_by_name = {
+            str(score.get("name", "")).lower(): score
+            for score in psps_day.get("location_scores", [])
+        }
+        day_predictions = []
+        for point in day.get("points", []):
+            location_score = location_scores_by_name.get(str(point.get("name", "")).lower())
+            if not location_score:
+                location_score = location_weather_score(point, day.get("date", ""), report.get("official_alerts", {}))
+            red_score, red_drivers = red_flag_prediction_score(point, day.get("date", ""), report.get("official_alerts", {}))
+            fire_score, fire_drivers = fire_danger_prediction_score(point, red_score, report.get("fire_posture", {}))
+            psps_score, psps_level, psps_drivers = psps_prediction_score(
+                location_score,
+                day.get("date", ""),
+                red_score,
+                fire_score,
+                report,
+            )
+            prediction = {
+                "date": day.get("date"),
+                "display_date": format_display_date(day.get("date", "")),
+                "location": point.get("name", "Unknown location"),
+                "highest_risk_window": point.get("highest_risk_window", "n/a"),
+                "fire_danger_score": fire_score,
+                "fire_danger_level": fire_danger_level_from_score(fire_score),
+                "fire_danger_drivers": fire_drivers,
+                "red_flag_score": red_score,
+                "red_flag_likelihood": red_flag_likelihood_from_score(red_score),
+                "red_flag_drivers": red_drivers,
+                "psps_score": psps_score,
+                "psps_level": psps_level,
+                "psps_drivers": psps_drivers,
+                "weather_tier": point.get("tier", day.get("tier", "UNKNOWN")),
+                "min_rh_percent": point.get("min_rh_percent"),
+                "max_wind_mph": point.get("max_usable_wind_mph"),
+                "max_thunder_percent": point.get("max_thunder_percent"),
+            }
+            day_predictions.append(prediction)
+            all_predictions.append(prediction)
+
+        if day_predictions:
+            top_fire = max(day_predictions, key=lambda item: (item["fire_danger_score"], item["red_flag_score"]))
+            top_red = max(day_predictions, key=lambda item: (item["red_flag_score"], item["psps_score"]))
+            top_psps = max(day_predictions, key=lambda item: (PSPS_RANK.get(item["psps_level"], 0), item["psps_score"]))
+            daily_predictions.append(
+                {
+                    "date": day.get("date"),
+                    "display_date": format_display_date(day.get("date", "")),
+                    "top_fire_danger": top_fire,
+                    "top_red_flag": top_red,
+                    "top_psps": top_psps,
+                    "takeaway": (
+                        f"{format_display_date(day.get('date', ''))}: highest PSPS concern is {top_psps['location']} "
+                        f"({top_psps['psps_level']} {top_psps['psps_score']}/100), with strongest window "
+                        f"{top_psps.get('highest_risk_window', 'n/a')}."
+                    ),
+                }
+            )
+
+    top_fire_overall = max(all_predictions, key=lambda item: (item["fire_danger_score"], item["red_flag_score"]), default=None)
+    top_red_overall = max(all_predictions, key=lambda item: (item["red_flag_score"], item["psps_score"]), default=None)
+    top_psps_overall = max(all_predictions, key=lambda item: (PSPS_RANK.get(item["psps_level"], 0), item["psps_score"]), default=None)
+
+    ok_points = [point for point in report.get("points", []) if point.get("status") == "ok"]
+    total_points = max(1, len(report.get("points", [])))
+    coverage_ratio = len(ok_points) / total_points
+    confidence_score = 35 + round(coverage_ratio * 25)
+    confidence_reasons = [f"{len(ok_points)}/{total_points} sampled weather points available"]
+    fire_posture = report.get("fire_posture", {})
+    if fire_posture.get("source_count"):
+        source_count = max(1, safe_int(fire_posture.get("source_count")))
+        reachable = safe_int(fire_posture.get("reachable_source_count"))
+        confidence_score += round((reachable / source_count) * 10)
+        confidence_reasons.append(f"{reachable}/{source_count} fire-posture sources reachable")
+    if report.get("official_alerts", {}).get("monitored_zones"):
+        confidence_score += 5
+        confidence_reasons.append("official NWS alert zones checked")
+    if report.get("lpea", {}).get("active_hits"):
+        confidence_score += 5
+        confidence_reasons.append("LPEA active/update sources checked")
+    if report.get("calibration", {}).get("confirmed_event_count", 0) == 0:
+        confidence_score -= 8
+        confidence_reasons.append("no confirmed PSPS events logged yet for calibration")
+
+    confidence_score = clamp_score(confidence_score)
+    if top_psps_overall:
+        summary = (
+            f"Highest LPEA PSPS concern is {format_display_date(top_psps_overall.get('date', ''))} near "
+            f"{top_psps_overall.get('location', 'Unknown area')} ({top_psps_overall.get('psps_level')} "
+            f"{top_psps_overall.get('psps_score')}/100), driven by "
+            f"{'; '.join(top_psps_overall.get('psps_drivers', [])[:3])}."
+        )
+    else:
+        summary = "No area-level AI decision-support prediction is available for this run."
+
+    return {
+        "mode": "rules_first_ai_decision_support",
+        "summary": summary,
+        "confidence": {
+            "score": confidence_score,
+            "label": confidence_label(confidence_score),
+            "reasons": confidence_reasons,
+        },
+        "top_fire_danger": top_fire_overall,
+        "top_red_flag": top_red_overall,
+        "top_psps": top_psps_overall,
+        "daily_predictions": daily_predictions,
+        "area_predictions": all_predictions,
+        "notes": [
+            "Rules-first AI-style analysis; no external model call is required.",
+            "Scores are screening estimates, not statistically calibrated probabilities.",
+            "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.",
+        ],
+    }
+
+
 def previous_tier(history_path: Path) -> Optional[str]:
     if not history_path.exists():
         return None
@@ -1829,6 +2176,10 @@ def tier_badge_class(tier: str) -> str:
 
 def fire_status_class(value: str) -> str:
     return "fire-" + re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
+def class_slug(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", str(value).lower()).strip("-") or "unknown"
 
 
 def jurisdiction_type_label(value: str) -> str:
@@ -2276,6 +2627,36 @@ def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
     ]
 
 
+def render_ai_analysis_markdown(report: Dict[str, Any]) -> List[str]:
+    analysis = report.get("ai_analysis", {})
+    confidence = analysis.get("confidence", {})
+    lines = [
+        "## AI Decision Support",
+        "",
+        f"- Summary: {analysis.get('summary', 'No AI decision-support summary available.')}",
+        f"- Confidence: **{confidence.get('label', 'UNKNOWN')}** ({confidence.get('score', 'n/a')}/100) - {'; '.join(confidence.get('reasons', []))}",
+        f"- Fire danger peak: {top_prediction_label(analysis.get('top_fire_danger'), 'fire_danger_score', 'fire_danger_level')}",
+        f"- Red Flag likelihood peak: {top_prediction_label(analysis.get('top_red_flag'), 'red_flag_score', 'red_flag_likelihood')}",
+        f"- LPEA PSPS peak: {top_prediction_label(analysis.get('top_psps'), 'psps_score', 'psps_level')}",
+        "- Method: rules-first AI-style decision support; scores are screening estimates, not official or statistically calibrated probabilities.",
+        "",
+        "| Date | Fire danger | Red Flag likelihood | LPEA PSPS | Main window |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for day in analysis.get("daily_predictions", []):
+        fire = day.get("top_fire_danger", {})
+        red = day.get("top_red_flag", {})
+        psps = day.get("top_psps", {})
+        lines.append(
+            f"| {day.get('display_date', day.get('date', ''))} | "
+            f"{fire.get('location', 'n/a')}: {fire.get('fire_danger_level', 'UNKNOWN')} {fire.get('fire_danger_score', 'n/a')}/100 | "
+            f"{red.get('location', 'n/a')}: {red.get('red_flag_likelihood', 'UNKNOWN')} {red.get('red_flag_score', 'n/a')}/100 | "
+            f"{psps.get('location', 'n/a')}: {psps.get('psps_level', 'UNKNOWN')} {psps.get('psps_score', 'n/a')}/100 | "
+            f"{psps.get('highest_risk_window', 'n/a')} |"
+        )
+    return lines
+
+
 def render_fire_posture_markdown(report: Dict[str, Any]) -> List[str]:
     posture = report.get("fire_posture", {})
     lines = [
@@ -2328,6 +2709,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         f"- LPEA signal: `{report['lpea']['status']}` - {report['lpea']['headline']}",
         f"- LPEA source coverage: {report['lpea'].get('monitored_source_count', 0)} sources; {report['lpea'].get('social_status', 'social sources not configured')}",
         f"- NWS discussion: {report['discussion']['headline']}",
+        "",
+        *render_ai_analysis_markdown(report),
         "",
         *render_psps_markdown(report),
         "",
@@ -2550,6 +2933,60 @@ def render_html(report: Dict[str, Any]) -> str:
         """
         for card in build_area_outlook(report)
     ) or '<p class="empty-state">No area-specific PSPS scores available.</p>'
+    analysis = report.get("ai_analysis", {})
+    confidence = analysis.get("confidence", {})
+    analysis_cards = [
+        {
+            "label": "Fire danger peak",
+            "prediction": analysis.get("top_fire_danger"),
+            "score_key": "fire_danger_score",
+            "level_key": "fire_danger_level",
+            "driver_key": "fire_danger_drivers",
+        },
+        {
+            "label": "Red Flag peak",
+            "prediction": analysis.get("top_red_flag"),
+            "score_key": "red_flag_score",
+            "level_key": "red_flag_likelihood",
+            "driver_key": "red_flag_drivers",
+        },
+        {
+            "label": "LPEA PSPS peak",
+            "prediction": analysis.get("top_psps"),
+            "score_key": "psps_score",
+            "level_key": "psps_level",
+            "driver_key": "psps_drivers",
+        },
+    ]
+    analysis_cards_html = "".join(
+        f"""
+        <article class="analysis-card analysis-{escape_html(class_slug((card.get('prediction') or {}).get(card['level_key'], 'unknown')))}">
+          <p class="eyebrow">{escape_html(card['label'])}</p>
+          <h3>{escape_html(((card.get('prediction') or {}).get(card['level_key'], 'UNKNOWN')))}</h3>
+          <p class="analysis-score">{escape_html(str((card.get('prediction') or {}).get(card['score_key'], 'n/a')))}/100</p>
+          <p class="source-meta">{escape_html(top_prediction_label(card.get('prediction'), card['score_key'], card['level_key']))}</p>
+          <p class="risk-window">{escape_html((card.get('prediction') or {}).get('highest_risk_window', 'n/a'))}</p>
+          <ul class="metrics">{''.join(f'<li>{escape_html(driver)}</li>' for driver in (card.get('prediction') or {}).get(card['driver_key'], [])[:3])}</ul>
+        </article>
+        """
+        for card in analysis_cards
+    )
+    analysis_daily_rows_html = "".join(
+        f"""
+        <tr>
+          <td>{escape_html(day.get('display_date', day.get('date', '')))}</td>
+          <td>{escape_html(day.get('top_fire_danger', {}).get('location', 'n/a'))}<br><strong>{escape_html(day.get('top_fire_danger', {}).get('fire_danger_level', 'UNKNOWN'))} {escape_html(str(day.get('top_fire_danger', {}).get('fire_danger_score', 'n/a')))}/100</strong></td>
+          <td>{escape_html(day.get('top_red_flag', {}).get('location', 'n/a'))}<br><strong>{escape_html(day.get('top_red_flag', {}).get('red_flag_likelihood', 'UNKNOWN'))} {escape_html(str(day.get('top_red_flag', {}).get('red_flag_score', 'n/a')))}/100</strong></td>
+          <td>{escape_html(day.get('top_psps', {}).get('location', 'n/a'))}<br><strong>{escape_html(day.get('top_psps', {}).get('psps_level', 'UNKNOWN'))} {escape_html(str(day.get('top_psps', {}).get('psps_score', 'n/a')))}/100</strong></td>
+          <td>{escape_html(day.get('top_psps', {}).get('highest_risk_window', 'n/a'))}</td>
+        </tr>
+        """
+        for day in analysis.get("daily_predictions", [])
+    ) or '<tr><td colspan="5">No AI decision-support rows available.</td></tr>'
+    analysis_notes_html = "".join(
+        f"<li>{escape_html(note)}</li>"
+        for note in analysis.get("notes", [])
+    )
     calibration = report.get("calibration", {})
     calibration_cards_html = f"""
         <article class="calibration-card">
@@ -3273,6 +3710,73 @@ def render_html(report: Dict[str, Any]) -> str:
       font-weight: 900;
       letter-spacing: 0.05em;
     }}
+    .analysis-summary {{
+      margin-top: 12px;
+      padding: 16px;
+      border: 1px solid rgba(167, 47, 35, 0.22);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 94% 10%, rgba(167, 47, 35, 0.12), transparent 36%),
+        rgba(255, 248, 240, 0.78);
+    }}
+    .analysis-summary strong {{
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+    }}
+    .analysis-summary p {{
+      margin: 0;
+      line-height: 1.42;
+    }}
+    .analysis-summary .source-meta {{
+      margin-top: 8px;
+    }}
+    .analysis-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }}
+    .analysis-card {{
+      border: 1px solid var(--line);
+      border-left: 7px solid rgba(29, 42, 42, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.68);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }}
+    .analysis-card.analysis-likely,
+    .analysis-card.analysis-very-high,
+    .analysis-card.analysis-extreme {{
+      border-left-color: var(--high);
+    }}
+    .analysis-card.analysis-watch,
+    .analysis-card.analysis-high,
+    .analysis-card.analysis-possible {{
+      border-left-color: var(--concern);
+    }}
+    .analysis-card.analysis-moderate,
+    .analysis-card.analysis-elevated {{
+      border-left-color: var(--elevated);
+    }}
+    .analysis-card.analysis-low {{
+      border-left-color: var(--green);
+    }}
+    .analysis-card h3 {{
+      font-size: 1.25rem;
+    }}
+    .analysis-score {{
+      margin: 4px 0 8px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1;
+    }}
+    .analysis-table-wrap {{
+      margin-top: 16px;
+      overflow-x: auto;
+    }}
     .risk-window {{
       margin: 10px 0 0;
       padding-top: 10px;
@@ -3525,6 +4029,9 @@ def render_html(report: Dict[str, Any]) -> str:
         margin-top: 18px;
         gap: 12px;
       }}
+      .analysis-grid {{
+        grid-template-columns: 1fr;
+      }}
       .risk-strip {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .source-meta {{ font-size: 0.92rem; }}
       .audit-summary {{ align-items: start; flex-direction: column; }}
@@ -3617,6 +4124,37 @@ def render_html(report: Dict[str, Any]) -> str:
           </div>
         </div>
       </details>
+    </section>
+
+    <section class="section-panel">
+      <p class="eyebrow">AI Decision Support</p>
+      <h2>Fire + Red Flag + PSPS Prediction</h2>
+      <div class="analysis-summary">
+        <strong>{escape_html(confidence.get('label', 'UNKNOWN'))} confidence · {escape_html(str(confidence.get('score', 'n/a')))}/100</strong>
+        <p>{escape_html(analysis.get('summary', 'No AI decision-support summary available.'))}</p>
+        <p class="source-meta">Why confidence is {escape_html(str(confidence.get('label', 'UNKNOWN')).lower())}: {escape_html('; '.join(confidence.get('reasons', [])))}</p>
+      </div>
+      <div class="analysis-grid">
+        {analysis_cards_html}
+      </div>
+      <div class="analysis-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Fire danger</th>
+              <th>Red Flag</th>
+              <th>LPEA PSPS</th>
+              <th>Main window</th>
+            </tr>
+          </thead>
+          <tbody>
+            {analysis_daily_rows_html}
+          </tbody>
+        </table>
+      </div>
+      <p class="footer-note">Method notes:</p>
+      <ul class="metrics">{analysis_notes_html}</ul>
     </section>
 
     <section class="section-panel">
@@ -3781,7 +4319,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         days[0]["tier"] = max_tier(days[0]["tier"], "CONCERN")
         days[0]["reasons"].insert(0, "NWS forecast data unavailable for all sample points; cannot rule out risk.")
 
-    return {
+    report = {
         "area_name": config["area_name"],
         "generated_at": now_local.isoformat(),
         "generated_at_local": now_local.isoformat(),
@@ -3804,6 +4342,8 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "days": days,
         "points": point_results,
     }
+    report["ai_analysis"] = build_ai_analysis(report)
+    return report
 
 
 def main() -> int:

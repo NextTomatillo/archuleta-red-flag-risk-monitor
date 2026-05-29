@@ -543,7 +543,12 @@ class MonitorTests(unittest.TestCase):
                 {"name": "Pagosa", "status": "ok", "fire_weather_zone": "COZ295", "zone_status": "matches", "forecast_zone": "COZ023", "county_zone": "COC007"}
             ],
         }
+        report["ai_analysis"] = monitor.build_ai_analysis(report)
         rendered = monitor.render_html(report)
+        self.assertIn("AI Decision Support", rendered)
+        self.assertIn("Fire + Red Flag + PSPS Prediction", rendered)
+        self.assertIn("Rules-first AI-style analysis", rendered)
+        self.assertIn("LPEA PSPS peak", rendered)
         self.assertIn("Weather + PSPS Outlook", rendered)
         self.assertIn("PSPS = Public Safety Power Shutoff", rendered)
         self.assertIn("LPEA outage center", rendered)
