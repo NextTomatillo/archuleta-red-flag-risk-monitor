@@ -2829,12 +2829,10 @@
   "calibration": {
     "candidate_event_count": 0,
     "confirmed_event_count": 0,
-    "event_log_path": "archuleta_red_flag_monitor/psps_events.json",
     "false_watch_day_count": 1,
     "false_watch_examples": [
       "2026-05-28"
     ],
-    "forecast_history_path": "archuleta_red_flag_monitor/forecast_history.csv",
     "hit_count": 0,
     "hit_rate_percent": null,
     "hits": [],
@@ -3840,9 +3838,9 @@
   },
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "generated_at": "2026-05-29T09:17:06.217644-06:00",
-  "generated_at_local": "2026-05-29T09:17:06.217644-06:00",
-  "generated_at_utc": "2026-05-29T15:17:06.217644+00:00",
+  "generated_at": "2026-05-29T09:24:48.150725-06:00",
+  "generated_at_local": "2026-05-29T09:24:48.150725-06:00",
+  "generated_at_utc": "2026-05-29T15:24:48.150725+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -4603,7 +4601,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-05-29T10:17:06.217644-06:00",
+  "next_update_at": "2026-05-29T10:24:48.150725-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],

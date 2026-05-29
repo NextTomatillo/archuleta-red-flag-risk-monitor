@@ -1956,8 +1956,6 @@ def build_calibration_summary(
         summary = "No confirmed LPEA PSPS events logged yet; calibration will start once events are added."
 
     return {
-        "event_log_path": f"archuleta_red_flag_monitor/{event_path.name}",
-        "forecast_history_path": f"archuleta_red_flag_monitor/{forecast_path.name}",
         "confirmed_event_count": len(confirmed_events),
         "candidate_event_count": len(candidate_events),
         "hit_count": len(hits),
@@ -2622,8 +2620,7 @@ def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
         f"- Candidate/unconfirmed events logged: {calibration.get('candidate_event_count', 0)}",
         f"- WATCH/LIKELY false-watch past days: {calibration.get('false_watch_day_count', 0)}",
         f"- Pending WATCH/LIKELY dates in current forecast: {format_date_list(calibration.get('pending_watch_dates', []))}",
-        f"- Event log: `{calibration.get('event_log_path', 'psps_events.json')}`",
-        f"- Forecast history: `{calibration.get('forecast_history_path', 'forecast_history.csv')}`",
+        "- Calibration source: manual PSPS event log plus forecast history from prior monitor runs.",
     ]
 
 
@@ -4183,7 +4180,7 @@ def render_html(report: Dict[str, Any]) -> str:
       <div class="calibration-grid">
         {calibration_cards_html}
       </div>
-      <p class="footer-note">Event log: {escape_html(calibration.get('event_log_path', 'psps_events.json'))}</p>
+      <p class="footer-note">Calibration source: manual PSPS event log plus forecast history from prior monitor runs.</p>
     </section>
 
     <section class="section-panel">
