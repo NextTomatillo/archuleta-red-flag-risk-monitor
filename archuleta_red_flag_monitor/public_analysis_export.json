@@ -13,13 +13,13 @@
     "score": 68
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-05-30T05:21:45.297169-06:00",
+  "generated_at": "2026-05-31T05:22:15.983618-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sat, May 30 near Chimney Rock / west county (LIKELY 97/100), driven by red-flag wind/gust signal near 28 mph; red-flag RH near 14%; 4 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is rising versus the prior run (May 29 at 6:14 PM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, May 30."
+    "summary": "Highest LPEA PSPS concern is Mon, Jun 1 near Pagosa Springs (LIKELY 97/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 10%; 3 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (May 30 at 5:21 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, May 31."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -28,64 +28,63 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Fri, May 29 to Sat, May 30.",
-    "Sun, May 31: easing vs prior run; PSPS LIKELY -> WATCH; score -19, wind -2 mph, RH -1%, red-flag hours -4. Driver shifted to Pagosa Springs.",
-    "Mon, Jun 1: worsening vs prior run; PSPS WATCH -> LIKELY; score +12, wind +2 mph, RH -1%, red-flag hours +3. Driver shifted to Pagosa Springs.",
-    "Thu, Jun 4: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +18, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County."
+    "First WATCH-or-higher PSPS date moved later from Sat, May 30 to Sun, May 31.",
+    "Fri, Jun 5: worsening vs prior run; PSPS ELEVATED -> WATCH; score +4, wind +1 mph, RH 0%, red-flag hours 0.",
+    "Thu, Jun 4: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -14, wind 0 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County."
   ],
   "peaks": {
     "fire_danger": {
-      "date": "2026-05-30",
-      "display_date": "Sat, May 30",
+      "date": "2026-06-01",
+      "display_date": "Mon, Jun 1",
       "drivers": [
-        "very dry RH near 14%",
-        "wind/gust near 28 mph",
+        "very dry RH near 8%",
+        "wind/gust near 25 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "1 PM-8 PM local; 8 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
       "level": "EXTREME",
-      "location": "Chimney Rock / west county",
-      "score": 85
+      "location": "Durango / La Plata County",
+      "score": 86
     },
     "psps": {
-      "date": "2026-05-30",
-      "display_date": "Sat, May 30",
+      "date": "2026-06-01",
+      "display_date": "Mon, Jun 1",
       "drivers": [
-        "red-flag wind/gust signal near 28 mph",
-        "red-flag RH near 14%",
-        "4 sampled hours meet red-flag screen",
+        "red-flag wind/gust signal near 25 mph",
+        "very dry RH near 10%",
+        "3 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "1 PM-8 PM local; 8 near/red-flag threshold hours.",
+      "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Chimney Rock / west county",
+      "location": "Pagosa Springs",
       "score": 97
     },
     "red_flag": {
-      "date": "2026-05-30",
-      "display_date": "Sat, May 30",
+      "date": "2026-06-01",
+      "display_date": "Mon, Jun 1",
       "drivers": [
-        "4 sampled red-flag hours",
-        "RH near 14%",
-        "wind/gust near 28 mph"
+        "7 near-threshold hours",
+        "RH near 8%",
+        "wind/gust near 25 mph"
       ],
-      "highest_risk_window": "1 PM-8 PM local; 8 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Chimney Rock / west county",
-      "score": 80
+      "location": "Durango / La Plata County",
+      "score": 81
     }
   },
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-05-30",
-    "first_watch_or_likely_display": "Sat, May 30",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Fri, May 29 to Sat, May 30.",
+    "first_watch_or_likely_date": "2026-05-31",
+    "first_watch_or_likely_display": "Sun, May 31",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Sat, May 30 to Sun, May 31.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 46,
-    "momentum": "Rising"
+    "forecast_volatility_score": 36,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
