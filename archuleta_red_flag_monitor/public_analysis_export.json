@@ -13,13 +13,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-01T05:21:19.126043-06:00",
+  "generated_at": "2026-06-01T18:27:30.729317-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sat, Jun 6 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 12%; 4 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is rising versus the prior run (May 31 at 5:22 AM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Jun 1."
+    "summary": "Highest LPEA PSPS concern is Sat, Jun 6 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 26 mph; very dry RH near 12%; 4 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jun 1 at 5:21 AM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Jun 1."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -28,10 +28,11 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Sun, May 31 to Mon, Jun 1.",
-    "Sat, Jun 6: worsening vs prior run; PSPS WATCH -> LIKELY; score +19, wind +3 mph, RH 0%, red-flag hours +4. Driver shifted to Durango / La Plata County.",
-    "Thu, Jun 4: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +16, wind 0 mph, RH -2%, red-flag hours 0.",
-    "Wed, Jun 3: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +14, wind +2 mph, RH -1%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County."
+    "First WATCH-or-higher PSPS date remains Mon, Jun 1.",
+    "Mon, Jun 1: easing vs prior run; PSPS LIKELY -> WATCH; score -16, wind -1 mph, RH 0%, red-flag hours -3.",
+    "Fri, Jun 5: worsening vs prior run; PSPS WATCH -> WATCH; score +13, wind +3 mph, RH -1%, red-flag hours +2.",
+    "Thu, Jun 4: worsening vs prior run; PSPS ELEVATED -> WATCH; score +4, wind +1 mph, RH -1%, red-flag hours 0.",
+    "Wed, Jun 3: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -8, wind -2 mph, RH -1%, red-flag hours 0. Driver shifted to Arboles / southwest county."
   ],
   "peaks": {
     "fire_danger": {
@@ -39,11 +40,11 @@
       "display_date": "Sun, Jun 7",
       "drivers": [
         "very dry RH near 11%",
-        "wind/gust near 29 mph",
+        "wind/gust near 30 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "11 AM-7 PM local; 9 near/red-flag threshold hours.",
+      "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
       "level": "EXTREME",
       "location": "Durango / La Plata County",
       "score": 95
@@ -52,13 +53,13 @@
       "date": "2026-06-06",
       "display_date": "Sat, Jun 6",
       "drivers": [
-        "red-flag wind/gust signal near 28 mph",
+        "red-flag wind/gust signal near 26 mph",
         "very dry RH near 12%",
         "4 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "2 PM-8 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Durango / La Plata County",
       "score": 100
@@ -69,9 +70,9 @@
       "drivers": [
         "7 sampled red-flag hours",
         "RH near 11%",
-        "wind/gust near 29 mph"
+        "wind/gust near 30 mph"
       ],
-      "highest_risk_window": "11 AM-7 PM local; 9 near/red-flag threshold hours.",
+      "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Durango / La Plata County",
       "score": 96
@@ -82,10 +83,10 @@
   "trend": {
     "first_watch_or_likely_date": "2026-06-01",
     "first_watch_or_likely_display": "Mon, Jun 1",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Sun, May 31 to Mon, Jun 1.",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Jun 1.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 46,
-    "momentum": "Rising"
+    "forecast_volatility_score": 48,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
