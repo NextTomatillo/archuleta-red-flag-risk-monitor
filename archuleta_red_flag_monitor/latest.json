@@ -5,7 +5,7 @@
         "date": "2026-06-03",
         "display_date": "Wed, Jun 3",
         "fire_danger_drivers": [
-          "thunder probability near 30%",
+          "thunder probability near 26%",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
         ],
@@ -13,12 +13,12 @@
         "fire_danger_score": 40,
         "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 17 mph.",
         "location": "Pagosa Springs",
-        "max_thunder_percent": 30.0,
+        "max_thunder_percent": 26.0,
         "max_wind_mph": 17.3,
         "min_rh_percent": 24.0,
         "psps_drivers": [
           "breezy wind/gust signal near 17 mph",
-          "modest thunder signal near 30%",
+          "modest thunder signal near 26%",
           "LPEA active sources contain wildfire/red-flag/power language",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
@@ -26,7 +26,7 @@
         "psps_level": "ELEVATED",
         "psps_score": 32,
         "red_flag_drivers": [
-          "thunder probability near 30%"
+          "thunder probability near 26%"
         ],
         "red_flag_likelihood": "LOW",
         "red_flag_score": 25,
@@ -104,7 +104,7 @@
         "date": "2026-06-03",
         "display_date": "Wed, Jun 3",
         "fire_danger_drivers": [
-          "thunder probability near 28%",
+          "thunder probability near 24%",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
         ],
@@ -112,12 +112,12 @@
         "fire_danger_score": 40,
         "highest_risk_window": "Peak ingredients near 3 PM local; RH 29%, wind 16 mph.",
         "location": "Piedra / north county",
-        "max_thunder_percent": 28.0,
+        "max_thunder_percent": 24.0,
         "max_wind_mph": 16.1,
         "min_rh_percent": 29.0,
         "psps_drivers": [
           "breezy wind/gust signal near 16 mph",
-          "modest thunder signal near 28%",
+          "modest thunder signal near 24%",
           "LPEA active sources contain wildfire/red-flag/power language",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
@@ -125,7 +125,7 @@
         "psps_level": "ELEVATED",
         "psps_score": 32,
         "red_flag_drivers": [
-          "thunder probability near 28%"
+          "thunder probability near 24%"
         ],
         "red_flag_likelihood": "LOW",
         "red_flag_score": 25,
@@ -145,7 +145,7 @@
         "location": "Chromo / southeast county",
         "max_thunder_percent": 29.0,
         "max_wind_mph": 16.1,
-        "min_rh_percent": 25.0,
+        "min_rh_percent": 26.0,
         "psps_drivers": [
           "breezy wind/gust signal near 16 mph",
           "modest thunder signal near 29%",
@@ -167,21 +167,20 @@
         "display_date": "Wed, Jun 3",
         "fire_danger_drivers": [
           "dry RH near 19%",
-          "thunder probability near 22%",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
         ],
         "fire_danger_level": "MODERATE",
-        "fire_danger_score": 48,
+        "fire_danger_score": 40,
         "highest_risk_window": "Peak ingredients near 5 PM local; RH 21%, wind 18 mph.",
         "location": "Durango / La Plata County",
-        "max_thunder_percent": 22.0,
+        "max_thunder_percent": 15.0,
         "max_wind_mph": 18.4,
         "min_rh_percent": 19.0,
         "psps_drivers": [
           "breezy wind/gust signal near 18 mph",
           "dry RH near 19%",
-          "modest thunder signal near 22%",
+          "modest thunder signal near 15%",
           "LPEA active sources contain wildfire/red-flag/power language",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
@@ -189,7 +188,7 @@
         "psps_level": "ELEVATED",
         "psps_score": 38,
         "red_flag_drivers": [
-          "thunder probability near 22%"
+          "thunder probability near 15%"
         ],
         "red_flag_likelihood": "LOW",
         "red_flag_score": 25,
@@ -200,21 +199,20 @@
         "display_date": "Wed, Jun 3",
         "fire_danger_drivers": [
           "dry RH near 19%",
-          "thunder probability near 22%",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
         ],
         "fire_danger_level": "MODERATE",
-        "fire_danger_score": 48,
+        "fire_danger_score": 40,
         "highest_risk_window": "Peak ingredients near 4 PM local; RH 22%, wind 20 mph.",
         "location": "Bayfield / east La Plata County",
-        "max_thunder_percent": 22.0,
+        "max_thunder_percent": 18.0,
         "max_wind_mph": 19.6,
         "min_rh_percent": 19.0,
         "psps_drivers": [
           "breezy wind/gust signal near 20 mph",
           "dry RH near 19%",
-          "modest thunder signal near 22%",
+          "modest thunder signal near 18%",
           "LPEA active sources contain wildfire/red-flag/power language",
           "official fire restrictions at STAGE 1",
           "official fire danger is VERY HIGH"
@@ -222,7 +220,7 @@
         "psps_level": "ELEVATED",
         "psps_score": 38,
         "red_flag_drivers": [
-          "thunder probability near 22%"
+          "thunder probability near 18%"
         ],
         "red_flag_likelihood": "LOW",
         "red_flag_score": 25,
@@ -2779,13 +2777,13 @@
         {
           "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 17 mph.",
           "max_precip_percent": 40.0,
-          "max_thunder_percent": 30.0,
+          "max_thunder_percent": 26.0,
           "max_usable_wind_mph": 17.3,
           "min_rh_percent": 24.0,
           "name": "Pagosa Springs",
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 30%."
+            "Elevated ingredient present: thunder probability reaches 26%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -2820,14 +2818,14 @@
         },
         {
           "highest_risk_window": "Peak ingredients near 3 PM local; RH 29%, wind 16 mph.",
-          "max_precip_percent": 39.0,
-          "max_thunder_percent": 28.0,
+          "max_precip_percent": 38.0,
+          "max_thunder_percent": 24.0,
           "max_usable_wind_mph": 16.1,
           "min_rh_percent": 29.0,
           "name": "Piedra / north county",
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 28%."
+            "Elevated ingredient present: thunder probability reaches 24%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -2837,7 +2835,7 @@
           "max_precip_percent": 40.0,
           "max_thunder_percent": 29.0,
           "max_usable_wind_mph": 16.1,
-          "min_rh_percent": 25.0,
+          "min_rh_percent": 26.0,
           "name": "Chromo / southeast county",
           "near_hours": 0,
           "reasons": [
@@ -2849,13 +2847,13 @@
         {
           "highest_risk_window": "Peak ingredients near 5 PM local; RH 21%, wind 18 mph.",
           "max_precip_percent": 26.0,
-          "max_thunder_percent": 22.0,
+          "max_thunder_percent": 15.0,
           "max_usable_wind_mph": 18.4,
           "min_rh_percent": 19.0,
           "name": "Durango / La Plata County",
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 22%."
+            "Elevated ingredient present: thunder probability reaches 15%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -2863,13 +2861,13 @@
         {
           "highest_risk_window": "Peak ingredients near 4 PM local; RH 22%, wind 20 mph.",
           "max_precip_percent": 28.0,
-          "max_thunder_percent": 22.0,
+          "max_thunder_percent": 18.0,
           "max_usable_wind_mph": 19.6,
           "min_rh_percent": 19.0,
           "name": "Bayfield / east La Plata County",
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 22%."
+            "Elevated ingredient present: thunder probability reaches 18%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -2890,10 +2888,10 @@
         }
       ],
       "reasons": [
-        "Pagosa Springs: Elevated ingredient present: thunder probability reaches 30%.",
+        "Pagosa Springs: Elevated ingredient present: thunder probability reaches 26%.",
         "Arboles / southwest county: Elevated ingredient present: thunder probability reaches 20%.",
         "Chimney Rock / west county: Elevated ingredient present: thunder probability reaches 23%.",
-        "Piedra / north county: Elevated ingredient present: thunder probability reaches 28%.",
+        "Piedra / north county: Elevated ingredient present: thunder probability reaches 24%.",
         "Chromo / southeast county: Elevated ingredient present: thunder probability reaches 29%."
       ],
       "tier": "ELEVATED"
@@ -3775,7 +3773,7 @@
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 0,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 30.0,
+          "max_thunder_percent": 29.0,
           "max_weather_score": 24.0,
           "max_wind_mph": 19.6,
           "min_rh_percent": 17.0,
@@ -4081,8 +4079,8 @@
     ],
     "previous_first_watch_or_likely_date": "2026-06-06",
     "previous_overall_psps_level": "LIKELY",
-    "previous_run_at": "2026-06-03T14:49:00.115990-06:00",
-    "previous_run_label": "Jun 3 at 2:49 PM MDT",
+    "previous_run_at": "2026-06-03T14:54:22.198857-06:00",
+    "previous_run_label": "Jun 3 at 2:54 PM MDT",
     "review_cues": [
       "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
       "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.",
@@ -4091,11 +4089,11 @@
     ],
     "risk_momentum": "Steady",
     "status": "compared",
-    "summary": "Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
+    "summary": "Momentum is steady versus the prior run (Jun 3 at 2:54 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
   },
-  "generated_at": "2026-06-03T14:54:22.198857-06:00",
-  "generated_at_local": "2026-06-03T14:54:22.198857-06:00",
-  "generated_at_utc": "2026-06-03T20:54:22.198857+00:00",
+  "generated_at": "2026-06-03T15:04:45.160978-06:00",
+  "generated_at_local": "2026-06-03T15:04:45.160978-06:00",
+  "generated_at_utc": "2026-06-03T21:04:45.160978+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -4947,7 +4945,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-06-03T15:54:22.198857-06:00",
+  "next_update_at": "2026-06-03T16:04:45.160978-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],
@@ -4973,13 +4971,13 @@
           "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 17 mph.",
           "max_gust_mph": 17.3,
           "max_precip_percent": 40.0,
-          "max_thunder_percent": 30.0,
+          "max_thunder_percent": 26.0,
           "max_usable_wind_mph": 17.3,
           "max_wind_mph": 11.5,
           "min_rh_percent": 24.0,
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 30%."
+            "Elevated ingredient present: thunder probability reaches 26%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -5350,14 +5348,14 @@
           "date": "2026-06-03",
           "highest_risk_window": "Peak ingredients near 3 PM local; RH 29%, wind 16 mph.",
           "max_gust_mph": 16.1,
-          "max_precip_percent": 39.0,
-          "max_thunder_percent": 28.0,
+          "max_precip_percent": 38.0,
+          "max_thunder_percent": 24.0,
           "max_usable_wind_mph": 16.1,
           "max_wind_mph": 9.2,
           "min_rh_percent": 29.0,
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 28%."
+            "Elevated ingredient present: thunder probability reaches 24%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -5480,7 +5478,7 @@
           "max_thunder_percent": 29.0,
           "max_usable_wind_mph": 16.1,
           "max_wind_mph": 8.1,
-          "min_rh_percent": 25.0,
+          "min_rh_percent": 26.0,
           "near_hours": 0,
           "reasons": [
             "Elevated ingredient present: thunder probability reaches 29%."
@@ -5603,13 +5601,13 @@
           "highest_risk_window": "Peak ingredients near 5 PM local; RH 21%, wind 18 mph.",
           "max_gust_mph": 18.4,
           "max_precip_percent": 26.0,
-          "max_thunder_percent": 22.0,
+          "max_thunder_percent": 15.0,
           "max_usable_wind_mph": 18.4,
           "max_wind_mph": 8.1,
           "min_rh_percent": 19.0,
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 22%."
+            "Elevated ingredient present: thunder probability reaches 15%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -5729,13 +5727,13 @@
           "highest_risk_window": "Peak ingredients near 4 PM local; RH 22%, wind 20 mph.",
           "max_gust_mph": 19.6,
           "max_precip_percent": 28.0,
-          "max_thunder_percent": 22.0,
+          "max_thunder_percent": 18.0,
           "max_usable_wind_mph": 19.6,
           "max_wind_mph": 9.2,
           "min_rh_percent": 19.0,
           "near_hours": 0,
           "reasons": [
-            "Elevated ingredient present: thunder probability reaches 22%."
+            "Elevated ingredient present: thunder probability reaches 18%."
           ],
           "red_flag_hours": 0,
           "tier": "ELEVATED"
@@ -6114,7 +6112,7 @@
             "factors": [
               "breezy wind/gust signal near 18 mph",
               "dry RH near 19%",
-              "modest thunder signal near 22%"
+              "modest thunder signal near 15%"
             ],
             "fire_weather_tier": "ELEVATED",
             "highest_risk_window": "Peak ingredients near 5 PM local; RH 21%, wind 18 mph.",
@@ -6123,7 +6121,7 @@
               "max_near_hours": 0,
               "max_precip_percent": 26.0,
               "max_red_flag_hours": 0,
-              "max_thunder_percent": 22.0,
+              "max_thunder_percent": 15.0,
               "max_usable_wind_mph": 18.4,
               "min_rh_percent": 19.0
             },
@@ -6135,7 +6133,7 @@
             "factors": [
               "breezy wind/gust signal near 20 mph",
               "dry RH near 19%",
-              "modest thunder signal near 22%"
+              "modest thunder signal near 18%"
             ],
             "fire_weather_tier": "ELEVATED",
             "highest_risk_window": "Peak ingredients near 4 PM local; RH 22%, wind 20 mph.",
@@ -6144,7 +6142,7 @@
               "max_near_hours": 0,
               "max_precip_percent": 28.0,
               "max_red_flag_hours": 0,
-              "max_thunder_percent": 22.0,
+              "max_thunder_percent": 18.0,
               "max_usable_wind_mph": 19.6,
               "min_rh_percent": 19.0
             },
@@ -6155,7 +6153,7 @@
           {
             "factors": [
               "breezy wind/gust signal near 17 mph",
-              "modest thunder signal near 30%"
+              "modest thunder signal near 26%"
             ],
             "fire_weather_tier": "ELEVATED",
             "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 17 mph.",
@@ -6164,7 +6162,7 @@
               "max_near_hours": 0,
               "max_precip_percent": 40.0,
               "max_red_flag_hours": 0,
-              "max_thunder_percent": 30.0,
+              "max_thunder_percent": 26.0,
               "max_usable_wind_mph": 17.3,
               "min_rh_percent": 24.0
             },
@@ -6175,16 +6173,16 @@
           {
             "factors": [
               "breezy wind/gust signal near 16 mph",
-              "modest thunder signal near 28%"
+              "modest thunder signal near 24%"
             ],
             "fire_weather_tier": "ELEVATED",
             "highest_risk_window": "Peak ingredients near 3 PM local; RH 29%, wind 16 mph.",
             "level": "LOW",
             "metrics": {
               "max_near_hours": 0,
-              "max_precip_percent": 39.0,
+              "max_precip_percent": 38.0,
               "max_red_flag_hours": 0,
-              "max_thunder_percent": 28.0,
+              "max_thunder_percent": 24.0,
               "max_usable_wind_mph": 16.1,
               "min_rh_percent": 29.0
             },
@@ -6206,11 +6204,11 @@
               "max_red_flag_hours": 0,
               "max_thunder_percent": 29.0,
               "max_usable_wind_mph": 16.1,
-              "min_rh_percent": 25.0
+              "min_rh_percent": 26.0
             },
             "name": "Chromo / southeast county",
             "score": 12,
-            "summary": "Weather score 12/100: RH 25%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0."
+            "summary": "Weather score 12/100: RH 26%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0."
           }
         ],
         "reasons": [
@@ -8017,13 +8015,13 @@
       "score": 76
     },
     "export_type": "archuleta_red_flag_psps_public_analysis",
-    "generated_at": "2026-06-03T14:54:22.198857-06:00",
+    "generated_at": "2026-06-03T15:04:45.160978-06:00",
     "headline": {
       "monitor_heads_up_recommended": true,
       "overall_tier": "HIGH",
       "psps_likelihood": "LIKELY",
       "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.",
-      "trend_summary": "Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
+      "trend_summary": "Momentum is steady versus the prior run (Jun 3 at 2:54 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
     },
     "local_time_name": "Pagosa Springs, CO",
     "method_notes": [

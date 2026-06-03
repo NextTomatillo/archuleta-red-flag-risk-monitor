@@ -13,13 +13,13 @@
     "score": 76
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-03T14:54:22.198857-06:00",
+  "generated_at": "2026-06-03T15:04:45.160978-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
     "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
+    "trend_summary": "Momentum is steady versus the prior run (Jun 3 at 2:54 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [

@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 3, 2026 at 2:54 PM MDT (Pagosa Springs, CO local time)
-Next update: Jun 3, 2026 at 3:54 PM MDT (Pagosa Springs, CO local time)
+Generated: Jun 3, 2026 at 3:04 PM MDT (Pagosa Springs, CO local time)
+Next update: Jun 3, 2026 at 4:04 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -41,7 +41,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
+- Summary: Momentum is steady versus the prior run (Jun 3 at 2:54 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
 - Momentum: **Steady**
 - Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Sat, Jun 6
@@ -55,7 +55,7 @@ Notable changes:
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.
-- Trend: Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
+- Trend: Momentum is steady versus the prior run (Jun 3 at 2:54 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
 - Confidence: **HIGH** (76/100)
 - First WATCH-or-higher PSPS date: Sat, Jun 6
 - PSPS peak: Sun, Jun 7 near Arboles / southwest county at LIKELY 100/100
@@ -157,7 +157,7 @@ What to watch next:
 
 | Date | Tier | Main reason | Worst sampled metrics |
 | --- | --- | --- | --- |
-| Wed, Jun 3 | ELEVATED | Pagosa Springs: Elevated ingredient present: thunder probability reaches 30%. | Pagosa Springs: RH 24%, wind/gust 17 mph, thunder 30%<br>Arboles / southwest county: RH 18%, wind/gust 17 mph, thunder 20%<br>Chimney Rock / west county: RH 17%, wind/gust 17 mph, thunder 23% |
+| Wed, Jun 3 | ELEVATED | Pagosa Springs: Elevated ingredient present: thunder probability reaches 26%. | Pagosa Springs: RH 24%, wind/gust 17 mph, thunder 26%<br>Arboles / southwest county: RH 18%, wind/gust 17 mph, thunder 20%<br>Chimney Rock / west county: RH 17%, wind/gust 17 mph, thunder 23% |
 | Thu, Jun 4 | ELEVATED | Pagosa Springs: Elevated ingredient present: thunder probability reaches 21%. | Pagosa Springs: RH 20%, wind/gust 18 mph, thunder 21%<br>Arboles / southwest county: RH 15%, wind/gust 17 mph, thunder 6%<br>Chimney Rock / west county: RH 14%, wind/gust 17 mph, thunder 11% |
 | Fri, Jun 5 | ELEVATED | Arboles / southwest county: Elevated ingredient present: very low RH forecast near 12%. | Arboles / southwest county: RH 12%, wind/gust 16 mph, thunder 4%<br>Chimney Rock / west county: RH 11%, wind/gust 15 mph, thunder 7%<br>Piedra / north county: RH 19%, wind/gust 13 mph, thunder 15% |
 | Sat, Jun 6 | HIGH | Durango / La Plata County: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Arboles / southwest county: RH 12%, wind/gust 22 mph, thunder 7%<br>Chimney Rock / west county: RH 11%, wind/gust 21 mph, thunder 8%<br>Durango / La Plata County: RH 11%, wind/gust 26 mph, thunder 5% |
