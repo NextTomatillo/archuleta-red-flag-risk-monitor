@@ -162,7 +162,7 @@ class MonitorTests(unittest.TestCase):
         }
         session = FakeSession(
             {
-                "https://example.test/active": FakeResponse("Power outage update for members."),
+                "https://example.test/active": FakeResponse("PSPS update for members."),
                 "https://example.test/reference": FakeResponse("PSPS information page."),
                 "https://example.test/social": FakeResponse("No current alerts."),
             }
@@ -172,6 +172,78 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(result["monitored_source_count"], 3)
         self.assertEqual(result["social_status"], "1/1 official social sources reachable")
         self.assertEqual(result["active_hits"][0]["name"], "Active updates")
+
+    def test_lpea_operational_outage_detects_current_banner_without_psps_signal(self):
+        config = {
+            "lpea": {
+                "enabled": True,
+                "alert_keywords": ["power outage", "outage update", "psps", "red flag"],
+                "sources": [
+                    {"name": "LPEA homepage", "url": "https://example.test", "type": "official_updates", "signal_mode": "active"},
+                ],
+            }
+        }
+        session = FakeSession(
+            {
+                "https://example.test": FakeResponse(
+                    "We are currently experiencing multiple outages affecting several zones in the Durango area. View Outage Map."
+                )
+            }
+        )
+        result = monitor.check_lpea(session, config)
+        outage = result["operational_outage"]
+        self.assertEqual(result["status"], "operational_outage_active")
+        self.assertTrue(outage["active"])
+        self.assertIn("Durango area", outage["areas"])
+        self.assertFalse(outage["fire_related"])
+        self.assertFalse(outage["psps_related"])
+        self.assertEqual(monitor.lpea_psps_signal(result)["level"], "none")
+
+    def test_lpea_operational_outage_ignores_unrelated_pagewide_psps_links(self):
+        hit = monitor.lpea_operational_outage_hit(
+            (
+                "Pay Bill Outage Center Contact Us. "
+                "Public Safety Power Shutoff guidance. Fire mitigation page. Pagosa Springs Bayfield. "
+                "We are currently experiencing multiple outages affecting several zones in the Durango area. View Outage Map."
+            ),
+            {"name": "LPEA homepage", "url": "https://example.test", "type": "official_updates"},
+        )
+        self.assertIsNotNone(hit)
+        self.assertEqual(hit["areas"], ["Durango area"])
+        self.assertFalse(hit["fire_related"])
+        self.assertFalse(hit["psps_related"])
+
+    def test_lpea_operational_outage_extracts_members_from_social_update(self):
+        hit = monitor.lpea_operational_outage_hit(
+            "At 1:56 PM, LPEA members are experiencing a power outage in the Durango area, affecting 11,556 members. Crews are responding and working to restore power.",
+            {"name": "LPEA Facebook", "url": "https://facebook.example/lpea", "type": "official_social"},
+        )
+        self.assertIsNotNone(hit)
+        self.assertEqual(hit["affected_members"], 11556)
+        self.assertIn("Durango area", hit["areas"])
+        summary = monitor.summarize_lpea_operational_outage([hit])
+        self.assertEqual(summary["severity"], "major")
+        self.assertIn("11,556", summary["summary"])
+        self.assertFalse(summary["psps_related"])
+
+    def test_operational_outage_alone_does_not_boost_psps_score(self):
+        lpea = {
+            "active_hits": [
+                {
+                    "matches": ["power outage"],
+                    "snippets": ["LPEA members are experiencing a power outage in the Durango area, affecting 11,556 members."],
+                }
+            ],
+            "operational_outage": {
+                "active": True,
+                "summary": "Durango area; about 11,556 members affected. Not classified as fire-weather or PSPS-related by this monitor.",
+                "fire_related": False,
+                "psps_related": False,
+            },
+        }
+        psps = {"lpea_signal": monitor.lpea_psps_signal(lpea)}
+        self.assertEqual(psps["lpea_signal"]["level"], "none")
+        self.assertEqual(monitor.lpea_signal_boost(lpea, psps), (0, []))
 
     def test_lpea_signal_groups_collapse_duplicate_snippets(self):
         hits = [
@@ -444,11 +516,18 @@ class MonitorTests(unittest.TestCase):
                 "top_fire_danger": {"date": "2026-06-02", "location": "Pagosa Springs", "fire_danger_level": "VERY HIGH", "fire_danger_score": 82},
                 "notes": ["Rules-based decision support using public signals."],
             },
+            "lpea": {
+                "operational_outage": {
+                    "active": True,
+                    "summary": "Durango area; about 11,556 members affected. Not classified as fire-weather or PSPS-related by this monitor.",
+                }
+            },
         }
         export = monitor.build_public_analysis_export(report)
         self.assertEqual(export["export_type"], "archuleta_red_flag_psps_public_analysis")
         self.assertEqual(export["peaks"]["psps"]["location"], "Pagosa Springs")
         self.assertEqual(export["trend"]["first_watch_or_likely_display"], "Tue, Jun 2")
+        self.assertTrue(export["operational_outage_context"]["active"])
         self.assertIn("Watch driver area consistency.", export["watch_next"])
         self.assertNotIn("Codex", json.dumps(export))
 
@@ -644,6 +723,24 @@ class MonitorTests(unittest.TestCase):
             "lpea": {
                 "status": "keyword_match",
                 "headline": "Keyword detected.",
+                "operational_outage": {
+                    "active": True,
+                    "severity": "major",
+                    "headline": "Active LPEA operational outage detected near Durango area.",
+                    "summary": "Durango area; about 11,556 members affected. Not classified as fire-weather or PSPS-related by this monitor.",
+                    "source_count": 1,
+                    "affected_members": 11556,
+                    "areas": ["Durango area"],
+                    "fire_related": False,
+                    "psps_related": False,
+                    "hits": [
+                        {
+                            "name": "LPEA homepage",
+                            "url": "https://example.test/lpea",
+                            "snippets": ["Current outage in the Durango area."],
+                        }
+                    ],
+                },
                 "active_signal_groups": [
                     {
                         "name": "Test LPEA source",
@@ -736,6 +833,9 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Evidence quality", rendered)
         self.assertIn("Keyword Match", rendered)
         self.assertIn("Keyword detected.", rendered)
+        self.assertIn("Active LPEA outage context", rendered)
+        self.assertIn("about 11,556 members affected", rendered)
+        self.assertIn("does not raise PSPS scoring by itself", rendered)
 
     @mock.patch.dict("os.environ", {"ARCHULETA_MONITOR_SMTP_USERNAME": "user", "ARCHULETA_MONITOR_SMTP_PASSWORD": "pass"})
     def test_send_email_uses_smtp_when_enabled(self):

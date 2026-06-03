@@ -1869,17 +1869,17 @@
       }
     ],
     "confidence": {
-      "label": "MEDIUM",
+      "label": "HIGH",
       "reasons": [
         "8/8 sampled weather points available",
-        "7/7 fire-posture sources reachable",
+        "6/7 fire-posture sources reachable",
         "official NWS alert zones checked",
         "13/13 LPEA public sources reachable",
         "LPEA active/update sources checked",
-        "forecast changed substantially versus prior run",
+        "active LPEA operational outage context checked separately from PSPS scoring",
         "no confirmed PSPS events logged yet for calibration"
       ],
-      "score": 69
+      "score": 76
     },
     "daily_predictions": [
       {
@@ -2635,6 +2635,7 @@
     "mode": "rules_first_decision_support",
     "notes": [
       "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+      "Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.",
       "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
       "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
     ],
@@ -3669,7 +3670,7 @@
     "high_danger_source_count": 1,
     "max_fire_danger": "VERY HIGH",
     "max_restriction_stage": "STAGE 1",
-    "reachable_source_count": 7,
+    "reachable_source_count": 6,
     "source_count": 7,
     "sources": [
       {
@@ -3728,10 +3729,10 @@
         "fire_danger": "UNKNOWN",
         "jurisdiction_type": "county_fire_district",
         "name": "Durango Fire & Rescue fire conditions",
-        "restriction_stage": "NONE",
+        "restriction_stage": "UNKNOWN",
         "snippets": [],
-        "status": "reachable",
-        "status_code": 200,
+        "status": "http_500",
+        "status_code": 500,
         "url": "https://www.durangofire.org/fire-conditions"
       },
       {
@@ -3794,18 +3795,18 @@
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 0,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 32.0,
-          "max_weather_score": 26.0,
-          "max_wind_mph": 23.0,
-          "min_rh_percent": 19.0,
+          "max_thunder_percent": 30.0,
+          "max_weather_score": 24.0,
+          "max_wind_mph": 19.6,
+          "min_rh_percent": 17.0,
           "official_fire_alert_count": 0,
           "top_location": "Arboles / southwest county"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -2.0,
-        "score_delta": -2.0,
-        "summary": "Wed, Jun 3: steady vs prior run; PSPS ELEVATED -> ELEVATED; score -2, wind -3 mph, RH -2%, red-flag hours 0.",
-        "wind_delta_mph": -3.3999999999999986
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Wed, Jun 3: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3826,29 +3827,29 @@
         },
         "date": "2026-06-04",
         "display_date": "Thu, Jun 4",
-        "label": "Easing",
-        "level_rank_delta": -1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "WATCH",
+          "best_psps_level": "ELEVATED",
           "date": "2026-06-04",
-          "fire_weather_tier": "CONCERN",
+          "fire_weather_tier": "ELEVATED",
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "VERY HIGH",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 4,
+          "max_near_hours": 1,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 26.0,
-          "max_weather_score": 52.0,
-          "max_wind_mph": 23.0,
+          "max_thunder_percent": 25.0,
+          "max_weather_score": 34.0,
+          "max_wind_mph": 20.7,
           "min_rh_percent": 14.0,
           "official_fire_alert_count": 0,
-          "top_location": "Durango / La Plata County"
+          "top_location": "Ignacio / southeast La Plata County"
         },
         "red_flag_hours_delta": 0.0,
         "rh_delta_percent": 0.0,
-        "score_delta": -18.0,
-        "summary": "Thu, Jun 4: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-        "wind_delta_mph": -2.3000000000000007
+        "score_delta": 0.0,
+        "summary": "Thu, Jun 4: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3880,18 +3881,18 @@
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 0,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 10.0,
+          "max_thunder_percent": 15.0,
           "max_weather_score": 30.0,
-          "max_wind_mph": 19.6,
-          "min_rh_percent": 10.0,
+          "max_wind_mph": 18.4,
+          "min_rh_percent": 11.0,
           "official_fire_alert_count": 0,
           "top_location": "Arboles / southwest county"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": 1.0,
+        "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Fri, Jun 5: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind -1 mph, RH +1%, red-flag hours 0.",
-        "wind_delta_mph": -1.2000000000000028
+        "summary": "Fri, Jun 5: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3912,7 +3913,7 @@
         },
         "date": "2026-06-06",
         "display_date": "Sat, Jun 6",
-        "label": "Easing",
+        "label": "Steady",
         "level_rank_delta": 0,
         "previous": {
           "best_psps_level": "LIKELY",
@@ -3921,20 +3922,20 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "VERY HIGH",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 7,
-          "max_red_flag_hours": 5,
+          "max_near_hours": 6,
+          "max_red_flag_hours": 3,
           "max_thunder_percent": 14.0,
-          "max_weather_score": 71.0,
-          "max_wind_mph": 28.8,
+          "max_weather_score": 67.0,
+          "max_wind_mph": 26.5,
           "min_rh_percent": 11.0,
           "official_fire_alert_count": 0,
           "top_location": "Durango / La Plata County"
         },
-        "red_flag_hours_delta": -2.0,
+        "red_flag_hours_delta": 0.0,
         "rh_delta_percent": 0.0,
-        "score_delta": -4.0,
-        "summary": "Sat, Jun 6: easing vs prior run; PSPS LIKELY -> LIKELY; score -4, wind -2 mph, RH 0%, red-flag hours -2.",
-        "wind_delta_mph": -2.3000000000000007
+        "score_delta": 0.0,
+        "summary": "Sat, Jun 6: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3966,17 +3967,17 @@
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 10,
           "max_red_flag_hours": 8,
-          "max_thunder_percent": 2.0,
+          "max_thunder_percent": 0.0,
           "max_weather_score": 77.0,
           "max_wind_mph": 31.1,
-          "min_rh_percent": 9.0,
+          "min_rh_percent": 10.0,
           "official_fire_alert_count": 0,
           "top_location": "Durango / La Plata County"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": 1.0,
+        "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Sun, Jun 7: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH +1%, red-flag hours 0.",
+        "summary": "Sun, Jun 7: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
         "wind_delta_mph": 0.0
       },
       {
@@ -3998,7 +3999,7 @@
         },
         "date": "2026-06-08",
         "display_date": "Mon, Jun 8",
-        "label": "Worsening",
+        "label": "Steady",
         "level_rank_delta": 0,
         "previous": {
           "best_psps_level": "LIKELY",
@@ -4008,19 +4009,19 @@
           "max_fire_danger": "VERY HIGH",
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 8,
-          "max_red_flag_hours": 4,
-          "max_thunder_percent": 5.0,
+          "max_red_flag_hours": 6,
+          "max_thunder_percent": 9.0,
           "max_weather_score": 71.0,
-          "max_wind_mph": 26.5,
-          "min_rh_percent": 10.0,
+          "max_wind_mph": 28.8,
+          "min_rh_percent": 9.0,
           "official_fire_alert_count": 0,
-          "top_location": "Durango / La Plata County"
+          "top_location": "Pagosa Springs"
         },
-        "red_flag_hours_delta": 2.0,
-        "rh_delta_percent": -1.0,
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Mon, Jun 8: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Pagosa Springs.",
-        "wind_delta_mph": 2.3000000000000007
+        "summary": "Mon, Jun 8: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4050,53 +4051,51 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "VERY HIGH",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 8,
-          "max_red_flag_hours": 6,
-          "max_thunder_percent": 19.0,
-          "max_weather_score": 71.0,
-          "max_wind_mph": 29.9,
+          "max_near_hours": 9,
+          "max_red_flag_hours": 7,
+          "max_thunder_percent": 16.0,
+          "max_weather_score": 77.0,
+          "max_wind_mph": 31.1,
           "min_rh_percent": 11.0,
           "official_fire_alert_count": 0,
-          "top_location": "Arboles / southwest county"
+          "top_location": "Durango / La Plata County"
         },
-        "red_flag_hours_delta": 1.0,
+        "red_flag_hours_delta": 0.0,
         "rh_delta_percent": 0.0,
-        "score_delta": 6.0,
-        "summary": "Tue, Jun 9: steady vs prior run; PSPS LIKELY -> LIKELY; score +6, wind +1 mph, RH 0%, red-flag hours +1. Driver shifted to Durango / La Plata County.",
-        "wind_delta_mph": 1.2000000000000028
+        "score_delta": 0.0,
+        "summary": "Tue, Jun 9: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       }
     ],
     "first_watch_or_likely_date": "2026-06-06",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
     "forecast_volatility": {
-      "changed_day_count": 3,
-      "label": "HIGH",
-      "max_score_delta": 18.0,
-      "score": 45
+      "changed_day_count": 0,
+      "label": "LOW",
+      "max_score_delta": 0,
+      "score": 0
     },
     "notable_changes": [
-      "First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.",
-      "Thu, Jun 4: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-      "Sat, Jun 6: easing vs prior run; PSPS LIKELY -> LIKELY; score -4, wind -2 mph, RH 0%, red-flag hours -2.",
-      "Mon, Jun 8: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Pagosa Springs."
+      "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
+      "No major day-level movement versus the prior run."
     ],
-    "previous_first_watch_or_likely_date": "2026-06-04",
+    "previous_first_watch_or_likely_date": "2026-06-06",
     "previous_overall_psps_level": "LIKELY",
-    "previous_run_at": "2026-06-03T05:39:06.782058-06:00",
-    "previous_run_label": "Jun 3 at 5:39 AM MDT",
+    "previous_run_at": "2026-06-03T14:49:00.115990-06:00",
+    "previous_run_label": "Jun 3 at 2:49 PM MDT",
     "review_cues": [
       "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
       "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.",
       "Watch whether the highest-risk locations remain consistent across runs or the driver area is moving.",
       "If a PSPS occurs, log the confirmed date, location, and source so future hit-rate scoring can improve."
     ],
-    "risk_momentum": "Easing",
+    "risk_momentum": "Steady",
     "status": "compared",
-    "summary": "Momentum is easing versus the prior run (Jun 3 at 5:39 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Jun 6."
+    "summary": "Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
   },
-  "generated_at": "2026-06-03T14:10:26.917007-06:00",
-  "generated_at_local": "2026-06-03T14:10:26.917007-06:00",
-  "generated_at_utc": "2026-06-03T20:10:26.917007+00:00",
+  "generated_at": "2026-06-03T14:54:22.198857-06:00",
+  "generated_at_local": "2026-06-03T14:54:22.198857-06:00",
+  "generated_at_utc": "2026-06-03T20:54:22.198857+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -4411,6 +4410,72 @@
     },
     "headline": "LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.",
     "monitored_source_count": 13,
+    "operational_outage": {
+      "active": true,
+      "affected_members": null,
+      "areas": [
+        "Durango area"
+      ],
+      "fire_related": false,
+      "headline": "Active LPEA operational outage detected near Durango area.",
+      "hits": [
+        {
+          "affected_members": null,
+          "areas": [
+            "Durango area"
+          ],
+          "fire_related": false,
+          "matched_terms": [
+            "affecting several zones"
+          ],
+          "name": "LPEA homepage",
+          "psps_related": false,
+          "snippets": [
+            "We are aware of a large outage affecting several zones in the Durango area."
+          ],
+          "type": "official_updates",
+          "url": "https://lpea.coop"
+        },
+        {
+          "affected_members": null,
+          "areas": [
+            "Durango area"
+          ],
+          "fire_related": false,
+          "matched_terms": [
+            "affecting several zones"
+          ],
+          "name": "LPEA latest news",
+          "psps_related": false,
+          "snippets": [
+            "We are aware of a large outage affecting several zones in the Durango area."
+          ],
+          "type": "official_updates",
+          "url": "https://lpea.coop/Posts"
+        },
+        {
+          "affected_members": null,
+          "areas": [
+            "Durango area"
+          ],
+          "fire_related": false,
+          "matched_terms": [
+            "affecting several zones"
+          ],
+          "name": "LPEA news releases",
+          "psps_related": false,
+          "snippets": [
+            "We are aware of a large outage affecting several zones in the Durango area."
+          ],
+          "type": "official_updates",
+          "url": "https://lpea.coop/news-releases"
+        }
+      ],
+      "psps_related": false,
+      "severity": "active",
+      "source_count": 3,
+      "summary": "Durango area. Not classified as fire-weather or PSPS-related by this monitor."
+    },
     "reference_hits": [
       {
         "matches": [
@@ -4882,7 +4947,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-06-03T15:10:26.917007-06:00",
+  "next_update_at": "2026-06-03T15:54:22.198857-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],
@@ -6154,7 +6219,7 @@
           "near-threshold RH near 18%",
           "modest thunder signal near 20%",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Starting point",
@@ -6414,7 +6479,7 @@
           "near-threshold wind/gust signal near 21 mph",
           "red-flag RH near 15%",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Worsening",
@@ -6669,7 +6734,7 @@
           "breezy wind/gust signal near 16 mph",
           "very dry RH near 12%",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Steady",
@@ -6955,7 +7020,7 @@
           "very dry RH near 11%",
           "3 sampled hours meet red-flag screen",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Worsening",
@@ -7267,7 +7332,7 @@
           "very dry RH near 12%",
           "8 sampled hours meet red-flag screen",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Worsening",
@@ -7579,7 +7644,7 @@
           "very dry RH near 12%",
           "4 sampled hours meet red-flag screen",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Easing",
@@ -7892,7 +7957,7 @@
           "very dry RH near 12%",
           "7 sampled hours meet red-flag screen",
           "Official fire-posture context is elevated (STAGE 1; fire danger VERY HIGH), used as supporting context.",
-          "LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context."
+          "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
         "trend": {
           "label": "Worsening",
@@ -7931,7 +7996,6 @@
         "public safety power shutoff",
         "power shutoff",
         "power shutoffs possible",
-        "power outage",
         "wildfire"
       ],
       "reason": "LPEA active/update source contains red-flag, wildfire, or power-interruption language."
@@ -7940,39 +8004,104 @@
   },
   "public_analysis_export": {
     "confidence": {
-      "label": "MEDIUM",
+      "label": "HIGH",
       "reasons": [
         "8/8 sampled weather points available",
-        "7/7 fire-posture sources reachable",
+        "6/7 fire-posture sources reachable",
         "official NWS alert zones checked",
         "13/13 LPEA public sources reachable",
         "LPEA active/update sources checked",
-        "forecast changed substantially versus prior run",
+        "active LPEA operational outage context checked separately from PSPS scoring",
         "no confirmed PSPS events logged yet for calibration"
       ],
-      "score": 69
+      "score": 76
     },
     "export_type": "archuleta_red_flag_psps_public_analysis",
-    "generated_at": "2026-06-03T14:10:26.917007-06:00",
+    "generated_at": "2026-06-03T14:54:22.198857-06:00",
     "headline": {
       "monitor_heads_up_recommended": true,
       "overall_tier": "HIGH",
       "psps_likelihood": "LIKELY",
       "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.",
-      "trend_summary": "Momentum is easing versus the prior run (Jun 3 at 5:39 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Jun 6."
+      "trend_summary": "Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
     },
     "local_time_name": "Pagosa Springs, CO",
     "method_notes": [
       "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+      "Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.",
       "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
       "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
     ],
     "notable_changes": [
-      "First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.",
-      "Thu, Jun 4: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-      "Sat, Jun 6: easing vs prior run; PSPS LIKELY -> LIKELY; score -4, wind -2 mph, RH 0%, red-flag hours -2.",
-      "Mon, Jun 8: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Pagosa Springs."
+      "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
+      "No major day-level movement versus the prior run."
     ],
+    "operational_outage_context": {
+      "active": true,
+      "affected_members": null,
+      "areas": [
+        "Durango area"
+      ],
+      "fire_related": false,
+      "headline": "Active LPEA operational outage detected near Durango area.",
+      "hits": [
+        {
+          "affected_members": null,
+          "areas": [
+            "Durango area"
+          ],
+          "fire_related": false,
+          "matched_terms": [
+            "affecting several zones"
+          ],
+          "name": "LPEA homepage",
+          "psps_related": false,
+          "snippets": [
+            "We are aware of a large outage affecting several zones in the Durango area."
+          ],
+          "type": "official_updates",
+          "url": "https://lpea.coop"
+        },
+        {
+          "affected_members": null,
+          "areas": [
+            "Durango area"
+          ],
+          "fire_related": false,
+          "matched_terms": [
+            "affecting several zones"
+          ],
+          "name": "LPEA latest news",
+          "psps_related": false,
+          "snippets": [
+            "We are aware of a large outage affecting several zones in the Durango area."
+          ],
+          "type": "official_updates",
+          "url": "https://lpea.coop/Posts"
+        },
+        {
+          "affected_members": null,
+          "areas": [
+            "Durango area"
+          ],
+          "fire_related": false,
+          "matched_terms": [
+            "affecting several zones"
+          ],
+          "name": "LPEA news releases",
+          "psps_related": false,
+          "snippets": [
+            "We are aware of a large outage affecting several zones in the Durango area."
+          ],
+          "type": "official_updates",
+          "url": "https://lpea.coop/news-releases"
+        }
+      ],
+      "psps_related": false,
+      "severity": "active",
+      "source_count": 3,
+      "summary": "Durango area. Not classified as fire-weather or PSPS-related by this monitor."
+    },
     "peaks": {
       "fire_danger": {
         "date": "2026-06-07",
@@ -8022,10 +8151,10 @@
     "trend": {
       "first_watch_or_likely_date": "2026-06-06",
       "first_watch_or_likely_display": "Sat, Jun 6",
-      "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.",
-      "forecast_volatility_label": "HIGH",
-      "forecast_volatility_score": 45,
-      "momentum": "Easing"
+      "first_watch_shift": "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
+      "forecast_volatility_label": "LOW",
+      "forecast_volatility_score": 0,
+      "momentum": "Steady"
     },
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_next": [

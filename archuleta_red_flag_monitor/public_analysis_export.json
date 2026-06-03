@@ -1,38 +1,103 @@
 {
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
-      "7/7 fire-posture sources reachable",
+      "6/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "forecast changed substantially versus prior run",
+      "active LPEA operational outage context checked separately from PSPS scoring",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 76
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-03T14:10:26.917007-06:00",
+  "generated_at": "2026-06-03T14:54:22.198857-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
     "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is easing versus the prior run (Jun 3 at 5:39 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Jun 6."
+    "trend_summary": "Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
     "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+    "Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.",
     "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.",
-    "Thu, Jun 4: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-    "Sat, Jun 6: easing vs prior run; PSPS LIKELY -> LIKELY; score -4, wind -2 mph, RH 0%, red-flag hours -2.",
-    "Mon, Jun 8: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Pagosa Springs."
+    "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
+    "No major day-level movement versus the prior run."
   ],
+  "operational_outage_context": {
+    "active": true,
+    "affected_members": null,
+    "areas": [
+      "Durango area"
+    ],
+    "fire_related": false,
+    "headline": "Active LPEA operational outage detected near Durango area.",
+    "hits": [
+      {
+        "affected_members": null,
+        "areas": [
+          "Durango area"
+        ],
+        "fire_related": false,
+        "matched_terms": [
+          "affecting several zones"
+        ],
+        "name": "LPEA homepage",
+        "psps_related": false,
+        "snippets": [
+          "We are aware of a large outage affecting several zones in the Durango area."
+        ],
+        "type": "official_updates",
+        "url": "https://lpea.coop"
+      },
+      {
+        "affected_members": null,
+        "areas": [
+          "Durango area"
+        ],
+        "fire_related": false,
+        "matched_terms": [
+          "affecting several zones"
+        ],
+        "name": "LPEA latest news",
+        "psps_related": false,
+        "snippets": [
+          "We are aware of a large outage affecting several zones in the Durango area."
+        ],
+        "type": "official_updates",
+        "url": "https://lpea.coop/Posts"
+      },
+      {
+        "affected_members": null,
+        "areas": [
+          "Durango area"
+        ],
+        "fire_related": false,
+        "matched_terms": [
+          "affecting several zones"
+        ],
+        "name": "LPEA news releases",
+        "psps_related": false,
+        "snippets": [
+          "We are aware of a large outage affecting several zones in the Durango area."
+        ],
+        "type": "official_updates",
+        "url": "https://lpea.coop/news-releases"
+      }
+    ],
+    "psps_related": false,
+    "severity": "active",
+    "source_count": 3,
+    "summary": "Durango area. Not classified as fire-weather or PSPS-related by this monitor."
+  },
   "peaks": {
     "fire_danger": {
       "date": "2026-06-07",
@@ -82,10 +147,10 @@
   "trend": {
     "first_watch_or_likely_date": "2026-06-06",
     "first_watch_or_likely_display": "Sat, Jun 6",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 45,
-    "momentum": "Easing"
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 0,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [

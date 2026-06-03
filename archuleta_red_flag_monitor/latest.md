@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 3, 2026 at 2:10 PM MDT (Pagosa Springs, CO local time)
-Next update: Jun 3, 2026 at 3:10 PM MDT (Pagosa Springs, CO local time)
+Generated: Jun 3, 2026 at 2:54 PM MDT (Pagosa Springs, CO local time)
+Next update: Jun 3, 2026 at 3:54 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -23,7 +23,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.
-- Confidence: **MEDIUM** (69/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (76/100) - 8/8 sampled weather points available; 6/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; no confirmed PSPS events logged yet for calibration
 - Fire danger peak: Sun, Jun 7: Durango / La Plata County EXTREME 100/100
 - Red Flag likelihood peak: Sun, Jun 7: Durango / La Plata County LIKELY 100/100
 - LPEA PSPS peak: Sun, Jun 7: Arboles / southwest county LIKELY 100/100
@@ -41,35 +41,32 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is easing versus the prior run (Jun 3 at 5:39 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Jun 6.
-- Momentum: **Easing**
-- Forecast volatility: **HIGH** (45/100)
+- Summary: Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Sat, Jun 6
-- Watch-date movement: First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.
+- Watch-date movement: First WATCH-or-higher PSPS date remains Sat, Jun 6.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
-- First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.
-- Thu, Jun 4: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
-- Sat, Jun 6: easing vs prior run; PSPS LIKELY -> LIKELY; score -4, wind -2 mph, RH 0%, red-flag hours -2.
-- Mon, Jun 8: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Pagosa Springs.
+- First WATCH-or-higher PSPS date remains Sat, Jun 6.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 7 sampled hours meet red-flag screen.
-- Trend: Momentum is easing versus the prior run (Jun 3 at 5:39 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Jun 6.
-- Confidence: **MEDIUM** (69/100)
+- Trend: Momentum is steady versus the prior run (Jun 3 at 2:49 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
+- Confidence: **HIGH** (76/100)
 - First WATCH-or-higher PSPS date: Sat, Jun 6
 - PSPS peak: Sun, Jun 7 near Arboles / southwest county at LIKELY 100/100
 - Red Flag peak: Sun, Jun 7 near Durango / La Plata County at LIKELY 100/100
 - Fire danger peak: Sun, Jun 7 near Durango / La Plata County at EXTREME 100/100
+- LPEA operational outage context: Durango area. Not classified as fire-weather or PSPS-related by this monitor.
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
-- First WATCH-or-higher PSPS date moved later from Thu, Jun 4 to Sat, Jun 6.
-- Thu, Jun 4: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
-- Sat, Jun 6: easing vs prior run; PSPS LIKELY -> LIKELY; score -4, wind -2 mph, RH 0%, red-flag hours -2.
-- Mon, Jun 8: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Pagosa Springs.
+- First WATCH-or-higher PSPS date remains Sat, Jun 6.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
@@ -114,7 +111,7 @@ What to watch next:
 - Summary: 2 official sources indicate fire restrictions or staged restrictions.
 - Max restriction stage detected: STAGE 1
 - Max fire danger detected: VERY HIGH
-- Sources reachable: 7/7
+- Sources reachable: 6/7
 - Note: Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.
 
 | Jurisdiction | Restrictions | Fire danger | Source |
@@ -123,7 +120,7 @@ What to watch next:
 | Pagosa Springs | UNKNOWN | UNKNOWN | [Town of Pagosa Springs](https://www.pagosasprings.co.gov/) |
 | San Juan National Forest | STAGE 1 | VERY HIGH | [San Juan National Forest fire](https://www.fs.usda.gov/r02/sanjuan/fire) |
 | BLM Tres Rios | STAGE 1 | UNKNOWN | [BLM Tres Rios Field Office](https://www.blm.gov/office/tres-rios-field-office) |
-| La Plata County / Durango Fire | NONE | UNKNOWN | [Durango Fire & Rescue fire conditions](https://www.durangofire.org/fire-conditions) |
+| La Plata County / Durango Fire | UNKNOWN | UNKNOWN | [Durango Fire & Rescue fire conditions](https://www.durangofire.org/fire-conditions) |
 | Durango | UNKNOWN | UNKNOWN | [City of Durango](https://www.durangoco.gov/) |
 | Southern Ute / Ignacio | UNKNOWN | UNKNOWN | [Southern Ute Indian Tribe](https://www.southernute-nsn.gov/) |
 
@@ -144,9 +141,11 @@ What to watch next:
 ## LPEA Power Signal
 
 - Status: `active_keyword_match` - LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.
-- Meaning: Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice.
+- Meaning: Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. Operational outages are shown separately and are not treated as PSPS/fire evidence unless the source text says so.
+- Operational outage context: Durango area. Not classified as fire-weather or PSPS-related by this monitor.
 - Source coverage: 13 sources; 5/5 official social sources reachable
 - Evidence quality: 0 operational, 2 active/update, 2 archive/context, 4 reference source matches.
+- Operational outage source links: [LPEA homepage](https://lpea.coop); [LPEA latest news](https://lpea.coop/Posts); [LPEA news releases](https://lpea.coop/news-releases)
 - Active/update source pages with matches: LPEA homepage (public safety power shutoff, power shutoff, shutoff, power outage, outage map, fire mitigation); LPEA latest news (public safety power shutoff, power shutoff, shutoff, power outage, outage map, fire mitigation); LPEA news releases (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); LPEA LinkedIn (wildfire, public safety power shutoff, power shutoff, shutoff)
 - Distinct active/update signals: LPEA news releases (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); News-release archive PSPS item (red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage); LinkedIn wildfire preparedness post (wildfire, public safety power shutoff, power shutoff, shutoff); LinkedIn PSPS explainer post (wildfire, public safety power shutoff, power shutoff, shutoff)
 - Example signal: ...Board Election Season 04/17/2025 LPEA Implements Proactive Fire Measures Due to Red Flag Warning 04/14/2025 PSA: La Plata Electric Association – 2025 Board Election Voting Information 04/10/2025 LPEA Awards $...

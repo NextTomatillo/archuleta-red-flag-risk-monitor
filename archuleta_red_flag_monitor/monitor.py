@@ -623,6 +623,236 @@ def keyword_snippets(text: str, matches: List[str], max_snippets: int = 2) -> Li
     return snippets
 
 
+def keyword_sentences(text: str, matches: List[str], max_sentences: int = 2) -> List[str]:
+    collapsed = re.sub(r"\s+", " ", text).strip()
+    sentences = re.split(r"(?<=[.!?])\s+", collapsed)
+    snippets = []
+    for sentence in sentences:
+        lowered = sentence.lower()
+        if any(keyword.lower() in lowered for keyword in matches):
+            snippets.append(sentence.strip())
+        if len(snippets) >= max_sentences:
+            break
+    return snippets
+
+
+def lpea_operational_context_snippets(text: str, matches: List[str], max_snippets: int = 2) -> List[str]:
+    collapsed = re.sub(r"\s+", " ", text).strip()
+    lowered = collapsed.lower()
+    snippets = []
+    lead_phrases = [
+        "we are aware",
+        "we are currently",
+        "lpea members are experiencing",
+        "members are experiencing",
+        "crews are responding",
+    ]
+    for keyword in matches:
+        index = lowered.find(keyword.lower())
+        if index < 0:
+            continue
+        start = max(0, index - 80)
+        before_start = max(0, index - 260)
+        lead_window = lowered[before_start:index + len(keyword) + 40]
+        for phrase in lead_phrases:
+            phrase_index = lead_window.rfind(phrase)
+            if phrase_index >= 0:
+                start = before_start + phrase_index
+                break
+        punctuation_after = re.search(r"[.!?]", collapsed[index + len(keyword):])
+        if punctuation_after:
+            end = index + len(keyword) + punctuation_after.start() + 1
+        else:
+            end = min(len(collapsed), index + len(keyword) + 170)
+        snippet = collapsed[start:end].strip()
+        if snippet and snippet not in snippets:
+            snippets.append(snippet)
+        if len(snippets) >= max_snippets:
+            break
+    return snippets
+
+
+LPEA_OPERATIONAL_OUTAGE_TERMS = [
+    "currently experiencing",
+    "experiencing multiple outages",
+    "experiencing a power outage",
+    "multiple outages affecting",
+    "power outage in the",
+    "affecting several zones",
+    "affecting members",
+    "crews are responding",
+    "working to restore power",
+    "restore power",
+    "outage update",
+]
+
+LPEA_OPERATIONAL_REQUIRE_CONTEXT = [
+    "currently",
+    "experiencing",
+    "affecting",
+    "crews",
+    "restore",
+    "responding",
+    "multiple outages",
+    "outage update",
+]
+
+LPEA_PSPS_FIRE_CONTEXT_TERMS = [
+    "red flag",
+    "wildfire",
+    "public safety power shutoff",
+    "psps",
+    "power shutoff",
+    "de-energization",
+    "de-energize",
+    "deenergize",
+    "fire weather",
+    "fire mitigation",
+    "high winds",
+    "extreme fire",
+]
+
+LPEA_KNOWN_SERVICE_AREAS = [
+    "Durango area",
+    "Durango",
+    "Pagosa Springs",
+    "Bayfield",
+    "Ignacio",
+    "Arboles",
+    "Chimney Rock",
+    "Piedra",
+    "Chromo",
+    "La Plata County",
+    "Archuleta County",
+]
+
+
+def lpea_text_has_psps_fire_context(text: str) -> bool:
+    lowered = text.lower()
+    return any(term in lowered for term in LPEA_PSPS_FIRE_CONTEXT_TERMS)
+
+
+def active_hits_have_psps_fire_context(hits: List[Dict[str, Any]]) -> bool:
+    for hit in hits:
+        text = " ".join(hit.get("matches", []) + hit.get("snippets", []))
+        if lpea_text_has_psps_fire_context(text):
+            return True
+    return False
+
+
+def extract_lpea_affected_members(text: str) -> Optional[int]:
+    patterns = [
+        r"affecting\s+([\d,]+)\s+(?:members?|customers?)",
+        r"([\d,]+)\s+(?:members?|customers?)\s+(?:affected|without power)",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if not match:
+            continue
+        try:
+            return int(match.group(1).replace(",", ""))
+        except ValueError:
+            continue
+    return None
+
+
+def extract_lpea_outage_areas(text: str) -> List[str]:
+    lowered = text.lower()
+    areas = []
+    for area in LPEA_KNOWN_SERVICE_AREAS:
+        if f"{area} area" in areas:
+            continue
+        if area.lower() in lowered and area not in areas:
+            areas.append(area)
+
+    for match in re.finditer(r"\b(?:in|near|around)\s+(?:the\s+)?([a-z][a-z\s/-]{2,40}?)\s+area\b", lowered):
+        area = re.sub(r"\s+", " ", match.group(1)).strip().title() + " area"
+        if area not in areas:
+            areas.append(area)
+    return areas[:6]
+
+
+def lpea_operational_outage_hit(text: str, source: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    lowered = text.lower()
+    if "outage" not in lowered and "restore power" not in lowered:
+        return None
+
+    matched_terms = [term for term in LPEA_OPERATIONAL_OUTAGE_TERMS if term in lowered]
+    has_current_context = any(term in lowered for term in LPEA_OPERATIONAL_REQUIRE_CONTEXT)
+    affected_members = extract_lpea_affected_members(text)
+    if not matched_terms and not affected_members:
+        return None
+    if not has_current_context and affected_members is None:
+        return None
+
+    snippets = lpea_operational_context_snippets(text, matched_terms or ["outage"], max_snippets=2)
+    if not snippets:
+        snippets = keyword_sentences(text, matched_terms or ["outage"], max_sentences=2)
+    if not snippets:
+        snippets = keyword_snippets(text, matched_terms or ["outage"], max_snippets=2)
+    if not snippets:
+        snippets = [re.sub(r"\s+", " ", text).strip()[:240]]
+    context_text = " ".join(snippets)
+    context_lowered = context_text.lower()
+    fire_related = any(term in context_lowered for term in ("red flag", "wildfire", "fire weather", "fire mitigation", "high winds"))
+    psps_related = any(term in context_lowered for term in ("public safety power shutoff", "psps", "power shutoff", "de-energize", "deenergize"))
+    return {
+        "name": source.get("name", "Unknown source"),
+        "url": source.get("url"),
+        "type": source.get("type", "official_updates"),
+        "matched_terms": matched_terms,
+        "snippets": [clean_lpea_signal_snippet(snippet) for snippet in snippets],
+        "affected_members": extract_lpea_affected_members(context_text) or affected_members,
+        "areas": extract_lpea_outage_areas(context_text),
+        "fire_related": fire_related,
+        "psps_related": psps_related,
+    }
+
+
+def summarize_lpea_operational_outage(hits: List[Dict[str, Any]]) -> Dict[str, Any]:
+    if not hits:
+        return {
+            "active": False,
+            "severity": "none",
+            "headline": "No active operational LPEA outage detected by public-source text.",
+            "summary": "No monitored active LPEA source currently describes a non-PSPS outage.",
+            "source_count": 0,
+            "affected_members": None,
+            "areas": [],
+            "fire_related": False,
+            "psps_related": False,
+            "hits": [],
+        }
+
+    affected_values = [hit.get("affected_members") for hit in hits if hit.get("affected_members") is not None]
+    max_affected = max(affected_values) if affected_values else None
+    areas = []
+    for hit in hits:
+        for area in hit.get("areas", []):
+            if area not in areas:
+                areas.append(area)
+    fire_related = any(hit.get("fire_related") for hit in hits)
+    psps_related = any(hit.get("psps_related") for hit in hits)
+    severity = "major" if max_affected is not None and max_affected >= 1000 else "active"
+    if max_affected is not None and max_affected < 1000:
+        severity = "localized"
+    area_text = ", ".join(areas) if areas else "LPEA service territory"
+    member_text = f"; about {max_affected:,} members affected" if max_affected is not None else ""
+    relation_text = "Source text includes fire/PSPS language." if (fire_related or psps_related) else "Not classified as fire-weather or PSPS-related by this monitor."
+    return {
+        "active": True,
+        "severity": severity,
+        "headline": f"Active LPEA operational outage detected near {area_text}.",
+        "summary": f"{area_text}{member_text}. {relation_text}",
+        "source_count": len(hits),
+        "affected_members": max_affected,
+        "areas": areas,
+        "fire_related": fire_related,
+        "psps_related": psps_related,
+        "hits": hits[:6],
+    }
+
+
 def configured_fire_posture_sources(config: Dict[str, Any]) -> List[Dict[str, Any]]:
     return config.get("fire_posture", {}).get("sources", [])
 
@@ -910,6 +1140,7 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
     sources = []
     active_hits = []
     reference_hits = []
+    operational_outage_hits = []
     keywords = lpea_config.get("alert_keywords") or lpea_config.get("fire_keywords", [])
     for source in configured_lpea_sources(lpea_config):
         url = source["url"]
@@ -930,6 +1161,10 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
                 text = visible_source_text(resp.text[:250000])
                 source_result["matches"] = keyword_matches(text, keywords)
                 source_result["snippets"] = keyword_snippets(text, source_result["matches"])
+                if source_result["signal_mode"] == "active":
+                    operational_hit = lpea_operational_outage_hit(text, source_result)
+                    if operational_hit:
+                        operational_outage_hits.append(operational_hit)
                 if source_result["matches"]:
                     hit = {
                         "name": source_result["name"],
@@ -950,7 +1185,12 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
 
     social_sources = [source for source in sources if source["type"] == "official_social"]
     social_reachable = sum(1 for source in social_sources if source["status"] == "reachable")
-    if active_hits:
+    operational_outage = summarize_lpea_operational_outage(operational_outage_hits)
+    psps_fire_active = active_hits_have_psps_fire_context(active_hits)
+    if operational_outage["active"] and not psps_fire_active and not operational_outage["fire_related"] and not operational_outage["psps_related"]:
+        headline = "LPEA active/update sources indicate an operational outage; use as grid context, not PSPS/fire evidence unless source text says so."
+        status = "operational_outage_active"
+    elif active_hits:
         headline = "LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent."
         status = "active_keyword_match"
     elif reference_hits:
@@ -968,6 +1208,7 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
         "headline": headline,
         "active_hits": active_hits,
         "reference_hits": reference_hits,
+        "operational_outage": operational_outage,
         "active_signal_groups": group_lpea_signal_hits(active_hits),
         "reference_signal_groups": group_lpea_signal_hits(reference_hits),
         "monitored_source_count": len(sources),
@@ -1159,7 +1400,6 @@ def lpea_psps_signal(lpea: Dict[str, Any]) -> Dict[str, Any]:
         "power shutoffs possible",
         "public safety power shutoffs possible",
         "de-energize",
-        "power outage",
         "wildfire",
     ]
     direct_matches = [phrase for phrase in direct_phrases if phrase in snippet_text]
@@ -1417,7 +1657,7 @@ def build_psps_forecast(
 ) -> Dict[str, Any]:
     lpea_signal = lpea_psps_signal(lpea)
     posture_signal = fire_posture_psps_signal(fire_posture)
-    active_lpea_signal = bool(lpea.get("active_hits"))
+    active_lpea_signal = lpea_signal["level"] != "none"
     forecast_days = []
 
     for day in days:
@@ -1433,7 +1673,7 @@ def build_psps_forecast(
             level = max_psps_level(level, "WATCH")
             reasons.append(lpea_signal["reason"])
         elif active_lpea_signal:
-            reasons.append("LPEA active/update sources currently contain red-flag or power-interruption language, used as supporting context.")
+            reasons.append("LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context.")
 
         if not reasons:
             reasons.append("No red-flag or active LPEA PSPS signal for this day.")
@@ -1654,8 +1894,6 @@ def lpea_signal_boost(lpea: Dict[str, Any], psps: Dict[str, Any]) -> Tuple[int, 
         return 16, ["LPEA active source has direct PSPS/power-shutoff language"]
     if signal == "active_wildfire_power_language":
         return 8, ["LPEA active sources contain wildfire/red-flag/power language"]
-    if lpea.get("active_hits"):
-        return 5, ["LPEA active source keyword match"]
     return 0, []
 
 
@@ -1795,6 +2033,9 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
     if lpea.get("active_hits"):
         confidence_score += 5
         confidence_reasons.append("LPEA active/update sources checked")
+    operational_outage = lpea.get("operational_outage", {})
+    if operational_outage.get("active"):
+        confidence_reasons.append("active LPEA operational outage context checked separately from PSPS scoring")
     evidence_counts = lpea.get("evidence_quality", {}).get("counts", {})
     if lpea.get("active_hits") and safe_int(evidence_counts.get("active")) == 0 and safe_int(evidence_counts.get("operational")) == 0:
         confidence_score -= 5
@@ -1837,6 +2078,7 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
         "area_predictions": all_predictions,
         "notes": [
             "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+            "Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.",
             "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
             "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.",
         ],
@@ -2349,6 +2591,7 @@ def build_analyst_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
         "lpea": {
             "status": report.get("lpea", {}).get("status"),
             "headline": report.get("lpea", {}).get("headline"),
+            "operational_outage": report.get("lpea", {}).get("operational_outage", {}),
             "evidence_quality": report.get("lpea", {}).get("evidence_quality"),
             "active_signal_groups": report.get("lpea", {}).get("active_signal_groups", [])[:6],
             "source_statuses": [
@@ -2436,6 +2679,7 @@ def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
         "notable_changes": intelligence.get("notable_changes", [])[:6],
         "watch_next": intelligence.get("review_cues", [])[:5],
         "method_notes": analysis.get("notes", []),
+        "operational_outage_context": report.get("lpea", {}).get("operational_outage", {}),
     }
 
 
@@ -2716,6 +2960,15 @@ def source_group_links_html(group: Dict[str, Any]) -> str:
     return ", ".join(links) if links else "Unknown source"
 
 
+def lpea_operational_outage_links_html(operational_outage: Dict[str, Any]) -> str:
+    links = []
+    for hit in operational_outage.get("hits", [])[:5]:
+        name = hit.get("name", "Unknown source")
+        url = hit.get("url")
+        links.append(linked_text_html(name, url))
+    return ", ".join(links) if links else "No source links captured."
+
+
 def linked_text_html(text: str, url: Optional[str]) -> str:
     if url:
         return f'<a href="{escape_html(url)}" target="_blank" rel="noopener noreferrer">{escape_html(text)}</a>'
@@ -2729,6 +2982,8 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
     likely_psps_dates = collect_psps_dates_by_level(report.get("psps", {}).get("days", []), "LIKELY")
     watch_psps_dates = collect_psps_dates_by_level(report.get("psps", {}).get("days", []), "WATCH")
     notify_text = "YES" if report["notify_recommended"] else "NO"
+    operational_outage = report.get("lpea", {}).get("operational_outage", {})
+    operational_text = operational_outage.get("summary", "No active operational LPEA outage detected by public-source text.")
     return [
         f"Overall tier: {report['overall_tier']}",
         f"PSPS likelihood: {report.get('psps', {}).get('overall_level', 'UNKNOWN')}",
@@ -2740,6 +2995,7 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
         f"Elevated dates: {format_date_list(elevated_dates)}",
         f"{official_fire_alert_label(report)}: {report['official_alerts']['fire_alert_count']}",
         f"LPEA status: {report['lpea']['status']} - {report['lpea']['headline']}",
+        f"LPEA operational outage context: {operational_text}",
         f"LPEA source coverage: {report['lpea'].get('monitored_source_count', 0)} sources; {report['lpea'].get('social_status', 'social sources not configured')}",
         f"Fire posture: {report.get('fire_posture', {}).get('max_restriction_stage', 'UNKNOWN')} restrictions; fire danger {report.get('fire_posture', {}).get('max_fire_danger', 'UNKNOWN')}",
         f"NWS discussion: {report['discussion']['headline']}",
@@ -2772,6 +3028,7 @@ def lpea_signal_group_summary(group: Dict[str, Any]) -> str:
 def lpea_status_label(status: str) -> str:
     labels = {
         "active_keyword_match": "Active source match",
+        "operational_outage_active": "Active outage context",
         "reference_keyword_match": "Reference-only match",
         "reachable_no_power_keywords": "No active signal",
         "unavailable": "Signal unavailable",
@@ -2783,11 +3040,14 @@ def lpea_status_label(status: str) -> str:
 
 
 def lpea_active_source_meaning() -> str:
-    return "Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. It is a watch cue for review, not a confirmed outage or shutoff notice."
+    return "Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. Operational outages are shown separately and are not treated as PSPS/fire evidence unless the source text says so."
 
 
 def lpea_summary_note(lpea: Dict[str, Any]) -> str:
     status = lpea.get("status", "unknown")
+    if status == "operational_outage_active":
+        outage = lpea.get("operational_outage", {})
+        return outage.get("summary", "Active LPEA operational outage detected; not classified as a PSPS or fire-weather notice.")
     if status == "active_keyword_match":
         groups = lpea.get("active_signal_groups") or group_lpea_signal_hits(lpea.get("active_hits", []))
         if groups:
@@ -2994,14 +3254,24 @@ def build_area_outlook(report: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 def render_lpea_markdown(report: Dict[str, Any]) -> List[str]:
     lpea = report.get("lpea", {})
+    operational_outage = lpea.get("operational_outage", {})
     lines = [
         "## LPEA Power Signal",
         "",
         f"- Status: `{lpea.get('status', 'unknown')}` - {lpea.get('headline', 'No LPEA headline available.')}",
         f"- Meaning: {lpea_active_source_meaning()}",
+        f"- Operational outage context: {operational_outage.get('summary', 'No active operational LPEA outage detected by public-source text.')}",
         f"- Source coverage: {lpea.get('monitored_source_count', 0)} sources; {lpea.get('social_status', 'social sources not configured')}",
         f"- Evidence quality: {lpea.get('evidence_quality', {}).get('summary', 'Evidence quality not classified.')}",
     ]
+    if operational_outage.get("active"):
+        lines.append(
+            "- Operational outage source links: "
+            + "; ".join(
+                f"[{hit.get('name', 'Unknown source')}]({hit.get('url')})" if hit.get("url") else hit.get("name", "Unknown source")
+                for hit in operational_outage.get("hits", [])[:5]
+            )
+        )
     active_hits = lpea.get("active_hits", [])
     reference_hits = lpea.get("reference_hits", [])
     active_signal_groups = lpea.get("active_signal_groups") or group_lpea_signal_hits(active_hits)
@@ -3168,6 +3438,7 @@ def render_public_analysis_export_markdown(report: Dict[str, Any]) -> List[str]:
     psps_peak = peaks.get("psps", {})
     fire_peak = peaks.get("fire_danger", {})
     red_peak = peaks.get("red_flag", {})
+    operational_outage = export.get("operational_outage_context", {})
     lines = [
         "## Public Analysis Export",
         "",
@@ -3178,6 +3449,7 @@ def render_public_analysis_export_markdown(report: Dict[str, Any]) -> List[str]:
         f"- PSPS peak: {psps_peak.get('display_date') or 'n/a'} near {psps_peak.get('location') or 'n/a'} at {psps_peak.get('level') or 'UNKNOWN'} {psps_peak.get('score', 'n/a')}/100",
         f"- Red Flag peak: {red_peak.get('display_date') or 'n/a'} near {red_peak.get('location') or 'n/a'} at {red_peak.get('level') or 'UNKNOWN'} {red_peak.get('score', 'n/a')}/100",
         f"- Fire danger peak: {fire_peak.get('display_date') or 'n/a'} near {fire_peak.get('location') or 'n/a'} at {fire_peak.get('level') or 'UNKNOWN'} {fire_peak.get('score', 'n/a')}/100",
+        f"- LPEA operational outage context: {operational_outage.get('summary', 'No active operational LPEA outage detected by public-source text.')}",
         "- Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`",
         "",
         "What changed:",
@@ -3320,9 +3592,21 @@ def render_html(report: Dict[str, Any]) -> str:
     outage_map_url = lpea_outage_map_url(report)
     pagosa_card = pagosa_outlook_card(report)
     psps_rail_context = psps_likelihood_rail_context(report)
+    operational_outage = report.get("lpea", {}).get("operational_outage", {})
 
     summary_cards = [
         pagosa_card,
+    ]
+    if operational_outage.get("active"):
+        summary_cards.append(
+            {
+                "label": "LPEA outage context",
+                "value": "Active outage",
+                "class": "signal-outage",
+                "note": operational_outage.get("summary", "Active operational outage detected; not classified as PSPS/fire by this monitor."),
+            }
+        )
+    summary_cards.extend([
         {"label": "Likely PSPS dates", "value": format_date_list(likely_psps_dates), "class": "", "dates": likely_psps_dates},
         {
             "label": "Send monitor heads-up?",
@@ -3335,10 +3619,14 @@ def render_html(report: Dict[str, Any]) -> str:
         {
             "label": "LPEA signal",
             "value": lpea_status_label(report["lpea"].get("status", "unknown")),
-            "class": "signal-watch" if report["lpea"].get("status") in ("active_keyword_match", "reference_keyword_match") else "",
+            "class": (
+                "signal-outage" if report["lpea"].get("status") == "operational_outage_active"
+                else "signal-watch" if report["lpea"].get("status") in ("active_keyword_match", "reference_keyword_match")
+                else ""
+            ),
             "note": lpea_summary_note(report["lpea"]),
         },
-    ]
+    ])
 
     day_tiles = []
     for day in report["days"]:
@@ -3647,6 +3935,24 @@ def render_html(report: Dict[str, Any]) -> str:
         f'<span class="reference-pill">{linked_text_html(hit.get("name", "Unknown source"), hit.get("url"))}</span>'
         for hit in lpea.get("reference_hits", [])[:6]
     ) or '<span class="reference-pill">No reference hits</span>'
+    operational_outage = lpea.get("operational_outage", {})
+    if operational_outage.get("active"):
+        relation_note = (
+            "This source text includes fire/PSPS language, so review it as possible safety-shutoff context."
+            if operational_outage.get("fire_related") or operational_outage.get("psps_related")
+            else "This is treated as operational grid context only; it does not raise PSPS scoring by itself."
+        )
+        outage_context_html = f"""
+        <div class="outage-context-panel">
+          <p class="eyebrow">Active LPEA outage context</p>
+          <h3>{escape_html(operational_outage.get('headline', 'Active LPEA operational outage detected.'))}</h3>
+          <p>{escape_html(operational_outage.get('summary', 'Active operational outage detected.'))}</p>
+          <p>{escape_html(relation_note)}</p>
+          <p class="source-meta">Sources: {lpea_operational_outage_links_html(operational_outage)}</p>
+        </div>
+        """
+    else:
+        outage_context_html = ""
     alert_cards_html = "".join(
         f"""
         <article class="alert-card">
@@ -4001,6 +4307,18 @@ def render_html(report: Dict[str, Any]) -> str:
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }}
+    .summary-value.signal-outage {{
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: rgba(203, 90, 27, 0.16);
+      color: #5b2209;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
     .date-pills {{
       display: flex;
       flex-wrap: wrap;
@@ -4075,6 +4393,27 @@ def render_html(report: Dict[str, Any]) -> str:
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.58);
       padding: 14px;
+    }}
+    .outage-context-panel {{
+      margin-top: 14px;
+      border: 1px solid rgba(203, 90, 27, 0.26);
+      border-left: 8px solid var(--concern);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 96% 10%, rgba(203, 90, 27, 0.12), transparent 38%),
+        rgba(255, 248, 240, 0.82);
+      padding: 16px;
+    }}
+    .outage-context-panel h3 {{
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }}
+    .outage-context-panel p {{
+      margin: 0 0 8px;
+      line-height: 1.35;
+    }}
+    .outage-context-panel p:last-child {{
+      margin-bottom: 0;
     }}
     .source-name {{
       margin: 0 0 4px;
@@ -4881,6 +5220,7 @@ def render_html(report: Dict[str, Any]) -> str:
       <p class="footer-note">{escape_html(lpea_active_source_meaning())}</p>
       <p class="footer-note">Evidence quality: {escape_html(evidence_quality.get('summary', 'Evidence quality not classified.'))}</p>
       <p class="footer-note">Coverage: {escape_html(str(lpea.get('monitored_source_count', 0)))} sources; {escape_html(lpea.get('social_status', 'social sources not configured'))}</p>
+      {outage_context_html}
       <div class="source-grid">
         {active_hits_html}
       </div>
