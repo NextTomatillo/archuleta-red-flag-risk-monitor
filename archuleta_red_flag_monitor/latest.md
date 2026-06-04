@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 4, 2026 at 5:35 AM MDT (Pagosa Springs, CO local time)
-Next update: Jun 4, 2026 at 6:35 AM MDT (Pagosa Springs, CO local time)
+Generated: Jun 4, 2026 at 8:05 AM MDT (Pagosa Springs, CO local time)
+Next update: Jun 4, 2026 at 9:05 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -23,7 +23,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Sat, Jun 6 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 11%; 4 sampled hours meet red-flag screen.
-- Confidence: **MEDIUM** (68/100) - 8/8 sampled weather points available; 6/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
 - Fire danger peak: Sun, Jun 7: Durango / La Plata County EXTREME 100/100
 - Red Flag likelihood peak: Sun, Jun 7: Durango / La Plata County LIKELY 100/100
 - LPEA PSPS peak: Sat, Jun 6: Durango / La Plata County LIKELY 100/100
@@ -41,23 +41,22 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is rising versus the prior run (Jun 3 at 5:26 PM MDT); forecast volatility is high and first WATCH-or-higher date is Thu, Jun 4.
-- Momentum: **Rising**
-- Forecast volatility: **HIGH** (36/100)
+- Summary: Momentum is steady versus the prior run (Jun 4 at 5:35 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Jun 4.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Thu, Jun 4
-- Watch-date movement: First WATCH-or-higher PSPS date moved earlier from Sat, Jun 6 to Thu, Jun 4.
+- Watch-date movement: First WATCH-or-higher PSPS date remains Thu, Jun 4.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
-- First WATCH-or-higher PSPS date moved earlier from Sat, Jun 6 to Thu, Jun 4.
-- Thu, Jun 4: worsening vs prior run; PSPS ELEVATED -> WATCH; score +14, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County.
-- Fri, Jun 5: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +8, wind +2 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County.
+- First WATCH-or-higher PSPS date remains Thu, Jun 4.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Sat, Jun 6 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 11%; 4 sampled hours meet red-flag screen.
-- Trend: Momentum is rising versus the prior run (Jun 3 at 5:26 PM MDT); forecast volatility is high and first WATCH-or-higher date is Thu, Jun 4.
-- Confidence: **MEDIUM** (68/100)
+- Trend: Momentum is steady versus the prior run (Jun 4 at 5:35 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Jun 4.
+- Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Thu, Jun 4
 - PSPS peak: Sat, Jun 6 near Durango / La Plata County at LIKELY 100/100
 - Red Flag peak: Sun, Jun 7 near Durango / La Plata County at LIKELY 100/100
@@ -66,9 +65,8 @@ Notable changes:
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
-- First WATCH-or-higher PSPS date moved earlier from Sat, Jun 6 to Thu, Jun 4.
-- Thu, Jun 4: worsening vs prior run; PSPS ELEVATED -> WATCH; score +14, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County.
-- Fri, Jun 5: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +8, wind +2 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County.
+- First WATCH-or-higher PSPS date remains Thu, Jun 4.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
@@ -113,7 +111,7 @@ What to watch next:
 - Summary: 2 official sources indicate fire restrictions or staged restrictions.
 - Max restriction stage detected: STAGE 1
 - Max fire danger detected: VERY HIGH
-- Sources reachable: 6/7
+- Sources reachable: 7/7
 - Note: Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.
 
 | Jurisdiction | Restrictions | Fire danger | Source |
@@ -122,7 +120,7 @@ What to watch next:
 | Pagosa Springs | UNKNOWN | UNKNOWN | [Town of Pagosa Springs](https://www.pagosasprings.co.gov/) |
 | San Juan National Forest | STAGE 1 | VERY HIGH | [San Juan National Forest fire](https://www.fs.usda.gov/r02/sanjuan/fire) |
 | BLM Tres Rios | STAGE 1 | UNKNOWN | [BLM Tres Rios Field Office](https://www.blm.gov/office/tres-rios-field-office) |
-| La Plata County / Durango Fire | UNKNOWN | UNKNOWN | [Durango Fire & Rescue fire conditions](https://www.durangofire.org/fire-conditions) |
+| La Plata County / Durango Fire | NONE | UNKNOWN | [Durango Fire & Rescue fire conditions](https://www.durangofire.org/fire-conditions) |
 | Durango | UNKNOWN | UNKNOWN | [City of Durango](https://www.durangoco.gov/) |
 | Southern Ute / Ignacio | UNKNOWN | UNKNOWN | [Southern Ute Indian Tribe](https://www.southernute-nsn.gov/) |
 
