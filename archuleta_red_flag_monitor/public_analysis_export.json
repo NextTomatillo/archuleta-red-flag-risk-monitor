@@ -1,25 +1,24 @@
 {
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
-      "6/7 fire-posture sources reachable",
+      "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 68
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-05T23:38:20.367738-06:00",
+  "generated_at": "2026-06-06T09:59:46.857582-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Durango / La Plata County (LIKELY 100/100), driven by strong wind/gust signal near 32 mph; very dry RH near 12%; 8 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is easing versus the prior run (Jun 5 at 11:22 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Jun 6."
+    "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 8 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jun 5 at 11:38 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -30,9 +29,8 @@
   ],
   "notable_changes": [
     "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
-    "Fri, Jun 5: easing vs prior run; PSPS ELEVATED -> LOW; score -30, wind -7 mph, RH +19%, red-flag hours 0.",
-    "Sat, Jun 6: easing vs prior run; PSPS LIKELY -> WATCH; score -10, wind -2 mph, RH 0%, red-flag hours -3. Driver shifted to Bayfield / east La Plata County.",
-    "Tue, Jun 9: easing vs prior run; PSPS LIKELY -> LIKELY; score +4, wind +5 mph, RH +1%, red-flag hours -3. Driver shifted to Chimney Rock / west county."
+    "Tue, Jun 9: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours +4.",
+    "Wed, Jun 10: easing vs prior run; PSPS LIKELY -> LIKELY; score 0, wind -4 mph, RH 0%, red-flag hours -2. Driver shifted to Durango / La Plata County."
   ],
   "operational_outage_context": {
     "active": false,
@@ -53,26 +51,27 @@
       "drivers": [
         "very dry RH near 12%",
         "strong wind/gust near 32 mph",
-        "official fire restrictions at STAGE 1"
+        "official fire restrictions at STAGE 1",
+        "official fire danger is VERY HIGH"
       ],
       "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
       "level": "EXTREME",
       "location": "Durango / La Plata County",
-      "score": 92
+      "score": 100
     },
     "psps": {
       "date": "2026-06-07",
       "display_date": "Sun, Jun 7",
       "drivers": [
-        "strong wind/gust signal near 32 mph",
+        "red-flag wind/gust signal near 29 mph",
         "very dry RH near 12%",
         "8 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Durango / La Plata County",
+      "location": "Arboles / southwest county",
       "score": 100
     },
     "red_flag": {
@@ -95,9 +94,9 @@
     "first_watch_or_likely_date": "2026-06-06",
     "first_watch_or_likely_display": "Sat, Jun 6",
     "first_watch_shift": "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 57,
-    "momentum": "Easing"
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 10,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
