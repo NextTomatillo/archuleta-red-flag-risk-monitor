@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 6, 2026 at 9:59 AM MDT (Pagosa Springs, CO local time)
-Next update: Jun 6, 2026 at 10:59 AM MDT (Pagosa Springs, CO local time)
+Generated: Jun 6, 2026 at 11:21 AM MDT (Pagosa Springs, CO local time)
+Next update: Jun 6, 2026 at 12:21 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -41,22 +41,21 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jun 5 at 11:38 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
+- Summary: Momentum is steady versus the prior run (Jun 6 at 9:59 AM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
 - Momentum: **Steady**
-- Forecast volatility: **LOW** (10/100)
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Sat, Jun 6
 - Watch-date movement: First WATCH-or-higher PSPS date remains Sat, Jun 6.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
 - First WATCH-or-higher PSPS date remains Sat, Jun 6.
-- Tue, Jun 9: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours +4.
-- Wed, Jun 10: easing vs prior run; PSPS LIKELY -> LIKELY; score 0, wind -4 mph, RH 0%, red-flag hours -2. Driver shifted to Durango / La Plata County.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 8 sampled hours meet red-flag screen.
-- Trend: Momentum is steady versus the prior run (Jun 5 at 11:38 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
+- Trend: Momentum is steady versus the prior run (Jun 6 at 9:59 AM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6.
 - Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Sat, Jun 6
 - PSPS peak: Sun, Jun 7 near Arboles / southwest county at LIKELY 100/100
@@ -67,8 +66,7 @@ Notable changes:
 
 What changed:
 - First WATCH-or-higher PSPS date remains Sat, Jun 6.
-- Tue, Jun 9: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours +4.
-- Wed, Jun 10: easing vs prior run; PSPS LIKELY -> LIKELY; score 0, wind -4 mph, RH 0%, red-flag hours -2. Driver shifted to Durango / La Plata County.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
