@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 7, 2026 at 1:31 PM MDT (Pagosa Springs, CO local time)
-Next update: Jun 7, 2026 at 2:31 PM MDT (Pagosa Springs, CO local time)
+Generated: Jun 7, 2026 at 1:50 PM MDT (Pagosa Springs, CO local time)
+Next update: Jun 7, 2026 at 2:50 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -41,7 +41,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jun 7 at 12:39 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7.
+- Summary: Momentum is steady versus the prior run (Jun 7 at 1:31 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7.
 - Momentum: **Steady**
 - Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Sun, Jun 7
@@ -55,7 +55,7 @@ Notable changes:
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Sun, Jun 7 near Pagosa Springs (LIKELY 100/100), driven by strong wind/gust signal near 31 mph; red-flag RH near 15%; 5 sampled hours meet red-flag screen.
-- Trend: Momentum is steady versus the prior run (Jun 7 at 12:39 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7.
+- Trend: Momentum is steady versus the prior run (Jun 7 at 1:31 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7.
 - Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Sun, Jun 7
 - PSPS peak: Sun, Jun 7 near Pagosa Springs at LIKELY 100/100

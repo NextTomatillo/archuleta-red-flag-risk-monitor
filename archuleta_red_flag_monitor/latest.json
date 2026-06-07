@@ -3971,8 +3971,8 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "VERY HIGH",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 9,
-          "max_red_flag_hours": 8,
+          "max_near_hours": 8,
+          "max_red_flag_hours": 7,
           "max_thunder_percent": 3.0,
           "max_weather_score": 92.0,
           "max_wind_mph": 34.5,
@@ -3980,10 +3980,10 @@
           "official_fire_alert_count": 4,
           "top_location": "Chimney Rock / west county"
         },
-        "red_flag_hours_delta": -1.0,
+        "red_flag_hours_delta": 0.0,
         "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Sun, Jun 7: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours -1.",
+        "summary": "Sun, Jun 7: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
         "wind_delta_mph": 0.0
       },
       {
@@ -4259,8 +4259,8 @@
     ],
     "previous_first_watch_or_likely_date": "2026-06-07",
     "previous_overall_psps_level": "LIKELY",
-    "previous_run_at": "2026-06-07T12:39:02.502061-06:00",
-    "previous_run_label": "Jun 7 at 12:39 PM MDT",
+    "previous_run_at": "2026-06-07T13:31:41.475023-06:00",
+    "previous_run_label": "Jun 7 at 1:31 PM MDT",
     "review_cues": [
       "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
       "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.",
@@ -4269,11 +4269,11 @@
     ],
     "risk_momentum": "Steady",
     "status": "compared",
-    "summary": "Momentum is steady versus the prior run (Jun 7 at 12:39 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7."
+    "summary": "Momentum is steady versus the prior run (Jun 7 at 1:31 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7."
   },
-  "generated_at": "2026-06-07T13:31:41.475023-06:00",
-  "generated_at_local": "2026-06-07T13:31:41.475023-06:00",
-  "generated_at_utc": "2026-06-07T19:31:41.475023+00:00",
+  "generated_at": "2026-06-07T13:50:43.667025-06:00",
+  "generated_at_local": "2026-06-07T13:50:43.667025-06:00",
+  "generated_at_utc": "2026-06-07T19:50:43.667025+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -5061,7 +5061,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-06-07T14:31:41.475023-06:00",
+  "next_update_at": "2026-06-07T14:50:43.667025-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [
@@ -8442,13 +8442,13 @@
       "score": 77
     },
     "export_type": "archuleta_red_flag_psps_public_analysis",
-    "generated_at": "2026-06-07T13:31:41.475023-06:00",
+    "generated_at": "2026-06-07T13:50:43.667025-06:00",
     "headline": {
       "monitor_heads_up_recommended": true,
       "overall_tier": "HIGH",
       "psps_likelihood": "LIKELY",
       "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Pagosa Springs (LIKELY 100/100), driven by strong wind/gust signal near 31 mph; red-flag RH near 15%; 5 sampled hours meet red-flag screen.",
-      "trend_summary": "Momentum is steady versus the prior run (Jun 7 at 12:39 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7."
+      "trend_summary": "Momentum is steady versus the prior run (Jun 7 at 1:31 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7."
     },
     "local_time_name": "Pagosa Springs, CO",
     "method_notes": [
@@ -8659,7 +8659,7 @@
       ],
       "first_official_at": "2026-06-07T12:36:00-06:00",
       "first_seen_at": "2026-06-07T13:31:41.475023-06:00",
-      "last_seen_at": "2026-06-07T13:31:41.475023-06:00"
+      "last_seen_at": "2026-06-07T13:50:43.667025-06:00"
     },
     {
       "alert_count": 4,
@@ -8708,7 +8708,7 @@
       ],
       "first_official_at": "2026-06-07T12:36:00-06:00",
       "first_seen_at": "2026-06-07T13:31:41.475023-06:00",
-      "last_seen_at": "2026-06-07T13:31:41.475023-06:00"
+      "last_seen_at": "2026-06-07T13:50:43.667025-06:00"
     },
     {
       "alert_count": 4,
@@ -8757,7 +8757,7 @@
       ],
       "first_official_at": "2026-06-07T12:36:00-06:00",
       "first_seen_at": "2026-06-07T13:31:41.475023-06:00",
-      "last_seen_at": "2026-06-07T13:31:41.475023-06:00"
+      "last_seen_at": "2026-06-07T13:50:43.667025-06:00"
     },
     {
       "alert_count": 4,
@@ -8806,7 +8806,7 @@
       ],
       "first_official_at": "2026-06-07T12:36:00-06:00",
       "first_seen_at": "2026-06-07T13:31:41.475023-06:00",
-      "last_seen_at": "2026-06-07T13:31:41.475023-06:00"
+      "last_seen_at": "2026-06-07T13:50:43.667025-06:00"
     }
   ],
   "red_flag_calibration": {

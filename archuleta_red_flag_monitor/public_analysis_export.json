@@ -12,13 +12,13 @@
     "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-07T13:31:41.475023-06:00",
+  "generated_at": "2026-06-07T13:50:43.667025-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
     "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Pagosa Springs (LIKELY 100/100), driven by strong wind/gust signal near 31 mph; red-flag RH near 15%; 5 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is steady versus the prior run (Jun 7 at 12:39 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7."
+    "trend_summary": "Momentum is steady versus the prior run (Jun 7 at 1:31 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Jun 7."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
