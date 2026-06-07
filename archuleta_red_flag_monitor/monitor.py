@@ -90,6 +90,13 @@ def parse_datetime(value: Optional[str]) -> Optional[dt.datetime]:
     return parsed.astimezone(dt.timezone.utc)
 
 
+def try_parse_datetime(value: Optional[str]) -> Optional[dt.datetime]:
+    try:
+        return parse_datetime(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def datetime_to_local_iso(value: Optional[dt.datetime], tz: ZoneInfo) -> Optional[str]:
     if value is None:
         return None
@@ -203,6 +210,10 @@ def event_log_path(config_path: Path, config: Dict[str, Any]) -> Path:
 
 def forecast_history_path(config_path: Path, config: Dict[str, Any]) -> Path:
     return output_path(config_path, config, "forecast_history_csv", "forecast_history.csv")
+
+
+def red_flag_alert_log_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "red_flag_alert_log", "red_flag_alerts.json")
 
 
 def analyst_review_packet_path(config_path: Path, config: Dict[str, Any]) -> Path:
@@ -2244,6 +2255,290 @@ def build_calibration_summary(
     }
 
 
+def load_red_flag_alert_log(path: Path) -> List[Dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return []
+    if isinstance(data, dict):
+        data = data.get("alert_dates", [])
+    if not isinstance(data, list):
+        return []
+    return [item for item in data if isinstance(item, dict) and item.get("date")]
+
+
+def alert_is_fire_weather(alert: Dict[str, Any]) -> bool:
+    return str(alert.get("event", "")).lower() in ("red flag warning", "fire weather watch")
+
+
+def compact_alert_event(alert: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "event": alert.get("event"),
+        "headline": alert.get("headline"),
+        "url": alert.get("url"),
+        "zones": alert.get("zones", []),
+        "effective": alert.get("effective"),
+        "ends": alert.get("ends"),
+    }
+
+
+def iso_min(*values: Optional[str]) -> Optional[str]:
+    parsed_values = [(try_parse_datetime(value), value) for value in values if value]
+    parsed_values = [(parsed, value) for parsed, value in parsed_values if parsed is not None]
+    if not parsed_values:
+        return next((value for value in values if value), None)
+    return min(parsed_values, key=lambda item: item[0])[1]
+
+
+def iso_max(*values: Optional[str]) -> Optional[str]:
+    parsed_values = [(try_parse_datetime(value), value) for value in values if value]
+    parsed_values = [(parsed, value) for parsed, value in parsed_values if parsed is not None]
+    if not parsed_values:
+        return next((value for value in values if value), None)
+    return max(parsed_values, key=lambda item: item[0])[1]
+
+
+def current_red_flag_alert_entries(official_alerts: Dict[str, Any], generated_at: Optional[str]) -> List[Dict[str, Any]]:
+    high_dates = official_alerts.get("high_dates", []) or []
+    fire_alerts = [alert for alert in official_alerts.get("alerts", []) if alert_is_fire_weather(alert)]
+    if not high_dates or not fire_alerts:
+        return []
+    first_effective_at = None
+    effective_values = [alert.get("effective") for alert in fire_alerts if alert.get("effective")]
+    if effective_values:
+        first_effective_at = iso_min(*effective_values)
+    events = [compact_alert_event(alert) for alert in fire_alerts]
+    return [
+        {
+            "date": date_key,
+            "first_seen_at": generated_at,
+            "last_seen_at": generated_at,
+            "first_official_at": first_effective_at or generated_at,
+            "alert_count": len(fire_alerts),
+            "events": events,
+        }
+        for date_key in high_dates
+    ]
+
+
+def merge_red_flag_alert_log(existing: List[Dict[str, Any]], current: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    by_date: Dict[str, Dict[str, Any]] = {str(entry.get("date")): dict(entry) for entry in existing if entry.get("date")}
+    for entry in current:
+        date_key = str(entry.get("date"))
+        if not date_key:
+            continue
+        merged = by_date.setdefault(
+            date_key,
+            {
+                "date": date_key,
+                "first_seen_at": entry.get("first_seen_at"),
+                "last_seen_at": entry.get("last_seen_at"),
+                "first_official_at": entry.get("first_official_at"),
+                "alert_count": 0,
+                "events": [],
+            },
+        )
+        merged["first_seen_at"] = iso_min(merged.get("first_seen_at"), entry.get("first_seen_at"))
+        merged["last_seen_at"] = iso_max(merged.get("last_seen_at"), entry.get("last_seen_at"))
+        merged["first_official_at"] = iso_min(merged.get("first_official_at"), entry.get("first_official_at"))
+        merged["alert_count"] = max(safe_int(merged.get("alert_count")), safe_int(entry.get("alert_count")))
+
+        seen = {
+            (event.get("url"), event.get("headline"), event.get("event"))
+            for event in merged.get("events", [])
+            if isinstance(event, dict)
+        }
+        events = [event for event in merged.get("events", []) if isinstance(event, dict)]
+        for event in entry.get("events", []):
+            if not isinstance(event, dict):
+                continue
+            key = (event.get("url"), event.get("headline"), event.get("event"))
+            if key not in seen:
+                events.append(event)
+                seen.add(key)
+        merged["events"] = events[-8:]
+    return [by_date[key] for key in sorted(by_date)]
+
+
+def fire_tier_from_row(row: Dict[str, Any]) -> str:
+    tier = str(row.get("fire_weather_tier") or "GREEN").upper()
+    return tier if tier in TIER_RANK else "GREEN"
+
+
+def best_fire_prediction_row(rows: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    if not rows:
+        return None
+
+    def score(row: Dict[str, Any]) -> Tuple[int, float, int, float, float]:
+        rh = safe_float(row.get("min_rh_percent"))
+        return (
+            TIER_RANK.get(fire_tier_from_row(row), 0),
+            safe_float(row.get("weather_score")) or -1,
+            safe_int(row.get("red_flag_hours")),
+            safe_float(row.get("max_wind_mph")) or -1,
+            -(rh if rh is not None else 999),
+        )
+
+    return max(rows, key=score)
+
+
+def format_lead_hours(hours: Optional[float]) -> str:
+    if hours is None:
+        return "n/a"
+    if hours >= 48:
+        return f"{round(hours / 24, 1)} days"
+    return f"{round(hours, 1)} hours"
+
+
+def red_flag_alert_dates_from_history(forecast_history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    entries: Dict[str, Dict[str, Any]] = {}
+    for row in forecast_history:
+        if safe_int(row.get("official_fire_alert_for_date")) <= 0:
+            continue
+        date_key = row.get("date")
+        generated_at = row.get("generated_at")
+        if not date_key or not generated_at:
+            continue
+        entry = entries.setdefault(
+            date_key,
+            {
+                "date": date_key,
+                "first_seen_at": generated_at,
+                "last_seen_at": generated_at,
+                "first_official_at": generated_at,
+                "alert_count": safe_int(row.get("official_fire_alert_count")),
+                "events": [],
+            },
+        )
+        entry["first_seen_at"] = iso_min(entry.get("first_seen_at"), generated_at)
+        entry["last_seen_at"] = iso_max(entry.get("last_seen_at"), generated_at)
+        entry["first_official_at"] = iso_min(entry.get("first_official_at"), generated_at)
+        entry["alert_count"] = max(safe_int(entry.get("alert_count")), safe_int(row.get("official_fire_alert_count")))
+    return [entries[key] for key in sorted(entries)]
+
+
+def build_red_flag_calibration_summary(
+    alert_log: List[Dict[str, Any]],
+    forecast_history: List[Dict[str, Any]],
+    current_days: List[Dict[str, Any]],
+    today: dt.date,
+    alert_path: Path,
+    forecast_path: Path,
+) -> Dict[str, Any]:
+    alert_entries = merge_red_flag_alert_log(alert_log, red_flag_alert_dates_from_history(forecast_history))
+    alert_dates = {str(entry.get("date")) for entry in alert_entries if entry.get("date")}
+    rows_by_date: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    for row in forecast_history:
+        if row.get("date"):
+            rows_by_date[str(row["date"])].append(row)
+
+    hits = []
+    misses = []
+    insufficient_history = []
+    lead_hours = []
+    for entry in alert_entries:
+        date_key = str(entry.get("date", ""))
+        if not date_key:
+            continue
+        official_at = try_parse_datetime(entry.get("first_official_at") or entry.get("first_seen_at"))
+        history_rows = rows_by_date.get(date_key, [])
+        if official_at:
+            pre_alert_rows = []
+            for row in history_rows:
+                generated_at = try_parse_datetime(row.get("generated_at"))
+                if generated_at and generated_at < official_at:
+                    pre_alert_rows.append(row)
+        else:
+            pre_alert_rows = history_rows
+
+        best_row = best_fire_prediction_row(pre_alert_rows)
+        scored = {
+            "date": date_key,
+            "display_date": format_display_date(date_key),
+            "first_official_at": entry.get("first_official_at") or entry.get("first_seen_at"),
+            "best_predicted_tier": fire_tier_from_row(best_row) if best_row else "NONE",
+            "best_location": best_row.get("location") if best_row else None,
+            "best_score": safe_float(best_row.get("weather_score")) if best_row else None,
+            "first_high_generated_at": None,
+            "lead_time_hours": None,
+        }
+        high_rows = [
+            row
+            for row in pre_alert_rows
+            if TIER_RANK.get(fire_tier_from_row(row), 0) >= TIER_RANK["HIGH"] and try_parse_datetime(row.get("generated_at"))
+        ]
+        if high_rows and official_at:
+            first_high_row = min(high_rows, key=lambda row: try_parse_datetime(row.get("generated_at")) or official_at)
+            first_high_at = try_parse_datetime(first_high_row.get("generated_at"))
+            if first_high_at:
+                lead = round((official_at - first_high_at).total_seconds() / 3600, 1)
+                scored["first_high_generated_at"] = first_high_row.get("generated_at")
+                scored["lead_time_hours"] = lead
+                lead_hours.append(lead)
+        if best_row is None:
+            insufficient_history.append(scored)
+        elif TIER_RANK.get(scored["best_predicted_tier"], 0) >= TIER_RANK["HIGH"]:
+            hits.append(scored)
+        else:
+            misses.append(scored)
+
+    false_high_days = set()
+    aggregates = aggregate_forecast_rows(forecast_history)
+    for date_key, aggregate in aggregates.items():
+        try:
+            row_date = dt.date.fromisoformat(date_key)
+        except ValueError:
+            continue
+        if row_date >= today or date_key in alert_dates:
+            continue
+        if TIER_RANK.get(aggregate.get("fire_weather_tier", "GREEN"), 0) >= TIER_RANK["HIGH"]:
+            false_high_days.add(date_key)
+
+    pending_high_dates = [
+        day.get("date")
+        for day in current_days
+        if day.get("date")
+        and day.get("date") not in alert_dates
+        and TIER_RANK.get(day.get("tier", "GREEN"), 0) >= TIER_RANK["HIGH"]
+    ]
+    evaluable_count = len(hits) + len(misses)
+    hit_rate = round((len(hits) / evaluable_count) * 100) if evaluable_count else None
+    average_lead = round(sum(lead_hours) / len(lead_hours), 1) if lead_hours else None
+    if alert_entries:
+        summary = (
+            f"{len(hits)}/{evaluable_count} official Red Flag / Fire Weather alert date"
+            f"{'s' if evaluable_count != 1 else ''} had a pre-alert HIGH monitor signal."
+        )
+        if insufficient_history:
+            summary += f" {len(insufficient_history)} alert date{'s' if len(insufficient_history) != 1 else ''} had no prior forecast-history evidence."
+        if average_lead is not None:
+            summary += f" Average lead time: {format_lead_hours(average_lead)}."
+    else:
+        summary = "No official Red Flag / Fire Weather alert dates logged yet; calibration will start once NWS alerts are observed."
+
+    return {
+        "official_alert_date_count": len(alert_entries),
+        "hit_count": len(hits),
+        "miss_count": len(misses),
+        "insufficient_history_count": len(insufficient_history),
+        "hit_rate_percent": hit_rate,
+        "average_lead_time_hours": average_lead,
+        "average_lead_time_display": format_lead_hours(average_lead),
+        "false_high_day_count": len(false_high_days),
+        "false_high_examples": sorted(false_high_days)[-5:],
+        "pending_high_dates": pending_high_dates,
+        "official_alert_dates": sorted(alert_dates),
+        "summary": summary,
+        "hits": hits[-6:],
+        "misses": misses[-6:],
+        "insufficient_history": insufficient_history[-6:],
+        "alert_log_path": str(alert_path),
+        "forecast_history_path": str(forecast_path),
+    }
+
+
 def forecast_history_runs(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     runs: List[Dict[str, Any]] = []
     by_generated_at: Dict[str, Dict[str, Any]] = {}
@@ -2612,6 +2907,7 @@ def build_analyst_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
             "source_count": report.get("fire_posture", {}).get("source_count"),
         },
         "calibration": report.get("calibration", {}),
+        "red_flag_calibration": report.get("red_flag_calibration", {}),
     }
 
 
@@ -2679,6 +2975,7 @@ def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
         "notable_changes": intelligence.get("notable_changes", [])[:6],
         "watch_next": intelligence.get("review_cues", [])[:5],
         "method_notes": analysis.get("notes", []),
+        "red_flag_calibration": report.get("red_flag_calibration", {}),
         "operational_outage_context": report.get("lpea", {}).get("operational_outage", {}),
     }
 
@@ -2686,6 +2983,7 @@ def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
 def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
     rows = []
     official_count = report.get("official_alerts", {}).get("fire_alert_count", 0)
+    official_high_dates = set(report.get("official_alerts", {}).get("high_dates", []))
     lpea_signal_level = report.get("psps", {}).get("lpea_signal", {}).get("level", "none")
     posture = report.get("fire_posture", {})
     for day in report.get("psps", {}).get("days", []):
@@ -2708,6 +3006,7 @@ def forecast_history_rows(report: Dict[str, Any]) -> List[Dict[str, Any]]:
                     "overall_psps_level": report.get("psps", {}).get("overall_level"),
                     "lpea_signal_level": lpea_signal_level,
                     "official_fire_alert_count": official_count,
+                    "official_fire_alert_for_date": 1 if day.get("date") in official_high_dates else 0,
                     "max_fire_restriction_stage": posture.get("max_restriction_stage", "UNKNOWN"),
                     "max_fire_danger": posture.get("max_fire_danger", "UNKNOWN"),
                 }
@@ -2733,6 +3032,7 @@ def append_forecast_history(report: Dict[str, Any], path: Path) -> None:
         "overall_psps_level",
         "lpea_signal_level",
         "official_fire_alert_count",
+        "official_fire_alert_for_date",
         "max_fire_restriction_stage",
         "max_fire_danger",
     ]
@@ -2768,6 +3068,7 @@ def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, A
     history_csv = base / output["history_csv"]
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
+    red_flag_alert_json = red_flag_alert_log_path(config_path, config)
     review_packet_json = analyst_review_packet_path(config_path, config)
     public_analysis_json = public_analysis_export_path(config_path, config)
 
@@ -2776,6 +3077,7 @@ def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, A
     latest_html.write_text(render_html(report), encoding="utf-8")
     review_packet_json.write_text(json.dumps(build_analyst_review_packet(report), indent=2, sort_keys=True), encoding="utf-8")
     public_analysis_json.write_text(json.dumps(report.get("public_analysis_export", build_public_analysis_export(report)), indent=2, sort_keys=True), encoding="utf-8")
+    red_flag_alert_json.write_text(json.dumps(report.get("red_flag_alert_log", []), indent=2, sort_keys=True), encoding="utf-8")
     ensure_psps_event_log(psps_events_path)
     append_forecast_history(report, forecast_csv)
 
@@ -3368,8 +3670,11 @@ def render_area_outlook_markdown(report: Dict[str, Any]) -> List[str]:
 
 def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
     calibration = report.get("calibration", {})
+    red_flag_calibration = report.get("red_flag_calibration", {})
     return [
         "## Forecast Calibration",
+        "",
+        "### PSPS Calibration",
         "",
         f"- Summary: {calibration.get('summary', 'No calibration summary available.')}",
         f"- Confirmed PSPS events logged: {calibration.get('confirmed_event_count', 0)}",
@@ -3377,6 +3682,16 @@ def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
         f"- WATCH/LIKELY false-watch past days: {calibration.get('false_watch_day_count', 0)}",
         f"- Pending WATCH/LIKELY dates in current forecast: {format_date_list(calibration.get('pending_watch_dates', []))}",
         "- Calibration source: manual PSPS event log plus forecast history from prior monitor runs.",
+        "",
+        "### Red Flag / Fire Weather Calibration",
+        "",
+        f"- Summary: {red_flag_calibration.get('summary', 'No red-flag calibration summary available.')}",
+        f"- Official alert dates logged: {red_flag_calibration.get('official_alert_date_count', 0)}",
+        f"- Pre-alert HIGH hit rate: {str(red_flag_calibration.get('hit_rate_percent')) + '%' if red_flag_calibration.get('hit_rate_percent') is not None else 'Pending'}",
+        f"- Average lead time: {red_flag_calibration.get('average_lead_time_display', 'n/a')}",
+        f"- HIGH false-watch past days: {red_flag_calibration.get('false_high_day_count', 0)}",
+        f"- Pending HIGH dates in current forecast: {format_date_list(red_flag_calibration.get('pending_high_dates', []))}",
+        "- Calibration source: official NWS Red Flag / Fire Weather alert dates plus forecast history from prior monitor runs.",
     ]
 
 
@@ -3879,6 +4194,7 @@ def render_html(report: Dict[str, Any]) -> str:
     ) or "<li>Public-source screening estimates only.</li>"
     public_analysis_export_url = "archuleta_red_flag_monitor/public_analysis_export.json"
     calibration = report.get("calibration", {})
+    red_flag_calibration = report.get("red_flag_calibration", {})
     calibration_cards_html = f"""
         <article class="calibration-card">
           <p class="eyebrow">Confirmed events</p>
@@ -3899,6 +4215,33 @@ def render_html(report: Dict[str, Any]) -> str:
           <p class="eyebrow">Pending</p>
           <strong>{escape_html(str(len(calibration.get('pending_watch_dates', []))))}</strong>
           <span>current WATCH/LIKELY dates</span>
+        </article>
+    """
+    red_flag_calibration_cards_html = f"""
+        <article class="calibration-card">
+          <p class="eyebrow">Official alert dates</p>
+          <strong>{escape_html(str(red_flag_calibration.get('official_alert_date_count', 0)))}</strong>
+          <span>NWS Red Flag / Fire Weather dates logged</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Pre-alert hit rate</p>
+          <strong>{escape_html(str(red_flag_calibration.get('hit_rate_percent')) + '%' if red_flag_calibration.get('hit_rate_percent') is not None else 'Pending')}</strong>
+          <span>HIGH before official alert</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Average lead</p>
+          <strong>{escape_html(red_flag_calibration.get('average_lead_time_display', 'n/a'))}</strong>
+          <span>first HIGH signal before NWS alert</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">False-HIGH days</p>
+          <strong>{escape_html(str(red_flag_calibration.get('false_high_day_count', 0)))}</strong>
+          <span>past HIGH days without logged NWS alert</span>
+        </article>
+        <article class="calibration-card">
+          <p class="eyebrow">Pending HIGH</p>
+          <strong>{escape_html(str(len(red_flag_calibration.get('pending_high_dates', []))))}</strong>
+          <span>current HIGH dates not yet alert-confirmed</span>
         </article>
     """
     fire_posture = report.get("fire_posture", {})
@@ -4777,6 +5120,14 @@ def render_html(report: Dict[str, Any]) -> str:
       gap: 12px;
       margin-top: 14px;
     }}
+    .calibration-lane-title {{
+      margin: 22px 0 0;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }}
     .calibration-card {{
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -5206,11 +5557,18 @@ def render_html(report: Dict[str, Any]) -> str:
     <section class="section-panel">
       <p class="eyebrow">Model Calibration</p>
       <h2>Forecast Accuracy Scorecard</h2>
+      <h3 class="calibration-lane-title">PSPS calibration</h3>
       <p class="footer-note">{escape_html(calibration.get('summary', 'No calibration summary available.'))}</p>
       <div class="calibration-grid">
         {calibration_cards_html}
       </div>
       <p class="footer-note">Calibration source: manual PSPS event log plus forecast history from prior monitor runs.</p>
+      <h3 class="calibration-lane-title">Red Flag / Fire Weather calibration</h3>
+      <p class="footer-note">{escape_html(red_flag_calibration.get('summary', 'No red-flag calibration summary available.'))}</p>
+      <div class="calibration-grid">
+        {red_flag_calibration_cards_html}
+      </div>
+      <p class="footer-note">Calibration source: official NWS Red Flag / Fire Weather alert dates plus forecast history from prior monitor runs.</p>
     </section>
 
     <section class="section-panel">
@@ -5332,6 +5690,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     history_path = config_path.resolve().parent / config["output"]["history_csv"]
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
+    red_flag_log_path = red_flag_alert_log_path(config_path, config)
     forecast_history = load_forecast_history(forecast_csv)
     calibration = build_calibration_summary(
         load_psps_events(psps_events_path),
@@ -5339,6 +5698,18 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         psps,
         now_local.date(),
         psps_events_path,
+        forecast_csv,
+    )
+    red_flag_alert_log = merge_red_flag_alert_log(
+        load_red_flag_alert_log(red_flag_log_path),
+        current_red_flag_alert_entries(alert_summary, now_local.isoformat()),
+    )
+    red_flag_calibration = build_red_flag_calibration_summary(
+        red_flag_alert_log,
+        forecast_history,
+        days,
+        now_local.date(),
+        red_flag_log_path,
         forecast_csv,
     )
     prev_tier = previous_tier(history_path)
@@ -5368,6 +5739,8 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "fire_posture": fire_posture,
         "psps": psps,
         "calibration": calibration,
+        "red_flag_alert_log": red_flag_alert_log,
+        "red_flag_calibration": red_flag_calibration,
         "days": days,
         "points": point_results,
     }
@@ -5409,6 +5782,7 @@ def main() -> int:
             print(f"- {analyst_review_packet_path(config_path, config)}")
             print(f"- {forecast_history_path(config_path, config)}")
             print(f"- {event_log_path(config_path, config)}")
+            print(f"- {red_flag_alert_log_path(config_path, config)}")
     return 0
 
 

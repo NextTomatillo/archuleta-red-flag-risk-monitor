@@ -20,6 +20,7 @@ PACKAGE_FILES = [
     "publish_github_pages.py",
     "psps_events.json",
     "public_analysis_export.json",
+    "red_flag_alerts.json",
     "tests/test_monitor.py",
 ]
 

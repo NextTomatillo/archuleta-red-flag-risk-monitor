@@ -388,6 +388,80 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(summary["false_watch_day_count"], 1)
         self.assertEqual(summary["pending_watch_dates"], ["2026-06-03"])
 
+    def test_red_flag_calibration_scores_official_alert_against_pre_alert_high_history(self):
+        alert_log = [
+            {
+                "date": "2026-06-07",
+                "first_seen_at": "2026-06-07T12:39:00-06:00",
+                "first_official_at": "2026-06-07T12:36:00-06:00",
+                "alert_count": 1,
+                "events": [{"event": "Red Flag Warning", "url": "https://api.weather.gov/alerts/test-red-flag"}],
+            }
+        ]
+        history = [
+            {
+                "generated_at": "2026-06-01T05:21:19-06:00",
+                "date": "2026-06-07",
+                "location": "Pagosa Springs",
+                "fire_weather_tier": "HIGH",
+                "weather_score": "67",
+                "red_flag_hours": "4",
+                "max_wind_mph": "29",
+                "min_rh_percent": "13",
+            },
+            {
+                "generated_at": "2026-06-07T12:40:00-06:00",
+                "date": "2026-06-07",
+                "location": "Pagosa Springs",
+                "fire_weather_tier": "HIGH",
+                "weather_score": "88",
+                "official_fire_alert_for_date": "1",
+            },
+        ]
+        summary = monitor.build_red_flag_calibration_summary(
+            alert_log,
+            history,
+            [],
+            dt.date(2026, 6, 7),
+            Path("red_flag_alerts.json"),
+            Path("forecast_history.csv"),
+        )
+        self.assertEqual(summary["official_alert_date_count"], 1)
+        self.assertEqual(summary["hit_count"], 1)
+        self.assertEqual(summary["miss_count"], 0)
+        self.assertEqual(summary["hit_rate_percent"], 100)
+        self.assertGreater(summary["average_lead_time_hours"], 140)
+        self.assertEqual(summary["hits"][0]["best_predicted_tier"], "HIGH")
+        self.assertEqual(summary["hits"][0]["best_location"], "Pagosa Springs")
+
+    def test_red_flag_calibration_tracks_false_high_and_pending_high_dates(self):
+        history = [
+            {
+                "generated_at": "2026-06-01T05:00:00-06:00",
+                "date": "2026-06-02",
+                "location": "Pagosa Springs",
+                "fire_weather_tier": "HIGH",
+                "weather_score": "70",
+            }
+        ]
+        current_days = [
+            {"date": "2026-06-05", "tier": "HIGH"},
+            {"date": "2026-06-06", "tier": "CONCERN"},
+        ]
+        summary = monitor.build_red_flag_calibration_summary(
+            [],
+            history,
+            current_days,
+            dt.date(2026, 6, 4),
+            Path("red_flag_alerts.json"),
+            Path("forecast_history.csv"),
+        )
+        self.assertEqual(summary["official_alert_date_count"], 0)
+        self.assertIsNone(summary["hit_rate_percent"])
+        self.assertEqual(summary["false_high_day_count"], 1)
+        self.assertEqual(summary["false_high_examples"], ["2026-06-02"])
+        self.assertEqual(summary["pending_high_dates"], ["2026-06-05"])
+
     def test_forecast_intelligence_detects_worsening_prior_run(self):
         report = {
             "generated_at_local": "2026-06-01T09:00:00-06:00",
@@ -519,15 +593,17 @@ class MonitorTests(unittest.TestCase):
             "lpea": {
                 "operational_outage": {
                     "active": True,
-                    "summary": "Durango area; about 11,556 members affected. Not classified as fire-weather or PSPS-related by this monitor.",
+                "summary": "Durango area; about 11,556 members affected. Not classified as fire-weather or PSPS-related by this monitor.",
                 }
             },
+            "red_flag_calibration": {"hit_rate_percent": 100, "official_alert_date_count": 1},
         }
         export = monitor.build_public_analysis_export(report)
         self.assertEqual(export["export_type"], "archuleta_red_flag_psps_public_analysis")
         self.assertEqual(export["peaks"]["psps"]["location"], "Pagosa Springs")
         self.assertEqual(export["trend"]["first_watch_or_likely_display"], "Tue, Jun 2")
         self.assertTrue(export["operational_outage_context"]["active"])
+        self.assertEqual(export["red_flag_calibration"]["hit_rate_percent"], 100)
         self.assertIn("Watch driver area consistency.", export["watch_next"])
         self.assertNotIn("Codex", json.dumps(export))
 
@@ -663,6 +739,14 @@ class MonitorTests(unittest.TestCase):
                 "event_log_path": "psps_events.json",
                 "forecast_history_path": "forecast_history.csv",
             },
+            "red_flag_calibration": {
+                "summary": "1/1 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal.",
+                "official_alert_date_count": 1,
+                "hit_rate_percent": 100,
+                "average_lead_time_display": "5.8 days",
+                "false_high_day_count": 0,
+                "pending_high_dates": [],
+            },
             "days": [
                 {"date": "2026-06-01", "tier": "HIGH", "reasons": ["Critical winds."], "points": []},
                 {"date": "2026-06-02", "tier": "CONCERN", "reasons": ["Near threshold."], "points": []},
@@ -687,6 +771,8 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("HIGH dates: Mon, Jun 1", rendered)
         self.assertIn("CONCERN dates: Tue, Jun 2", rendered)
         self.assertIn("ELEVATED dates: Wed, Jun 3", rendered)
+        self.assertIn("### Red Flag / Fire Weather Calibration", rendered)
+        self.assertIn("Pre-alert HIGH hit rate: 100%", rendered)
 
     def test_render_html_includes_risk_strip_and_day_cards(self):
         report = {
@@ -755,6 +841,21 @@ class MonitorTests(unittest.TestCase):
                 "reference_hits": [{"name": "Reference page", "url": "https://example.test/ref"}],
             },
             "discussion": {"headline": "Concern language found."},
+            "calibration": {
+                "summary": "No confirmed LPEA PSPS events logged yet.",
+                "confirmed_event_count": 0,
+                "candidate_event_count": 0,
+                "false_watch_day_count": 0,
+                "pending_watch_dates": ["2026-06-01"],
+            },
+            "red_flag_calibration": {
+                "summary": "1/1 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 5.8 days.",
+                "official_alert_date_count": 1,
+                "hit_rate_percent": 100,
+                "average_lead_time_display": "5.8 days",
+                "false_high_day_count": 0,
+                "pending_high_dates": [],
+            },
             "days": [
                 {
                     "date": "2026-06-01",
@@ -809,6 +910,10 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Weather HIGH", rendered)
         self.assertIn("Arboles", rendered)
         self.assertIn("Durango", rendered)
+        self.assertIn("Red Flag / Fire Weather calibration", rendered)
+        self.assertIn("Pre-alert hit rate", rendered)
+        self.assertIn("HIGH before official alert", rendered)
+        self.assertIn("5.8 days", rendered)
         self.assertIn("Next update: Jun 1, 2026 at 9:00 AM MDT (Pagosa Springs, CO local time)", rendered)
         self.assertIn("All dates and times use Pagosa Springs, CO local time (America/Denver).", rendered)
         self.assertIn("official-warning", rendered)
