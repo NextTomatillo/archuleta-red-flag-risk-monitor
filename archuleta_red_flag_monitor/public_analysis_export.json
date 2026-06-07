@@ -1,24 +1,25 @@
 {
   "confidence": {
-    "label": "HIGH",
+    "label": "MEDIUM",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
+      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 77
+    "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-06T11:21:15.433623-06:00",
+  "generated_at": "2026-06-06T23:22:15.352081-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 8 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is steady versus the prior run (Jun 6 at 9:59 AM MDT); forecast volatility is low and first WATCH-or-higher date is Sat, Jun 6."
+    "summary": "Highest LPEA PSPS concern is Sun, Jun 7 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 7 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is easing versus the prior run (Jun 6 at 11:21 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, Jun 7."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -28,8 +29,8 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
-    "No major day-level movement versus the prior run."
+    "First WATCH-or-higher PSPS date moved later from Sat, Jun 6 to Sun, Jun 7.",
+    "Sat, Jun 6: easing vs prior run; PSPS WATCH -> LOW; score -49, wind -15 mph, RH +6%, red-flag hours -1. Driver shifted to Chimney Rock / west county."
   ],
   "operational_outage_context": {
     "active": false,
@@ -53,9 +54,9 @@
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
+      "highest_risk_window": "11 AM-9 PM local; 11 near/red-flag threshold hours.",
       "level": "EXTREME",
-      "location": "Durango / La Plata County",
+      "location": "Ignacio / southeast La Plata County",
       "score": 100
     },
     "psps": {
@@ -64,11 +65,11 @@
       "drivers": [
         "red-flag wind/gust signal near 29 mph",
         "very dry RH near 12%",
-        "8 sampled hours meet red-flag screen",
+        "7 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
+      "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Arboles / southwest county",
       "score": 100
@@ -77,25 +78,25 @@
       "date": "2026-06-07",
       "display_date": "Sun, Jun 7",
       "drivers": [
-        "8 sampled red-flag hours",
+        "9 sampled red-flag hours",
         "RH near 12%",
         "wind/gust near 32 mph"
       ],
-      "highest_risk_window": "11 AM-8 PM local; 10 near/red-flag threshold hours.",
+      "highest_risk_window": "11 AM-9 PM local; 11 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Durango / La Plata County",
+      "location": "Ignacio / southeast La Plata County",
       "score": 100
     }
   },
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-06-06",
-    "first_watch_or_likely_display": "Sat, Jun 6",
-    "first_watch_shift": "First WATCH-or-higher PSPS date remains Sat, Jun 6.",
-    "forecast_volatility_label": "LOW",
-    "forecast_volatility_score": 0,
-    "momentum": "Steady"
+    "first_watch_or_likely_date": "2026-06-07",
+    "first_watch_or_likely_display": "Sun, Jun 7",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Sat, Jun 6 to Sun, Jun 7.",
+    "forecast_volatility_label": "HIGH",
+    "forecast_volatility_score": 78,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
