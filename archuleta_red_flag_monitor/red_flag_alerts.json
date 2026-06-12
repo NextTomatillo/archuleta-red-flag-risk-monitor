@@ -506,21 +506,6 @@
     "events": [
       {
         "effective": "2026-06-09T11:07:00-06:00",
-        "ends": "2026-06-09T22:00:00-06:00",
-        "event": "Red Flag Warning",
-        "headline": "Red Flag Warning issued June 9 at 11:07AM MDT until June 9 at 10:00PM MDT by NWS Grand Junction CO",
-        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bf06282eb64f367387a65e5bed2c3f27bccb6a70.001.1",
-        "zones": [
-          "COZ207",
-          "COZ291",
-          "COZ292",
-          "COZ293",
-          "COZ294",
-          "COZ295"
-        ]
-      },
-      {
-        "effective": "2026-06-09T11:07:00-06:00",
         "ends": "2026-06-10T22:00:00-06:00",
         "event": "Red Flag Warning",
         "headline": "Red Flag Warning issued June 9 at 11:07AM MDT until June 10 at 10:00PM MDT by NWS Grand Junction CO",
@@ -611,11 +596,23 @@
           "COZ293",
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-11T20:17:00-06:00",
+        "ends": "2026-06-12T21:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 11 at 8:17PM MDT until June 12 at 9:00PM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ecaacbfd8a7723d81ddfda2a7fe8d47468f6b0af.001.2",
+        "zones": [
+          "COZ207",
+          "COZ293",
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-08T11:17:00-06:00",
     "first_seen_at": "2026-06-08T11:21:53.399709-06:00",
-    "last_seen_at": "2026-06-11T17:31:33.022294-06:00"
+    "last_seen_at": "2026-06-12T05:21:30.958458-06:00"
   },
   {
     "alert_count": 2,
@@ -668,10 +665,22 @@
           "COZ293",
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-11T20:17:00-06:00",
+        "ends": "2026-06-12T21:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 11 at 8:17PM MDT until June 12 at 9:00PM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ecaacbfd8a7723d81ddfda2a7fe8d47468f6b0af.001.2",
+        "zones": [
+          "COZ207",
+          "COZ293",
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-11T10:23:00-06:00",
     "first_seen_at": "2026-06-11T10:48:21.775261-06:00",
-    "last_seen_at": "2026-06-11T17:31:33.022294-06:00"
+    "last_seen_at": "2026-06-12T05:21:30.958458-06:00"
   }
 ]
