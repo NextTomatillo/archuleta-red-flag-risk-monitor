@@ -5,20 +5,20 @@
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
-      "12/13 LPEA public sources reachable",
+      "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
       "no confirmed PSPS events logged yet for calibration"
     ],
     "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-14T06:00:39.326906-06:00",
+  "generated_at": "2026-06-14T17:37:41.258422-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is steady versus the prior run (Jun 13 at 5:53 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15."
+    "summary": "Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 12%; 4 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jun 14 at 6:00 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -62,13 +62,13 @@
       "date": "2026-06-15",
       "display_date": "Mon, Jun 15",
       "drivers": [
-        "red-flag wind/gust signal near 29 mph",
+        "red-flag wind/gust signal near 28 mph",
         "very dry RH near 12%",
-        "5 sampled hours meet red-flag screen",
+        "4 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "2 PM-8 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Durango / La Plata County",
       "score": 100
@@ -77,7 +77,7 @@
       "date": "2026-06-16",
       "display_date": "Tue, Jun 16",
       "drivers": [
-        "7 sampled red-flag hours",
+        "8 sampled red-flag hours",
         "RH near 7%",
         "wind/gust near 30 mph"
       ],
@@ -194,7 +194,7 @@
     "first_watch_or_likely_display": "Mon, Jun 15",
     "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Jun 15.",
     "forecast_volatility_label": "LOW",
-    "forecast_volatility_score": 3,
+    "forecast_volatility_score": 4,
     "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
