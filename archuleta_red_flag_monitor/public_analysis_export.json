@@ -1,25 +1,24 @@
 {
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
-      "13/13 LPEA public sources reachable",
+      "12/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-13T17:53:01.937660-06:00",
+  "generated_at": "2026-06-14T06:00:39.326906-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 4 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is easing versus the prior run (Jun 12 at 5:21 AM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Jun 15."
+    "summary": "Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jun 13 at 5:53 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -29,11 +28,8 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Fri, Jun 12 to Mon, Jun 15.",
-    "Sat, Jun 13: easing vs prior run; PSPS WATCH -> ELEVATED; score -26, wind -5 mph, RH +4%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Thu, Jun 18: easing vs prior run; PSPS LIKELY -> LIKELY; score -3, wind -4 mph, RH 0%, red-flag hours -3. Driver shifted to Arboles / southwest county.",
-    "Mon, Jun 15: easing vs prior run; PSPS LIKELY -> LIKELY; score -6, wind -2 mph, RH +1%, red-flag hours -2.",
-    "Sun, Jun 14: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind -2 mph, RH +2%, red-flag hours 0. Driver shifted to Durango / La Plata County."
+    "First WATCH-or-higher PSPS date remains Mon, Jun 15.",
+    "No major day-level movement versus the prior run."
   ],
   "operational_outage_context": {
     "active": false,
@@ -67,12 +63,12 @@
       "display_date": "Mon, Jun 15",
       "drivers": [
         "red-flag wind/gust signal near 29 mph",
-        "very dry RH near 11%",
-        "4 sampled hours meet red-flag screen",
+        "very dry RH near 12%",
+        "5 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-8 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Durango / La Plata County",
       "score": 100
@@ -95,13 +91,13 @@
     "alert_log_path": "/Users/dustin/Library/CloudStorage/Dropbox-VOORMI/Dustin English/Dustin's Folder!/VOORMI Files/Codex/Personal Projects/archuleta_red_flag_monitor/red_flag_alerts.json",
     "average_lead_time_display": "4.5 days",
     "average_lead_time_hours": 108.8,
-    "false_high_day_count": 6,
+    "false_high_day_count": 7,
     "false_high_examples": [
-      "2026-05-29",
       "2026-05-30",
       "2026-05-31",
       "2026-06-01",
-      "2026-06-06"
+      "2026-06-06",
+      "2026-06-13"
     ],
     "forecast_history_path": "/Users/dustin/Library/CloudStorage/Dropbox-VOORMI/Dustin English/Dustin's Folder!/VOORMI Files/Codex/Personal Projects/archuleta_red_flag_monitor/forecast_history.csv",
     "hit_count": 6,
@@ -186,7 +182,8 @@
       "2026-06-16",
       "2026-06-17",
       "2026-06-18",
-      "2026-06-19"
+      "2026-06-19",
+      "2026-06-20"
     ],
     "summary": "6/6 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 4.5 days."
   },
@@ -195,10 +192,10 @@
   "trend": {
     "first_watch_or_likely_date": "2026-06-15",
     "first_watch_or_likely_display": "Mon, Jun 15",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Fri, Jun 12 to Mon, Jun 15.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 58,
-    "momentum": "Easing"
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Jun 15.",
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 3,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
