@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 15, 2026 at 5:52 AM MDT (Pagosa Springs, CO local time)
-Next update: Jun 15, 2026 at 6:52 AM MDT (Pagosa Springs, CO local time)
+Generated: Jun 15, 2026 at 10:01 AM MDT (Pagosa Springs, CO local time)
+Next update: Jun 15, 2026 at 11:01 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -23,7 +23,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 5 sampled hours meet red-flag screen.
-- Confidence: **MEDIUM** (74/100) - 8/8 sampled weather points available; 5/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
 - Fire danger peak: Tue, Jun 16: Arboles / southwest county EXTREME 100/100
 - Red Flag likelihood peak: Tue, Jun 16: Arboles / southwest county LIKELY 100/100
 - LPEA PSPS peak: Mon, Jun 15: Durango / La Plata County LIKELY 100/100
@@ -41,9 +41,9 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jun 14 at 5:37 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15.
+- Summary: Momentum is steady versus the prior run (Jun 15 at 5:52 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15.
 - Momentum: **Steady**
-- Forecast volatility: **LOW** (4/100)
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Mon, Jun 15
 - Watch-date movement: First WATCH-or-higher PSPS date remains Mon, Jun 15.
 - Method: compares current forecast evidence against prior local forecast history.
@@ -55,8 +55,8 @@ Notable changes:
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 5 sampled hours meet red-flag screen.
-- Trend: Momentum is steady versus the prior run (Jun 14 at 5:37 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15.
-- Confidence: **MEDIUM** (74/100)
+- Trend: Momentum is steady versus the prior run (Jun 15 at 5:52 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15.
+- Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Mon, Jun 15
 - PSPS peak: Mon, Jun 15 near Durango / La Plata County at LIKELY 100/100
 - Red Flag peak: Tue, Jun 16 near Arboles / southwest county at LIKELY 100/100
@@ -108,18 +108,18 @@ What to watch next:
 
 ## Fire Posture + Restrictions
 
-- Summary: 3 official sources indicate fire restrictions or staged restrictions.
+- Summary: 5 official sources indicate fire restrictions or staged restrictions.
 - Max restriction stage detected: STAGE 1
 - Max fire danger detected: EXTREME
-- Sources reachable: 5/7
+- Sources reachable: 7/7
 - Note: Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.
 
 | Jurisdiction | Restrictions | Fire danger | Source |
 | --- | --- | --- | --- |
 | Archuleta County | STAGE 1 | UNKNOWN | [Archuleta County Sheriff fire updates](https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/) |
-| Pagosa Springs | UNKNOWN | UNKNOWN | [Town of Pagosa Springs](https://www.pagosasprings.co.gov/) |
+| Pagosa Springs | STAGE 1 | UNKNOWN | [Town of Pagosa Springs](https://www.pagosasprings.co.gov/) |
 | San Juan National Forest | STAGE 1 | EXTREME | [San Juan National Forest fire](https://www.fs.usda.gov/r02/sanjuan/fire) |
-| BLM Tres Rios | UNKNOWN | UNKNOWN | [BLM Tres Rios Field Office](https://www.blm.gov/office/tres-rios-field-office) |
+| BLM Tres Rios | STAGE 1 | UNKNOWN | [BLM Tres Rios Field Office](https://www.blm.gov/office/tres-rios-field-office) |
 | La Plata County / Durango Fire | NONE | UNKNOWN | [Durango Fire & Rescue fire conditions](https://www.durangofire.org/fire-conditions) |
 | Durango | UNKNOWN | UNKNOWN | [City of Durango](https://www.durangoco.gov/) |
 | Southern Ute / Ignacio | STAGE 1 | UNKNOWN | [Southern Ute Indian Tribe](https://www.southernute-nsn.gov/) |

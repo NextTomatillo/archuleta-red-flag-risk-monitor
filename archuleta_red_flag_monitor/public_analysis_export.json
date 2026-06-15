@@ -1,24 +1,24 @@
 {
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
-      "5/7 fire-posture sources reachable",
+      "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 74
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-15T05:52:12.719056-06:00",
+  "generated_at": "2026-06-15T10:01:20.562841-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
     "summary": "Highest LPEA PSPS concern is Mon, Jun 15 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 11%; 5 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is steady versus the prior run (Jun 14 at 5:37 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15."
+    "trend_summary": "Momentum is steady versus the prior run (Jun 15 at 5:52 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Jun 15."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -195,7 +195,7 @@
     "first_watch_or_likely_display": "Mon, Jun 15",
     "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Jun 15.",
     "forecast_volatility_label": "LOW",
-    "forecast_volatility_score": 4,
+    "forecast_volatility_score": 0,
     "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
