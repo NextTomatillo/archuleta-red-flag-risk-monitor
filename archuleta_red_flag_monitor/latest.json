@@ -1951,17 +1951,16 @@
       }
     ],
     "confidence": {
-      "label": "MEDIUM",
+      "label": "HIGH",
       "reasons": [
         "8/8 sampled weather points available",
         "7/7 fire-posture sources reachable",
         "official NWS alert zones checked",
         "13/13 LPEA public sources reachable",
         "LPEA active/update sources checked",
-        "forecast changed moderately versus prior run",
         "no confirmed PSPS events logged yet for calibration"
       ],
-      "score": 74
+      "score": 77
     },
     "daily_predictions": [
       {
@@ -3912,18 +3911,18 @@
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 8,
           "max_red_flag_hours": 6,
-          "max_thunder_percent": 4.0,
+          "max_thunder_percent": 1.0,
           "max_weather_score": 74.0,
-          "max_wind_mph": 28.8,
-          "min_rh_percent": 8.0,
-          "official_fire_alert_count": 1,
+          "max_wind_mph": 29.9,
+          "min_rh_percent": 7.0,
+          "official_fire_alert_count": 0,
           "top_location": "Arboles / southwest county"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -1.0,
+        "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Thu, Jun 18: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +1 mph, RH -1%, red-flag hours 0.",
-        "wind_delta_mph": 1.0999999999999979
+        "summary": "Thu, Jun 18: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3944,7 +3943,7 @@
         },
         "date": "2026-06-19",
         "display_date": "Fri, Jun 19",
-        "label": "Worsening",
+        "label": "Steady",
         "level_rank_delta": 0,
         "previous": {
           "best_psps_level": "WATCH",
@@ -3953,20 +3952,20 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "EXTREME",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 5,
-          "max_red_flag_hours": 0,
-          "max_thunder_percent": 6.0,
-          "max_weather_score": 52.0,
-          "max_wind_mph": 24.2,
-          "min_rh_percent": 11.0,
-          "official_fire_alert_count": 1,
-          "top_location": "Arboles / southwest county"
+          "max_near_hours": 6,
+          "max_red_flag_hours": 2,
+          "max_thunder_percent": 1.0,
+          "max_weather_score": 61.0,
+          "max_wind_mph": 25.3,
+          "min_rh_percent": 10.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Ignacio / southeast La Plata County"
         },
-        "red_flag_hours_delta": 2.0,
-        "rh_delta_percent": -1.0,
-        "score_delta": 9.0,
-        "summary": "Fri, Jun 19: worsening vs prior run; PSPS WATCH -> WATCH; score +9, wind +1 mph, RH -1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.",
-        "wind_delta_mph": 1.1000000000000014
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Fri, Jun 19: steady vs prior run; PSPS WATCH -> WATCH; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3996,20 +3995,20 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "EXTREME",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 11,
+          "max_near_hours": 10,
           "max_red_flag_hours": 9,
-          "max_thunder_percent": 1.0,
+          "max_thunder_percent": 0.0,
           "max_weather_score": 80.0,
-          "max_wind_mph": 34.5,
-          "min_rh_percent": 8.0,
-          "official_fire_alert_count": 1,
+          "max_wind_mph": 33.4,
+          "min_rh_percent": 7.0,
+          "official_fire_alert_count": 0,
           "top_location": "Durango / La Plata County"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -1.0,
+        "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Sat, Jun 20: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind -1 mph, RH -1%, red-flag hours 0.",
-        "wind_delta_mph": -1.1000000000000014
+        "summary": "Sat, Jun 20: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4039,19 +4038,19 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "EXTREME",
           "max_fire_restriction_stage": "STAGE 1",
-          "max_near_hours": 10,
-          "max_red_flag_hours": 7,
+          "max_near_hours": 9,
+          "max_red_flag_hours": 6,
           "max_thunder_percent": 0.0,
           "max_weather_score": 80.0,
           "max_wind_mph": 31.1,
           "min_rh_percent": 6.0,
-          "official_fire_alert_count": 1,
+          "official_fire_alert_count": 0,
           "top_location": "Bayfield / east La Plata County"
         },
-        "red_flag_hours_delta": -1.0,
+        "red_flag_hours_delta": 0.0,
         "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Sun, Jun 21: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours -1.",
+        "summary": "Sun, Jun 21: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
         "wind_delta_mph": 0.0
       },
       {
@@ -4083,19 +4082,19 @@
           "max_fire_danger": "EXTREME",
           "max_fire_restriction_stage": "STAGE 1",
           "max_near_hours": 6,
-          "max_red_flag_hours": 3,
-          "max_thunder_percent": 1.0,
-          "max_weather_score": 70.0,
-          "max_wind_mph": 25.3,
-          "min_rh_percent": 5.0,
-          "official_fire_alert_count": 1,
-          "top_location": "Bayfield / east La Plata County"
+          "max_red_flag_hours": 4,
+          "max_thunder_percent": 0.0,
+          "max_weather_score": 74.0,
+          "max_wind_mph": 27.6,
+          "min_rh_percent": 6.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Durango / La Plata County"
         },
-        "red_flag_hours_delta": 1.0,
-        "rh_delta_percent": 1.0,
-        "score_delta": 4.0,
-        "summary": "Mon, Jun 22: steady vs prior run; PSPS LIKELY -> LIKELY; score +4, wind +2 mph, RH +1%, red-flag hours +1. Driver shifted to Durango / La Plata County.",
-        "wind_delta_mph": 2.3000000000000007
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Mon, Jun 22: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4116,14 +4115,29 @@
         },
         "date": "2026-06-23",
         "display_date": "Tue, Jun 23",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Tue, Jun 23: new forecast-window date at LIKELY 74/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "LIKELY",
+          "date": "2026-06-23",
+          "fire_weather_tier": "HIGH",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "EXTREME",
+          "max_fire_restriction_stage": "STAGE 1",
+          "max_near_hours": 7,
+          "max_red_flag_hours": 5,
+          "max_thunder_percent": 2.0,
+          "max_weather_score": 74.0,
+          "max_wind_mph": 29.9,
+          "min_rh_percent": 7.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Durango / La Plata County"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Tue, Jun 23: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4144,45 +4158,60 @@
         },
         "date": "2026-06-24",
         "display_date": "Wed, Jun 24",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Wed, Jun 24: new forecast-window date at LIKELY 77/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "LIKELY",
+          "date": "2026-06-24",
+          "fire_weather_tier": "HIGH",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "EXTREME",
+          "max_fire_restriction_stage": "STAGE 1",
+          "max_near_hours": 10,
+          "max_red_flag_hours": 8,
+          "max_thunder_percent": 5.0,
+          "max_weather_score": 77.0,
+          "max_wind_mph": 32.2,
+          "min_rh_percent": 8.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Durango / La Plata County"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Wed, Jun 24: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       }
     ],
     "first_watch_or_likely_date": "2026-06-18",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Thu, Jun 18.",
     "forecast_volatility": {
-      "changed_day_count": 1,
-      "label": "MEDIUM",
-      "max_score_delta": 9.0,
-      "score": 14
+      "changed_day_count": 0,
+      "label": "LOW",
+      "max_score_delta": 0,
+      "score": 0
     },
     "notable_changes": [
-      "First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.",
-      "Fri, Jun 19: worsening vs prior run; PSPS WATCH -> WATCH; score +9, wind +1 mph, RH -1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County."
+      "First WATCH-or-higher PSPS date remains Thu, Jun 18.",
+      "No major day-level movement versus the prior run."
     ],
-    "previous_first_watch_or_likely_date": "2026-06-16",
+    "previous_first_watch_or_likely_date": "2026-06-18",
     "previous_overall_psps_level": "LIKELY",
-    "previous_run_at": "2026-06-16T19:12:18.874847-06:00",
-    "previous_run_label": "Jun 16 at 7:12 PM MDT",
+    "previous_run_at": "2026-06-18T07:03:34.749487-06:00",
+    "previous_run_label": "Jun 18 at 7:03 AM MDT",
     "review_cues": [
       "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
       "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.",
       "Watch whether the highest-risk locations remain consistent across runs or the driver area is moving.",
       "If a PSPS occurs, log the confirmed date, location, and source so future hit-rate scoring can improve."
     ],
-    "risk_momentum": "Rising",
+    "risk_momentum": "Steady",
     "status": "compared",
-    "summary": "Momentum is rising versus the prior run (Jun 16 at 7:12 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Thu, Jun 18."
+    "summary": "Momentum is steady versus the prior run (Jun 18 at 7:03 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Jun 18."
   },
-  "generated_at": "2026-06-18T07:03:34.749487-06:00",
-  "generated_at_local": "2026-06-18T07:03:34.749487-06:00",
-  "generated_at_utc": "2026-06-18T13:03:34.749487+00:00",
+  "generated_at": "2026-06-18T07:08:56.210687-06:00",
+  "generated_at_local": "2026-06-18T07:08:56.210687-06:00",
+  "generated_at_utc": "2026-06-18T13:08:56.210687+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_hits": [
@@ -5029,7 +5058,7 @@
     ],
     "status": "active_keyword_match"
   },
-  "next_update_at": "2026-06-18T08:03:34.749487-06:00",
+  "next_update_at": "2026-06-18T08:08:56.210687-06:00",
   "notify_recommended": true,
   "official_alerts": {
     "alerts": [],
@@ -8262,26 +8291,25 @@
   },
   "public_analysis_export": {
     "confidence": {
-      "label": "MEDIUM",
+      "label": "HIGH",
       "reasons": [
         "8/8 sampled weather points available",
         "7/7 fire-posture sources reachable",
         "official NWS alert zones checked",
         "13/13 LPEA public sources reachable",
         "LPEA active/update sources checked",
-        "forecast changed moderately versus prior run",
         "no confirmed PSPS events logged yet for calibration"
       ],
-      "score": 74
+      "score": 77
     },
     "export_type": "archuleta_red_flag_psps_public_analysis",
-    "generated_at": "2026-06-18T07:03:34.749487-06:00",
+    "generated_at": "2026-06-18T07:08:56.210687-06:00",
     "headline": {
       "monitor_heads_up_recommended": true,
       "overall_tier": "HIGH",
       "psps_likelihood": "LIKELY",
       "summary": "Highest LPEA PSPS concern is Thu, Jun 18 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 26 mph; critically dry RH near 8%; 4 sampled hours meet red-flag screen.",
-      "trend_summary": "Momentum is rising versus the prior run (Jun 16 at 7:12 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Thu, Jun 18."
+      "trend_summary": "Momentum is steady versus the prior run (Jun 18 at 7:03 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Jun 18."
     },
     "local_time_name": "Pagosa Springs, CO",
     "method_notes": [
@@ -8291,8 +8319,8 @@
       "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
     ],
     "notable_changes": [
-      "First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.",
-      "Fri, Jun 19: worsening vs prior run; PSPS WATCH -> WATCH; score +9, wind +1 mph, RH -1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County."
+      "First WATCH-or-higher PSPS date remains Thu, Jun 18.",
+      "No major day-level movement versus the prior run."
     ],
     "operational_outage_context": {
       "active": false,
@@ -8457,10 +8485,10 @@
     "trend": {
       "first_watch_or_likely_date": "2026-06-18",
       "first_watch_or_likely_display": "Thu, Jun 18",
-      "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.",
-      "forecast_volatility_label": "MEDIUM",
-      "forecast_volatility_score": 14,
-      "momentum": "Rising"
+      "first_watch_shift": "First WATCH-or-higher PSPS date remains Thu, Jun 18.",
+      "forecast_volatility_label": "LOW",
+      "forecast_volatility_score": 0,
+      "momentum": "Steady"
     },
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_next": [

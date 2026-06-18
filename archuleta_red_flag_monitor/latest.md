@@ -1,7 +1,7 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jun 18, 2026 at 7:03 AM MDT (Pagosa Springs, CO local time)
-Next update: Jun 18, 2026 at 8:03 AM MDT (Pagosa Springs, CO local time)
+Generated: Jun 18, 2026 at 7:08 AM MDT (Pagosa Springs, CO local time)
+Next update: Jun 18, 2026 at 8:08 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -23,7 +23,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Thu, Jun 18 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 26 mph; critically dry RH near 8%; 4 sampled hours meet red-flag screen.
-- Confidence: **MEDIUM** (74/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; forecast changed moderately versus prior run; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; no confirmed PSPS events logged yet for calibration
 - Fire danger peak: Sat, Jun 20: Durango / La Plata County EXTREME 100/100
 - Red Flag likelihood peak: Sat, Jun 20: Durango / La Plata County LIKELY 100/100
 - LPEA PSPS peak: Thu, Jun 18: Arboles / southwest county LIKELY 100/100
@@ -41,22 +41,22 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is rising versus the prior run (Jun 16 at 7:12 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Thu, Jun 18.
-- Momentum: **Rising**
-- Forecast volatility: **MEDIUM** (14/100)
+- Summary: Momentum is steady versus the prior run (Jun 18 at 7:03 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Jun 18.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Thu, Jun 18
-- Watch-date movement: First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.
+- Watch-date movement: First WATCH-or-higher PSPS date remains Thu, Jun 18.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
-- First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.
-- Fri, Jun 19: worsening vs prior run; PSPS WATCH -> WATCH; score +9, wind +1 mph, RH -1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.
+- First WATCH-or-higher PSPS date remains Thu, Jun 18.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Thu, Jun 18 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 26 mph; critically dry RH near 8%; 4 sampled hours meet red-flag screen.
-- Trend: Momentum is rising versus the prior run (Jun 16 at 7:12 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Thu, Jun 18.
-- Confidence: **MEDIUM** (74/100)
+- Trend: Momentum is steady versus the prior run (Jun 18 at 7:03 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Jun 18.
+- Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Thu, Jun 18
 - PSPS peak: Thu, Jun 18 near Arboles / southwest county at LIKELY 100/100
 - Red Flag peak: Sat, Jun 20 near Durango / La Plata County at LIKELY 100/100
@@ -65,8 +65,8 @@ Notable changes:
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
-- First WATCH-or-higher PSPS date moved later from Tue, Jun 16 to Thu, Jun 18.
-- Fri, Jun 19: worsening vs prior run; PSPS WATCH -> WATCH; score +9, wind +1 mph, RH -1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.
+- First WATCH-or-higher PSPS date remains Thu, Jun 18.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
