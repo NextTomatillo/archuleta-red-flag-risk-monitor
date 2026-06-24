@@ -1084,5 +1084,105 @@
     "first_official_at": "2026-06-21T22:17:00-06:00",
     "first_seen_at": "2026-06-22T03:21:09.035077-06:00",
     "last_seen_at": "2026-06-23T15:22:35.465069-06:00"
+  },
+  {
+    "alert_count": 1,
+    "date": "2026-06-24",
+    "events": [
+      {
+        "effective": "2026-06-24T13:01:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Fire Weather Watch",
+        "headline": "Fire Weather Watch issued June 24 at 1:01PM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e808d94489b27dbb6291525ecd1eafb58997d07c.004.1",
+        "zones": [
+          "COZ201",
+          "COZ205",
+          "COZ291",
+          "COZ292",
+          "COZ293",
+          "COZ294",
+          "COZ295"
+        ]
+      }
+    ],
+    "first_official_at": "2026-06-24T13:01:00-06:00",
+    "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
+    "last_seen_at": "2026-06-24T15:22:55.253020-06:00"
+  },
+  {
+    "alert_count": 1,
+    "date": "2026-06-25",
+    "events": [
+      {
+        "effective": "2026-06-24T13:01:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Fire Weather Watch",
+        "headline": "Fire Weather Watch issued June 24 at 1:01PM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e808d94489b27dbb6291525ecd1eafb58997d07c.004.1",
+        "zones": [
+          "COZ201",
+          "COZ205",
+          "COZ291",
+          "COZ292",
+          "COZ293",
+          "COZ294",
+          "COZ295"
+        ]
+      }
+    ],
+    "first_official_at": "2026-06-24T13:01:00-06:00",
+    "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
+    "last_seen_at": "2026-06-24T15:22:55.253020-06:00"
+  },
+  {
+    "alert_count": 1,
+    "date": "2026-06-26",
+    "events": [
+      {
+        "effective": "2026-06-24T13:01:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Fire Weather Watch",
+        "headline": "Fire Weather Watch issued June 24 at 1:01PM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e808d94489b27dbb6291525ecd1eafb58997d07c.004.1",
+        "zones": [
+          "COZ201",
+          "COZ205",
+          "COZ291",
+          "COZ292",
+          "COZ293",
+          "COZ294",
+          "COZ295"
+        ]
+      }
+    ],
+    "first_official_at": "2026-06-24T13:01:00-06:00",
+    "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
+    "last_seen_at": "2026-06-24T15:22:55.253020-06:00"
+  },
+  {
+    "alert_count": 1,
+    "date": "2026-06-27",
+    "events": [
+      {
+        "effective": "2026-06-24T13:01:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Fire Weather Watch",
+        "headline": "Fire Weather Watch issued June 24 at 1:01PM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e808d94489b27dbb6291525ecd1eafb58997d07c.004.1",
+        "zones": [
+          "COZ201",
+          "COZ205",
+          "COZ291",
+          "COZ292",
+          "COZ293",
+          "COZ294",
+          "COZ295"
+        ]
+      }
+    ],
+    "first_official_at": "2026-06-24T13:01:00-06:00",
+    "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
+    "last_seen_at": "2026-06-24T15:22:55.253020-06:00"
   }
 ]
