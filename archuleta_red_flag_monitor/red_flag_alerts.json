@@ -1145,11 +1145,21 @@
           "COZ294",
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-25T11:08:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 25 at 11:08AM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7ed97cd53bc1d11cfa0b84bd0eca8fb8dbc98fdd.007.2",
+        "zones": [
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-24T13:01:00-06:00",
     "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
-    "last_seen_at": "2026-06-25T03:21:16.357738-06:00"
+    "last_seen_at": "2026-06-25T15:22:59.928474-06:00"
   },
   {
     "alert_count": 1,
@@ -1186,11 +1196,21 @@
           "COZ294",
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-25T11:08:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 25 at 11:08AM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7ed97cd53bc1d11cfa0b84bd0eca8fb8dbc98fdd.007.2",
+        "zones": [
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-24T13:01:00-06:00",
     "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
-    "last_seen_at": "2026-06-25T03:21:16.357738-06:00"
+    "last_seen_at": "2026-06-25T15:22:59.928474-06:00"
   },
   {
     "alert_count": 1,
@@ -1227,10 +1247,20 @@
           "COZ294",
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-25T11:08:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 25 at 11:08AM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7ed97cd53bc1d11cfa0b84bd0eca8fb8dbc98fdd.007.2",
+        "zones": [
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-24T13:01:00-06:00",
     "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
-    "last_seen_at": "2026-06-25T03:21:16.357738-06:00"
+    "last_seen_at": "2026-06-25T15:22:59.928474-06:00"
   }
 ]
