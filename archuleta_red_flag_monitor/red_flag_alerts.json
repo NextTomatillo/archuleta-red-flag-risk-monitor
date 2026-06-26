@@ -1226,11 +1226,21 @@
         "zones": [
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-26T10:58:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 26 at 10:58AM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3eb34279a277a0e790b8dc88cad3b8dc2d679355.009.1",
+        "zones": [
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-24T13:01:00-06:00",
     "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
-    "last_seen_at": "2026-06-26T03:22:09.109232-06:00"
+    "last_seen_at": "2026-06-26T15:21:46.769422-06:00"
   },
   {
     "alert_count": 1,
@@ -1287,10 +1297,20 @@
         "zones": [
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-26T10:58:00-06:00",
+        "ends": "2026-06-28T00:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 26 at 10:58AM MDT until June 28 at 12:00AM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3eb34279a277a0e790b8dc88cad3b8dc2d679355.009.1",
+        "zones": [
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-24T13:01:00-06:00",
     "first_seen_at": "2026-06-24T15:22:55.253020-06:00",
-    "last_seen_at": "2026-06-26T03:22:09.109232-06:00"
+    "last_seen_at": "2026-06-26T15:21:46.769422-06:00"
   }
 ]
