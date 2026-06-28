@@ -1326,10 +1326,20 @@
         "zones": [
           "COZ295"
         ]
+      },
+      {
+        "effective": "2026-06-28T08:25:00-06:00",
+        "ends": "2026-06-28T22:00:00-06:00",
+        "event": "Red Flag Warning",
+        "headline": "Red Flag Warning issued June 28 at 8:25AM MDT until June 28 at 10:00PM MDT by NWS Grand Junction CO",
+        "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.65b5ccdfdbe8a61fbb9a44c8e0679ff2ad1d7261.005.1",
+        "zones": [
+          "COZ295"
+        ]
       }
     ],
     "first_official_at": "2026-06-28T02:43:00-06:00",
     "first_seen_at": "2026-06-28T03:53:57.811339-06:00",
-    "last_seen_at": "2026-06-28T03:53:57.811339-06:00"
+    "last_seen_at": "2026-06-28T15:44:57.260617-06:00"
   }
 ]
