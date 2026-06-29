@@ -2,25 +2,25 @@
   "confidence": {
     "label": "MEDIUM",
     "reasons": [
-      "7/8 sampled weather points available",
+      "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
       "active LPEA operational outage context checked separately from PSPS scoring",
-      "forecast changed substantially versus prior run",
+      "forecast changed moderately versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 66
+    "score": 74
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-06-28T15:44:57.260617-06:00",
+  "generated_at": "2026-06-29T03:37:33.933281-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sun, Jun 28 near Pagosa Springs (LIKELY 100/100), driven by very strong wind/gust signal near 44 mph; red-flag RH near 14%; 4 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is easing versus the prior run (Jun 28 at 3:53 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, Jun 28."
+    "summary": "Highest LPEA PSPS concern is Mon, Jun 29 near Pagosa Springs (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 12%; 5 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jun 28 at 3:44 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Mon, Jun 29."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -30,11 +30,9 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date remains Sun, Jun 28.",
-    "Sat, Jul 4: worsening vs prior run; PSPS WATCH -> LIKELY; score +7, wind +1 mph, RH 0%, red-flag hours +2. Driver shifted to Bayfield / east La Plata County.",
-    "Mon, Jun 29: easing vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH 0%, red-flag hours -3.",
-    "Sun, Jun 28: easing vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +3 mph, RH +1%, red-flag hours -2.",
-    "Thu, Jul 2: easing vs prior run; PSPS LIKELY -> LIKELY; score 0, wind +2 mph, RH -1%, red-flag hours -2."
+    "First WATCH-or-higher PSPS date moved later from Sun, Jun 28 to Mon, Jun 29.",
+    "Mon, Jun 29: easing vs prior run; PSPS LIKELY -> LIKELY; score -6, wind -6 mph, RH -1%, red-flag hours +1. Driver shifted to Pagosa Springs.",
+    "Tue, Jun 30: worsening vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours +2."
   ],
   "operational_outage_context": {
     "active": true,
@@ -96,46 +94,45 @@
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-06-28",
-      "display_date": "Sun, Jun 28",
+      "date": "2026-06-30",
+      "display_date": "Tue, Jun 30",
       "drivers": [
-        "very dry RH near 14%",
-        "strong wind/gust near 44 mph",
+        "very dry RH near 10%",
+        "strong wind/gust near 32 mph",
         "official fire restrictions at STAGE 2",
-        "official fire danger is VERY HIGH"
+        "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
       "level": "EXTREME",
-      "location": "Pagosa Springs",
+      "location": "Durango / La Plata County",
       "score": 100
     },
     "psps": {
-      "date": "2026-06-28",
-      "display_date": "Sun, Jun 28",
+      "date": "2026-06-29",
+      "display_date": "Mon, Jun 29",
       "drivers": [
-        "very strong wind/gust signal near 44 mph",
-        "red-flag RH near 14%",
-        "4 sampled hours meet red-flag screen",
+        "red-flag wind/gust signal near 29 mph",
+        "very dry RH near 12%",
+        "5 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 2"
       ],
-      "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Pagosa Springs",
       "score": 100
     },
     "red_flag": {
-      "date": "2026-06-28",
-      "display_date": "Sun, Jun 28",
+      "date": "2026-06-30",
+      "display_date": "Tue, Jun 30",
       "drivers": [
-        "4 sampled red-flag hours",
-        "RH near 14%",
-        "wind/gust near 44 mph",
-        "active official NWS fire-weather alert touches this date"
+        "7 sampled red-flag hours",
+        "RH near 10%",
+        "wind/gust near 32 mph"
       ],
-      "highest_risk_window": "3 PM-8 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Pagosa Springs",
+      "location": "Durango / La Plata County",
       "score": 100
     }
   },
@@ -255,12 +252,12 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-06-28",
-    "first_watch_or_likely_display": "Sun, Jun 28",
-    "first_watch_shift": "First WATCH-or-higher PSPS date remains Sun, Jun 28.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 39,
-    "momentum": "Easing"
+    "first_watch_or_likely_date": "2026-06-29",
+    "first_watch_or_likely_display": "Mon, Jun 29",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Sun, Jun 28 to Mon, Jun 29.",
+    "forecast_volatility_label": "MEDIUM",
+    "forecast_volatility_score": 16,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
