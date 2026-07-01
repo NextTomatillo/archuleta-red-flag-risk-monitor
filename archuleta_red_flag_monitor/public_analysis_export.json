@@ -2,24 +2,25 @@
   "confidence": {
     "label": "MEDIUM",
     "reasons": [
-      "7/8 sampled weather points available",
+      "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
+      "active LPEA operational outage context checked separately from PSPS scoring",
       "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 66
+    "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-01T05:32:41.306081-06:00",
+  "generated_at": "2026-07-01T17:39:02.921606-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Wed, Jul 1 near Pagosa Springs (LIKELY 100/100), driven by red-flag wind/gust signal near 26 mph; very dry RH near 10%; 4 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is rising versus the prior run (Jun 30 at 5:27 AM MDT); forecast volatility is high and first WATCH-or-higher date is Wed, Jul 1."
+    "summary": "Highest LPEA PSPS concern is Wed, Jul 1 near Pagosa Springs (LIKELY 100/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 10%; 3 sampled hours are near red-flag thresholds.",
+    "trend_summary": "Momentum is easing versus the prior run (Jul 1 at 5:32 AM MDT); forecast volatility is high and first WATCH-or-higher date is Wed, Jul 1."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -29,50 +30,95 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Tue, Jun 30 to Wed, Jul 1.",
-    "Sat, Jul 4: worsening vs prior run; PSPS WATCH -> LIKELY; score +6, wind 0 mph, RH -2%, red-flag hours +2. Driver shifted to Durango / La Plata County.",
-    "Thu, Jul 2: worsening vs prior run; PSPS LIKELY -> LIKELY; score +22, wind 0 mph, RH -1%, red-flag hours +1.",
-    "Wed, Jul 1: worsening vs prior run; PSPS LIKELY -> LIKELY; score +15, wind +1 mph, RH -1%, red-flag hours +2. Driver shifted to Durango / La Plata County.",
-    "Fri, Jul 3: worsening vs prior run; PSPS WATCH -> LIKELY; score +6, wind +1 mph, RH -1%, red-flag hours +1. Driver shifted to Durango / La Plata County."
+    "First WATCH-or-higher PSPS date remains Wed, Jul 1.",
+    "Thu, Jul 2: easing vs prior run; PSPS LIKELY -> WATCH; score -34, wind -2 mph, RH 0%, red-flag hours -4.",
+    "Sat, Jul 4: easing vs prior run; PSPS LIKELY -> WATCH; score -15, wind -2 mph, RH 0%, red-flag hours -3.",
+    "Wed, Jul 1: easing vs prior run; PSPS LIKELY -> LIKELY; score -14, wind 0 mph, RH 0%, red-flag hours -4. Driver shifted to Arboles / southwest county."
   ],
   "operational_outage_context": {
-    "active": false,
+    "active": true,
     "affected_members": null,
     "areas": [],
-    "fire_related": false,
-    "headline": "No active operational LPEA outage detected by public-source text.",
-    "hits": [],
+    "fire_related": true,
+    "headline": "Active LPEA operational outage detected near LPEA service territory.",
+    "hits": [
+      {
+        "affected_members": null,
+        "areas": [],
+        "fire_related": true,
+        "matched_terms": [
+          "currently experiencing"
+        ],
+        "name": "LPEA homepage",
+        "psps_related": false,
+        "snippets": [
+          "We are currently experiencing Red Flag Conditions in our service territory."
+        ],
+        "type": "official_updates",
+        "url": "https://lpea.coop"
+      },
+      {
+        "affected_members": null,
+        "areas": [],
+        "fire_related": true,
+        "matched_terms": [
+          "currently experiencing"
+        ],
+        "name": "LPEA latest news",
+        "psps_related": false,
+        "snippets": [
+          "We are currently experiencing Red Flag Conditions in our service territory."
+        ],
+        "type": "official_updates",
+        "url": "https://lpea.coop/Posts"
+      },
+      {
+        "affected_members": null,
+        "areas": [],
+        "fire_related": true,
+        "matched_terms": [
+          "currently experiencing"
+        ],
+        "name": "LPEA news releases",
+        "psps_related": false,
+        "snippets": [
+          "We are currently experiencing Red Flag Conditions in our service territory."
+        ],
+        "type": "official_updates",
+        "url": "https://lpea.coop/news-releases"
+      }
+    ],
     "psps_related": false,
-    "severity": "none",
-    "source_count": 0,
-    "summary": "No monitored active LPEA source currently describes a non-PSPS outage."
+    "severity": "active",
+    "source_count": 3,
+    "summary": "LPEA service territory. Source text includes fire/PSPS language."
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-07-01",
       "display_date": "Wed, Jul 1",
       "drivers": [
-        "very dry RH near 10%",
-        "wind/gust near 26 mph",
+        "very dry RH near 7%",
+        "wind/gust near 25 mph",
         "official fire restrictions at STAGE 2",
         "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "5 PM-7 PM local; 3 near/red-flag threshold hours.",
       "level": "EXTREME",
-      "location": "Pagosa Springs",
+      "location": "Arboles / southwest county",
       "score": 100
     },
     "psps": {
       "date": "2026-07-01",
       "display_date": "Wed, Jul 1",
       "drivers": [
-        "red-flag wind/gust signal near 26 mph",
+        "red-flag wind/gust signal near 25 mph",
         "very dry RH near 10%",
-        "4 sampled hours meet red-flag screen",
+        "3 sampled hours are near red-flag thresholds",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 2"
       ],
-      "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "5 PM-7 PM local; 3 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Pagosa Springs",
       "score": 100
@@ -81,15 +127,15 @@
       "date": "2026-07-01",
       "display_date": "Wed, Jul 1",
       "drivers": [
-        "4 sampled red-flag hours",
-        "RH near 10%",
-        "wind/gust near 26 mph",
+        "3 near-threshold hours",
+        "RH near 7%",
+        "wind/gust near 25 mph",
         "active official NWS fire-weather alert touches this date"
       ],
-      "highest_risk_window": "12 PM-6 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "5 PM-7 PM local; 3 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Pagosa Springs",
-      "score": 100
+      "location": "Arboles / southwest county",
+      "score": 89
     }
   },
   "red_flag_calibration": {
@@ -198,8 +244,7 @@
       "2026-07-02"
     ],
     "pending_high_dates": [
-      "2026-07-03",
-      "2026-07-04"
+      "2026-07-03"
     ],
     "summary": "21/21 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 5.0 days."
   },
@@ -208,10 +253,10 @@
   "trend": {
     "first_watch_or_likely_date": "2026-07-01",
     "first_watch_or_likely_display": "Wed, Jul 1",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Jun 30 to Wed, Jul 1.",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Wed, Jul 1.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 59,
-    "momentum": "Rising"
+    "forecast_volatility_score": 61,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
