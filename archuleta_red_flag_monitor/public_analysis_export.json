@@ -14,13 +14,13 @@
     "score": 74
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-02T17:37:20.168491-06:00",
+  "generated_at": "2026-07-03T05:33:35.703374-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Fri, Jul 3 near Pagosa Springs (LIKELY 100/100), driven by red-flag wind/gust signal near 26 mph; critically dry RH near 8%; 4 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 2 at 5:23 AM MDT); forecast volatility is medium and first WATCH-or-higher date is Thu, Jul 2."
+    "summary": "Highest LPEA PSPS concern is Fri, Jul 3 near Bayfield / east La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 25 mph; critically dry RH near 7%; 3 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 2 at 5:37 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Fri, Jul 3."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -30,10 +30,9 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date remains Thu, Jul 2.",
-    "Thu, Jul 2: easing vs prior run; PSPS WATCH -> WATCH; score -13, wind -3 mph, RH -1%, red-flag hours -2. Driver shifted to Chimney Rock / west county.",
-    "Wed, Jul 8: worsening vs prior run; PSPS WATCH -> WATCH; score +12, wind +3 mph, RH +1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.",
-    "Sat, Jul 4: worsening vs prior run; PSPS WATCH -> WATCH; score +9, wind +1 mph, RH 0%, red-flag hours +1. Driver shifted to Bayfield / east La Plata County."
+    "First WATCH-or-higher PSPS date moved later from Thu, Jul 2 to Fri, Jul 3.",
+    "Wed, Jul 8: worsening vs prior run; PSPS WATCH -> LIKELY; score +3, wind +1 mph, RH -1%, red-flag hours +2.",
+    "Tue, Jul 7: easing vs prior run; PSPS WATCH -> ELEVATED; score -4, wind -1 mph, RH 0%, red-flag hours 0."
   ],
   "operational_outage_context": {
     "active": true,
@@ -98,43 +97,43 @@
       "date": "2026-07-03",
       "display_date": "Fri, Jul 3",
       "drivers": [
-        "very dry RH near 8%",
-        "wind/gust near 26 mph",
+        "very dry RH near 7%",
+        "wind/gust near 25 mph",
         "official fire restrictions at STAGE 2",
         "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
       "level": "EXTREME",
-      "location": "Pagosa Springs",
-      "score": 100
+      "location": "Bayfield / east La Plata County",
+      "score": 98
     },
     "psps": {
       "date": "2026-07-03",
       "display_date": "Fri, Jul 3",
       "drivers": [
-        "red-flag wind/gust signal near 26 mph",
-        "critically dry RH near 8%",
-        "4 sampled hours meet red-flag screen",
+        "red-flag wind/gust signal near 25 mph",
+        "critically dry RH near 7%",
+        "3 sampled hours meet red-flag screen",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 2"
       ],
-      "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Pagosa Springs",
+      "location": "Bayfield / east La Plata County",
       "score": 100
     },
     "red_flag": {
       "date": "2026-07-03",
       "display_date": "Fri, Jul 3",
       "drivers": [
-        "4 sampled red-flag hours",
-        "RH near 8%",
-        "wind/gust near 26 mph"
+        "3 sampled red-flag hours",
+        "RH near 7%",
+        "wind/gust near 25 mph"
       ],
-      "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Pagosa Springs",
-      "score": 88
+      "location": "Bayfield / east La Plata County",
+      "score": 84
     }
   },
   "red_flag_calibration": {
@@ -243,19 +242,21 @@
       "2026-07-02"
     ],
     "pending_high_dates": [
-      "2026-07-03"
+      "2026-07-03",
+      "2026-07-08",
+      "2026-07-09"
     ],
     "summary": "21/21 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 5.0 days."
   },
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-07-02",
-    "first_watch_or_likely_display": "Thu, Jul 2",
-    "first_watch_shift": "First WATCH-or-higher PSPS date remains Thu, Jul 2.",
+    "first_watch_or_likely_date": "2026-07-03",
+    "first_watch_or_likely_display": "Fri, Jul 3",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Thu, Jul 2 to Fri, Jul 3.",
     "forecast_volatility_label": "MEDIUM",
-    "forecast_volatility_score": 28,
-    "momentum": "Rising"
+    "forecast_volatility_score": 26,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
