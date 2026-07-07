@@ -2,25 +2,24 @@
   "confidence": {
     "label": "MEDIUM",
     "reasons": [
-      "8/8 sampled weather points available",
+      "7/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "active LPEA operational outage context checked separately from PSPS scoring",
       "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 66
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-06T05:30:29.530256-06:00",
+  "generated_at": "2026-07-07T05:45:47.476691-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Thu, Jul 9 near Arboles / southwest county (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 10%; 5 sampled hours meet red-flag screen.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 5 at 5:23 PM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Jul 7."
+    "summary": "Highest LPEA PSPS concern is Thu, Jul 9 near Durango / La Plata County (LIKELY 100/100), driven by red-flag wind/gust signal near 29 mph; very dry RH near 10%; 5 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 6 at 5:30 AM MDT); forecast volatility is high and first WATCH-or-higher date is Wed, Jul 8."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -30,81 +29,37 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved earlier from Wed, Jul 8 to Tue, Jul 7.",
-    "Tue, Jul 7: worsening vs prior run; PSPS ELEVATED -> WATCH; score +8, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-    "Thu, Jul 9: worsening vs prior run; PSPS LIKELY -> LIKELY; score +6, wind +2 mph, RH -1%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County."
+    "First WATCH-or-higher PSPS date moved later from Tue, Jul 7 to Wed, Jul 8.",
+    "Wed, Jul 8: easing vs prior run; PSPS LIKELY -> WATCH; score -19, wind -2 mph, RH +2%, red-flag hours -4. Driver shifted to Durango / La Plata County.",
+    "Fri, Jul 10: worsening vs prior run; PSPS WATCH -> LIKELY; score +15, wind +1 mph, RH -1%, red-flag hours +3. Driver shifted to Ignacio / southeast La Plata County.",
+    "Sun, Jul 12: worsening vs prior run; PSPS ELEVATED -> WATCH; score +14, wind +6 mph, RH +1%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
+    "Tue, Jul 7: easing vs prior run; PSPS WATCH -> ELEVATED; score -8, wind 0 mph, RH -1%, red-flag hours 0."
   ],
   "operational_outage_context": {
-    "active": true,
+    "active": false,
     "affected_members": null,
     "areas": [],
-    "fire_related": true,
-    "headline": "Active LPEA operational outage detected near LPEA service territory.",
-    "hits": [
-      {
-        "affected_members": null,
-        "areas": [],
-        "fire_related": true,
-        "matched_terms": [
-          "currently experiencing"
-        ],
-        "name": "LPEA homepage",
-        "psps_related": false,
-        "snippets": [
-          "We are currently experiencing Red Flag Conditions in our service territory."
-        ],
-        "type": "official_updates",
-        "url": "https://lpea.coop"
-      },
-      {
-        "affected_members": null,
-        "areas": [],
-        "fire_related": true,
-        "matched_terms": [
-          "currently experiencing"
-        ],
-        "name": "LPEA latest news",
-        "psps_related": false,
-        "snippets": [
-          "We are currently experiencing Red Flag Conditions in our service territory."
-        ],
-        "type": "official_updates",
-        "url": "https://lpea.coop/Posts"
-      },
-      {
-        "affected_members": null,
-        "areas": [],
-        "fire_related": true,
-        "matched_terms": [
-          "currently experiencing"
-        ],
-        "name": "LPEA news releases",
-        "psps_related": false,
-        "snippets": [
-          "We are currently experiencing Red Flag Conditions in our service territory."
-        ],
-        "type": "official_updates",
-        "url": "https://lpea.coop/news-releases"
-      }
-    ],
+    "fire_related": false,
+    "headline": "No active operational LPEA outage detected by public-source text.",
+    "hits": [],
     "psps_related": false,
-    "severity": "active",
-    "source_count": 3,
-    "summary": "LPEA service territory. Source text includes fire/PSPS language."
+    "severity": "none",
+    "source_count": 0,
+    "summary": "No monitored active LPEA source currently describes a non-PSPS outage."
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-07-09",
       "display_date": "Thu, Jul 9",
       "drivers": [
-        "very dry RH near 11%",
-        "strong wind/gust near 31 mph",
+        "very dry RH near 10%",
+        "wind/gust near 30 mph",
         "official fire restrictions at STAGE 2",
         "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "12 PM-9 PM local; 10 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
       "level": "EXTREME",
-      "location": "Ignacio / southeast La Plata County",
+      "location": "Bayfield / east La Plata County",
       "score": 100
     },
     "psps": {
@@ -117,23 +72,23 @@
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 2"
       ],
-      "highest_risk_window": "12 PM-7 PM local; 8 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Arboles / southwest county",
+      "location": "Durango / La Plata County",
       "score": 100
     },
     "red_flag": {
       "date": "2026-07-09",
       "display_date": "Thu, Jul 9",
       "drivers": [
-        "7 sampled red-flag hours",
-        "RH near 11%",
-        "wind/gust near 31 mph"
+        "6 sampled red-flag hours",
+        "RH near 10%",
+        "wind/gust near 30 mph"
       ],
-      "highest_risk_window": "12 PM-9 PM local; 10 near/red-flag threshold hours.",
+      "highest_risk_window": "12 PM-8 PM local; 9 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 100
+      "location": "Bayfield / east La Plata County",
+      "score": 92
     }
   },
   "red_flag_calibration": {
@@ -242,20 +197,20 @@
       "2026-07-02"
     ],
     "pending_high_dates": [
-      "2026-07-08",
-      "2026-07-09"
+      "2026-07-09",
+      "2026-07-10"
     ],
     "summary": "21/21 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 5.0 days."
   },
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-07-07",
-    "first_watch_or_likely_display": "Tue, Jul 7",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Wed, Jul 8 to Tue, Jul 7.",
+    "first_watch_or_likely_date": "2026-07-08",
+    "first_watch_or_likely_display": "Wed, Jul 8",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Jul 7 to Wed, Jul 8.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 30,
-    "momentum": "Rising"
+    "forecast_volatility_score": 61,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
