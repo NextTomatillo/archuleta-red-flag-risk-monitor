@@ -7,19 +7,19 @@
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "forecast changed moderately versus prior run",
+      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 74
+    "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-11T05:45:41.044014-06:00",
+  "generated_at": "2026-07-11T17:41:05.194576-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "ELEVATED",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Sat, Jul 11 near Chromo / southeast county (WATCH 63/100), driven by red-flag wind/gust signal near 26 mph; red-flag RH near 13%; LPEA active sources contain wildfire/red-flag/power language.",
-    "trend_summary": "Momentum is easing versus the prior run (Jul 10 at 5:34 PM MDT); forecast volatility is medium and first WATCH-or-higher date is not present."
+    "summary": "Highest LPEA PSPS concern is Sun, Jul 12 near Arboles / southwest county (LIKELY 71/100), driven by red-flag wind/gust signal near 25 mph; red-flag RH near 15%; modest thunder signal near 27%.",
+    "trend_summary": "Momentum is rising versus the prior run (Jul 11 at 5:45 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, Jul 12."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -29,9 +29,12 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "Prior WATCH-or-higher PSPS date Fri, Jul 10 dropped below WATCH.",
-    "Mon, Jul 13: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind 0 mph, RH +3%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-    "Sun, Jul 12: easing vs prior run; PSPS WATCH -> ELEVATED; score -6, wind +1 mph, RH +1%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County."
+    "First WATCH-or-higher PSPS date appeared at Sun, Jul 12.",
+    "Overall PSPS likelihood changed from ELEVATED to WATCH.",
+    "Wed, Jul 15: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -1 mph, RH +6%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Thu, Jul 16: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -1 mph, RH +5%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Sun, Jul 12: worsening vs prior run; PSPS ELEVATED -> WATCH; score +6, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Sat, Jul 11: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind -5 mph, RH 0%, red-flag hours 0."
   ],
   "operational_outage_context": {
     "active": false,
@@ -51,42 +54,43 @@
       "display_date": "Sun, Jul 12",
       "drivers": [
         "very dry RH near 15%",
-        "wind/gust near 21 mph",
-        "thunder probability near 29%",
+        "wind/gust near 25 mph",
+        "thunder probability near 27%",
         "official fire restrictions at STAGE 2",
         "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "Peak ingredients near 12 AM local; RH 27%, wind 21 mph.",
+      "highest_risk_window": "Peak ingredients near 12 AM local; RH 26%, wind 25 mph.",
       "level": "VERY HIGH",
       "location": "Arboles / southwest county",
-      "score": 73
+      "score": 76
     },
     "psps": {
-      "date": "2026-07-11",
-      "display_date": "Sat, Jul 11",
+      "date": "2026-07-12",
+      "display_date": "Sun, Jul 12",
       "drivers": [
-        "red-flag wind/gust signal near 26 mph",
-        "red-flag RH near 13%",
+        "red-flag wind/gust signal near 25 mph",
+        "red-flag RH near 15%",
+        "modest thunder signal near 27%",
         "LPEA active sources contain wildfire/red-flag/power language",
-        "official fire restrictions at STAGE 2",
-        "official fire danger is EXTREME"
+        "official fire restrictions at STAGE 2"
       ],
-      "highest_risk_window": "Peak ingredients near 11 PM local; RH 36%, wind 26 mph.",
-      "level": "WATCH",
-      "location": "Chromo / southeast county",
-      "score": 63
+      "highest_risk_window": "Peak ingredients near 12 AM local; RH 26%, wind 25 mph.",
+      "level": "LIKELY",
+      "location": "Arboles / southwest county",
+      "score": 71
     },
     "red_flag": {
-      "date": "2026-07-11",
-      "display_date": "Sat, Jul 11",
+      "date": "2026-07-12",
+      "display_date": "Sun, Jul 12",
       "drivers": [
-        "RH near 13%",
-        "wind/gust near 26 mph"
+        "RH near 15%",
+        "wind/gust near 25 mph",
+        "thunder probability near 27%"
       ],
-      "highest_risk_window": "Peak ingredients near 11 PM local; RH 36%, wind 26 mph.",
-      "level": "LOW",
-      "location": "Chromo / southeast county",
-      "score": 28
+      "highest_risk_window": "Peak ingredients near 12 AM local; RH 26%, wind 25 mph.",
+      "level": "POSSIBLE",
+      "location": "Arboles / southwest county",
+      "score": 33
     }
   },
   "red_flag_calibration": {
@@ -200,12 +204,12 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": null,
-    "first_watch_or_likely_display": null,
-    "first_watch_shift": "Prior WATCH-or-higher PSPS date Fri, Jul 10 dropped below WATCH.",
-    "forecast_volatility_label": "MEDIUM",
-    "forecast_volatility_score": 28,
-    "momentum": "Easing"
+    "first_watch_or_likely_date": "2026-07-12",
+    "first_watch_or_likely_display": "Sun, Jul 12",
+    "first_watch_shift": "First WATCH-or-higher PSPS date appeared at Sun, Jul 12.",
+    "forecast_volatility_label": "HIGH",
+    "forecast_volatility_score": 46,
+    "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
