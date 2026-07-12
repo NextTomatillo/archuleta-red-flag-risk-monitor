@@ -2,7 +2,7 @@
   "confidence": {
     "label": "MEDIUM",
     "reasons": [
-      "8/8 sampled weather points available",
+      "7/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
@@ -10,16 +10,16 @@
       "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 66
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-11T17:41:05.194576-06:00",
+  "generated_at": "2026-07-12T05:30:50.787188-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "ELEVATED",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Sun, Jul 12 near Arboles / southwest county (LIKELY 71/100), driven by red-flag wind/gust signal near 25 mph; red-flag RH near 15%; modest thunder signal near 27%.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 11 at 5:45 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, Jul 12."
+    "summary": "Highest LPEA PSPS concern is Sun, Jul 12 near Arboles / southwest county (WATCH 50/100), driven by breezy wind/gust signal near 17 mph; red-flag RH near 14%; modest thunder signal near 21%.",
+    "trend_summary": "Momentum is rising versus the prior run (Jul 11 at 5:41 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -29,12 +29,11 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date appeared at Sun, Jul 12.",
-    "Overall PSPS likelihood changed from ELEVATED to WATCH.",
-    "Wed, Jul 15: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -1 mph, RH +6%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Thu, Jul 16: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -1 mph, RH +5%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Sun, Jul 12: worsening vs prior run; PSPS ELEVATED -> WATCH; score +6, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Sat, Jul 11: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind -5 mph, RH 0%, red-flag hours 0."
+    "Prior WATCH-or-higher PSPS date Sun, Jul 12 dropped below WATCH.",
+    "Sun, Jul 12: easing vs prior run; PSPS WATCH -> ELEVATED; score -17, wind -12 mph, RH -1%, red-flag hours 0.",
+    "Wed, Jul 15: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind +2 mph, RH -5%, red-flag hours 0. Driver shifted to Pagosa Springs.",
+    "Fri, Jul 17: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind +1 mph, RH -5%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
+    "Thu, Jul 16: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind 0 mph, RH -5%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
   ],
   "operational_outage_context": {
     "active": false,
@@ -53,44 +52,42 @@
       "date": "2026-07-12",
       "display_date": "Sun, Jul 12",
       "drivers": [
-        "very dry RH near 15%",
-        "wind/gust near 25 mph",
-        "thunder probability near 27%",
+        "very dry RH near 14%",
+        "thunder probability near 21%",
         "official fire restrictions at STAGE 2",
         "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "Peak ingredients near 12 AM local; RH 26%, wind 25 mph.",
-      "level": "VERY HIGH",
+      "highest_risk_window": "Peak ingredients near 9 PM local; RH 29%, wind 17 mph.",
+      "level": "HIGH",
       "location": "Arboles / southwest county",
-      "score": 76
+      "score": 64
     },
     "psps": {
       "date": "2026-07-12",
       "display_date": "Sun, Jul 12",
       "drivers": [
-        "red-flag wind/gust signal near 25 mph",
-        "red-flag RH near 15%",
-        "modest thunder signal near 27%",
+        "breezy wind/gust signal near 17 mph",
+        "red-flag RH near 14%",
+        "modest thunder signal near 21%",
         "LPEA active sources contain wildfire/red-flag/power language",
         "official fire restrictions at STAGE 2"
       ],
-      "highest_risk_window": "Peak ingredients near 12 AM local; RH 26%, wind 25 mph.",
-      "level": "LIKELY",
+      "highest_risk_window": "Peak ingredients near 9 PM local; RH 29%, wind 17 mph.",
+      "level": "WATCH",
       "location": "Arboles / southwest county",
-      "score": 71
+      "score": 50
     },
     "red_flag": {
       "date": "2026-07-12",
       "display_date": "Sun, Jul 12",
       "drivers": [
-        "RH near 15%",
-        "wind/gust near 25 mph",
-        "thunder probability near 27%"
+        "RH near 14%",
+        "thunder probability near 21%"
       ],
-      "highest_risk_window": "Peak ingredients near 12 AM local; RH 26%, wind 25 mph.",
-      "level": "POSSIBLE",
+      "highest_risk_window": "Peak ingredients near 9 PM local; RH 29%, wind 17 mph.",
+      "level": "LOW",
       "location": "Arboles / southwest county",
-      "score": 33
+      "score": 25
     }
   },
   "red_flag_calibration": {
@@ -204,11 +201,11 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-07-12",
-    "first_watch_or_likely_display": "Sun, Jul 12",
-    "first_watch_shift": "First WATCH-or-higher PSPS date appeared at Sun, Jul 12.",
+    "first_watch_or_likely_date": null,
+    "first_watch_or_likely_display": null,
+    "first_watch_shift": "Prior WATCH-or-higher PSPS date Sun, Jul 12 dropped below WATCH.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 46,
+    "forecast_volatility_score": 54,
     "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
