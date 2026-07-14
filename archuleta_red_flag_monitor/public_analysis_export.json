@@ -2,7 +2,7 @@
   "confidence": {
     "label": "MEDIUM",
     "reasons": [
-      "7/8 sampled weather points available",
+      "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
@@ -10,16 +10,16 @@
       "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 66
+    "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-13T05:31:01.268924-06:00",
+  "generated_at": "2026-07-14T05:38:21.875233-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "ELEVATED",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Mon, Jul 13 near Arboles / southwest county (ELEVATED 38/100), driven by breezy wind/gust signal near 15 mph; dry RH near 21%; modest thunder signal near 46%.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 12 at 5:31 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "summary": "Highest LPEA PSPS concern is Tue, Jul 14 near Pagosa Springs (ELEVATED 32/100), driven by breezy wind/gust signal near 15 mph; modest thunder signal near 37%; LPEA active sources contain wildfire/red-flag/power language.",
+    "trend_summary": "Momentum is rising versus the prior run (Jul 13 at 5:40 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -31,9 +31,8 @@
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
     "Overall PSPS likelihood changed from ELEVATED to WATCH.",
-    "Sat, Jul 18: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -2 mph, RH +7%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
-    "Thu, Jul 16: easing vs prior run; PSPS LOW -> LOW; score 0, wind -1 mph, RH +9%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
-    "Fri, Jul 17: easing vs prior run; PSPS LOW -> LOW; score 0, wind -1 mph, RH +9%, red-flag hours 0. Driver shifted to Durango / La Plata County."
+    "Tue, Jul 14: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind 0 mph, RH +1%, red-flag hours 0.",
+    "Fri, Jul 17: easing vs prior run; PSPS LOW -> LOW; score -8, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Pagosa Springs."
   ],
   "operational_outage_context": {
     "active": false,
@@ -49,43 +48,42 @@
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-07-13",
-      "display_date": "Mon, Jul 13",
+      "date": "2026-07-14",
+      "display_date": "Tue, Jul 14",
       "drivers": [
-        "dry RH near 21%",
-        "thunder probability near 46%",
+        "thunder probability near 37%",
         "official fire restrictions at STAGE 2",
         "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "Peak ingredients near 5 PM local; RH 29%, wind 15 mph.",
-      "level": "HIGH",
-      "location": "Arboles / southwest county",
-      "score": 58
+      "highest_risk_window": "Peak ingredients near 6 PM local; RH 27%, wind 15 mph.",
+      "level": "MODERATE",
+      "location": "Pagosa Springs",
+      "score": 50
     },
     "psps": {
-      "date": "2026-07-13",
-      "display_date": "Mon, Jul 13",
+      "date": "2026-07-14",
+      "display_date": "Tue, Jul 14",
       "drivers": [
         "breezy wind/gust signal near 15 mph",
-        "dry RH near 21%",
-        "modest thunder signal near 46%",
+        "modest thunder signal near 37%",
         "LPEA active sources contain wildfire/red-flag/power language",
-        "official fire restrictions at STAGE 2"
+        "official fire restrictions at STAGE 2",
+        "official fire danger is EXTREME"
       ],
-      "highest_risk_window": "Peak ingredients near 5 PM local; RH 29%, wind 15 mph.",
+      "highest_risk_window": "Peak ingredients near 6 PM local; RH 27%, wind 15 mph.",
       "level": "ELEVATED",
-      "location": "Arboles / southwest county",
-      "score": 38
+      "location": "Pagosa Springs",
+      "score": 32
     },
     "red_flag": {
-      "date": "2026-07-13",
-      "display_date": "Mon, Jul 13",
+      "date": "2026-07-14",
+      "display_date": "Tue, Jul 14",
       "drivers": [
-        "thunder probability near 46%"
+        "thunder probability near 37%"
       ],
-      "highest_risk_window": "Peak ingredients near 5 PM local; RH 29%, wind 15 mph.",
+      "highest_risk_window": "Peak ingredients near 6 PM local; RH 27%, wind 15 mph.",
       "level": "LOW",
-      "location": "Arboles / southwest county",
+      "location": "Pagosa Springs",
       "score": 25
     }
   },
@@ -204,7 +202,7 @@
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 33,
+    "forecast_volatility_score": 30,
     "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
