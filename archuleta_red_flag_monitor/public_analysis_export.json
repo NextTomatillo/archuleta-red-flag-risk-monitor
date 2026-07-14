@@ -1,25 +1,54 @@
 {
+  "analyst_interpretation": {
+    "changing_drivers": [
+      "Forecast momentum is steady with low volatility versus the prior run.",
+      "No current or prior-run date reaches WATCH-or-higher PSPS screening.",
+      "The top PSPS screen remains ELEVATED 18/100 near Arboles on Tuesday."
+    ],
+    "evidence_ids": [
+      "overall_status",
+      "weather_peaks",
+      "official_alerts",
+      "forecast_change",
+      "lpea_context",
+      "fire_posture",
+      "calibration"
+    ],
+    "generated_at": "2026-07-14T11:50:49-06:00",
+    "headline": "Fire-weather risk is low; elevated PSPS screening reflects preparedness context, not watch-level weather.",
+    "report_generated_at": "2026-07-14T11:49:19.025007-06:00",
+    "schema_version": 1,
+    "status": "reviewed",
+    "summary": "The fire-weather tier is GREEN, with no official NWS fire-weather alert and no WATCH or LIKELY PSPS date. The 18/100 ELEVATED PSPS peak near Arboles combines modest dryness and breeze with Stage 2 fire restrictions, which add context but do not create a watch by themselves. Two localized LPEA outages affect one customer each, and neither has a posted fire-weather or PSPS cause.",
+    "uncertainty": "No confirmed LPEA PSPS event is logged for calibration, and LPEA's internal circuit conditions and shutoff thresholds are not public.",
+    "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
+    "watch_items": [
+      "Watch official NWS alerts and any increase in coincident low humidity and wind.",
+      "Check LPEA sources for direct PSPS intent rather than broad seasonal safety language.",
+      "Track whether either localized outage changes size, cause, or fire relationship."
+    ]
+  },
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "forecast changed substantially versus prior run",
+      "active LPEA operational outage context checked separately from PSPS scoring",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-14T05:38:21.875233-06:00",
+  "generated_at": "2026-07-14T11:49:19.025007-06:00",
   "headline": {
-    "monitor_heads_up_recommended": true,
-    "overall_tier": "ELEVATED",
-    "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Tue, Jul 14 near Pagosa Springs (ELEVATED 32/100), driven by breezy wind/gust signal near 15 mph; modest thunder signal near 37%; LPEA active sources contain wildfire/red-flag/power language.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 13 at 5:40 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "monitor_heads_up_recommended": false,
+    "overall_tier": "GREEN",
+    "psps_likelihood": "ELEVATED",
+    "summary": "Highest LPEA PSPS concern is Tue, Jul 14 near Arboles / southwest county (ELEVATED 18/100), driven by breezy wind/gust signal near 15 mph; dry RH near 22%; Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 14 at 11:40 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -30,67 +59,195 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Overall PSPS likelihood changed from ELEVATED to WATCH.",
-    "Tue, Jul 14: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind 0 mph, RH +1%, red-flag hours 0.",
-    "Fri, Jul 17: easing vs prior run; PSPS LOW -> LOW; score -8, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Pagosa Springs."
+    "No major day-level movement versus the prior run."
   ],
   "operational_outage_context": {
-    "active": false,
-    "affected_members": null,
-    "areas": [],
+    "active": true,
+    "active_outage_count": 2,
+    "affected_members": 2,
+    "areas": [
+      "Pagosa Springs",
+      "Durango / La Plata County"
+    ],
+    "customers_affected": 2,
+    "customers_out_now": 2,
+    "customers_served": 47521,
     "fire_related": false,
-    "headline": "No active operational LPEA outage detected by public-source text.",
-    "hits": [],
+    "headline": "Official LPEA outage data shows 2 customers without power near Pagosa Springs, Durango / La Plata County.",
+    "hits": [
+      {
+        "name": "861 MEADOWS DR",
+        "snippets": [
+          "Pagosa Springs: 1 customer out; planned; cause 110 Maintenance."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "FASSETT 2-13 NO 1 WELLSITE",
+        "snippets": [
+          "Durango / La Plata County: 1 customer out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      }
+    ],
+    "outages": [
+      {
+        "cause": "110 Maintenance",
+        "crew_assigned": true,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 4.8,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-07-14-0096",
+        "latitude": 37.23641973065427,
+        "longitude": -107.08588146204282,
+        "modified_at": "2026-07-14T07:33:52.233-06:00",
+        "name": "861 MEADOWS DR",
+        "nearest_area": "Pagosa Springs",
+        "planned": true,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-07-14T07:25:55-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": true,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": true,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 8.1,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-07-14-0097",
+        "latitude": 37.19427737595459,
+        "longitude": -107.77310256639137,
+        "modified_at": "2026-07-14T09:58:59.637-06:00",
+        "name": "FASSETT 2-13 NO 1 WELLSITE",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-07-14T09:58:29-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": true,
+        "work_status": ""
+      }
+    ],
+    "outages_url": "https://outage.lpea.coop/data/outages.json",
+    "planned_outage_count": 1,
+    "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "none",
-    "source_count": 0,
-    "summary": "No monitored active LPEA source currently describes a non-PSPS outage."
+    "severity": "localized",
+    "source": "Official LPEA outage viewer JSON",
+    "source_count": 1,
+    "source_url": "https://outage.lpea.coop",
+    "status": "checked",
+    "summary": "2 active outages; 1 planned and 1 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.",
+    "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
+    "unplanned_outage_count": 1,
+    "update_time": "2026-07-14T11:48:06.2610396-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-07-14",
       "display_date": "Tue, Jul 14",
       "drivers": [
-        "thunder probability near 37%",
         "official fire restrictions at STAGE 2",
-        "official fire danger is EXTREME"
+        "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 6 PM local; RH 27%, wind 15 mph.",
-      "level": "MODERATE",
+      "highest_risk_window": "Peak ingredients near 4 PM local; RH 25%, wind 13 mph.",
+      "level": "LOW",
       "location": "Pagosa Springs",
-      "score": 50
+      "score": 24
     },
     "psps": {
       "date": "2026-07-14",
       "display_date": "Tue, Jul 14",
       "drivers": [
         "breezy wind/gust signal near 15 mph",
-        "modest thunder signal near 37%",
-        "LPEA active sources contain wildfire/red-flag/power language",
-        "official fire restrictions at STAGE 2",
-        "official fire danger is EXTREME"
+        "dry RH near 22%",
+        "Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
-      "highest_risk_window": "Peak ingredients near 6 PM local; RH 27%, wind 15 mph.",
+      "highest_risk_window": "Peak ingredients near 4 PM local; RH 31%, wind 15 mph.",
       "level": "ELEVATED",
-      "location": "Pagosa Springs",
-      "score": 32
+      "location": "Arboles / southwest county",
+      "score": 18
     },
     "red_flag": {
       "date": "2026-07-14",
       "display_date": "Tue, Jul 14",
       "drivers": [
-        "thunder probability near 37%"
+        "below red-flag screening thresholds"
       ],
-      "highest_risk_window": "Peak ingredients near 6 PM local; RH 27%, wind 15 mph.",
+      "highest_risk_window": "Peak ingredients near 4 PM local; RH 31%, wind 15 mph.",
       "level": "LOW",
-      "location": "Pagosa Springs",
-      "score": 25
+      "location": "Arboles / southwest county",
+      "score": 0
     }
   },
   "red_flag_calibration": {
-    "alert_log_path": "/Users/dustin/Library/CloudStorage/Dropbox-VOORMI/Dustin English/Dustin's Folder!/VOORMI Files/Codex/Personal Projects/archuleta_red_flag_monitor/red_flag_alerts.json",
+    "alert_log_path": "red_flag_alerts.json",
     "average_lead_time_display": "5.0 days",
     "average_lead_time_hours": 119.5,
+    "episode_average_lead_time_display": "3.5 days",
+    "episode_average_lead_time_hours": 83.6,
+    "episode_hit_count": 3,
+    "episode_hit_rate_percent": 100,
+    "episode_miss_count": 0,
+    "episodes": [
+      {
+        "dates": [
+          "2026-06-07",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12"
+        ],
+        "end_date": "2026-06-12",
+        "lead_time_hours": 71.9,
+        "start_date": "2026-06-07",
+        "status": "hit"
+      },
+      {
+        "dates": [
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-19",
+          "2026-06-20",
+          "2026-06-21",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-27",
+          "2026-06-28"
+        ],
+        "end_date": "2026-06-28",
+        "lead_time_hours": 69.7,
+        "start_date": "2026-06-16",
+        "status": "hit"
+      },
+      {
+        "dates": [
+          "2026-07-01",
+          "2026-07-02"
+        ],
+        "end_date": "2026-07-02",
+        "lead_time_hours": 109.1,
+        "start_date": "2026-07-01",
+        "status": "hit"
+      }
+    ],
     "false_high_day_count": 16,
     "false_high_examples": [
       "2026-07-03",
@@ -99,7 +256,7 @@
       "2026-07-09",
       "2026-07-10"
     ],
-    "forecast_history_path": "/Users/dustin/Library/CloudStorage/Dropbox-VOORMI/Dustin English/Dustin's Folder!/VOORMI Files/Codex/Personal Projects/archuleta_red_flag_monitor/forecast_history.csv",
+    "forecast_history_path": "forecast_history.csv",
     "hit_count": 21,
     "hit_rate_percent": 100,
     "hits": [
@@ -166,6 +323,12 @@
     ],
     "insufficient_history": [],
     "insufficient_history_count": 0,
+    "lead_time_buckets": {
+      "0_to_24_hours": 0,
+      "24_to_48_hours": 0,
+      "48_to_72_hours": 2,
+      "72_plus_hours": 1
+    },
     "miss_count": 0,
     "misses": [],
     "official_alert_date_count": 21,
@@ -192,8 +355,9 @@
       "2026-07-01",
       "2026-07-02"
     ],
+    "official_alert_episode_count": 3,
     "pending_high_dates": [],
-    "summary": "21/21 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 5.0 days."
+    "summary": "3/3 official Red Flag / Fire Weather episodes had a pre-alert HIGH monitor signal; date-level result was 21/21. Episode-average lead time: 3.5 days."
   },
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
@@ -201,9 +365,9 @@
     "first_watch_or_likely_date": null,
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 30,
-    "momentum": "Rising"
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 0,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [

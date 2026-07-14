@@ -11,17 +11,26 @@ from zoneinfo import ZoneInfo
 
 PACKAGE_FILES = [
     "README.md",
+    "apply_model_review.py",
     "config.json",
-    "forecast_history.csv",
     "latest.html",
-    "latest.json",
     "latest.md",
     "monitor.py",
     "publish_github_pages.py",
     "psps_events.json",
     "public_analysis_export.json",
+    "public_model_review.json",
     "red_flag_alerts.json",
     "tests/test_monitor.py",
+]
+
+PUBLIC_FILE_MAPPINGS = [
+    ("public_latest.json", "latest.json"),
+    ("public_latest.json", "public_latest.json"),
+]
+
+STALE_PUBLIC_FILES = [
+    "forecast_history.csv",
 ]
 
 def run(cmd: list[str], cwd: Path, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -58,6 +67,19 @@ def copy_outputs(source_dir: Path, pages_repo: Path) -> None:
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
 
+    for source_relative, target_relative in PUBLIC_FILE_MAPPINGS:
+        source = source_dir / source_relative
+        if not source.exists():
+            raise FileNotFoundError(f"Missing source file: {source}")
+        target = package_target / target_relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+
+    for relative in STALE_PUBLIC_FILES:
+        stale = package_target / relative
+        if stale.exists():
+            stale.unlink()
+
     for stale_review_packet in package_target.glob("*_review_packet.json"):
         stale_review_packet.unlink()
 
@@ -70,7 +92,7 @@ def publish(source_dir: Path, pages_repo: Path, no_push: bool = False) -> str:
 
     copy_outputs(source_dir, pages_repo)
 
-    tracked_paths = ["index.html", "archuleta_red_flag_monitor"]
+    tracked_paths = ["index.html", "archuleta_red_flag_monitor", ".github/workflows/test.yml"]
     run(["git", "add", *tracked_paths], pages_repo)
 
     diff_result = run(["git", "diff", "--cached", "--quiet"], pages_repo, check=False)

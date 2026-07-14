@@ -40,9 +40,19 @@ def record(hour, rh=None, wind=None, gust=None, thunder=None, precip=None):
 
 
 class FakeResponse:
-    def __init__(self, text, status_code=200):
+    def __init__(self, text="", status_code=200, json_data=None):
         self.text = text
         self.status_code = status_code
+        self.json_data = json_data
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise RuntimeError(f"HTTP {self.status_code}")
+
+    def json(self):
+        if self.json_data is not None:
+            return self.json_data
+        return json.loads(self.text)
 
 
 class FakeSession:
@@ -54,6 +64,12 @@ class FakeSession:
 
 
 class MonitorTests(unittest.TestCase):
+    def test_production_config_is_valid_json(self):
+        config_path = Path(monitor.__file__).with_name("config.json")
+        config = monitor.load_config(config_path)
+        self.assertEqual(config["timezone"], "America/Denver")
+        self.assertEqual(config["scheduled_update_times_local"], ["05:20", "17:20"])
+
     def test_has_hours_in_window_counts_nonconsecutive_hours(self):
         base = dt.datetime(2026, 6, 1, 12, tzinfo=dt.timezone.utc)
         hours = [base, base + dt.timedelta(hours=4), base + dt.timedelta(hours=11)]
@@ -88,6 +104,38 @@ class MonitorTests(unittest.TestCase):
         base = dt.datetime(2026, 6, 1, 12, tzinfo=dt.timezone.utc)
         scored = monitor.score_day([record(base, rh=14, wind=10)], THRESHOLDS)
         self.assertEqual(scored["tier"], "ELEVATED")
+
+    def test_score_day_does_not_treat_wet_thunder_as_dry_lightning(self):
+        base = dt.datetime(2026, 7, 14, 18, tzinfo=dt.timezone.utc)
+        scored = monitor.score_day(
+            [record(base, rh=42, wind=9, thunder=70, precip=80)],
+            THRESHOLDS,
+        )
+        self.assertEqual(scored["tier"], "GREEN")
+        self.assertEqual(scored["dry_thunder_hours"], 0)
+
+    def test_score_day_detects_coincident_dry_thunder(self):
+        base = dt.datetime(2026, 7, 14, 18, tzinfo=dt.timezone.utc)
+        scored = monitor.score_day(
+            [record(base, rh=17, wind=12, thunder=30, precip=10)],
+            THRESHOLDS,
+        )
+        self.assertEqual(scored["tier"], "CONCERN")
+        self.assertEqual(scored["dry_thunder_hours"], 1)
+
+    def test_next_update_uses_twice_daily_local_schedule(self):
+        tz = ZoneInfo("America/Denver")
+        config = {"scheduled_update_times_local": ["05:20", "17:20"]}
+        morning = dt.datetime(2026, 7, 14, 5, 38, tzinfo=tz)
+        evening = dt.datetime(2026, 7, 14, 18, 0, tzinfo=tz)
+        self.assertEqual(
+            monitor.next_scheduled_update(morning, config),
+            dt.datetime(2026, 7, 14, 17, 20, tzinfo=tz),
+        )
+        self.assertEqual(
+            monitor.next_scheduled_update(evening, config),
+            dt.datetime(2026, 7, 15, 5, 20, tzinfo=tz),
+        )
 
     def test_speed_conversion(self):
         self.assertAlmostEqual(monitor.speed_to_mph(40, "wmoUnit:km_h-1"), 24.85484, places=4)
@@ -607,6 +655,49 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Watch driver area consistency.", export["watch_next"])
         self.assertNotIn("Codex", json.dumps(export))
 
+    def test_model_review_requires_current_report_and_known_evidence(self):
+        request = {
+            "report_generated_at": "2026-07-14T05:38:00-06:00",
+            "allowed_evidence_ids": ["overall_status", "weather_peaks"],
+        }
+        review = {
+            "schema_version": 1,
+            "report_generated_at": "2026-07-14T05:38:00-06:00",
+            "generated_at": "2026-07-14T05:45:00-06:00",
+            "headline": "Weather-driven risk remains below the watch threshold.",
+            "summary": "The strongest public signals remain weather based. No official alert or direct shutoff notice is present.",
+            "uncertainty": "LPEA internal circuit and operational thresholds are not public.",
+            "changing_drivers": ["Humidity improved versus the prior run."],
+            "watch_items": ["Watch the next wind and humidity update."],
+            "evidence_ids": ["overall_status", "weather_peaks"],
+        }
+        validated = monitor.validate_model_review(review, request)
+        self.assertEqual(validated["status"], "reviewed")
+        self.assertEqual(validated["evidence_ids"], ["overall_status", "weather_peaks"])
+
+        review["evidence_ids"] = ["overall_status", "unsupported_claim"]
+        with self.assertRaisesRegex(ValueError, "Unknown model review evidence ID"):
+            monitor.validate_model_review(review, request)
+
+    def test_model_review_rejects_internal_public_detail(self):
+        request = {
+            "report_generated_at": "2026-07-14T05:38:00-06:00",
+            "allowed_evidence_ids": ["overall_status", "weather_peaks"],
+        }
+        review = {
+            "schema_version": 1,
+            "report_generated_at": request["report_generated_at"],
+            "generated_at": "2026-07-14T05:45:00-06:00",
+            "headline": "Codex reviewed the latest evidence.",
+            "summary": "Public summary.",
+            "uncertainty": "Uncertainty remains.",
+            "changing_drivers": [],
+            "watch_items": [],
+            "evidence_ids": ["overall_status", "weather_peaks"],
+        }
+        with self.assertRaisesRegex(ValueError, "non-public implementation detail"):
+            monitor.validate_model_review(review, request)
+
     def test_lpea_evidence_quality_labels_archived_items(self):
         lpea = {
             "active_signal_groups": [
@@ -662,7 +753,7 @@ class MonitorTests(unittest.TestCase):
         self.assertNotIn("water restrictions", " ".join(snippets).lower())
         self.assertIn("fire restrictions", " ".join(snippets).lower())
 
-    def test_fire_posture_signal_bumps_to_watch_for_stage_two(self):
+    def test_fire_posture_signal_adds_context_without_forcing_watch(self):
         signal = monitor.fire_posture_psps_signal(
             {
                 "status": "checked",
@@ -670,8 +761,64 @@ class MonitorTests(unittest.TestCase):
                 "max_fire_danger": "HIGH",
             }
         )
-        self.assertEqual(signal["level_floor"], "WATCH")
+        self.assertEqual(signal["level_floor"], "LOW")
+        self.assertEqual(signal["score_modifier"], 4)
         self.assertIn("STAGE 2", signal["reason"])
+
+    def test_localized_operational_outage_does_not_trigger_monitor_notification(self):
+        recommendation = monitor.notification_recommendation(
+            "GREEN",
+            {"overall_level": "LOW", "lpea_signal": {"level": "none"}},
+            {"fire_alert_count": 0},
+            {
+                "operational_outage": {
+                    "active": True,
+                    "severity": "localized",
+                    "fire_related": False,
+                    "psps_related": False,
+                }
+            },
+            False,
+        )
+        self.assertFalse(recommendation["recommended"])
+
+    def test_official_lpea_outage_json_is_normalized_and_area_matched(self):
+        base_url = "https://outage.example.test"
+        config = {
+            "lpea": {
+                "outage_api": {
+                    "enabled": True,
+                    "summary_url": f"{base_url}/summary.json",
+                    "outages_url": f"{base_url}/outages.json",
+                    "planned_url": f"{base_url}/planned.json",
+                }
+            },
+            "sample_points": [
+                {"name": "Pagosa Springs", "lat": 37.2695, "lon": -107.0098},
+                {"name": "Durango / La Plata County", "lat": 37.2753, "lon": -107.8801},
+            ],
+        }
+        outage = {
+            "outageRecID": "test-1",
+            "outageName": "Unplanned outage",
+            "outagePoint": {"lat": 37.27, "lng": -107.01},
+            "customersOutNow": 75,
+            "isPlanned": False,
+            "cause": "Equipment failure",
+            "crewAssigned": True,
+        }
+        session = FakeSession(
+            {
+                f"{base_url}/summary.json": FakeResponse(json_data={"customersOutNow": 75}),
+                f"{base_url}/outages.json": FakeResponse(json_data=[outage]),
+                f"{base_url}/planned.json": FakeResponse(json_data=[]),
+            }
+        )
+        result = monitor.check_lpea_outage_api(session, config)
+        self.assertTrue(result["active"])
+        self.assertEqual(result["severity"], "moderate")
+        self.assertEqual(result["areas"], ["Pagosa Springs"])
+        self.assertFalse(result["fire_related"])
 
     def test_jurisdiction_type_label_is_human_readable(self):
         self.assertEqual(monitor.jurisdiction_type_label("federal_forest"), "Federal forest")
@@ -740,8 +887,11 @@ class MonitorTests(unittest.TestCase):
                 "forecast_history_path": "forecast_history.csv",
             },
             "red_flag_calibration": {
-                "summary": "1/1 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal.",
+                "summary": "1/1 official Red Flag / Fire Weather episode had a pre-alert HIGH monitor signal.",
                 "official_alert_date_count": 1,
+                "official_alert_episode_count": 1,
+                "episode_hit_rate_percent": 100,
+                "episode_average_lead_time_display": "5.8 days",
                 "hit_rate_percent": 100,
                 "average_lead_time_display": "5.8 days",
                 "false_high_day_count": 0,
@@ -772,7 +922,7 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("CONCERN dates: Tue, Jun 2", rendered)
         self.assertIn("ELEVATED dates: Wed, Jun 3", rendered)
         self.assertIn("### Red Flag / Fire Weather Calibration", rendered)
-        self.assertIn("Pre-alert HIGH hit rate: 100%", rendered)
+        self.assertIn("Episode-level pre-alert HIGH hit rate: 100%", rendered)
 
     def test_render_html_includes_risk_strip_and_day_cards(self):
         report = {
@@ -911,15 +1061,15 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Arboles", rendered)
         self.assertIn("Durango", rendered)
         self.assertIn("Red Flag / Fire Weather calibration", rendered)
-        self.assertIn("Pre-alert hit rate", rendered)
-        self.assertIn("HIGH before official alert", rendered)
+        self.assertIn("Episode hit rate", rendered)
+        self.assertIn("episodes with HIGH before official alert", rendered)
         self.assertIn("5.8 days", rendered)
         self.assertIn("Next update: Jun 1, 2026 at 9:00 AM MDT (Pagosa Springs, CO local time)", rendered)
         self.assertIn("All dates and times use Pagosa Springs, CO local time (America/Denver).", rendered)
         self.assertIn("official-warning", rendered)
         self.assertIn("not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice", rendered)
         self.assertIn("Send monitor heads-up?", rendered)
-        self.assertIn("Send this monitor report because current risk is HIGH.", rendered)
+        self.assertIn("Send this monitor report because a material monitored signal is active.", rendered)
         self.assertIn("risk-strip", rendered)
         self.assertIn("Mon</strong><span>Jun 1", rendered)
         self.assertIn("<small>Jun 1</small>", rendered)
@@ -938,7 +1088,7 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Evidence quality", rendered)
         self.assertIn("Keyword Match", rendered)
         self.assertIn("Keyword detected.", rendered)
-        self.assertIn("Active LPEA outage context", rendered)
+        self.assertIn("Official LPEA outage status", rendered)
         self.assertIn("about 11,556 members affected", rendered)
         self.assertIn("does not raise PSPS scoring by itself", rendered)
 

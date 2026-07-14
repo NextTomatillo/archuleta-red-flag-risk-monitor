@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Archuleta Red Flag Risk Monitor</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a72f23'/%3E%3Cpath d='M34 8c4 11-5 14 2 23 3-6 8-7 10-14 9 12 10 24 4 33-7 11-29 11-36-1-7-13 3-26 14-36-1 9 2 13 6 15 3-6-2-11 0-20z' fill='%23fff3e2'/%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #f4efe5;
@@ -144,6 +145,9 @@
     .hero-mini-chip.tier-elevated { background: var(--elevated); color: #1f1700; }
     .hero-mini-chip.tier-concern { background: var(--concern); color: #fff; }
     .hero-mini-chip.tier-high { background: var(--high); color: #fff; }
+    .hero-mini-chip.freshness-current { background: var(--green); color: #fff; }
+    .hero-mini-chip.freshness-late { background: var(--elevated); color: #1f1700; }
+    .hero-mini-chip.freshness-stale { background: var(--high); color: #fff; }
     .hero-time-note {
       margin-top: 14px;
     }
@@ -297,7 +301,7 @@
     .psps-segment.psps-confirmed { background: var(--high); color: #fff; }
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
       margin-top: 20px;
       align-items: start;
@@ -311,6 +315,9 @@
     .summary-card {
       padding: 18px;
       min-height: 0;
+    }
+    .summary-card:last-child {
+      grid-column: span 2;
     }
     .summary-value {
       margin: 0;
@@ -1017,6 +1024,9 @@
       font-size: 0.92rem;
       color: var(--muted);
     }
+    @media (max-width: 1080px) {
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     @media (max-width: 760px) {
       .wrap { padding: 18px 14px 32px; }
       .hero, .section-panel, .summary-card, .day-card { border-radius: 18px; }
@@ -1053,6 +1063,7 @@
         margin-top: 18px;
         gap: 12px;
       }
+      .summary-card:last-child { grid-column: span 1; }
       .analysis-grid {
         grid-template-columns: 1fr;
       }
@@ -1073,33 +1084,40 @@
         <div class="hero-copy">
           <p class="eyebrow">Archuleta County fire-weather monitor</p>
           <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated Jul 14, 2026 at 5:38 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
+          <p class="hero-note">Generated Jul 14, 2026 at 11:49 AM MDT (Pagosa Springs, CO local time). This page is a public-source screening view for early heads-up decisions.</p>
           <div class="official-warning">
             <strong>Unofficial monitor</strong>
             This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
           </div>
           <p class="time-note hero-time-note">All dates and times use Pagosa Springs, CO local time (America/Denver).</p>
+          <p class="next-update-note">Next update: Jul 14, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)</p>
         </div>
         <aside class="hero-status-rail" aria-label="Current monitor status">
           <div class="hero-status-primary">
-            <p class="eyebrow">Overall tier</p>
-            <span class="chip tier-elevated">ELEVATED</span>
+            <p class="eyebrow">Fire-weather tier</p>
+            <span class="chip tier-green">GREEN</span>
           </div>
           <div class="hero-status-row hero-status-row-detail">
             <div class="hero-status-copy">
               <span>PSPS likelihood</span>
               <p>LPEA area-wide screen, Tue, Jul 14 to Mon, Jul 20</p>
-              <small>Peak watch dates: Tue, Jul 14, Wed, Jul 15, Thu, Jul 16; drivers: Pagosa Springs, Arboles, Chimney Rock, Durango.</small>
+              <small>Peak elevated dates: Tue, Jul 14; drivers: Arboles, Chimney Rock, Durango.</small>
             </div>
-            <strong class="hero-mini-chip psps-watch">WATCH</strong>
+            <strong class="hero-mini-chip psps-elevated">ELEVATED</strong>
           </div>
           <div class="hero-status-row">
             <span>Pagosa Springs</span>
-            <strong class="hero-mini-chip tier-elevated">PSPS LOW</strong>
+            <strong class="hero-mini-chip tier-green">PSPS LOW</strong>
           </div>
-          <div class="hero-status-time">
-            <span>Next update</span>
-            <strong>Next update: Jul 14, 2026 at 6:38 AM MDT (Pagosa Springs, CO local time)</strong>
+          <div class="hero-status-row">
+            <span>Data freshness</span>
+            <strong
+              id="freshness-badge"
+              class="hero-mini-chip freshness-current"
+              data-generated-at="2026-07-14T11:49:19.025007-06:00"
+              data-late-after="2026-07-14T18:50:00-06:00"
+              data-stale-after="2026-07-15T02:49:19.025007-06:00"
+            >CURRENT</strong>
           </div>
         </aside>
       </div>
@@ -1107,7 +1125,12 @@
         
             <section class="summary-card">
               <p class="eyebrow">Pagosa Springs today</p>
-              <p class="summary-value tier-elevated">PSPS LOW</p><p class="summary-note">Tue, Jul 14: weather ELEVATED; RH 23%, wind 15 mph; Pagosa PSPS score 12/100.</p>
+              <p class="summary-value tier-green">PSPS LOW</p><p class="summary-note">Tue, Jul 14: weather GREEN; RH 25%, wind 13 mph; Pagosa PSPS score 4/100.</p>
+            </section>
+            
+            <section class="summary-card">
+              <p class="eyebrow">Official LPEA outage status</p>
+              <p class="summary-value signal-outage">ACTIVE</p><p class="summary-note">Official LPEA outage data shows 2 customers without power near Pagosa Springs, Durango / La Plata County.</p>
             </section>
             
             <section class="summary-card">
@@ -1117,7 +1140,7 @@
             
             <section class="summary-card">
               <p class="eyebrow">Send monitor heads-up?</p>
-              <p class="summary-value tier-high">YES</p><p class="summary-note">Send this monitor report because current risk is ELEVATED. This is not an official LPEA or NWS notice.</p>
+              <p class="summary-value tier-green">NO</p><p class="summary-note">No material alert, significant outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present.</p>
             </section>
             
             <section class="summary-card">
@@ -1132,7 +1155,7 @@
             
             <section class="summary-card">
               <p class="eyebrow">LPEA signal</p>
-              <p class="summary-value signal-watch">Active source match</p><p class="summary-note">LPEA homepage across 1 source. Review source links before treating as a confirmed outage or PSPS notice.</p>
+              <p class="summary-value signal-outage">Active outage context</p><p class="summary-note">2 active outages; 1 planned and 1 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.</p>
             </section>
             
       </div>
@@ -1154,7 +1177,7 @@
     <section class="section-panel">
       <p class="eyebrow">7-Day Outlook</p>
       <h2>Weather + PSPS Outlook</h2>
-      <p class="footer-note">Weather-driven PSPS watch conditions are present; monitor LPEA updates and outage channels.</p>
+      <p class="footer-note">PSPS likelihood is elevated, but weather remains below watch thresholds.</p>
       <div class="definition-box">
         <strong>PSPS = Public Safety Power Shutoff</strong>
         <p>A planned, safety-related power shutoff LPEA may use during dangerous fire-weather conditions to reduce wildfire ignition risk. This monitor estimates weather-driven likelihood only; it is not an official shutoff notice.</p>
@@ -1166,65 +1189,65 @@
       </div>
       <div class="risk-strip">
         
-            <div class="outlook-segment psps-watch">
+            <div class="outlook-segment psps-elevated">
               <span>Tue</span>
               <small>Jul 14</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
+              <strong>PSPS ELEVATED</strong>
+              <em>Weather GREEN</em>
               <em>Starting point</em>
-              <b>Pagosa Springs, Arboles</b>
+              <b>Arboles, Chimney Rock</b>
             </div>
             
-            <div class="outlook-segment psps-watch">
+            <div class="outlook-segment psps-low">
               <span>Wed</span>
               <small>Jul 15</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
               <em>Easing</em>
-              <b>Durango, Bayfield</b>
+              <b>Arboles, Durango</b>
             </div>
             
-            <div class="outlook-segment psps-watch">
+            <div class="outlook-segment psps-low">
               <span>Thu</span>
               <small>Jul 16</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
-              <em>Easing</em>
-              <b>Durango, Pagosa Springs</b>
-            </div>
-            
-            <div class="outlook-segment psps-watch">
-              <span>Fri</span>
-              <small>Jul 17</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
               <em>Easing</em>
               <b>Pagosa Springs, Arboles</b>
             </div>
             
-            <div class="outlook-segment psps-watch">
+            <div class="outlook-segment psps-low">
+              <span>Fri</span>
+              <small>Jul 17</small>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
+              <em>Worsening</em>
+              <b>Pagosa Springs, Arboles</b>
+            </div>
+            
+            <div class="outlook-segment psps-low">
               <span>Sat</span>
               <small>Jul 18</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
               <em>Worsening</em>
               <b>Durango, Ignacio</b>
             </div>
             
-            <div class="outlook-segment psps-watch">
+            <div class="outlook-segment psps-low">
               <span>Sun</span>
               <small>Jul 19</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
               <em>Worsening</em>
               <b>Arboles, Chimney Rock</b>
             </div>
             
-            <div class="outlook-segment psps-watch">
+            <div class="outlook-segment psps-low">
               <span>Mon</span>
               <small>Jul 20</small>
-              <strong>PSPS WATCH</strong>
-              <em>Weather ELEVATED</em>
+              <strong>PSPS LOW</strong>
+              <em>Weather GREEN</em>
               <em>Worsening</em>
               <b>Chimney Rock, Durango</b>
             </div>
@@ -1236,30 +1259,17 @@
       </div>
       <div class="area-grid">
         
-        <article class="area-card psps-low">
-          <div class="area-card-top">
-            <div>
-              <p class="eyebrow">Pagosa Springs</p>
-              <h3>LOW</h3>
-            </div>
-            <span class="score-badge">12/100</span>
-          </div>
-          <p class="source-meta">Today: Weather score 12/100: RH 23%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0.</p>
-          <p class="source-meta">Peak: Tue, Jul 14 at LOW 12/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
-        </article>
-        
-        <article class="area-card psps-low">
+        <article class="area-card psps-elevated">
           <div class="area-card-top">
             <div>
               <p class="eyebrow">Arboles</p>
-              <h3>LOW</h3>
+              <h3>ELEVATED</h3>
             </div>
-            <span class="score-badge">12/100</span>
+            <span class="score-badge">18/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 12/100: RH 23%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0.</p>
-          <p class="source-meta">Peak: Tue, Jul 14 at LOW 12/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 6 PM local; RH 34%, wind 16 mph.</p>
+          <p class="source-meta">Today: Weather score 14/100: RH 22%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
+          <p class="source-meta">Peak: Tue, Jul 14 at ELEVATED 18/100.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 4 PM local; RH 31%, wind 15 mph.</p>
         </article>
         
         <article class="area-card psps-low">
@@ -1270,9 +1280,9 @@
             </div>
             <span class="score-badge">12/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 12/100: RH 23%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0.</p>
+          <p class="source-meta">Today: Weather score 8/100: RH 23%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
           <p class="source-meta">Peak: Tue, Jul 14 at LOW 12/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 6 PM local; RH 28%, wind 15 mph.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 3 PM local; RH 26%, wind 15 mph.</p>
         </article>
         
         <article class="area-card psps-low">
@@ -1283,9 +1293,9 @@
             </div>
             <span class="score-badge">12/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 12/100: RH 26%, wind/gust 17 mph, red-flag hours 0, near-threshold hours 0.</p>
+          <p class="source-meta">Today: Weather score 8/100: RH 26%, wind/gust 17 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
           <p class="source-meta">Peak: Tue, Jul 14 at LOW 12/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 6 PM local; RH 29%, wind 17 mph.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 3 PM local; RH 34%, wind 17 mph.</p>
         </article>
         
         <article class="area-card psps-low">
@@ -1296,9 +1306,9 @@
             </div>
             <span class="score-badge">12/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 12/100: RH 28%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0.</p>
+          <p class="source-meta">Today: Weather score 8/100: RH 28%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
           <p class="source-meta">Peak: Tue, Jul 14 at LOW 12/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 6 PM local; RH 32%, wind 16 mph.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 3 PM local; RH 35%, wind 16 mph.</p>
         </article>
         
         <article class="area-card psps-low">
@@ -1309,9 +1319,22 @@
             </div>
             <span class="score-badge">12/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 12/100: RH 26%, wind/gust 18 mph, red-flag hours 0, near-threshold hours 0.</p>
+          <p class="source-meta">Today: Weather score 8/100: RH 25%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
           <p class="source-meta">Peak: Tue, Jul 14 at LOW 12/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 3 PM local; RH 31%, wind 18 mph.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 3 PM local; RH 31%, wind 16 mph.</p>
+        </article>
+        
+        <article class="area-card psps-low">
+          <div class="area-card-top">
+            <div>
+              <p class="eyebrow">Pagosa Springs</p>
+              <h3>LOW</h3>
+            </div>
+            <span class="score-badge">4/100</span>
+          </div>
+          <p class="source-meta">Today: Weather score 0/100: RH 25%, wind/gust 13 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
+          <p class="source-meta">Peak: Tue, Jul 14 at LOW 4/100.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 4 PM local; RH 25%, wind 13 mph.</p>
         </article>
         
         <article class="area-card psps-low">
@@ -1322,9 +1345,9 @@
             </div>
             <span class="score-badge">4/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 4/100: RH 28%, wind/gust 14 mph, red-flag hours 0, near-threshold hours 0.</p>
+          <p class="source-meta">Today: Weather score 0/100: RH 31%, wind/gust 13 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
           <p class="source-meta">Peak: Tue, Jul 14 at LOW 4/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 6 PM local; RH 33%, wind 14 mph.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 3 PM local; RH 31%, wind 13 mph.</p>
         </article>
         
         <article class="area-card psps-low">
@@ -1335,141 +1358,156 @@
             </div>
             <span class="score-badge">4/100</span>
           </div>
-          <p class="source-meta">Today: Weather score 4/100: RH 28%, wind/gust 14 mph, red-flag hours 0, near-threshold hours 0.</p>
+          <p class="source-meta">Today: Weather score 0/100: RH 27%, wind/gust 13 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +4.</p>
           <p class="source-meta">Peak: Tue, Jul 14 at LOW 4/100.</p>
-          <p class="risk-window">Highest-risk window: Peak ingredients near 9 PM local; RH 56%, wind 14 mph.</p>
+          <p class="risk-window">Highest-risk window: Peak ingredients near 9 PM local; RH 53%, wind 13 mph.</p>
         </article>
         
       </div>
       <details class="detail-disclosure">
-        <summary>Location driver detail (7 watch/likely days)</summary>
+        <summary>Location driver detail (0 watch/likely days)</summary>
         <div class="detail-disclosure-content">
           <div class="psps-location-grid">
             
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Tue, Jul 14</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 12/100</p>
-          <p class="source-meta">First day in this forecast run; trend builds from following days.</p>
-          <ul>
-            <li><strong>Pagosa Springs</strong>: LOW 12/100. Weather score 12/100: RH 23%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</li><li><strong>Arboles / southwest county</strong>: LOW 12/100. Weather score 12/100: RH 23%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 6 PM local; RH 34%, wind 16 mph.</li><li><strong>Chimney Rock / west county</strong>: LOW 12/100. Weather score 12/100: RH 23%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 6 PM local; RH 28%, wind 15 mph.</li>
-          </ul>
-        </article>
-        
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Wed, Jul 15</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 12/100</p>
-          <p class="source-meta">Easing: score 0, wind 0 mph, RH +9%, red-flag hours 0 vs prior day.</p>
-          <ul>
-            <li><strong>Durango / La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 32%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 5 PM local; RH 34%, wind 15 mph.</li><li><strong>Bayfield / east La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 34%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 9 PM local; RH 59%, wind 15 mph.</li><li><strong>Ignacio / southeast La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 31%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 39%, wind 15 mph.</li>
-          </ul>
-        </article>
-        
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Thu, Jul 16</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 12/100</p>
-          <p class="source-meta">Easing: score 0, wind 0 mph, RH +5%, red-flag hours 0 vs prior day.</p>
-          <ul>
-            <li><strong>Durango / La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 37%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 43%, wind 15 mph.</li><li><strong>Pagosa Springs</strong>: LOW 4/100. Weather score 4/100: RH 38%, wind/gust 12 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 39%, wind 12 mph.</li><li><strong>Arboles / southwest county</strong>: LOW 4/100. Weather score 4/100: RH 34%, wind/gust 13 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 2 PM local; RH 36%, wind 13 mph.</li>
-          </ul>
-        </article>
-        
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Fri, Jul 17</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 4/100</p>
-          <p class="source-meta">Easing: score -8, wind -4 mph, RH -1%, red-flag hours 0 vs prior day.</p>
-          <ul>
-            <li><strong>Pagosa Springs</strong>: LOW 4/100. Weather score 4/100: RH 36%, wind/gust 12 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 36%, wind 12 mph.</li><li><strong>Arboles / southwest county</strong>: LOW 4/100. Weather score 4/100: RH 35%, wind/gust 13 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 2 PM local; RH 35%, wind 13 mph.</li><li><strong>Chimney Rock / west county</strong>: LOW 4/100. Weather score 4/100: RH 33%, wind/gust 14 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 34%, wind 14 mph.</li>
-          </ul>
-        </article>
-        
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Sat, Jul 18</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 12/100</p>
-          <p class="source-meta">Worsening: score +8, wind +4 mph, RH -2%, red-flag hours 0 vs prior day.</p>
-          <ul>
-            <li><strong>Durango / La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 34%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 2 PM local; RH 34%, wind 15 mph.</li><li><strong>Ignacio / southeast La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 35%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 5 PM local; RH 38%, wind 15 mph.</li><li><strong>Pagosa Springs</strong>: LOW 4/100. Weather score 4/100: RH 29%, wind/gust 12 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 29%, wind 12 mph.</li>
-          </ul>
-        </article>
-        
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Sun, Jul 19</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 12/100</p>
-          <p class="source-meta">Worsening: score 0, wind 0 mph, RH -5%, red-flag hours 0 vs prior day.</p>
-          <ul>
-            <li><strong>Arboles / southwest county</strong>: LOW 12/100. Weather score 12/100: RH 29%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 4 PM local; RH 30%, wind 15 mph.</li><li><strong>Chimney Rock / west county</strong>: LOW 12/100. Weather score 12/100: RH 24%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 24%, wind 15 mph.</li><li><strong>Durango / La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 29%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 2 PM local; RH 29%, wind 15 mph.</li>
-          </ul>
-        </article>
-        
-        <article class="psps-location-card">
-          <div>
-            <p class="eyebrow">Mon, Jul 20</p>
-            <h3>WATCH</h3>
-          </div>
-          <p class="weather-score">Weather score 12/100</p>
-          <p class="source-meta">Worsening: score 0, wind 0 mph, RH -4%, red-flag hours 0 vs prior day.</p>
-          <ul>
-            <li><strong>Chimney Rock / west county</strong>: LOW 12/100. Weather score 12/100: RH 25%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 25%, wind 15 mph.</li><li><strong>Durango / La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 29%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 3 PM local; RH 29%, wind 16 mph.</li><li><strong>Bayfield / east La Plata County</strong>: LOW 12/100. Weather score 12/100: RH 31%, wind/gust 16 mph, red-flag hours 0, near-threshold hours 0. Risk window: Peak ingredients near 4 PM local; RH 32%, wind 16 mph.</li>
-          </ul>
-        </article>
-        
           </div>
         </div>
       </details>
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Daily Breakdown</p>
+      <h2>What Drives Each Day</h2>
+      <div class="days-grid">
+        
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Tue</p>
+                  <p class="day-date">Jul 14</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 25% / wind 13 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Wed</p>
+                  <p class="day-date">Jul 15</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 35% / wind 13 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Thu</p>
+                  <p class="day-date">Jul 16</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 39% / wind 12 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Fri</p>
+                  <p class="day-date">Jul 17</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 35% / wind 12 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Sat</p>
+                  <p class="day-date">Jul 18</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 29% / wind 12 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Sun</p>
+                  <p class="day-date">Jul 19</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 26% / wind 14 mph</li></ul>
+            </article>
+            
+            <article class="day-card tier-green">
+              <div class="day-card-top">
+                <div>
+                  <p class="eyebrow">Mon</p>
+                  <p class="day-date">Jul 20</p>
+                  <h3>GREEN</h3>
+                </div>
+                <span class="chip tier-green">GREEN</span>
+              </div>
+              <p class="reason">No notable red-flag ingredients across sampled county points.</p>
+              <ul class="metrics"><li>Pagosa Springs: RH 28% / wind 14 mph</li></ul>
+            </article>
+            
+      </div>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">Decision Support</p>
       <h2>Fire + Red Flag + PSPS Prediction</h2>
       <div class="analysis-summary">
-        <strong>MEDIUM confidence · 69/100</strong>
-        <p>Highest LPEA PSPS concern is Tue, Jul 14 near Pagosa Springs (ELEVATED 32/100), driven by breezy wind/gust signal near 15 mph; modest thunder signal near 37%; LPEA active sources contain wildfire/red-flag/power language.</p>
-        <p class="source-meta">Why confidence is medium: 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration</p>
+        <strong>HIGH confidence · 77/100</strong>
+        <p>Highest LPEA PSPS concern is Tue, Jul 14 near Arboles / southwest county (ELEVATED 18/100), driven by breezy wind/gust signal near 15 mph; dry RH near 22%; Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.</p>
+        <p class="source-meta">Why confidence is high: 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; no confirmed PSPS events logged yet for calibration</p>
       </div>
       <div class="analysis-grid">
         
-        <article class="analysis-card analysis-moderate">
-          <p class="eyebrow">Fire danger peak</p>
-          <h3>MODERATE</h3>
-          <p class="analysis-score">50/100</p>
-          <p class="source-meta">Tue, Jul 14: Pagosa Springs MODERATE 50/100</p>
-          <p class="risk-window">Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
-          <ul class="metrics"><li>thunder probability near 37%</li><li>official fire restrictions at STAGE 2</li><li>official fire danger is EXTREME</li></ul>
+        <article class="analysis-card analysis-low">
+          <p class="eyebrow">Weather fire-potential peak</p>
+          <h3>LOW</h3>
+          <p class="analysis-score">24/100</p>
+          <p class="source-meta">Tue, Jul 14: Pagosa Springs LOW 24/100</p>
+          <p class="risk-window">Peak ingredients near 4 PM local; RH 25%, wind 13 mph.</p>
+          <ul class="metrics"><li>official fire restrictions at STAGE 2</li><li>official fire danger is VERY HIGH</li></ul>
         </article>
         
         <article class="analysis-card analysis-low">
           <p class="eyebrow">Red Flag peak</p>
           <h3>LOW</h3>
-          <p class="analysis-score">25/100</p>
-          <p class="source-meta">Tue, Jul 14: Pagosa Springs LOW 25/100</p>
-          <p class="risk-window">Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
-          <ul class="metrics"><li>thunder probability near 37%</li></ul>
+          <p class="analysis-score">0/100</p>
+          <p class="source-meta">Tue, Jul 14: Arboles / southwest county LOW 0/100</p>
+          <p class="risk-window">Peak ingredients near 4 PM local; RH 31%, wind 15 mph.</p>
+          <ul class="metrics"><li>below red-flag screening thresholds</li></ul>
         </article>
         
         <article class="analysis-card analysis-elevated">
           <p class="eyebrow">LPEA PSPS peak</p>
           <h3>ELEVATED</h3>
-          <p class="analysis-score">32/100</p>
-          <p class="source-meta">Tue, Jul 14: Pagosa Springs ELEVATED 32/100</p>
-          <p class="risk-window">Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
-          <ul class="metrics"><li>breezy wind/gust signal near 15 mph</li><li>modest thunder signal near 37%</li><li>LPEA active sources contain wildfire/red-flag/power language</li></ul>
+          <p class="analysis-score">18/100</p>
+          <p class="source-meta">Tue, Jul 14: Arboles / southwest county ELEVATED 18/100</p>
+          <p class="risk-window">Peak ingredients near 4 PM local; RH 31%, wind 15 mph.</p>
+          <ul class="metrics"><li>breezy wind/gust signal near 15 mph</li><li>dry RH near 22%</li><li>Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.</li></ul>
         </article>
         
       </div>
@@ -1478,7 +1516,7 @@
           <thead>
             <tr>
               <th>Date</th>
-              <th>Fire danger</th>
+              <th>Weather fire potential</th>
               <th>Red Flag</th>
               <th>LPEA PSPS</th>
               <th>Main window</th>
@@ -1488,57 +1526,57 @@
             
         <tr>
           <td>Tue, Jul 14</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Pagosa Springs<br><strong>LOW 25/100</strong></td>
-          <td>Pagosa Springs<br><strong>ELEVATED 32/100</strong></td>
-          <td>Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LOW 0/100</strong></td>
+          <td>Arboles / southwest county<br><strong>ELEVATED 18/100</strong></td>
+          <td>Peak ingredients near 4 PM local; RH 31%, wind 15 mph.</td>
         </tr>
         
         <tr>
           <td>Wed, Jul 15</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Durango / La Plata County<br><strong>LOW 25/100</strong></td>
-          <td>Durango / La Plata County<br><strong>ELEVATED 32/100</strong></td>
-          <td>Peak ingredients near 5 PM local; RH 34%, wind 15 mph.</td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LOW 0/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LOW 12/100</strong></td>
+          <td>Peak ingredients near 4 PM local; RH 40%, wind 15 mph.</td>
         </tr>
         
         <tr>
           <td>Thu, Jul 16</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Durango / La Plata County<br><strong>LOW 25/100</strong></td>
-          <td>Durango / La Plata County<br><strong>ELEVATED 32/100</strong></td>
-          <td>Peak ingredients near 3 PM local; RH 43%, wind 15 mph.</td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 0/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 4/100</strong></td>
+          <td>Peak ingredients near 3 PM local; RH 39%, wind 12 mph.</td>
         </tr>
         
         <tr>
           <td>Fri, Jul 17</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Pagosa Springs<br><strong>LOW 25/100</strong></td>
-          <td>Pagosa Springs<br><strong>ELEVATED 24/100</strong></td>
-          <td>Peak ingredients near 3 PM local; RH 36%, wind 12 mph.</td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 0/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 4/100</strong></td>
+          <td>Peak ingredients near 3 PM local; RH 35%, wind 12 mph.</td>
         </tr>
         
         <tr>
           <td>Sat, Jul 18</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Durango / La Plata County<br><strong>LOW 25/100</strong></td>
-          <td>Durango / La Plata County<br><strong>ELEVATED 32/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Durango / La Plata County<br><strong>LOW 0/100</strong></td>
+          <td>Durango / La Plata County<br><strong>LOW 12/100</strong></td>
           <td>Peak ingredients near 2 PM local; RH 34%, wind 15 mph.</td>
         </tr>
         
         <tr>
           <td>Sun, Jul 19</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Arboles / southwest county<br><strong>LOW 25/100</strong></td>
-          <td>Arboles / southwest county<br><strong>ELEVATED 32/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LOW 0/100</strong></td>
+          <td>Arboles / southwest county<br><strong>LOW 12/100</strong></td>
           <td>Peak ingredients near 4 PM local; RH 30%, wind 15 mph.</td>
         </tr>
         
         <tr>
           <td>Mon, Jul 20</td>
-          <td>Pagosa Springs<br><strong>MODERATE 50/100</strong></td>
-          <td>Chimney Rock / west county<br><strong>LOW 25/100</strong></td>
-          <td>Chimney Rock / west county<br><strong>ELEVATED 32/100</strong></td>
+          <td>Pagosa Springs<br><strong>LOW 24/100</strong></td>
+          <td>Chimney Rock / west county<br><strong>LOW 0/100</strong></td>
+          <td>Chimney Rock / west county<br><strong>LOW 12/100</strong></td>
           <td>Peak ingredients near 3 PM local; RH 25%, wind 15 mph.</td>
         </tr>
         
@@ -1549,22 +1587,45 @@
       <ul class="metrics"><li>Rules-based decision support using public weather, fire-posture, and LPEA source signals.</li><li>Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.</li><li>Scores are screening estimates, not statistically calibrated probabilities or official forecasts.</li><li>LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.</li></ul>
     </section>
 
+    
+    <section class="section-panel analyst-interpretation">
+      <p class="eyebrow">Evidence-Grounded Interpretation</p>
+      <h2>Analyst Interpretation</h2>
+      <div class="analysis-summary">
+        <strong>Fire-weather risk is low; elevated PSPS screening reflects preparedness context, not watch-level weather.</strong>
+        <p>The fire-weather tier is GREEN, with no official NWS fire-weather alert and no WATCH or LIKELY PSPS date. The 18/100 ELEVATED PSPS peak near Arboles combines modest dryness and breeze with Stage 2 fire restrictions, which add context but do not create a watch by themselves. Two localized LPEA outages affect one customer each, and neither has a posted fire-weather or PSPS cause.</p>
+        <p class="source-meta">Uncertainty: No confirmed LPEA PSPS event is logged for calibration, and LPEA&#x27;s internal circuit conditions and shutoff thresholds are not public.</p>
+      </div>
+      <div class="review-grid">
+        <div class="review-box">
+          <h3>Changing drivers</h3>
+          <ul class="metrics"><li>Forecast momentum is steady with low volatility versus the prior run.</li><li>No current or prior-run date reaches WATCH-or-higher PSPS screening.</li><li>The top PSPS screen remains ELEVATED 18/100 near Arboles on Tuesday.</li></ul>
+        </div>
+        <div class="review-box">
+          <h3>What to watch next</h3>
+          <ul class="metrics"><li>Watch official NWS alerts and any increase in coincident low humidity and wind.</li><li>Check LPEA sources for direct PSPS intent rather than broad seasonal safety language.</li><li>Track whether either localized outage changes size, cause, or fire relationship.</li></ul>
+        </div>
+      </div>
+      <p class="footer-note">This evidence-grounded interpretation cannot change deterministic tiers, scores, official alerts, or notification decisions.</p>
+    </section>
+        
+
     <section class="section-panel">
       <p class="eyebrow">Trend Intelligence</p>
       <h2>Trend + Change Detection</h2>
-      <p class="footer-note">Momentum is rising versus the prior run (Jul 13 at 5:40 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present.</p>
+      <p class="footer-note">Momentum is steady versus the prior run (Jul 14 at 11:40 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present.</p>
       <div class="trend-grid">
         
-        <article class="trend-card trend-rising">
+        <article class="trend-card trend-steady">
           <p class="eyebrow">Momentum</p>
-          <strong>Rising</strong>
-          <span>Momentum is rising versus the prior run (Jul 13 at 5:40 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present.</span>
+          <strong>Steady</strong>
+          <span>Momentum is steady versus the prior run (Jul 14 at 11:40 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present.</span>
         </article>
         
-        <article class="trend-card trend-high-30-100">
+        <article class="trend-card trend-low-0-100">
           <p class="eyebrow">Forecast volatility</p>
-          <strong>HIGH 30/100</strong>
-          <span>2 changed days; max score delta 8.</span>
+          <strong>LOW 0/100</strong>
+          <span>0 changed days; max score delta 0.</span>
         </article>
         
         <article class="trend-card trend-none">
@@ -1573,9 +1634,9 @@
           <span>No WATCH-or-higher PSPS dates in current or prior run.</span>
         </article>
         
-        <article class="trend-card trend-jul-13-at-5-40-pm-mdt">
+        <article class="trend-card trend-jul-14-at-11-40-am-mdt">
           <p class="eyebrow">Prior run</p>
-          <strong>Jul 13 at 5:40 PM MDT</strong>
+          <strong>Jul 14 at 11:40 AM MDT</strong>
           <span>Compared against the most recent prior forecast run in local history.</span>
         </article>
         
@@ -1583,7 +1644,7 @@
       <div class="review-grid">
         <div class="review-box">
           <h3>What changed</h3>
-          <ul class="metrics"><li>No WATCH-or-higher PSPS dates in current or prior run.</li><li>Overall PSPS likelihood changed from ELEVATED to WATCH.</li><li>Tue, Jul 14: easing vs prior run; PSPS ELEVATED -&gt; LOW; score -6, wind 0 mph, RH +1%, red-flag hours 0.</li><li>Fri, Jul 17: easing vs prior run; PSPS LOW -&gt; LOW; score -8, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Pagosa Springs.</li></ul>
+          <ul class="metrics"><li>No WATCH-or-higher PSPS dates in current or prior run.</li><li>No major day-level movement versus the prior run.</li></ul>
         </div>
       </div>
     </section>
@@ -1591,31 +1652,31 @@
     <section class="section-panel">
       <p class="eyebrow">Analysis Export</p>
       <h2>Public Analysis Snapshot</h2>
-      <p class="footer-note">Highest LPEA PSPS concern is Tue, Jul 14 near Pagosa Springs (ELEVATED 32/100), driven by breezy wind/gust signal near 15 mph; modest thunder signal near 37%; LPEA active sources contain wildfire/red-flag/power language.</p>
+      <p class="footer-note">Highest LPEA PSPS concern is Tue, Jul 14 near Arboles / southwest county (ELEVATED 18/100), driven by breezy wind/gust signal near 15 mph; dry RH near 22%; Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.</p>
       <div class="analysis-grid">
         
         <article class="analysis-card analysis-elevated">
           <p class="eyebrow">PSPS peak</p>
           <h3>ELEVATED</h3>
-          <p class="analysis-score">32/100</p>
-          <p class="source-meta">Tue, Jul 14 · Pagosa Springs</p>
-          <p class="risk-window">Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
+          <p class="analysis-score">18/100</p>
+          <p class="source-meta">Tue, Jul 14 · Arboles / southwest county</p>
+          <p class="risk-window">Peak ingredients near 4 PM local; RH 31%, wind 15 mph.</p>
         </article>
         
         <article class="analysis-card analysis-low">
           <p class="eyebrow">Red Flag peak</p>
           <h3>LOW</h3>
-          <p class="analysis-score">25/100</p>
-          <p class="source-meta">Tue, Jul 14 · Pagosa Springs</p>
-          <p class="risk-window">Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
+          <p class="analysis-score">0/100</p>
+          <p class="source-meta">Tue, Jul 14 · Arboles / southwest county</p>
+          <p class="risk-window">Peak ingredients near 4 PM local; RH 31%, wind 15 mph.</p>
         </article>
         
-        <article class="analysis-card analysis-moderate">
-          <p class="eyebrow">Fire danger peak</p>
-          <h3>MODERATE</h3>
-          <p class="analysis-score">50/100</p>
+        <article class="analysis-card analysis-low">
+          <p class="eyebrow">Weather fire-potential peak</p>
+          <h3>LOW</h3>
+          <p class="analysis-score">24/100</p>
           <p class="source-meta">Tue, Jul 14 · Pagosa Springs</p>
-          <p class="risk-window">Peak ingredients near 6 PM local; RH 27%, wind 15 mph.</p>
+          <p class="risk-window">Peak ingredients near 4 PM local; RH 25%, wind 13 mph.</p>
         </article>
         
       </div>
@@ -1638,7 +1699,7 @@
       <p class="eyebrow">Official Source Context</p>
       <h2>Fire Posture + Restrictions</h2>
       <p class="footer-note">5 official sources indicate fire restrictions or staged restrictions.</p>
-      <p class="footer-note">Detected max: restrictions STAGE 2; fire danger EXTREME. Sources reachable: 7/7.</p>
+      <p class="footer-note">Detected max: restrictions STAGE 2; fire danger VERY HIGH. Sources reachable: 7/7.</p>
       <p class="footer-note">Official-source status check only; verify restrictions and burn decisions with the responsible jurisdiction.</p>
       <div class="fire-posture-grid">
         
@@ -1667,7 +1728,7 @@
           <p class="source-meta">San Juan National Forest · Federal forest</p>
           <div class="fire-chip-row">
             <span class="fire-chip fire-stage-2">Restrictions: STAGE 2</span>
-            <span class="fire-chip fire-extreme">Danger: EXTREME</span>
+            <span class="fire-chip fire-very-high">Danger: VERY HIGH</span>
           </div>
           <p class="source-snippet">...an Juan National Forest Alerts and Fire Danger Status Alerts: View All Alerts 🡪 Stage II Fire Prohibition Order Ferris Fire Area, Trail and Road Closure Mainstem Hermosa Creek Culvert Installation Project Ar...</p>
         </article>
@@ -1716,105 +1777,6 @@
     </section>
 
     <section class="section-panel">
-      <p class="eyebrow">Daily Breakdown</p>
-      <h2>What Drives Each Day</h2>
-      <div class="days-grid">
-        
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Tue</p>
-                  <p class="day-date">Jul 14</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 37%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 23% / wind 15 mph</li><li>Arboles / southwest county: RH 23% / wind 16 mph</li></ul>
-            </article>
-            
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Wed</p>
-                  <p class="day-date">Jul 15</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 67%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 33% / wind 13 mph</li><li>Arboles / southwest county: RH 29% / wind 14 mph</li></ul>
-            </article>
-            
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Thu</p>
-                  <p class="day-date">Jul 16</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 75%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 38% / wind 12 mph</li><li>Arboles / southwest county: RH 34% / wind 13 mph</li></ul>
-            </article>
-            
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Fri</p>
-                  <p class="day-date">Jul 17</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 84%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 36% / wind 12 mph</li><li>Arboles / southwest county: RH 35% / wind 13 mph</li></ul>
-            </article>
-            
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Sat</p>
-                  <p class="day-date">Jul 18</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 50%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 29% / wind 12 mph</li><li>Arboles / southwest county: RH 32% / wind 14 mph</li></ul>
-            </article>
-            
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Sun</p>
-                  <p class="day-date">Jul 19</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 39%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 26% / wind 14 mph</li><li>Arboles / southwest county: RH 29% / wind 15 mph</li></ul>
-            </article>
-            
-            <article class="day-card tier-elevated">
-              <div class="day-card-top">
-                <div>
-                  <p class="eyebrow">Mon</p>
-                  <p class="day-date">Jul 20</p>
-                  <h3>ELEVATED</h3>
-                </div>
-                <span class="chip tier-elevated">ELEVATED</span>
-              </div>
-              <p class="reason">Pagosa Springs: Elevated ingredient present: thunder probability reaches 53%.</p>
-              <ul class="metrics"><li>Pagosa Springs: RH 28% / wind 14 mph</li><li>Arboles / southwest county: RH 28% / wind 14 mph</li></ul>
-            </article>
-            
-      </div>
-    </section>
-
-    <section class="section-panel">
       <p class="eyebrow">Model Calibration</p>
       <h2>Forecast Accuracy Scorecard</h2>
       <h3 class="calibration-lane-title">PSPS calibration</h3>
@@ -1838,30 +1800,30 @@
         </article>
         <article class="calibration-card">
           <p class="eyebrow">Pending</p>
-          <strong>7</strong>
+          <strong>0</strong>
           <span>current WATCH/LIKELY dates</span>
         </article>
     
       </div>
       <p class="footer-note">Calibration source: manual PSPS event log plus forecast history from prior monitor runs.</p>
       <h3 class="calibration-lane-title">Red Flag / Fire Weather calibration</h3>
-      <p class="footer-note">21/21 official Red Flag / Fire Weather alert dates had a pre-alert HIGH monitor signal. Average lead time: 5.0 days.</p>
+      <p class="footer-note">3/3 official Red Flag / Fire Weather episodes had a pre-alert HIGH monitor signal; date-level result was 21/21. Episode-average lead time: 3.5 days.</p>
       <div class="calibration-grid">
         
         <article class="calibration-card">
-          <p class="eyebrow">Official alert dates</p>
-          <strong>21</strong>
-          <span>NWS Red Flag / Fire Weather dates logged</span>
+          <p class="eyebrow">Official alert episodes</p>
+          <strong>3</strong>
+          <span>21 NWS alert dates grouped into episodes</span>
         </article>
         <article class="calibration-card">
-          <p class="eyebrow">Pre-alert hit rate</p>
+          <p class="eyebrow">Episode hit rate</p>
           <strong>100%</strong>
-          <span>HIGH before official alert</span>
+          <span>episodes with HIGH before official alert</span>
         </article>
         <article class="calibration-card">
           <p class="eyebrow">Average lead</p>
-          <strong>5.0 days</strong>
-          <span>first HIGH signal before NWS alert</span>
+          <strong>3.5 days</strong>
+          <span>episode-level first HIGH signal before NWS alert</span>
         </article>
         <article class="calibration-card">
           <p class="eyebrow">False-HIGH days</p>
@@ -1881,11 +1843,36 @@
     <section class="section-panel">
       <p class="eyebrow">LPEA Monitor</p>
       <h2>Power Interruption Signals</h2>
-      <p class="footer-note">LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent.</p>
+      <p class="footer-note">Official LPEA outage data indicates an operational outage; use as grid context, not PSPS/fire evidence unless LPEA identifies that cause.</p>
       <p class="footer-note">Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. Operational outages are shown separately and are not treated as PSPS/fire evidence unless the source text says so.</p>
-      <p class="footer-note">Evidence quality: 0 operational, 3 active/update, 2 archive/context, 4 reference source matches.</p>
+      <p class="footer-note">Evidence quality: 0 operational, 3 active/update, 0 archive/context, 6 reference source matches.</p>
       <p class="footer-note">Coverage: 13 sources; 5/5 official social sources reachable</p>
       
+        <div class="outage-context-panel">
+          <p class="eyebrow">Official LPEA outage status</p>
+          <h3>Official LPEA outage data shows 2 customers without power near Pagosa Springs, Durango / La Plata County.</h3>
+          <p>2 active outages; 1 planned and 1 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.</p>
+          <ul class="metrics">
+            <li>
+              <strong>Pagosa Springs</strong>:
+              1 customer out;
+              planned;
+              cause 110 Maintenance;
+              crew assigned.
+            </li>
+            
+            <li>
+              <strong>Durango / La Plata County</strong>:
+              1 customer out;
+              unplanned;
+              cause not posted;
+              crew assigned.
+            </li>
+            </ul>
+          <p>This is treated as operational grid context only; it does not raise PSPS scoring by itself.</p>
+          <p class="source-meta">Official data updated 2026-07-14T11:48:06.2610396-06:00. Source: <a href="https://outage.lpea.coop" target="_blank" rel="noopener noreferrer">LPEA outage map</a></p>
+        </div>
+        
       <div class="source-grid">
         
         <article class="source-card">
@@ -1897,22 +1884,6 @@
         </article>
         
         <article class="source-card">
-          <p class="source-name"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
-          <p class="source-meta">1 source: <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
-          <p class="quality-pill quality-context">Archive/context</p>
-          <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
-          <p class="source-snippet">...Board Election Season 04/17/2025 LPEA Implements Proactive Fire Measures Due to Red Flag Warning 04/14/2025 PSA: La Plata Electric Association – 2025 Board Election Voting Information 04/10/2025 LPEA Awards $...</p>
-        </article>
-        
-        <article class="source-card">
-          <p class="source-name"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">News-release archive PSPS item</a></p>
-          <p class="source-meta">1 source: <a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></p>
-          <p class="quality-pill quality-context">Archive/context</p>
-          <p class="source-tags">red flag, wildfire, public safety power shutoff, power shutoff, shutoff, power outage</p>
-          <p class="source-snippet">...utoffs Implemented in Pagosa Springs Due to Oak Fire 07/26/2025 LPEA Monitoring Wildfire Activity; Power Shutoffs Possible to Protect Public Safety 07/22/2025 LPEA and Farmington Electric Establish Mutual Aid...</p>
-        </article>
-        
-        <article class="source-card">
           <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
           <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
           <p class="quality-pill quality-active">Social/update cue</p>
@@ -1920,9 +1891,17 @@
           <p class="source-snippet">...followers 2w Edited Report this post Electric co-ops do a significant amount of wildfire mitigation work every year, all with one goal: protecting our members and the communities we serve. But, in much of the...</p>
         </article>
         
+        <article class="source-card">
+          <p class="source-name"><a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LinkedIn PSPS explainer post</a></p>
+          <p class="source-meta">1 source: <a href="https://www.linkedin.com/company/la-plata-electric-association/" target="_blank" rel="noopener noreferrer">LPEA LinkedIn</a></p>
+          <p class="quality-pill quality-active">Social/update cue</p>
+          <p class="source-tags">wildfire, public safety power shutoff, power shutoff, shutoff, fire mitigation</p>
+          <p class="source-snippet">...dicting fire risk before it becomes fire reality. From vegetation management to Public Safety Power Shutoffs, this episode gets into the decisions, programs, and partnerships that help protect our members and our grid. Whether...</p>
+        </article>
+        
       </div>
       <div class="reference-pills">
-        <span class="reference-pill"><a href="https://lpea.coop/outage-center" target="_blank" rel="noopener noreferrer">LPEA outage center</a></span><span class="reference-pill"><a href="https://lpea.coop/psps" target="_blank" rel="noopener noreferrer">LPEA wildfire / public safety power shutoffs</a></span><span class="reference-pill"><a href="https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members" target="_blank" rel="noopener noreferrer">LPEA red flag outage impact page</a></span><span class="reference-pill"><a href="https://lpea.coop/fire-mitigation" target="_blank" rel="noopener noreferrer">LPEA fire mitigation</a></span>
+        <span class="reference-pill"><a href="https://lpea.coop/outage-center" target="_blank" rel="noopener noreferrer">LPEA outage center</a></span><span class="reference-pill"><a href="https://lpea.coop/psps" target="_blank" rel="noopener noreferrer">LPEA wildfire / public safety power shutoffs</a></span><span class="reference-pill"><a href="https://lpea.coop/outages/red-flag-warnings-and-impact-outages-prioritizing-safety-our-members" target="_blank" rel="noopener noreferrer">LPEA red flag outage impact page</a></span><span class="reference-pill"><a href="https://lpea.coop/fire-mitigation" target="_blank" rel="noopener noreferrer">LPEA fire mitigation</a></span><span class="reference-pill"><a href="https://lpea.coop/Posts" target="_blank" rel="noopener noreferrer">LPEA latest news</a></span><span class="reference-pill"><a href="https://lpea.coop/news-releases" target="_blank" rel="noopener noreferrer">LPEA news releases</a></span>
       </div>
     </section>
 
@@ -1997,5 +1976,25 @@
       </details>
     </section>
   </main>
+  <script>
+    (() => {
+      const badge = document.getElementById("freshness-badge");
+      if (!badge) return;
+      const now = Date.now();
+      const lateAfter = Date.parse(badge.dataset.lateAfter || "");
+      const staleAfter = Date.parse(badge.dataset.staleAfter || "");
+      let status = "CURRENT";
+      if (Number.isFinite(staleAfter) && now > staleAfter) status = "STALE";
+      else if (Number.isFinite(lateAfter) && now > lateAfter) status = "LATE";
+      badge.textContent = status;
+      badge.classList.remove("freshness-current", "freshness-late", "freshness-stale");
+      badge.classList.add(`freshness-${status.toLowerCase()}`);
+      const generated = Date.parse(badge.dataset.generatedAt || "");
+      if (Number.isFinite(generated)) {
+        const hours = Math.max(0, (now - generated) / 3600000);
+        badge.title = `Report generated ${hours < 1 ? "less than an hour" : `${Math.floor(hours)} hour${Math.floor(hours) === 1 ? "" : "s"}`} ago.`;
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+{
+  "changing_drivers": [
+    "Forecast momentum is steady with low volatility versus the prior run.",
+    "No current or prior-run date reaches WATCH-or-higher PSPS screening.",
+    "The top PSPS screen remains ELEVATED 18/100 near Arboles on Tuesday."
+  ],
+  "evidence_ids": [
+    "overall_status",
+    "weather_peaks",
+    "official_alerts",
+    "forecast_change",
+    "lpea_context",
+    "fire_posture",
+    "calibration"
+  ],
+  "generated_at": "2026-07-14T11:50:49-06:00",
+  "headline": "Fire-weather risk is low; elevated PSPS screening reflects preparedness context, not watch-level weather.",
+  "report_generated_at": "2026-07-14T11:49:19.025007-06:00",
+  "schema_version": 1,
+  "status": "reviewed",
+  "summary": "The fire-weather tier is GREEN, with no official NWS fire-weather alert and no WATCH or LIKELY PSPS date. The 18/100 ELEVATED PSPS peak near Arboles combines modest dryness and breeze with Stage 2 fire restrictions, which add context but do not create a watch by themselves. Two localized LPEA outages affect one customer each, and neither has a posted fire-weather or PSPS cause.",
+  "uncertainty": "No confirmed LPEA PSPS event is logged for calibration, and LPEA's internal circuit conditions and shutoff thresholds are not public.",
+  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
+  "watch_items": [
+    "Watch official NWS alerts and any increase in coincident low humidity and wind.",
+    "Check LPEA sources for direct PSPS intent rather than broad seasonal safety language.",
+    "Track whether either localized outage changes size, cause, or fire relationship."
+  ]
+}

@@ -4,6 +4,7 @@ import csv
 import datetime as dt
 import html
 import json
+import math
 import os
 import re
 import smtplib
@@ -14,6 +15,8 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 TIER_RANK = {
     "GREEN": 0,
@@ -74,10 +77,85 @@ def load_config(path: Path) -> Dict[str, Any]:
         return json.load(fh)
 
 
-def request_json(session: requests.Session, url: str, timeout: int = 60) -> Dict[str, Any]:
+def request_json(session: requests.Session, url: str, timeout: int = 60) -> Any:
     resp = session.get(url, timeout=timeout)
     resp.raise_for_status()
     return resp.json()
+
+
+def build_http_session(config: Dict[str, Any]) -> requests.Session:
+    network = config.get("network", {})
+    retries = Retry(
+        total=int(network.get("retry_count", 3)),
+        connect=int(network.get("retry_count", 3)),
+        read=int(network.get("retry_count", 3)),
+        backoff_factor=float(network.get("retry_backoff_seconds", 0.8)),
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset({"GET"}),
+        respect_retry_after_header=True,
+    )
+    session = requests.Session()
+    adapter = HTTPAdapter(max_retries=retries)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    session.headers.update(
+        {
+            "User-Agent": config.get("user_agent", "archuleta-red-flag-monitor/1.0"),
+            "Accept": "application/geo+json, application/json, text/html;q=0.9, */*;q=0.8",
+        }
+    )
+    return session
+
+
+def parse_local_schedule(config: Dict[str, Any]) -> List[Tuple[int, int]]:
+    schedule = config.get("scheduled_update_times_local") or []
+    parsed: List[Tuple[int, int]] = []
+    for value in schedule:
+        try:
+            hour_text, minute_text = str(value).split(":", 1)
+            hour = int(hour_text)
+            minute = int(minute_text)
+        except (TypeError, ValueError):
+            continue
+        if 0 <= hour <= 23 and 0 <= minute <= 59:
+            parsed.append((hour, minute))
+    return sorted(set(parsed))
+
+
+def next_scheduled_update(now_local: dt.datetime, config: Dict[str, Any]) -> Optional[dt.datetime]:
+    schedule = parse_local_schedule(config)
+    if schedule:
+        for day_offset in range(2):
+            candidate_date = now_local.date() + dt.timedelta(days=day_offset)
+            for hour, minute in schedule:
+                candidate = dt.datetime.combine(candidate_date, dt.time(hour, minute), tzinfo=now_local.tzinfo)
+                if candidate > now_local:
+                    return candidate
+
+    interval = config.get("expected_update_interval_minutes")
+    if interval:
+        return now_local + dt.timedelta(minutes=int(interval))
+    return None
+
+
+def build_freshness_metadata(
+    generated_at: dt.datetime,
+    next_update_at: Optional[dt.datetime],
+    config: Dict[str, Any],
+) -> Dict[str, Any]:
+    grace_minutes = int(config.get("update_grace_minutes", 90))
+    stale_after_minutes = int(config.get("stale_after_minutes", 900))
+    late_after = next_update_at + dt.timedelta(minutes=grace_minutes) if next_update_at else None
+    stale_after = generated_at + dt.timedelta(minutes=stale_after_minutes)
+    return {
+        "status": "CURRENT",
+        "generated_at": generated_at.isoformat(),
+        "next_scheduled_update_at": next_update_at.isoformat() if next_update_at else None,
+        "late_after": late_after.isoformat() if late_after else None,
+        "stale_after": stale_after.isoformat(),
+        "update_grace_minutes": grace_minutes,
+        "note": "Freshness is evaluated in the browser against the scheduled local update windows.",
+    }
 
 
 def parse_datetime(value: Optional[str]) -> Optional[dt.datetime]:
@@ -224,6 +302,18 @@ def public_analysis_export_path(config_path: Path, config: Dict[str, Any]) -> Pa
     return output_path(config_path, config, "public_analysis_export_json", "public_analysis_export.json")
 
 
+def public_latest_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "public_latest_json", "public_latest.json")
+
+
+def model_review_request_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "model_review_request_json", "model_review_request.json")
+
+
+def public_model_review_path(config_path: Path, config: Dict[str, Any]) -> Path:
+    return output_path(config_path, config, "public_model_review_json", "public_model_review.json")
+
+
 def safe_int(value: Any, default: int = 0) -> int:
     try:
         return int(float(value))
@@ -344,7 +434,9 @@ def score_day(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> Dict
             "max_gust_mph": None,
             "max_usable_wind_mph": None,
             "max_thunder_percent": None,
+            "max_dry_thunder_percent": None,
             "max_precip_percent": None,
+            "dry_thunder_hours": 0,
             "red_flag_hours": 0,
             "near_hours": 0,
             "highest_risk_window": "No forecast hours available.",
@@ -357,6 +449,15 @@ def score_day(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> Dict
     max_usable_wind = max_present(record["usable_wind_mph"] for record in records)
     max_thunder = max_present(record["probability_of_thunder"] for record in records)
     max_precip = max_present(record["probability_of_precip"] for record in records)
+    dry_thunder_records = [
+        record
+        for record in records
+        if record.get("probability_of_thunder") is not None
+        and record["probability_of_thunder"] >= thresholds["elevated_thunder_percent"]
+        and (record.get("probability_of_precip") is None or record["probability_of_precip"] <= thresholds["dry_thunder_precip_max_percent"])
+        and (record.get("relative_humidity") is None or record["relative_humidity"] <= thresholds["near_rh_percent"])
+    ]
+    max_dry_thunder = max_present(record["probability_of_thunder"] for record in dry_thunder_records)
 
     critical_hours = [
         record["utc_hour"]
@@ -389,21 +490,19 @@ def score_day(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> Dict
             f"Near red-flag screen: RH <= {thresholds['near_rh_percent']}% with wind/gust >= {thresholds['near_wind_mph']} mph for at least {thresholds['near_min_hours']} hours."
         )
 
-    if max_thunder is not None and max_thunder >= thresholds["thunder_concern_percent"]:
-        dry_enough = max_precip is None or max_precip <= thresholds["dry_thunder_precip_max_percent"]
-        if dry_enough:
-            tier = max_tier(tier, "CONCERN")
-            reasons.append(
-                f"Dry-thunder signal: thunder probability reaches {max_thunder:.0f}% with low precipitation probability."
-            )
+    if max_dry_thunder is not None and max_dry_thunder >= thresholds["thunder_concern_percent"]:
+        tier = max_tier(tier, "CONCERN")
+        reasons.append(
+            f"Dry-thunder signal: {len(dry_thunder_records)} hourly period{'s' if len(dry_thunder_records) != 1 else ''} combine thunder near {max_dry_thunder:.0f}% with limited precipitation and dry air."
+        )
 
     elevated_reasons = []
     if min_rh is not None and min_rh <= thresholds["red_flag_rh_percent"]:
         elevated_reasons.append(f"very low RH forecast near {min_rh:.0f}%")
     if max_usable_wind is not None and max_usable_wind >= thresholds["red_flag_wind_mph"]:
         elevated_reasons.append(f"wind/gust forecast near {max_usable_wind:.0f} mph")
-    if max_thunder is not None and max_thunder >= thresholds["elevated_thunder_percent"]:
-        elevated_reasons.append(f"thunder probability reaches {max_thunder:.0f}%")
+    if max_dry_thunder is not None and max_dry_thunder >= thresholds["elevated_thunder_percent"]:
+        elevated_reasons.append(f"dry-thunder probability reaches {max_dry_thunder:.0f}%")
 
     if tier == "GREEN" and elevated_reasons:
         tier = "ELEVATED"
@@ -429,7 +528,9 @@ def score_day(records: List[Dict[str, Any]], thresholds: Dict[str, Any]) -> Dict
         "max_gust_mph": round(max_gust, 1) if max_gust is not None else None,
         "max_usable_wind_mph": round(max_usable_wind, 1) if max_usable_wind is not None else None,
         "max_thunder_percent": round(max_thunder, 1) if max_thunder is not None else None,
+        "max_dry_thunder_percent": round(max_dry_thunder, 1) if max_dry_thunder is not None else None,
         "max_precip_percent": round(max_precip, 1) if max_precip is not None else None,
+        "dry_thunder_hours": len(dry_thunder_records),
         "red_flag_hours": len(set(critical_hours)),
         "near_hours": len(set(near_hours)),
         "highest_risk_window": risk_window_summary(records, thresholds),
@@ -864,6 +965,182 @@ def summarize_lpea_operational_outage(hits: List[Dict[str, Any]]) -> Dict[str, A
     }
 
 
+def haversine_miles(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    radius_miles = 3958.8
+    lat1_rad = math.radians(lat1)
+    lat2_rad = math.radians(lat2)
+    delta_lat = math.radians(lat2 - lat1)
+    delta_lon = math.radians(lon2 - lon1)
+    value = (
+        math.sin(delta_lat / 2) ** 2
+        + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(delta_lon / 2) ** 2
+    )
+    return radius_miles * 2 * math.atan2(math.sqrt(value), math.sqrt(1 - value))
+
+
+def nearest_sample_area(lat: Optional[float], lon: Optional[float], config: Dict[str, Any]) -> Dict[str, Any]:
+    if lat is None or lon is None:
+        return {"name": "LPEA service territory", "distance_miles": None}
+    nearest = None
+    for point in config.get("sample_points", []):
+        distance = haversine_miles(float(lat), float(lon), float(point["lat"]), float(point["lon"]))
+        if nearest is None or distance < nearest["distance_miles"]:
+            nearest = {"name": point["name"], "distance_miles": round(distance, 1)}
+    return nearest or {"name": "LPEA service territory", "distance_miles": None}
+
+
+def normalize_lpea_api_outage(outage: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
+    point = outage.get("outagePoint") or {}
+    lat = safe_float(point.get("lat"))
+    lon = safe_float(point.get("lng"))
+    nearest = nearest_sample_area(lat, lon, config)
+    context = " ".join(
+        str(outage.get(key) or "")
+        for key in ("outageName", "cause", "outageWorkStatus", "code")
+    )
+    return {
+        "id": outage.get("outageRecID"),
+        "name": outage.get("outageName") or "LPEA outage",
+        "url": LPEA_DEFAULT_OUTAGE_MAP_URL,
+        "latitude": lat,
+        "longitude": lon,
+        "nearest_area": nearest["name"],
+        "distance_miles": nearest["distance_miles"],
+        "started_at": outage.get("outageStartTime"),
+        "estimated_restoration_at": outage.get("estimatedTimeOfRestoral"),
+        "ended_at": outage.get("outageEndTime"),
+        "modified_at": outage.get("outageModifiedTime"),
+        "planned": bool(outage.get("isPlanned")),
+        "verified": bool(outage.get("verified")),
+        "cause": outage.get("cause"),
+        "crew_assigned": bool(outage.get("crewAssigned")),
+        "work_status": outage.get("outageWorkStatus"),
+        "customers_out_initially": safe_int(outage.get("customersOutInitially")),
+        "customers_out_now": safe_int(outage.get("customersOutNow")),
+        "customers_restored": safe_int(outage.get("customersRestored")),
+        "fire_related": lpea_text_has_psps_fire_context(context),
+        "psps_related": any(
+            phrase in context.lower()
+            for phrase in ("public safety power shutoff", "psps", "de-energ", "wildfire safety")
+        ),
+        "source": "Official LPEA outage viewer",
+    }
+
+
+def check_lpea_outage_api(session: requests.Session, config: Dict[str, Any]) -> Dict[str, Any]:
+    lpea_config = config.get("lpea", {})
+    api_config = lpea_config.get("outage_api", {})
+    if not api_config.get("enabled", False):
+        return {"status": "disabled", "active": False, "outages": []}
+
+    summary_url = api_config.get("summary_url", f"{LPEA_DEFAULT_OUTAGE_MAP_URL}/data/outageSummary.json")
+    outages_url = api_config.get("outages_url", f"{LPEA_DEFAULT_OUTAGE_MAP_URL}/data/outages.json")
+    planned_url = api_config.get("planned_url", f"{LPEA_DEFAULT_OUTAGE_MAP_URL}/data/plannedOutages.json")
+    try:
+        summary_payload = request_json(session, summary_url, timeout=20)
+        outage_payload = request_json(session, outages_url, timeout=20)
+        planned_payload = request_json(session, planned_url, timeout=20)
+    except (requests.RequestException, ValueError, TypeError) as exc:
+        return {
+            "status": "unavailable",
+            "active": False,
+            "headline": "Official LPEA outage data unavailable; page-text monitoring is used as fallback.",
+            "error": f"{exc.__class__.__name__}: {exc}",
+            "summary_url": summary_url,
+            "outages_url": outages_url,
+            "planned_url": planned_url,
+            "outages": [],
+        }
+
+    summary = summary_payload if isinstance(summary_payload, dict) else {}
+    raw_outages = outage_payload if isinstance(outage_payload, list) else []
+    raw_planned = planned_payload if isinstance(planned_payload, list) else []
+    by_id: Dict[str, Dict[str, Any]] = {}
+    for raw in [*raw_outages, *raw_planned]:
+        if not isinstance(raw, dict):
+            continue
+        normalized = normalize_lpea_api_outage(raw, config)
+        key = str(normalized.get("id") or f"{normalized.get('name')}|{normalized.get('started_at')}")
+        by_id[key] = normalized
+    outages = list(by_id.values())
+    active_outages = [
+        outage
+        for outage in outages
+        if outage.get("customers_out_now", 0) > 0 and not outage.get("ended_at")
+    ]
+    customers_out = safe_int(summary.get("customersOutNow"))
+    if customers_out == 0:
+        customers_out = sum(outage.get("customers_out_now", 0) for outage in active_outages)
+    active = customers_out > 0 or bool(active_outages)
+    areas = []
+    for outage in active_outages:
+        area = outage.get("nearest_area")
+        if area and area not in areas:
+            areas.append(area)
+    planned_count = sum(1 for outage in active_outages if outage.get("planned"))
+    unplanned_count = len(active_outages) - planned_count
+    fire_related = any(outage.get("fire_related") for outage in active_outages)
+    psps_related = any(outage.get("psps_related") for outage in active_outages)
+    if customers_out >= 1000:
+        severity = "major"
+    elif customers_out >= 50:
+        severity = "moderate"
+    elif active:
+        severity = "localized"
+    else:
+        severity = "none"
+    if active:
+        area_text = ", ".join(areas) if areas else "LPEA service territory"
+        headline = f"Official LPEA outage data shows {customers_out:,} customer{'s' if customers_out != 1 else ''} without power near {area_text}."
+        relation = "LPEA data includes fire/PSPS wording." if fire_related or psps_related else "No fire-weather or PSPS cause is identified."
+        summary_text = (
+            f"{len(active_outages)} active outage{'s' if len(active_outages) != 1 else ''}; "
+            f"{planned_count} planned and {unplanned_count} unplanned; "
+            f"{customers_out:,} customer{'s' if customers_out != 1 else ''} out. {relation}"
+        )
+    else:
+        headline = "Official LPEA outage data shows no active customer outages."
+        summary_text = "No active outages are listed by the official LPEA outage viewer."
+    hits = [
+        {
+            "name": outage.get("name"),
+            "url": LPEA_DEFAULT_OUTAGE_MAP_URL,
+            "snippets": [
+                f"{outage.get('nearest_area')}: {outage.get('customers_out_now', 0)} "
+                f"customer{'s' if outage.get('customers_out_now', 0) != 1 else ''} out; "
+                f"{'planned' if outage.get('planned') else 'unplanned'}; cause {outage.get('cause') or 'not posted'}."
+            ],
+        }
+        for outage in active_outages[:8]
+    ]
+    return {
+        "status": "checked",
+        "active": active,
+        "severity": severity,
+        "headline": headline,
+        "summary": summary_text,
+        "source_count": 1,
+        "source": "Official LPEA outage viewer JSON",
+        "source_url": LPEA_DEFAULT_OUTAGE_MAP_URL,
+        "update_time": summary.get("updateTime"),
+        "customers_out_now": customers_out,
+        "customers_affected": safe_int(summary.get("customersAffected")),
+        "customers_served": safe_int(summary.get("customersServed")),
+        "active_outage_count": len(active_outages),
+        "planned_outage_count": planned_count,
+        "unplanned_outage_count": unplanned_count,
+        "affected_members": customers_out,
+        "areas": areas,
+        "fire_related": fire_related,
+        "psps_related": psps_related,
+        "hits": hits,
+        "outages": active_outages,
+        "summary_url": summary_url,
+        "outages_url": outages_url,
+        "planned_url": planned_url,
+    }
+
+
 def configured_fire_posture_sources(config: Dict[str, Any]) -> List[Dict[str, Any]]:
     return config.get("fire_posture", {}).get("sources", [])
 
@@ -962,6 +1239,7 @@ def check_fire_posture(session: requests.Session, config: Dict[str, Any]) -> Dic
             "name": source.get("name", source.get("url", "Unknown source")),
             "jurisdiction_type": source.get("type", "official"),
             "area": source.get("area", source.get("name", "Unknown area")),
+            "applies_to": source.get("applies_to", []),
             "url": source.get("url"),
             "status": "unavailable",
             "restriction_stage": "UNKNOWN",
@@ -1026,24 +1304,68 @@ def check_fire_posture(session: requests.Session, config: Dict[str, Any]) -> Dic
     }
 
 
-def fire_posture_psps_signal(fire_posture: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+def posture_sources_for_location(fire_posture: Dict[str, Any], location_name: Optional[str]) -> List[Dict[str, Any]]:
+    reachable = [source for source in fire_posture.get("sources", []) if source.get("status") == "reachable"]
+    if not location_name:
+        return reachable
+    matched = []
+    normalized_location = location_name.lower()
+    for source in reachable:
+        applies_to = [str(value).lower() for value in source.get("applies_to", [])]
+        if not applies_to or any(value in normalized_location or normalized_location in value for value in applies_to):
+            matched.append(source)
+    return matched
+
+
+def fire_posture_psps_signal(
+    fire_posture: Optional[Dict[str, Any]],
+    location_name: Optional[str] = None,
+) -> Dict[str, Any]:
     if not fire_posture or fire_posture.get("status") == "disabled":
-        return {"level_floor": "LOW", "reason": "Fire posture check disabled or unavailable."}
-    max_stage = fire_posture.get("max_restriction_stage", "UNKNOWN")
-    max_danger = fire_posture.get("max_fire_danger", "UNKNOWN")
+        return {
+            "context_level": "LOW",
+            "score_modifier": 0,
+            "level_floor": "LOW",
+            "reason": "Fire posture check disabled or unavailable.",
+        }
+    sources = posture_sources_for_location(fire_posture, location_name)
+    if sources:
+        max_stage = max(
+            (source.get("restriction_stage", "UNKNOWN") for source in sources),
+            key=lambda item: FIRE_RESTRICTION_RANK.get(item, 0),
+            default="UNKNOWN",
+        )
+        max_danger = max(
+            (source.get("fire_danger", "UNKNOWN") for source in sources),
+            key=lambda item: FIRE_DANGER_RANK.get(item, 0),
+            default="UNKNOWN",
+        )
+    elif location_name:
+        max_stage = "UNKNOWN"
+        max_danger = "UNKNOWN"
+    else:
+        max_stage = fire_posture.get("max_restriction_stage", "UNKNOWN")
+        max_danger = fire_posture.get("max_fire_danger", "UNKNOWN")
+    location_text = f" for {location_name}" if location_name else ""
     if FIRE_RESTRICTION_RANK.get(max_stage, 0) >= FIRE_RESTRICTION_RANK["STAGE 2"] or max_danger == "EXTREME":
         return {
-            "level_floor": "WATCH",
-            "reason": f"Official fire-posture context is escalated ({max_stage}; fire danger {max_danger}), supporting PSPS watch posture.",
+            "context_level": "WATCH",
+            "score_modifier": 4,
+            "level_floor": "LOW",
+            "reason": f"Official fire-posture context{location_text} is escalated ({max_stage}; fire danger {max_danger}); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
         }
     if FIRE_RESTRICTION_RANK.get(max_stage, 0) >= FIRE_RESTRICTION_RANK["STAGE 1"] or FIRE_DANGER_RANK.get(max_danger, 0) >= FIRE_DANGER_RANK["VERY HIGH"]:
         return {
-            "level_floor": "ELEVATED",
-            "reason": f"Official fire-posture context is elevated ({max_stage}; fire danger {max_danger}), used as supporting context.",
+            "context_level": "ELEVATED",
+            "score_modifier": 2,
+            "level_floor": "LOW",
+            "reason": f"Official fire-posture context{location_text} is elevated ({max_stage}; fire danger {max_danger}), used as a small supporting modifier.",
         }
     return {
+        "context_level": "LOW",
+        "score_modifier": 0,
         "level_floor": "LOW",
-        "reason": f"Official fire-posture context is {max_stage}; fire danger {max_danger}.",
+        "reason": f"Official fire-posture context{location_text} is {max_stage}; fire danger {max_danger}.",
     }
 
 
@@ -1152,6 +1474,7 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
     active_hits = []
     reference_hits = []
     operational_outage_hits = []
+    outage_api = check_lpea_outage_api(session, config)
     keywords = lpea_config.get("alert_keywords") or lpea_config.get("fire_keywords", [])
     for source in configured_lpea_sources(lpea_config):
         url = source["url"]
@@ -1196,10 +1519,13 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
 
     social_sources = [source for source in sources if source["type"] == "official_social"]
     social_reachable = sum(1 for source in social_sources if source["status"] == "reachable")
-    operational_outage = summarize_lpea_operational_outage(operational_outage_hits)
-    psps_fire_active = active_hits_have_psps_fire_context(active_hits)
-    if operational_outage["active"] and not psps_fire_active and not operational_outage["fire_related"] and not operational_outage["psps_related"]:
-        headline = "LPEA active/update sources indicate an operational outage; use as grid context, not PSPS/fire evidence unless source text says so."
+    operational_outage = (
+        outage_api
+        if outage_api.get("status") == "checked"
+        else summarize_lpea_operational_outage(operational_outage_hits)
+    )
+    if operational_outage["active"] and not operational_outage["fire_related"] and not operational_outage["psps_related"]:
+        headline = "Official LPEA outage data indicates an operational outage; use as grid context, not PSPS/fire evidence unless LPEA identifies that cause."
         status = "operational_outage_active"
     elif active_hits:
         headline = "LPEA active/update sources contained power-interruption keywords; review source before treating as confirmed outage intent."
@@ -1220,6 +1546,7 @@ def check_lpea(session: requests.Session, config: Dict[str, Any]) -> Dict[str, A
         "active_hits": active_hits,
         "reference_hits": reference_hits,
         "operational_outage": operational_outage,
+        "outage_api": outage_api,
         "active_signal_groups": group_lpea_signal_hits(active_hits),
         "reference_signal_groups": group_lpea_signal_hits(reference_hits),
         "monitored_source_count": len(sources),
@@ -1326,7 +1653,9 @@ def combine_daily_results(
                     "min_rh_percent": day["min_rh_percent"],
                     "max_usable_wind_mph": day["max_usable_wind_mph"],
                     "max_thunder_percent": day["max_thunder_percent"],
+                    "max_dry_thunder_percent": day.get("max_dry_thunder_percent"),
                     "max_precip_percent": day["max_precip_percent"],
+                    "dry_thunder_hours": day.get("dry_thunder_hours", 0),
                     "red_flag_hours": day["red_flag_hours"],
                     "near_hours": day["near_hours"],
                     "highest_risk_window": day.get("highest_risk_window", "n/a"),
@@ -1453,6 +1782,8 @@ def score_weather_inputs(
     red_flag_hours: int,
     near_hours: int,
     official_alerts: Dict[str, Any],
+    dry_thunder_hours: int = 0,
+    max_dry_thunder: Optional[float] = None,
 ) -> Dict[str, Any]:
     score = 0
     factors = []
@@ -1504,17 +1835,16 @@ def score_weather_inputs(
         score += 10
         factors.append(f"{near_hours} sampled hours are near red-flag thresholds")
 
-    if max_thunder is not None:
-        dry_enough = max_precip is None or max_precip <= 20
-        if max_thunder >= 30 and dry_enough:
+    if dry_thunder_hours > 0 and max_dry_thunder is not None:
+        if max_dry_thunder >= 30:
             score += 10
-            factors.append(f"dry-thunder signal near {max_thunder:.0f}%")
-        elif max_thunder >= 20 and dry_enough:
+            factors.append(f"{dry_thunder_hours} dry-thunder hour{'s' if dry_thunder_hours != 1 else ''}, peaking near {max_dry_thunder:.0f}%")
+        elif max_dry_thunder >= 20:
             score += 7
-            factors.append(f"thunder signal near {max_thunder:.0f}% with limited precip")
-        elif max_thunder >= 15:
+            factors.append(f"{dry_thunder_hours} thunder hour{'s' if dry_thunder_hours != 1 else ''} with limited precipitation and dry air")
+        elif max_dry_thunder >= 15:
             score += 4
-            factors.append(f"modest thunder signal near {max_thunder:.0f}%")
+            factors.append(f"modest coincident dry-thunder signal near {max_dry_thunder:.0f}%")
 
     if date_key in official_alerts.get("high_dates", []):
         score += 15
@@ -1538,7 +1868,9 @@ def score_weather_inputs(
             "min_rh_percent": min_rh,
             "max_usable_wind_mph": max_wind,
             "max_thunder_percent": max_thunder,
+            "max_dry_thunder_percent": max_dry_thunder,
             "max_precip_percent": max_precip,
+            "dry_thunder_hours": dry_thunder_hours,
             "max_red_flag_hours": red_flag_hours,
             "max_near_hours": near_hours,
         },
@@ -1555,6 +1887,8 @@ def location_weather_score(point: Dict[str, Any], date_key: str, official_alerts
         point.get("red_flag_hours") or 0,
         point.get("near_hours") or 0,
         official_alerts,
+        point.get("dry_thunder_hours") or 0,
+        point.get("max_dry_thunder_percent"),
     )
     return {
         "name": point.get("name", "Unknown location"),
@@ -1673,12 +2007,44 @@ def build_psps_forecast(
 
     for day in days:
         weather_score = weather_score_for_day(day, official_alerts)
-        level = weather_score["level"]
-        reasons = [weather_score["summary"], *weather_score["factors"][:3]]
+        adjusted_locations = []
+        for location in weather_score["location_scores"]:
+            location_posture = fire_posture_psps_signal(fire_posture, location.get("name"))
+            adjusted_score = min(100, safe_int(location.get("score")) + safe_int(location_posture.get("score_modifier")))
+            adjusted_level = psps_level_from_weather_score(adjusted_score)
+            if lpea_signal["level"] == "direct_psps_language":
+                adjusted_level = max_psps_level(adjusted_level, "WATCH")
+            adjusted_locations.append(
+                {
+                    **location,
+                    "weather_score": location.get("score"),
+                    "weather_level": location.get("level"),
+                    "score": adjusted_score,
+                    "level": adjusted_level,
+                    "posture_context": location_posture,
+                    "summary": (
+                        f"{location.get('summary')} Fire-posture adjustment +{location_posture.get('score_modifier', 0)}."
+                        if location_posture.get("score_modifier")
+                        else location.get("summary")
+                    ),
+                }
+            )
+        adjusted_locations.sort(key=lambda item: (item["score"], PSPS_RANK.get(item["level"], 0)), reverse=True)
 
-        if posture_signal["level_floor"] != "LOW":
-            level = max_psps_level(level, posture_signal["level_floor"])
-            reasons.append(posture_signal["reason"])
+        if adjusted_locations:
+            level = max((location["level"] for location in adjusted_locations), key=lambda item: PSPS_RANK.get(item, 0))
+            screening_score = adjusted_locations[0]["score"]
+        else:
+            level = weather_score["level"]
+            screening_score = weather_score["score"]
+
+        reasons = [weather_score["summary"], *weather_score["factors"][:3]]
+        posture_reasons = []
+        for location in adjusted_locations:
+            signal = location.get("posture_context", {})
+            if signal.get("score_modifier") and signal.get("reason") not in posture_reasons:
+                posture_reasons.append(signal["reason"])
+        reasons.extend(posture_reasons[:2])
 
         if lpea_signal["level"] == "direct_psps_language":
             level = max_psps_level(level, "WATCH")
@@ -1689,26 +2055,33 @@ def build_psps_forecast(
         if not reasons:
             reasons.append("No red-flag or active LPEA PSPS signal for this day.")
 
+        driver_locations = [location for location in adjusted_locations if location["score"] >= 45]
+        if not driver_locations:
+            driver_locations = adjusted_locations[:3]
+
         forecast_days.append(
             {
                 "date": day["date"],
                 "level": level,
                 "fire_weather_tier": day["tier"],
                 "weather_score": weather_score["score"],
+                "weather_level": weather_score["level"],
+                "screening_score": screening_score,
                 "weather_metrics": weather_score["metrics"],
                 "weather_factors": weather_score["factors"],
-                "driver_locations": weather_score["driver_locations"],
-                "location_scores": weather_score["location_scores"],
+                "driver_locations": driver_locations[:5],
+                "location_scores": adjusted_locations,
                 "reasons": reasons,
             }
         )
 
     add_weather_trends(forecast_days)
     overall_level = max((day["level"] for day in forecast_days), key=lambda level: PSPS_RANK[level])
+    weather_overall_level = max((day["weather_level"] for day in forecast_days), key=lambda level: PSPS_RANK[level])
     if overall_level == "LIKELY":
         headline = "PSPS likelihood is high on weather-driven red-flag days; prepare for possible LPEA safety-related interruption behavior."
     elif overall_level == "WATCH":
-        headline = "Weather-driven PSPS watch conditions are present; monitor LPEA updates and outage channels."
+        headline = "PSPS watch screening is present from forecast thresholds or direct LPEA shutoff language; monitor official LPEA and NWS updates."
     elif overall_level == "ELEVATED":
         headline = "PSPS likelihood is elevated, but weather remains below watch thresholds."
     else:
@@ -1716,6 +2089,7 @@ def build_psps_forecast(
 
     return {
         "overall_level": overall_level,
+        "weather_overall_level": weather_overall_level,
         "headline": headline,
         "lpea_signal": lpea_signal,
         "fire_posture_signal": posture_signal,
@@ -1758,9 +2132,18 @@ def confidence_label(score: int) -> str:
     return "LOW"
 
 
-def fire_posture_boost(fire_posture: Dict[str, Any]) -> Tuple[int, List[str]]:
-    stage = fire_posture.get("max_restriction_stage", "UNKNOWN")
-    danger = fire_posture.get("max_fire_danger", "UNKNOWN")
+def fire_posture_boost(fire_posture: Dict[str, Any], location_name: Optional[str] = None) -> Tuple[int, List[str]]:
+    sources = posture_sources_for_location(fire_posture, location_name)
+    stage = max(
+        (source.get("restriction_stage", "UNKNOWN") for source in sources),
+        key=lambda item: FIRE_RESTRICTION_RANK.get(item, 0),
+        default="UNKNOWN",
+    )
+    danger = max(
+        (source.get("fire_danger", "UNKNOWN") for source in sources),
+        key=lambda item: FIRE_DANGER_RANK.get(item, 0),
+        default="UNKNOWN",
+    )
     stage_rank = FIRE_RESTRICTION_RANK.get(stage, 0)
     danger_rank = FIRE_DANGER_RANK.get(danger, 0)
     boost = 0
@@ -1790,8 +2173,8 @@ def fire_posture_boost(fire_posture: Dict[str, Any]) -> Tuple[int, List[str]]:
 def red_flag_prediction_score(location: Dict[str, Any], date_key: str, official_alerts: Dict[str, Any]) -> Tuple[int, List[str]]:
     rh = safe_float(location.get("min_rh_percent"))
     wind = safe_float(location.get("max_usable_wind_mph"))
-    thunder = safe_float(location.get("max_thunder_percent"))
-    precip = safe_float(location.get("max_precip_percent"))
+    thunder = safe_float(location.get("max_dry_thunder_percent"))
+    dry_thunder_hours = safe_int(location.get("dry_thunder_hours"))
     red_flag_hours = safe_int(location.get("red_flag_hours"))
     near_hours = safe_int(location.get("near_hours"))
     score = 0
@@ -1832,13 +2215,12 @@ def red_flag_prediction_score(location: Dict[str, Any], date_key: str, official_
             score += 8
             drivers.append(f"breezy wind/gust near {wind:.0f} mph")
 
-    dry_enough = precip is None or precip <= 20
-    if thunder is not None and thunder >= 20 and dry_enough:
+    if thunder is not None and thunder >= 20 and dry_thunder_hours > 0:
         score += 10
-        drivers.append(f"dry-thunder probability near {thunder:.0f}%")
-    elif thunder is not None and thunder >= 15:
+        drivers.append(f"{dry_thunder_hours} coincident dry-thunder hour{'s' if dry_thunder_hours != 1 else ''} near {thunder:.0f}%")
+    elif thunder is not None and thunder >= 15 and dry_thunder_hours > 0:
         score += 5
-        drivers.append(f"thunder probability near {thunder:.0f}%")
+        drivers.append(f"dry-thunder probability near {thunder:.0f}%")
 
     if date_key in official_alerts.get("high_dates", []):
         score += 20
@@ -1857,11 +2239,15 @@ def red_flag_prediction_score(location: Dict[str, Any], date_key: str, official_
     return clamp_score(score), drivers[:5]
 
 
-def fire_danger_prediction_score(location: Dict[str, Any], red_flag_score: int, fire_posture: Dict[str, Any]) -> Tuple[int, List[str]]:
+def fire_danger_prediction_score(
+    location: Dict[str, Any],
+    red_flag_score: int,
+    fire_posture: Dict[str, Any],
+) -> Tuple[int, List[str]]:
     rh = safe_float(location.get("min_rh_percent"))
     wind = safe_float(location.get("max_usable_wind_mph"))
-    thunder = safe_float(location.get("max_thunder_percent"))
-    posture_boost, posture_drivers = fire_posture_boost(fire_posture)
+    thunder = safe_float(location.get("max_dry_thunder_percent"))
+    posture_boost, posture_drivers = fire_posture_boost(fire_posture, location.get("name"))
     score = round(red_flag_score * 0.58)
     drivers = []
 
@@ -1879,9 +2265,9 @@ def fire_danger_prediction_score(location: Dict[str, Any], red_flag_score: int, 
         score += 7
         drivers.append(f"wind/gust near {wind:.0f} mph")
 
-    if thunder is not None and thunder >= 20:
+    if thunder is not None and thunder >= 20 and safe_int(location.get("dry_thunder_hours")) > 0:
         score += 8
-        drivers.append(f"thunder probability near {thunder:.0f}%")
+        drivers.append(f"dry-thunder probability near {thunder:.0f}%")
 
     score += posture_boost
     drivers.extend(posture_drivers)
@@ -1917,24 +2303,13 @@ def psps_prediction_score(
 ) -> Tuple[int, str, List[str]]:
     score = safe_int(location_score.get("score"))
     drivers = list(location_score.get("factors", [])[:3])
-    lpea_boost, lpea_drivers = lpea_signal_boost(report.get("lpea", {}), report.get("psps", {}))
-    posture_boost, posture_drivers = fire_posture_boost(report.get("fire_posture", {}))
-    score += lpea_boost + min(12, posture_boost)
-    drivers.extend(lpea_drivers)
-    drivers.extend(posture_drivers[:2])
-
-    if date_key in report.get("official_alerts", {}).get("high_dates", []):
-        score += 12
-        drivers.append("official NWS fire-weather alert")
-    if red_flag_score >= 75:
-        score += 6
-        drivers.append("red-flag likelihood is high")
-    if fire_danger_score >= 70:
-        score += 4
-        drivers.append("fire danger prediction is very high")
-
-    score = clamp_score(score)
-    return score, psps_level_from_weather_score(score), drivers[:6] or ["weather inputs below PSPS watch threshold"]
+    posture_context = location_score.get("posture_context", {})
+    if posture_context.get("score_modifier"):
+        drivers.append(posture_context.get("reason", "Official fire-posture context adds a small modifier."))
+    if report.get("psps", {}).get("lpea_signal", {}).get("level") == "direct_psps_language":
+        drivers.append("LPEA active source has direct PSPS/power-shutoff language")
+    level = location_score.get("level") or psps_level_from_weather_score(score)
+    return clamp_score(score), level, drivers[:6] or ["weather inputs below PSPS watch threshold"]
 
 
 def top_prediction_label(prediction: Optional[Dict[str, Any]], score_key: str, level_key: str) -> str:
@@ -2065,11 +2440,15 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
 
     confidence_score = clamp_score(confidence_score)
     if top_psps_overall:
+        driver_summary = "; ".join(
+            str(driver).rstrip(" .;")
+            for driver in top_psps_overall.get("psps_drivers", [])[:3]
+        )
         summary = (
             f"Highest LPEA PSPS concern is {format_display_date(top_psps_overall.get('date', ''))} near "
             f"{top_psps_overall.get('location', 'Unknown area')} ({top_psps_overall.get('psps_level')} "
             f"{top_psps_overall.get('psps_score')}/100), driven by "
-            f"{'; '.join(top_psps_overall.get('psps_drivers', [])[:3])}."
+            f"{driver_summary}."
         )
     else:
         summary = "No area-level decision-support prediction is available for this run."
@@ -2105,6 +2484,38 @@ def previous_tier(history_path: Path) -> Optional[str]:
     except OSError:
         return None
     return rows[-1].get("overall_tier") if rows else None
+
+
+def notification_recommendation(
+    tier: str,
+    psps: Dict[str, Any],
+    official_alerts: Dict[str, Any],
+    lpea: Dict[str, Any],
+    all_forecasts_unavailable: bool,
+) -> Dict[str, Any]:
+    reasons = []
+    if all_forecasts_unavailable:
+        reasons.append("all NWS forecast sample points are unavailable")
+    if official_alerts.get("fire_alert_count", 0):
+        reasons.append("an official Red Flag Warning or Fire Weather Watch is active")
+    if TIER_RANK.get(tier, 0) >= TIER_RANK["CONCERN"]:
+        reasons.append(f"fire-weather screening tier is {tier}")
+    if PSPS_RANK.get(psps.get("overall_level", "LOW"), 0) >= PSPS_RANK["WATCH"]:
+        reasons.append(f"PSPS screening level is {psps.get('overall_level')}")
+    if psps.get("lpea_signal", {}).get("level") == "direct_psps_language":
+        reasons.append("LPEA published direct PSPS or planned-shutoff language")
+    operational_outage = lpea.get("operational_outage", {})
+    if operational_outage.get("active") and (
+        operational_outage.get("fire_related")
+        or operational_outage.get("psps_related")
+        or operational_outage.get("severity") in {"moderate", "major"}
+    ):
+        reasons.append("a material official LPEA operational outage is active")
+    return {
+        "recommended": bool(reasons),
+        "reasons": reasons,
+        "summary": "; ".join(reasons) if reasons else "No material alert, outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present.",
+    }
 
 
 def load_psps_events(path: Path) -> List[Dict[str, Any]]:
@@ -2384,6 +2795,19 @@ def best_fire_prediction_row(rows: List[Dict[str, Any]]) -> Optional[Dict[str, A
     return max(rows, key=score)
 
 
+def consecutive_date_groups(date_values: Iterable[str]) -> List[List[str]]:
+    dates = sorted({dt.date.fromisoformat(value) for value in date_values if value})
+    if not dates:
+        return []
+    groups: List[List[dt.date]] = [[dates[0]]]
+    for value in dates[1:]:
+        if value == groups[-1][-1] + dt.timedelta(days=1):
+            groups[-1].append(value)
+        else:
+            groups.append([value])
+    return [[value.isoformat() for value in group] for group in groups]
+
+
 def format_lead_hours(hours: Optional[float]) -> str:
     if hours is None:
         return "n/a"
@@ -2484,6 +2908,44 @@ def build_red_flag_calibration_summary(
         else:
             misses.append(scored)
 
+    scored_by_date = {
+        item["date"]: ("hit", item)
+        for item in hits
+    }
+    scored_by_date.update({item["date"]: ("miss", item) for item in misses})
+    scored_by_date.update({item["date"]: ("insufficient", item) for item in insufficient_history})
+    alert_episodes = []
+    for dates in consecutive_date_groups(alert_dates):
+        statuses = [scored_by_date.get(date_key, ("insufficient", {}))[0] for date_key in dates]
+        episode_status = "hit" if "hit" in statuses else "miss" if "miss" in statuses else "insufficient"
+        episode_leads = [
+            safe_float(scored_by_date.get(date_key, (None, {}))[1].get("lead_time_hours"))
+            for date_key in dates
+        ]
+        episode_leads = [value for value in episode_leads if value is not None]
+        alert_episodes.append(
+            {
+                "start_date": dates[0],
+                "end_date": dates[-1],
+                "dates": dates,
+                "status": episode_status,
+                "lead_time_hours": min(episode_leads) if episode_leads else None,
+            }
+        )
+    episode_hits = [episode for episode in alert_episodes if episode["status"] == "hit"]
+    episode_misses = [episode for episode in alert_episodes if episode["status"] == "miss"]
+    episode_evaluable_count = len(episode_hits) + len(episode_misses)
+    episode_hit_rate = round((len(episode_hits) / episode_evaluable_count) * 100) if episode_evaluable_count else None
+    episode_leads = [safe_float(episode.get("lead_time_hours")) for episode in episode_hits]
+    episode_leads = [value for value in episode_leads if value is not None]
+    episode_average_lead = round(sum(episode_leads) / len(episode_leads), 1) if episode_leads else None
+    lead_time_buckets = {
+        "0_to_24_hours": sum(1 for value in episode_leads if value < 24),
+        "24_to_48_hours": sum(1 for value in episode_leads if 24 <= value < 48),
+        "48_to_72_hours": sum(1 for value in episode_leads if 48 <= value < 72),
+        "72_plus_hours": sum(1 for value in episode_leads if value >= 72),
+    }
+
     false_high_days = set()
     aggregates = aggregate_forecast_rows(forecast_history)
     for date_key, aggregate in aggregates.items():
@@ -2508,13 +2970,14 @@ def build_red_flag_calibration_summary(
     average_lead = round(sum(lead_hours) / len(lead_hours), 1) if lead_hours else None
     if alert_entries:
         summary = (
-            f"{len(hits)}/{evaluable_count} official Red Flag / Fire Weather alert date"
-            f"{'s' if evaluable_count != 1 else ''} had a pre-alert HIGH monitor signal."
+            f"{len(episode_hits)}/{episode_evaluable_count} official Red Flag / Fire Weather episode"
+            f"{'s' if episode_evaluable_count != 1 else ''} had a pre-alert HIGH monitor signal; "
+            f"date-level result was {len(hits)}/{evaluable_count}."
         )
         if insufficient_history:
             summary += f" {len(insufficient_history)} alert date{'s' if len(insufficient_history) != 1 else ''} had no prior forecast-history evidence."
-        if average_lead is not None:
-            summary += f" Average lead time: {format_lead_hours(average_lead)}."
+        if episode_average_lead is not None:
+            summary += f" Episode-average lead time: {format_lead_hours(episode_average_lead)}."
     else:
         summary = "No official Red Flag / Fire Weather alert dates logged yet; calibration will start once NWS alerts are observed."
 
@@ -2524,6 +2987,14 @@ def build_red_flag_calibration_summary(
         "miss_count": len(misses),
         "insufficient_history_count": len(insufficient_history),
         "hit_rate_percent": hit_rate,
+        "official_alert_episode_count": len(alert_episodes),
+        "episode_hit_count": len(episode_hits),
+        "episode_miss_count": len(episode_misses),
+        "episode_hit_rate_percent": episode_hit_rate,
+        "episode_average_lead_time_hours": episode_average_lead,
+        "episode_average_lead_time_display": format_lead_hours(episode_average_lead),
+        "episodes": alert_episodes[-8:],
+        "lead_time_buckets": lead_time_buckets,
         "average_lead_time_hours": average_lead,
         "average_lead_time_display": format_lead_hours(average_lead),
         "false_high_day_count": len(false_high_days),
@@ -2534,8 +3005,8 @@ def build_red_flag_calibration_summary(
         "hits": hits[-6:],
         "misses": misses[-6:],
         "insufficient_history": insufficient_history[-6:],
-        "alert_log_path": str(alert_path),
-        "forecast_history_path": str(forecast_path),
+        "alert_log_path": alert_path.name,
+        "forecast_history_path": forecast_path.name,
     }
 
 
@@ -2929,7 +3400,7 @@ def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
     intelligence = report.get("forecast_intelligence", {})
     volatility = intelligence.get("forecast_volatility", {})
     psps = report.get("psps", {})
-    return {
+    export = {
         "export_type": "archuleta_red_flag_psps_public_analysis",
         "generated_at": report.get("generated_at_local") or report.get("generated_at"),
         "timezone": report.get("timezone"),
@@ -2977,6 +3448,300 @@ def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
         "method_notes": analysis.get("notes", []),
         "red_flag_calibration": report.get("red_flag_calibration", {}),
         "operational_outage_context": report.get("lpea", {}).get("operational_outage", {}),
+    }
+    model_review = report.get("model_review", {})
+    if model_review.get("status") == "reviewed":
+        export["analyst_interpretation"] = model_review
+    return export
+
+
+def build_model_review_request(report: Dict[str, Any]) -> Dict[str, Any]:
+    public_export = build_public_analysis_export(report)
+    analysis = report.get("ai_analysis", {})
+    intelligence = report.get("forecast_intelligence", {})
+    psps = report.get("psps", {})
+    outage = public_outage_snapshot(report.get("lpea", {}).get("operational_outage", {}))
+    evidence = [
+        {
+            "id": "overall_status",
+            "label": "Current screening status",
+            "data": {
+                "overall_tier": report.get("overall_tier"),
+                "psps_likelihood": psps.get("overall_level"),
+                "notification_recommended": report.get("notify_recommended"),
+                "notification_reasons": report.get("notification", {}).get("reasons", []),
+            },
+        },
+        {
+            "id": "weather_peaks",
+            "label": "Deterministic weather and PSPS peaks",
+            "data": public_export.get("peaks", {}),
+        },
+        {
+            "id": "official_alerts",
+            "label": "Official National Weather Service alerts",
+            "data": {
+                "count": report.get("official_alerts", {}).get("fire_alert_count", 0),
+                "alerts": report.get("official_alerts", {}).get("alerts", [])[:6],
+            },
+        },
+        {
+            "id": "forecast_change",
+            "label": "Change versus prior run",
+            "data": {
+                "summary": intelligence.get("summary"),
+                "momentum": intelligence.get("risk_momentum"),
+                "volatility": intelligence.get("forecast_volatility"),
+                "notable_changes": intelligence.get("notable_changes", [])[:6],
+            },
+        },
+        {
+            "id": "lpea_context",
+            "label": "Official and public LPEA context",
+            "data": {
+                "signal_status": report.get("lpea", {}).get("status"),
+                "signal_headline": report.get("lpea", {}).get("headline"),
+                "operational_outage": outage,
+            },
+        },
+        {
+            "id": "fire_posture",
+            "label": "Current official-source fire posture",
+            "data": {
+                "headline": report.get("fire_posture", {}).get("headline"),
+                "restriction_stage": report.get("fire_posture", {}).get("max_restriction_stage"),
+                "fire_danger": report.get("fire_posture", {}).get("max_fire_danger"),
+            },
+        },
+        {
+            "id": "calibration",
+            "label": "Available calibration evidence",
+            "data": {
+                "psps": report.get("calibration", {}),
+                "red_flag": report.get("red_flag_calibration", {}),
+                "deterministic_confidence": analysis.get("confidence", {}),
+            },
+        },
+    ]
+    return {
+        "schema_version": 1,
+        "request_type": "archuleta_public_analyst_interpretation",
+        "report_generated_at": report.get("generated_at_local") or report.get("generated_at"),
+        "timezone": report.get("timezone"),
+        "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
+        "instructions": [
+            "Interpret only the supplied evidence; do not alter deterministic tiers, dates, scores, alerts, or notification decisions.",
+            "Separate official alerts and outages from screening estimates.",
+            "State uncertainty plainly and avoid claiming knowledge of LPEA internal operations or shutoff thresholds.",
+            "Use only evidence IDs from this request and keep the public text concise.",
+            "Do not mention internal tools, model providers, subscriptions, file paths, or private review artifacts.",
+        ],
+        "allowed_evidence_ids": [item["id"] for item in evidence],
+        "evidence": evidence,
+        "required_output": {
+            "schema_version": 1,
+            "report_generated_at": "Copy exactly from this request.",
+            "generated_at": "Current ISO-8601 time in America/Denver.",
+            "headline": "One sentence, maximum 180 characters.",
+            "summary": "Two or three concise sentences, maximum 700 characters.",
+            "uncertainty": "One concise sentence, maximum 320 characters.",
+            "changing_drivers": ["Up to four concise evidence-grounded strings."],
+            "watch_items": ["Up to four concise next-check strings."],
+            "evidence_ids": ["At least two IDs from allowed_evidence_ids."],
+        },
+    }
+
+
+def pending_model_review(report: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "status": "not_reviewed",
+        "report_generated_at": report.get("generated_at_local") or report.get("generated_at"),
+        "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
+    }
+
+
+def clean_model_review_text(value: Any, field: str, max_length: int) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    if not text:
+        raise ValueError(f"Model review field {field} is required.")
+    if len(text) > max_length:
+        raise ValueError(f"Model review field {field} exceeds {max_length} characters.")
+    blocked_terms = ("codex", "openai", "subscription", "api key", "/users/", "analyst_review_packet")
+    if any(term in text.lower() for term in blocked_terms):
+        raise ValueError(f"Model review field {field} contains non-public implementation detail.")
+    return text
+
+
+def validate_model_review(review: Dict[str, Any], request: Dict[str, Any]) -> Dict[str, Any]:
+    if not isinstance(review, dict):
+        raise ValueError("Model review must be a JSON object.")
+    if safe_int(review.get("schema_version")) != 1:
+        raise ValueError("Model review schema_version must be 1.")
+    expected_generated_at = request.get("report_generated_at")
+    if review.get("report_generated_at") != expected_generated_at:
+        raise ValueError("Model review report_generated_at does not match the current report.")
+    allowed_ids = set(request.get("allowed_evidence_ids", []))
+    evidence_ids = []
+    for value in review.get("evidence_ids", []):
+        value = str(value)
+        if value not in allowed_ids:
+            raise ValueError(f"Unknown model review evidence ID: {value}")
+        if value not in evidence_ids:
+            evidence_ids.append(value)
+    if len(evidence_ids) < 2:
+        raise ValueError("Model review must cite at least two supplied evidence IDs.")
+
+    def clean_list(field: str) -> List[str]:
+        values = review.get(field, [])
+        if not isinstance(values, list):
+            raise ValueError(f"Model review field {field} must be a list.")
+        return [clean_model_review_text(value, field, 220) for value in values[:4]]
+
+    return {
+        "schema_version": 1,
+        "status": "reviewed",
+        "report_generated_at": expected_generated_at,
+        "generated_at": clean_model_review_text(review.get("generated_at"), "generated_at", 80),
+        "headline": clean_model_review_text(review.get("headline"), "headline", 180),
+        "summary": clean_model_review_text(review.get("summary"), "summary", 700),
+        "uncertainty": clean_model_review_text(review.get("uncertainty"), "uncertainty", 320),
+        "changing_drivers": clean_list("changing_drivers"),
+        "watch_items": clean_list("watch_items"),
+        "evidence_ids": evidence_ids,
+        "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
+    }
+
+
+def public_outage_snapshot(outage: Dict[str, Any]) -> Dict[str, Any]:
+    public_outages = []
+    for item in outage.get("outages", [])[:12]:
+        public_outages.append(
+            {
+                "id": item.get("id"),
+                "name": item.get("name"),
+                "nearest_area": item.get("nearest_area"),
+                "distance_miles": item.get("distance_miles"),
+                "started_at": item.get("started_at"),
+                "estimated_restoration_at": item.get("estimated_restoration_at"),
+                "planned": item.get("planned"),
+                "verified": item.get("verified"),
+                "cause": item.get("cause"),
+                "crew_assigned": item.get("crew_assigned"),
+                "customers_out_now": item.get("customers_out_now"),
+                "fire_related": item.get("fire_related"),
+                "psps_related": item.get("psps_related"),
+            }
+        )
+    return {
+        key: outage.get(key)
+        for key in (
+            "status",
+            "active",
+            "severity",
+            "headline",
+            "summary",
+            "source",
+            "source_url",
+            "update_time",
+            "customers_out_now",
+            "customers_affected",
+            "customers_served",
+            "active_outage_count",
+            "planned_outage_count",
+            "unplanned_outage_count",
+            "areas",
+            "fire_related",
+            "psps_related",
+        )
+    } | {"outages": public_outages}
+
+
+def build_public_latest_snapshot(report: Dict[str, Any]) -> Dict[str, Any]:
+    lpea = report.get("lpea", {})
+    fire_posture = report.get("fire_posture", {})
+    return {
+        "schema_version": 2,
+        "generated_at": report.get("generated_at_local") or report.get("generated_at"),
+        "generated_at_utc": report.get("generated_at_utc"),
+        "next_update_at": report.get("next_update_at"),
+        "scheduled_update_times_local": report.get("scheduled_update_times_local", []),
+        "freshness": report.get("freshness", {}),
+        "timezone": report.get("timezone"),
+        "local_time_name": report.get("local_time_name"),
+        "area_name": report.get("area_name"),
+        "fire_weather_zone": report.get("fire_weather_zone"),
+        "unofficial_notice": UNOFFICIAL_MONITOR_DISCLAIMER,
+        "overall_tier": report.get("overall_tier"),
+        "notify_recommended": report.get("notify_recommended"),
+        "notification": report.get("notification", {}),
+        "data_quality": report.get("data_quality", {}),
+        "official_alerts": report.get("official_alerts", {}),
+        "discussion": report.get("discussion", {}),
+        "lpea": {
+            "status": lpea.get("status"),
+            "headline": lpea.get("headline"),
+            "monitored_source_count": lpea.get("monitored_source_count"),
+            "social_status": lpea.get("social_status"),
+            "operational_outage": public_outage_snapshot(lpea.get("operational_outage", {})),
+            "evidence_quality": lpea.get("evidence_quality", {}),
+            "active_signal_groups": lpea.get("active_signal_groups", [])[:8],
+            "reference_signal_groups": lpea.get("reference_signal_groups", [])[:8],
+            "sources": [
+                {
+                    "name": source.get("name"),
+                    "url": source.get("url"),
+                    "type": source.get("type"),
+                    "signal_mode": source.get("signal_mode"),
+                    "status": source.get("status"),
+                }
+                for source in lpea.get("sources", [])
+            ],
+        },
+        "fire_posture": {
+            **{key: fire_posture.get(key) for key in (
+                "status",
+                "headline",
+                "source_count",
+                "reachable_source_count",
+                "active_restriction_count",
+                "high_danger_source_count",
+                "max_restriction_stage",
+                "max_fire_danger",
+                "disclaimer",
+            )},
+            "sources": [
+                {
+                    "name": source.get("name"),
+                    "area": source.get("area"),
+                    "url": source.get("url"),
+                    "status": source.get("status"),
+                    "restriction_stage": source.get("restriction_stage"),
+                    "fire_danger": source.get("fire_danger"),
+                    "applies_to": source.get("applies_to", []),
+                }
+                for source in fire_posture.get("sources", [])
+            ],
+        },
+        "psps": report.get("psps", {}),
+        "days": report.get("days", []),
+        "points": [
+            {
+                "name": point.get("name"),
+                "status": point.get("status"),
+                "fire_weather_zone": point.get("fire_weather_zone"),
+                "forecast_zone": point.get("forecast_zone"),
+                "county_zone": point.get("county_zone"),
+                "zone_status": point.get("zone_status"),
+                "error": point.get("error"),
+            }
+            for point in report.get("points", [])
+        ],
+        "forecast_intelligence": report.get("forecast_intelligence", {}),
+        "decision_support": report.get("ai_analysis", {}),
+        "analyst_interpretation": report.get("model_review", {}),
+        "calibration": report.get("calibration", {}),
+        "red_flag_calibration": report.get("red_flag_calibration", {}),
     }
 
 
@@ -3059,24 +3824,39 @@ def append_forecast_history(report: Dict[str, Any], path: Path) -> None:
         writer.writerows(rows)
 
 
-def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, Any]) -> None:
+def write_rendered_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, Any]) -> None:
     base = config_path.resolve().parent
     output = config["output"]
     latest_json = base / output["latest_json"]
     latest_md = base / output["latest_markdown"]
     latest_html = base / output["latest_html"]
+    public_analysis_json = public_analysis_export_path(config_path, config)
+    public_latest_json = public_latest_path(config_path, config)
+
+    latest_json.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    latest_md.write_text(render_markdown(report), encoding="utf-8")
+    latest_html.write_text(render_html(report), encoding="utf-8")
+    public_analysis_json.write_text(json.dumps(report.get("public_analysis_export", build_public_analysis_export(report)), indent=2, sort_keys=True), encoding="utf-8")
+    public_latest_json.write_text(json.dumps(build_public_latest_snapshot(report), indent=2, sort_keys=True), encoding="utf-8")
+
+
+def write_outputs(report: Dict[str, Any], config_path: Path, config: Dict[str, Any]) -> None:
+    base = config_path.resolve().parent
+    output = config["output"]
     history_csv = base / output["history_csv"]
     psps_events_path = event_log_path(config_path, config)
     forecast_csv = forecast_history_path(config_path, config)
     red_flag_alert_json = red_flag_alert_log_path(config_path, config)
     review_packet_json = analyst_review_packet_path(config_path, config)
-    public_analysis_json = public_analysis_export_path(config_path, config)
+    review_request_json = model_review_request_path(config_path, config)
+    public_review_json = public_model_review_path(config_path, config)
 
-    latest_json.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
-    latest_md.write_text(render_markdown(report), encoding="utf-8")
-    latest_html.write_text(render_html(report), encoding="utf-8")
+    report["model_review"] = pending_model_review(report)
+    report["public_analysis_export"] = build_public_analysis_export(report)
+    write_rendered_outputs(report, config_path, config)
     review_packet_json.write_text(json.dumps(build_analyst_review_packet(report), indent=2, sort_keys=True), encoding="utf-8")
-    public_analysis_json.write_text(json.dumps(report.get("public_analysis_export", build_public_analysis_export(report)), indent=2, sort_keys=True), encoding="utf-8")
+    review_request_json.write_text(json.dumps(build_model_review_request(report), indent=2, sort_keys=True), encoding="utf-8")
+    public_review_json.write_text(json.dumps(report["model_review"], indent=2, sort_keys=True), encoding="utf-8")
     red_flag_alert_json.write_text(json.dumps(report.get("red_flag_alert_log", []), indent=2, sort_keys=True), encoding="utf-8")
     ensure_psps_event_log(psps_events_path)
     append_forecast_history(report, forecast_csv)
@@ -3287,7 +4067,7 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
     operational_outage = report.get("lpea", {}).get("operational_outage", {})
     operational_text = operational_outage.get("summary", "No active operational LPEA outage detected by public-source text.")
     return [
-        f"Overall tier: {report['overall_tier']}",
+        f"Fire-weather tier: {report['overall_tier']}",
         f"PSPS likelihood: {report.get('psps', {}).get('overall_level', 'UNKNOWN')}",
         f"PSPS likely dates: {format_date_list(likely_psps_dates)}",
         f"PSPS watch dates: {format_date_list(watch_psps_dates)}",
@@ -3306,10 +4086,10 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
 
 def monitor_heads_up_note(report: Dict[str, Any]) -> str:
     if report.get("notify_recommended"):
-        if report.get("overall_tier") != "GREEN":
-            return f"Send this monitor report because current risk is {report.get('overall_tier', 'UNKNOWN')}. This is not an official LPEA or NWS notice."
-        return "Send a follow-up because the previous run was not green. This is not an official LPEA or NWS notice."
-    return "No: current and previous monitor tiers are green, so this run can stay quiet."
+        reasons = report.get("notification", {}).get("reasons", [])
+        reason_text = "; ".join(reasons[:3]) if reasons else "a material monitored signal is active"
+        return f"Send this monitor report because {reason_text}. This is not an official LPEA or NWS notice."
+    return "No material alert, significant outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present."
 
 
 def lpea_hit_summary(hit: Dict[str, Any]) -> str:
@@ -3686,9 +4466,10 @@ def render_calibration_markdown(report: Dict[str, Any]) -> List[str]:
         "### Red Flag / Fire Weather Calibration",
         "",
         f"- Summary: {red_flag_calibration.get('summary', 'No red-flag calibration summary available.')}",
-        f"- Official alert dates logged: {red_flag_calibration.get('official_alert_date_count', 0)}",
-        f"- Pre-alert HIGH hit rate: {str(red_flag_calibration.get('hit_rate_percent')) + '%' if red_flag_calibration.get('hit_rate_percent') is not None else 'Pending'}",
-        f"- Average lead time: {red_flag_calibration.get('average_lead_time_display', 'n/a')}",
+        f"- Official alert episodes logged: {red_flag_calibration.get('official_alert_episode_count', 0)} ({red_flag_calibration.get('official_alert_date_count', 0)} alert dates)",
+        f"- Episode-level pre-alert HIGH hit rate: {str(red_flag_calibration.get('episode_hit_rate_percent')) + '%' if red_flag_calibration.get('episode_hit_rate_percent') is not None else 'Pending'}",
+        f"- Date-level pre-alert HIGH hit rate: {str(red_flag_calibration.get('hit_rate_percent')) + '%' if red_flag_calibration.get('hit_rate_percent') is not None else 'Pending'}",
+        f"- Episode-level average lead time: {red_flag_calibration.get('episode_average_lead_time_display', 'n/a')}",
         f"- HIGH false-watch past days: {red_flag_calibration.get('false_high_day_count', 0)}",
         f"- Pending HIGH dates in current forecast: {format_date_list(red_flag_calibration.get('pending_high_dates', []))}",
         "- Calibration source: official NWS Red Flag / Fire Weather alert dates plus forecast history from prior monitor runs.",
@@ -3703,12 +4484,12 @@ def render_ai_analysis_markdown(report: Dict[str, Any]) -> List[str]:
         "",
         f"- Summary: {analysis.get('summary', 'No decision-support summary available.')}",
         f"- Confidence: **{confidence.get('label', 'UNKNOWN')}** ({confidence.get('score', 'n/a')}/100) - {'; '.join(confidence.get('reasons', []))}",
-        f"- Fire danger peak: {top_prediction_label(analysis.get('top_fire_danger'), 'fire_danger_score', 'fire_danger_level')}",
+        f"- Weather fire-potential peak: {top_prediction_label(analysis.get('top_fire_danger'), 'fire_danger_score', 'fire_danger_level')}",
         f"- Red Flag likelihood peak: {top_prediction_label(analysis.get('top_red_flag'), 'red_flag_score', 'red_flag_likelihood')}",
         f"- LPEA PSPS peak: {top_prediction_label(analysis.get('top_psps'), 'psps_score', 'psps_level')}",
         "- Method: rules-based decision support using public weather, fire-posture, and LPEA source signals; scores are screening estimates, not official or statistically calibrated probabilities.",
         "",
-        "| Date | Fire danger | Red Flag likelihood | LPEA PSPS | Main window |",
+        "| Date | Weather fire potential | Red Flag likelihood | LPEA PSPS | Main window |",
         "| --- | --- | --- | --- | --- |",
     ]
     for day in analysis.get("daily_predictions", []):
@@ -3763,7 +4544,7 @@ def render_public_analysis_export_markdown(report: Dict[str, Any]) -> List[str]:
         f"- First WATCH-or-higher PSPS date: {trend.get('first_watch_or_likely_display') or 'None'}",
         f"- PSPS peak: {psps_peak.get('display_date') or 'n/a'} near {psps_peak.get('location') or 'n/a'} at {psps_peak.get('level') or 'UNKNOWN'} {psps_peak.get('score', 'n/a')}/100",
         f"- Red Flag peak: {red_peak.get('display_date') or 'n/a'} near {red_peak.get('location') or 'n/a'} at {red_peak.get('level') or 'UNKNOWN'} {red_peak.get('score', 'n/a')}/100",
-        f"- Fire danger peak: {fire_peak.get('display_date') or 'n/a'} near {fire_peak.get('location') or 'n/a'} at {fire_peak.get('level') or 'UNKNOWN'} {fire_peak.get('score', 'n/a')}/100",
+        f"- Weather fire-potential peak: {fire_peak.get('display_date') or 'n/a'} near {fire_peak.get('location') or 'n/a'} at {fire_peak.get('level') or 'UNKNOWN'} {fire_peak.get('score', 'n/a')}/100",
         f"- LPEA operational outage context: {operational_outage.get('summary', 'No active operational LPEA outage detected by public-source text.')}",
         "- Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`",
         "",
@@ -3774,6 +4555,28 @@ def render_public_analysis_export_markdown(report: Dict[str, Any]) -> List[str]:
     lines.extend(["", "What to watch next:"])
     for cue in export.get("watch_next", [])[:5]:
         lines.append(f"- {cue}")
+    return lines
+
+
+def render_model_review_markdown(report: Dict[str, Any]) -> List[str]:
+    review = report.get("model_review", {})
+    if review.get("status") != "reviewed":
+        return []
+    lines = [
+        "## Analyst Interpretation",
+        "",
+        f"- Headline: {review.get('headline')}",
+        f"- Summary: {review.get('summary')}",
+        f"- Uncertainty: {review.get('uncertainty')}",
+        f"- Evidence used: {', '.join(review.get('evidence_ids', []))}",
+        "- This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.",
+    ]
+    if review.get("changing_drivers"):
+        lines.extend(["", "Changing drivers:"])
+        lines.extend(f"- {value}" for value in review["changing_drivers"])
+    if review.get("watch_items"):
+        lines.extend(["", "What to watch next:"])
+        lines.extend(f"- {value}" for value in review["watch_items"])
     return lines
 
 
@@ -3817,7 +4620,7 @@ def render_markdown(report: Dict[str, Any]) -> str:
         "",
         "## At A Glance",
         "",
-        f"- Overall tier: **{report['overall_tier']}**",
+        f"- Fire-weather tier: **{report['overall_tier']}**",
         f"- PSPS likelihood: **{report.get('psps', {}).get('overall_level', 'UNKNOWN')}**",
         f"- PSPS likely dates: {format_date_list(likely_psps_dates)}",
         f"- PSPS watch dates: {format_date_list(watch_psps_dates)}",
@@ -3831,6 +4634,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         f"- NWS discussion: {report['discussion']['headline']}",
         "",
         *render_ai_analysis_markdown(report),
+        "",
+        *render_model_review_markdown(report),
         "",
         *render_forecast_intelligence_markdown(report),
         "",
@@ -3908,19 +4713,19 @@ def render_html(report: Dict[str, Any]) -> str:
     pagosa_card = pagosa_outlook_card(report)
     psps_rail_context = psps_likelihood_rail_context(report)
     operational_outage = report.get("lpea", {}).get("operational_outage", {})
+    freshness = report.get("freshness", {})
 
     summary_cards = [
         pagosa_card,
     ]
-    if operational_outage.get("active"):
-        summary_cards.append(
-            {
-                "label": "LPEA outage context",
-                "value": "Active outage",
-                "class": "signal-outage",
-                "note": operational_outage.get("summary", "Active operational outage detected; not classified as PSPS/fire by this monitor."),
-            }
-        )
+    summary_cards.append(
+        {
+            "label": "Official LPEA outage status",
+            "value": "ACTIVE" if operational_outage.get("active") else "NONE ACTIVE",
+            "class": "signal-outage" if operational_outage.get("active") else "tier-green",
+            "note": operational_outage.get("headline", "Official LPEA outage data unavailable."),
+        }
+    )
     summary_cards.extend([
         {"label": "Likely PSPS dates", "value": format_date_list(likely_psps_dates), "class": "", "dates": likely_psps_dates},
         {
@@ -4077,7 +4882,7 @@ def render_html(report: Dict[str, Any]) -> str:
     confidence = analysis.get("confidence", {})
     analysis_cards = [
         {
-            "label": "Fire danger peak",
+            "label": "Weather fire-potential peak",
             "prediction": analysis.get("top_fire_danger"),
             "score_key": "fire_danger_score",
             "level_key": "fire_danger_level",
@@ -4170,7 +4975,7 @@ def render_html(report: Dict[str, Any]) -> str:
     export_peak_cards = [
         ("PSPS peak", export_peaks.get("psps", {})),
         ("Red Flag peak", export_peaks.get("red_flag", {})),
-        ("Fire danger peak", export_peaks.get("fire_danger", {})),
+        ("Weather fire-potential peak", export_peaks.get("fire_danger", {})),
     ]
     export_peak_cards_html = "".join(
         f"""
@@ -4193,6 +4998,40 @@ def render_html(report: Dict[str, Any]) -> str:
         for note in public_export.get("method_notes", [])[:4]
     ) or "<li>Public-source screening estimates only.</li>"
     public_analysis_export_url = "archuleta_red_flag_monitor/public_analysis_export.json"
+    model_review = report.get("model_review", {})
+    if model_review.get("status") == "reviewed":
+        model_changing_html = "".join(
+            f"<li>{escape_html(value)}</li>"
+            for value in model_review.get("changing_drivers", [])[:4]
+        ) or "<li>No material driver change identified.</li>"
+        model_watch_html = "".join(
+            f"<li>{escape_html(value)}</li>"
+            for value in model_review.get("watch_items", [])[:4]
+        ) or "<li>No additional watch item identified.</li>"
+        model_review_html = f"""
+    <section class="section-panel analyst-interpretation">
+      <p class="eyebrow">Evidence-Grounded Interpretation</p>
+      <h2>Analyst Interpretation</h2>
+      <div class="analysis-summary">
+        <strong>{escape_html(model_review.get('headline', ''))}</strong>
+        <p>{escape_html(model_review.get('summary', ''))}</p>
+        <p class="source-meta">Uncertainty: {escape_html(model_review.get('uncertainty', ''))}</p>
+      </div>
+      <div class="review-grid">
+        <div class="review-box">
+          <h3>Changing drivers</h3>
+          <ul class="metrics">{model_changing_html}</ul>
+        </div>
+        <div class="review-box">
+          <h3>What to watch next</h3>
+          <ul class="metrics">{model_watch_html}</ul>
+        </div>
+      </div>
+      <p class="footer-note">This evidence-grounded interpretation cannot change deterministic tiers, scores, official alerts, or notification decisions.</p>
+    </section>
+        """
+    else:
+        model_review_html = ""
     calibration = report.get("calibration", {})
     red_flag_calibration = report.get("red_flag_calibration", {})
     calibration_cards_html = f"""
@@ -4219,19 +5058,19 @@ def render_html(report: Dict[str, Any]) -> str:
     """
     red_flag_calibration_cards_html = f"""
         <article class="calibration-card">
-          <p class="eyebrow">Official alert dates</p>
-          <strong>{escape_html(str(red_flag_calibration.get('official_alert_date_count', 0)))}</strong>
-          <span>NWS Red Flag / Fire Weather dates logged</span>
+          <p class="eyebrow">Official alert episodes</p>
+          <strong>{escape_html(str(red_flag_calibration.get('official_alert_episode_count', 0)))}</strong>
+          <span>{escape_html(str(red_flag_calibration.get('official_alert_date_count', 0)))} NWS alert dates grouped into episodes</span>
         </article>
         <article class="calibration-card">
-          <p class="eyebrow">Pre-alert hit rate</p>
-          <strong>{escape_html(str(red_flag_calibration.get('hit_rate_percent')) + '%' if red_flag_calibration.get('hit_rate_percent') is not None else 'Pending')}</strong>
-          <span>HIGH before official alert</span>
+          <p class="eyebrow">Episode hit rate</p>
+          <strong>{escape_html(str(red_flag_calibration.get('episode_hit_rate_percent')) + '%' if red_flag_calibration.get('episode_hit_rate_percent') is not None else 'Pending')}</strong>
+          <span>episodes with HIGH before official alert</span>
         </article>
         <article class="calibration-card">
           <p class="eyebrow">Average lead</p>
-          <strong>{escape_html(red_flag_calibration.get('average_lead_time_display', 'n/a'))}</strong>
-          <span>first HIGH signal before NWS alert</span>
+          <strong>{escape_html(red_flag_calibration.get('episode_average_lead_time_display', 'n/a'))}</strong>
+          <span>episode-level first HIGH signal before NWS alert</span>
         </article>
         <article class="calibration-card">
           <p class="eyebrow">False-HIGH days</p>
@@ -4285,13 +5124,26 @@ def render_html(report: Dict[str, Any]) -> str:
             if operational_outage.get("fire_related") or operational_outage.get("psps_related")
             else "This is treated as operational grid context only; it does not raise PSPS scoring by itself."
         )
+        outage_detail_html = "".join(
+            f"""
+            <li>
+              <strong>{escape_html(outage.get('nearest_area', 'LPEA service territory'))}</strong>:
+              {escape_html(str(outage.get('customers_out_now', 0)))} customer{'s' if outage.get('customers_out_now', 0) != 1 else ''} out;
+              {escape_html('planned' if outage.get('planned') else 'unplanned')};
+              cause {escape_html(outage.get('cause') or 'not posted')};
+              crew {escape_html('assigned' if outage.get('crew_assigned') else 'status not posted')}.
+            </li>
+            """
+            for outage in operational_outage.get("outages", [])[:6]
+        )
         outage_context_html = f"""
         <div class="outage-context-panel">
-          <p class="eyebrow">Active LPEA outage context</p>
+          <p class="eyebrow">Official LPEA outage status</p>
           <h3>{escape_html(operational_outage.get('headline', 'Active LPEA operational outage detected.'))}</h3>
           <p>{escape_html(operational_outage.get('summary', 'Active operational outage detected.'))}</p>
+          <ul class="metrics">{outage_detail_html}</ul>
           <p>{escape_html(relation_note)}</p>
-          <p class="source-meta">Sources: {lpea_operational_outage_links_html(operational_outage)}</p>
+          <p class="source-meta">Official data updated {escape_html(operational_outage.get('update_time') or 'time not posted')}. Source: {linked_text_html('LPEA outage map', operational_outage.get('source_url') or LPEA_DEFAULT_OUTAGE_MAP_URL)}</p>
         </div>
         """
     else:
@@ -4317,6 +5169,7 @@ def render_html(report: Dict[str, Any]) -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Archuleta Red Flag Risk Monitor</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a72f23'/%3E%3Cpath d='M34 8c4 11-5 14 2 23 3-6 8-7 10-14 9 12 10 24 4 33-7 11-29 11-36-1-7-13 3-26 14-36-1 9 2 13 6 15 3-6-2-11 0-20z' fill='%23fff3e2'/%3E%3C/svg%3E">
   <style>
     :root {{
       --bg: #f4efe5;
@@ -4457,6 +5310,9 @@ def render_html(report: Dict[str, Any]) -> str:
     .hero-mini-chip.tier-elevated {{ background: var(--elevated); color: #1f1700; }}
     .hero-mini-chip.tier-concern {{ background: var(--concern); color: #fff; }}
     .hero-mini-chip.tier-high {{ background: var(--high); color: #fff; }}
+    .hero-mini-chip.freshness-current {{ background: var(--green); color: #fff; }}
+    .hero-mini-chip.freshness-late {{ background: var(--elevated); color: #1f1700; }}
+    .hero-mini-chip.freshness-stale {{ background: var(--high); color: #fff; }}
     .hero-time-note {{
       margin-top: 14px;
     }}
@@ -4610,7 +5466,7 @@ def render_html(report: Dict[str, Any]) -> str:
     .psps-segment.psps-confirmed {{ background: var(--high); color: #fff; }}
     .summary-grid {{
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
       margin-top: 20px;
       align-items: start;
@@ -4624,6 +5480,9 @@ def render_html(report: Dict[str, Any]) -> str:
     .summary-card {{
       padding: 18px;
       min-height: 0;
+    }}
+    .summary-card:last-child {{
+      grid-column: span 2;
     }}
     .summary-value {{
       margin: 0;
@@ -5330,6 +6189,9 @@ def render_html(report: Dict[str, Any]) -> str:
       font-size: 0.92rem;
       color: var(--muted);
     }}
+    @media (max-width: 1080px) {{
+      .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    }}
     @media (max-width: 760px) {{
       .wrap {{ padding: 18px 14px 32px; }}
       .hero, .section-panel, .summary-card, .day-card {{ border-radius: 18px; }}
@@ -5366,6 +6228,7 @@ def render_html(report: Dict[str, Any]) -> str:
         margin-top: 18px;
         gap: 12px;
       }}
+      .summary-card:last-child {{ grid-column: span 1; }}
       .analysis-grid {{
         grid-template-columns: 1fr;
       }}
@@ -5392,10 +6255,11 @@ def render_html(report: Dict[str, Any]) -> str:
             {escape_html(UNOFFICIAL_MONITOR_DISCLAIMER)}
           </div>
           <p class="time-note hero-time-note">All dates and times use {escape_html(local_time_context(report))}.</p>
+          <p class="next-update-note">Next update: {escape_html(format_next_update_at(report))}</p>
         </div>
         <aside class="hero-status-rail" aria-label="Current monitor status">
           <div class="hero-status-primary">
-            <p class="eyebrow">Overall tier</p>
+            <p class="eyebrow">Fire-weather tier</p>
             <span class="chip {tier_badge_class(report['overall_tier'])}">{escape_html(report['overall_tier'])}</span>
           </div>
           <div class="hero-status-row hero-status-row-detail">
@@ -5410,9 +6274,15 @@ def render_html(report: Dict[str, Any]) -> str:
             <span>Pagosa Springs</span>
             <strong class="hero-mini-chip {escape_html(pagosa_card.get('class', ''))}">{escape_html(pagosa_card.get('value', 'UNKNOWN'))}</strong>
           </div>
-          <div class="hero-status-time">
-            <span>Next update</span>
-            <strong>Next update: {escape_html(format_next_update_at(report))}</strong>
+          <div class="hero-status-row">
+            <span>Data freshness</span>
+            <strong
+              id="freshness-badge"
+              class="hero-mini-chip freshness-current"
+              data-generated-at="{escape_html(freshness.get('generated_at', report.get('generated_at_local', '')))}"
+              data-late-after="{escape_html(freshness.get('late_after', ''))}"
+              data-stale-after="{escape_html(freshness.get('stale_after', ''))}"
+            >CURRENT</strong>
           </div>
         </aside>
       </div>
@@ -5468,6 +6338,14 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
 
     <section class="section-panel">
+      <p class="eyebrow">Daily Breakdown</p>
+      <h2>What Drives Each Day</h2>
+      <div class="days-grid">
+        {''.join(day_tiles)}
+      </div>
+    </section>
+
+    <section class="section-panel">
       <p class="eyebrow">Decision Support</p>
       <h2>Fire + Red Flag + PSPS Prediction</h2>
       <div class="analysis-summary">
@@ -5483,7 +6361,7 @@ def render_html(report: Dict[str, Any]) -> str:
           <thead>
             <tr>
               <th>Date</th>
-              <th>Fire danger</th>
+              <th>Weather fire potential</th>
               <th>Red Flag</th>
               <th>LPEA PSPS</th>
               <th>Main window</th>
@@ -5497,6 +6375,8 @@ def render_html(report: Dict[str, Any]) -> str:
       <p class="footer-note">Method notes:</p>
       <ul class="metrics">{analysis_notes_html}</ul>
     </section>
+
+    {model_review_html}
 
     <section class="section-panel">
       <p class="eyebrow">Trend Intelligence</p>
@@ -5543,14 +6423,6 @@ def render_html(report: Dict[str, Any]) -> str:
       <p class="footer-note">{escape_html(fire_posture.get('disclaimer', 'Verify directly with the responsible jurisdiction.'))}</p>
       <div class="fire-posture-grid">
         {fire_posture_cards_html}
-      </div>
-    </section>
-
-    <section class="section-panel">
-      <p class="eyebrow">Daily Breakdown</p>
-      <h2>What Drives Each Day</h2>
-      <div class="days-grid">
-        {''.join(day_tiles)}
       </div>
     </section>
 
@@ -5610,6 +6482,26 @@ def render_html(report: Dict[str, Any]) -> str:
       </details>
     </section>
   </main>
+  <script>
+    (() => {{
+      const badge = document.getElementById("freshness-badge");
+      if (!badge) return;
+      const now = Date.now();
+      const lateAfter = Date.parse(badge.dataset.lateAfter || "");
+      const staleAfter = Date.parse(badge.dataset.staleAfter || "");
+      let status = "CURRENT";
+      if (Number.isFinite(staleAfter) && now > staleAfter) status = "STALE";
+      else if (Number.isFinite(lateAfter) && now > lateAfter) status = "LATE";
+      badge.textContent = status;
+      badge.classList.remove("freshness-current", "freshness-late", "freshness-stale");
+      badge.classList.add(`freshness-${{status.toLowerCase()}}`);
+      const generated = Date.parse(badge.dataset.generatedAt || "");
+      if (Number.isFinite(generated)) {{
+        const hours = Math.max(0, (now - generated) / 3600000);
+        badge.title = `Report generated ${{hours < 1 ? "less than an hour" : `${{Math.floor(hours)}} hour${{Math.floor(hours) === 1 ? "" : "s"}}`}} ago.`;
+      }}
+    }})();
+  </script>
 </body>
 </html>
 """
@@ -5655,21 +6547,11 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     tz = ZoneInfo(config["timezone"])
     now_utc = dt.datetime.now(dt.timezone.utc)
     now_local = now_utc.astimezone(tz)
-    update_interval_minutes = config.get("expected_update_interval_minutes")
-    next_update_local = (
-        now_local + dt.timedelta(minutes=int(update_interval_minutes))
-        if update_interval_minutes
-        else None
-    )
+    next_update_local = next_scheduled_update(now_local, config)
+    freshness = build_freshness_metadata(now_local, next_update_local, config)
     horizon_end_utc = now_utc + dt.timedelta(days=config["forecast_horizon_days"])
 
-    session = requests.Session()
-    session.headers.update(
-        {
-            "User-Agent": config.get("user_agent", "archuleta-red-flag-monitor/1.0"),
-            "Accept": "application/geo+json, application/json",
-        }
-    )
+    session = build_http_session(config)
 
     point_results = [
         analyze_point(session, point, config, now_utc, horizon_end_utc, tz)
@@ -5684,6 +6566,10 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     lpea["evidence_quality"] = lpea_evidence_quality(lpea)
     fire_posture = check_fire_posture(session, config)
     days = combine_daily_results(point_results, alert_summary, discussion, config, now_utc, tz)
+    all_forecasts_unavailable = all(point.get("status") != "ok" for point in point_results)
+    if all_forecasts_unavailable:
+        days[0]["tier"] = max_tier(days[0]["tier"], "CONCERN")
+        days[0]["reasons"].insert(0, "NWS forecast data unavailable for all sample points; cannot rule out risk.")
     tier = overall_tier(days, point_results, discussion)
     psps = build_psps_forecast(days, alert_summary, lpea, fire_posture)
 
@@ -5713,11 +6599,13 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         forecast_csv,
     )
     prev_tier = previous_tier(history_path)
-    notify_recommended = tier != "GREEN" or (prev_tier is not None and prev_tier != "GREEN")
-
-    if all(point.get("status") != "ok" for point in point_results):
-        days[0]["tier"] = max_tier(days[0]["tier"], "CONCERN")
-        days[0]["reasons"].insert(0, "NWS forecast data unavailable for all sample points; cannot rule out risk.")
+    notification = notification_recommendation(
+        tier,
+        psps,
+        alert_summary,
+        lpea,
+        all_forecasts_unavailable,
+    )
 
     report = {
         "area_name": config["area_name"],
@@ -5725,14 +6613,21 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "generated_at_local": now_local.isoformat(),
         "generated_at_utc": now_utc.isoformat(),
         "next_update_at": next_update_local.isoformat() if next_update_local else None,
-        "expected_update_interval_minutes": update_interval_minutes,
+        "scheduled_update_times_local": config.get("scheduled_update_times_local", []),
+        "freshness": freshness,
         "timezone": config["timezone"],
         "local_time_name": config.get("local_time_name", "Pagosa Springs, CO"),
         "fire_weather_zone": config["fire_weather_zone"],
         "forecast_horizon_days": config["forecast_horizon_days"],
         "overall_tier": tier,
         "previous_tier": prev_tier,
-        "notify_recommended": notify_recommended,
+        "notify_recommended": notification["recommended"],
+        "notification": notification,
+        "data_quality": {
+            "all_forecasts_unavailable": all_forecasts_unavailable,
+            "available_point_count": sum(1 for point in point_results if point.get("status") == "ok"),
+            "sample_point_count": len(point_results),
+        },
         "official_alerts": alert_summary,
         "discussion": discussion,
         "lpea": lpea,
@@ -5778,6 +6673,9 @@ def main() -> int:
             print(f"- {base / config['output']['latest_json']}")
             print(f"- {base / config['output']['latest_html']}")
             print(f"- {public_analysis_export_path(config_path, config)}")
+            print(f"- {public_latest_path(config_path, config)}")
+            print(f"- {model_review_request_path(config_path, config)}")
+            print(f"- {public_model_review_path(config_path, config)}")
             print(f"- {base / config['output']['history_csv']}")
             print(f"- {analyst_review_packet_path(config_path, config)}")
             print(f"- {forecast_history_path(config_path, config)}")

@@ -4,8 +4,17 @@
   "local_time_name": "Pagosa Springs, CO",
   "fire_weather_zone": "COZ295",
   "forecast_horizon_days": 7,
-  "expected_update_interval_minutes": 60,
+  "scheduled_update_times_local": [
+    "05:20",
+    "17:20"
+  ],
+  "update_grace_minutes": 90,
+  "stale_after_minutes": 900,
   "user_agent": "archuleta-red-flag-monitor/1.0 local-contact",
+  "network": {
+    "retry_count": 3,
+    "retry_backoff_seconds": 0.8
+  },
   "output": {
     "analyst_review_packet_json": "analyst_review_packet.json",
     "forecast_history_csv": "forecast_history.csv",
@@ -13,7 +22,10 @@
     "latest_html": "latest.html",
     "latest_json": "latest.json",
     "latest_markdown": "latest.md",
+    "model_review_request_json": "model_review_request.json",
     "public_analysis_export_json": "public_analysis_export.json",
+    "public_latest_json": "public_latest.json",
+    "public_model_review_json": "public_model_review.json",
     "psps_event_log": "psps_events.json"
   },
   "thresholds": {
@@ -77,54 +89,67 @@
         "name": "Archuleta County Sheriff fire updates",
         "area": "Archuleta County",
         "type": "county",
+        "applies_to": ["Pagosa Springs", "Arboles", "Chimney Rock", "Piedra", "Chromo"],
         "url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/"
       },
       {
         "name": "Town of Pagosa Springs",
         "area": "Pagosa Springs",
         "type": "town",
+        "applies_to": ["Pagosa Springs"],
         "url": "https://www.pagosasprings.co.gov/"
       },
       {
         "name": "San Juan National Forest fire",
         "area": "San Juan National Forest",
         "type": "federal_forest",
+        "applies_to": ["Pagosa Springs", "Chimney Rock", "Piedra", "Chromo", "Durango", "Bayfield"],
         "url": "https://www.fs.usda.gov/r02/sanjuan/fire"
       },
       {
         "name": "BLM Tres Rios Field Office",
         "area": "BLM Tres Rios",
         "type": "federal_blm",
+        "applies_to": ["Arboles", "Chimney Rock", "Durango", "Bayfield", "Ignacio"],
         "url": "https://www.blm.gov/office/tres-rios-field-office"
       },
       {
         "name": "Durango Fire & Rescue fire conditions",
         "area": "La Plata County / Durango Fire",
         "type": "county_fire_district",
+        "applies_to": ["Durango", "Bayfield", "Ignacio"],
         "url": "https://www.durangofire.org/fire-conditions"
       },
       {
         "name": "City of Durango",
         "area": "Durango",
         "type": "city",
+        "applies_to": ["Durango"],
         "url": "https://www.durangoco.gov/"
       },
       {
         "name": "Southern Ute Indian Tribe",
         "area": "Southern Ute / Ignacio",
         "type": "tribal",
+        "applies_to": ["Ignacio"],
         "url": "https://www.southernute-nsn.gov/"
       }
     ]
   },
   "lpea": {
     "enabled": true,
+    "outage_api": {
+      "enabled": true,
+      "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
+      "outages_url": "https://outage.lpea.coop/data/outages.json",
+      "planned_url": "https://outage.lpea.coop/data/plannedOutages.json"
+    },
     "sources": [
       {
         "name": "LPEA outage map",
         "url": "https://outage.lpea.coop",
         "type": "outage_map",
-        "signal_mode": "active"
+        "signal_mode": "reference"
       },
       {
         "name": "LPEA outage center",
@@ -160,13 +185,13 @@
         "name": "LPEA latest news",
         "url": "https://lpea.coop/Posts",
         "type": "official_updates",
-        "signal_mode": "active"
+        "signal_mode": "reference"
       },
       {
         "name": "LPEA news releases",
         "url": "https://lpea.coop/news-releases",
         "type": "official_updates",
-        "signal_mode": "active"
+        "signal_mode": "reference"
       },
       {
         "name": "LPEA Facebook",
