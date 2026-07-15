@@ -1,8 +1,8 @@
 {
   "changing_drivers": [
-    "Forecast momentum is easing versus the prior run, with overall PSPS likelihood dropping from ELEVATED to LOW.",
-    "No current date reaches watch-level PSPS screening, and no official COZ295 fire-weather alert is active.",
-    "The top screening signal remains a LOW 12/100 PSPS estimate near Arboles, while the official outage context is a separate localized outage near Pagosa Springs."
+    "Official fire restrictions remain at Stage 2, with VERY HIGH fire danger still present in the fire-posture checks.",
+    "The highest PSPS screening stays low and is driven mainly by breezy 15 mph wind signals, not by red-flag thresholds or official alert activity.",
+    "Momentum is steady overall, though Jul 16 worsened modestly and Jul 18 eased modestly versus the prior run."
   ],
   "evidence_ids": [
     "overall_status",
@@ -13,17 +13,18 @@
     "fire_posture",
     "calibration"
   ],
-  "generated_at": "2026-07-14T17:22:08-06:00",
-  "headline": "Risk remains low with no official COZ295 fire-weather alert or watch-level PSPS signal, though one localized LPEA outage remains active.",
-  "report_generated_at": "2026-07-14T17:21:15.487465-06:00",
+  "generated_at": "2026-07-15T05:23:15-06:00",
+  "headline": "Screening remains GREEN with LOW PSPS likelihood through Jul 21, while official fire restrictions stay at Stage 2 and no COZ295 fire-weather alerts are active.",
+  "report_generated_at": "2026-07-15T05:22:09.548182-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The fire-weather tier is GREEN, with no official COZ295 Red Flag or Fire Weather alert and no HIGH, CONCERN, WATCH, or LIKELY dates in this screening. The top screening signal is a LOW 12/100 PSPS estimate near Arboles, driven by modest wind plus Stage 2 fire-posture context, which supports preparedness context but does not indicate an official shutoff plan. Official LPEA outage data shows one localized outage near Pagosa Springs, and no public fire-weather or PSPS cause is identified.",
-  "uncertainty": "These scores are screening estimates built from public signals, and no confirmed LPEA PSPS events are logged yet to calibrate them against real shutoff outcomes.",
+  "summary": "Screening estimates remain low across the seven-day window, with the highest PSPS score only LOW 12/100 on Wed, Jul 15 and no WATCH-or-higher dates. Official NWS fire-weather alerts for COZ295 are at 0, and the official LPEA outage viewer shows no active outages; the current LPEA keyword match is context only, not a confirmed shutoff or outage signal. Trend momentum is steady versus the prior run, with medium forecast volatility and no change to the absence of WATCH-or-higher dates.",
+  "uncertainty": "Confidence is medium because public-source coverage is strong, but PSPS calibration remains limited since no confirmed LPEA shutoff events are logged yet.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch for any new official COZ295 Red Flag or Fire Weather alert.",
-    "Check whether wind and humidity trends lift any day above the current LOW PSPS screening.",
-    "Track whether LPEA posts a direct fire-weather or PSPS cause for the active outage or any new outage."
+    "Recheck whether any COZ295 fire-weather alerts appear before Wed, Jul 15 peak afternoon conditions.",
+    "Confirm the LPEA active keyword match remains broad wildfire or outage preparedness language rather than direct shutoff intent.",
+    "Watch whether the highest-risk area keeps shifting between Arboles, Durango, and Pagosa Springs in later runs.",
+    "Add any confirmed LPEA PSPS event to calibration records if one occurs."
   ]
 }
