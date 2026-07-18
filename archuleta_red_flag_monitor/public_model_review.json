@@ -1,8 +1,9 @@
 {
   "changing_drivers": [
-    "Official fire restrictions remain at Stage 2, with VERY HIGH fire danger still present in the fire-posture checks.",
-    "The highest PSPS screening stays low and is driven mainly by breezy 15 mph wind signals, not by red-flag thresholds or official alert activity.",
-    "Momentum is steady overall, though Jul 16 worsened modestly and Jul 18 eased modestly versus the prior run."
+    "No official COZ295 Red Flag or Fire Weather alerts are active, and no active LPEA outages are listed.",
+    "The top screening signal is Fri, Jul 24 near Durango / La Plata County at ELEVATED 20/100 from near-threshold 21 mph wind.",
+    "Forecast momentum eased versus the Jul 17, 2026 5:32 PM MDT run after Tue, Jul 21 dropped from ELEVATED to LOW.",
+    "Official fire posture remains elevated at STAGE 2 with VERY HIGH fire danger in the strongest public-source areas."
   ],
   "evidence_ids": [
     "overall_status",
@@ -13,18 +14,18 @@
     "fire_posture",
     "calibration"
   ],
-  "generated_at": "2026-07-15T05:23:15-06:00",
-  "headline": "Screening remains GREEN with LOW PSPS likelihood through Jul 21, while official fire restrictions stay at Stage 2 and no COZ295 fire-weather alerts are active.",
-  "report_generated_at": "2026-07-15T05:22:09.548182-06:00",
+  "generated_at": "2026-07-18T05:59:02-06:00",
+  "headline": "No official COZ295 fire alerts or LPEA outages are active; screening still shows elevated PSPS concern for Fri, Jul 24 near Durango / La Plata County.",
+  "report_generated_at": "2026-07-18T05:25:42.598107-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Screening estimates remain low across the seven-day window, with the highest PSPS score only LOW 12/100 on Wed, Jul 15 and no WATCH-or-higher dates. Official NWS fire-weather alerts for COZ295 are at 0, and the official LPEA outage viewer shows no active outages; the current LPEA keyword match is context only, not a confirmed shutoff or outage signal. Trend momentum is steady versus the prior run, with medium forecast volatility and no change to the absence of WATCH-or-higher dates.",
-  "uncertainty": "Confidence is medium because public-source coverage is strong, but PSPS calibration remains limited since no confirmed LPEA shutoff events are logged yet.",
+  "summary": "No official COZ295 Red Flag or Fire Weather alerts are active, and the only official NWS alert in monitored zones is a Hydrologic Outlook through Sun, Jul 19. Screening estimates keep the fire-weather tier GREEN while showing an ELEVATED PSPS peak for Fri, Jul 24 near Durango / La Plata County from near-threshold wind and escalated fire posture. The current LPEA keyword match looks like general wildfire or outage-readiness context rather than a confirmed outage or PSPS notice.",
+  "uncertainty": "Confidence is medium because public feeds were reachable, but this remains a rules-based screening estimate and there are still no confirmed PSPS events for calibration.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck whether any COZ295 fire-weather alerts appear before Wed, Jul 15 peak afternoon conditions.",
-    "Confirm the LPEA active keyword match remains broad wildfire or outage preparedness language rather than direct shutoff intent.",
-    "Watch whether the highest-risk area keeps shifting between Arboles, Durango, and Pagosa Springs in later runs.",
-    "Add any confirmed LPEA PSPS event to calibration records if one occurs."
+    "Check whether Fri, Jul 24 wind or RH worsens enough to lift Durango / La Plata County from ELEVATED toward WATCH.",
+    "Check whether any official COZ295 Red Flag or Fire Weather alert appears before Fri, Jul 24.",
+    "Check whether the LPEA active keyword match stays general wildfire guidance rather than a specific outage or PSPS notice.",
+    "Check the official LPEA outage viewer for any new active outages or fire-related outage details."
   ]
 }
