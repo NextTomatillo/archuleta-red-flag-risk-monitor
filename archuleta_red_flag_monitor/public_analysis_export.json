@@ -1,33 +1,33 @@
 {
   "analyst_interpretation": {
     "changing_drivers": [
-      "Thu, Jul 23 worsened to ELEVATED near Bayfield / east La Plata County as wind edged higher and humidity eased slightly.",
-      "Tue, Jul 21 also worsened to ELEVATED near Chimney Rock / west county despite no WATCH-level signal.",
-      "Official fire posture remains STAGE 2 with VERY HIGH fire danger, which adds preparedness context but does not create an official alert or PSPS watch by itself.",
-      "A localized LPEA outage near Durango is active, but the public data does not identify a fire-weather or PSPS cause."
+      "Tuesday, July 21 remains the top screening concern near Durango / La Plata County because wind is near 21 mph and local fire posture is Stage 2 with HIGH fire danger.",
+      "No official COZ295 Red Flag or Fire Weather alerts are active in the monitored zones.",
+      "Official LPEA outage data shows two localized outages near Durango / La Plata County, but no fire-weather or PSPS cause has been identified.",
+      "Forecast momentum is steady, while late-week driver locations continue to shift within the broader service area."
     ],
     "evidence_ids": [
       "overall_status",
       "weather_peaks",
       "official_alerts",
-      "forecast_change",
       "lpea_context",
+      "forecast_change",
       "fire_posture",
       "calibration"
     ],
-    "generated_at": "2026-07-18T17:38:19.330988-06:00",
-    "headline": "Screening stays GREEN overall, while Thu, Jul 23 carries the highest ELEVATED PSPS concern near Bayfield under breezy conditions and Stage 2 restrictions.",
-    "report_generated_at": "2026-07-18T17:21:38.312842-06:00",
+    "generated_at": "2026-07-20T06:29:36-06:00",
+    "headline": "Screening stays GREEN overall, with the top PSPS estimate elevated for Tuesday, July 21 near Durango while official COZ295 fire alerts remain absent.",
+    "report_generated_at": "2026-07-20T05:39:04.700025-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The deterministic monitor remains GREEN overall with no HIGH or CONCERN dates and no official COZ295 Red Flag or Fire Weather alerts. Screening concern is highest on Thu, Jul 23 near Bayfield / east La Plata County, where PSPS likelihood reaches ELEVATED on near-threshold wind and very high fire posture, but that still falls short of a WATCH. A separate official LPEA outage affecting one customer near Durango is operational context only, with no posted fire-weather or PSPS cause.",
-    "uncertainty": "These outputs are screening estimates from public sources, the forecast changed materially versus the prior run, and no confirmed PSPS events are available yet for calibration.",
+    "summary": "Current screening stays GREEN overall with no official COZ295 Red Flag or Fire Weather alerts and no WATCH-or-higher PSPS dates. The top screening signal is an ELEVATED PSPS estimate for Tuesday, July 21 near Durango / La Plata County, driven by near-threshold wind and supported by Stage 2 restrictions with HIGH fire danger there. Official LPEA outage data separately shows two localized outages affecting two customers, but no fire-weather or PSPS cause has been identified.",
+    "uncertainty": "These are screening estimates rather than official forecasts, and confidence is limited by high forecast volatility plus the lack of confirmed PSPS events for calibration.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck whether Thu, Jul 23 near Bayfield climbs from ELEVATED toward WATCH if wind increases or humidity drops further.",
-      "Watch whether Tue, Jul 21 near Chimney Rock keeps its ELEVATED screening signal in the next run.",
-      "Confirm whether the Durango-area outage clears or gains any fire-weather or PSPS explanation.",
-      "Check for any new official COZ295 fire-weather alerts; the current official fire-alert count is zero."
+      "Recheck Tuesday, July 21 wind and humidity for any move toward WATCH-level PSPS screening.",
+      "Watch whether the localized Durango-area outages are cleared or receive a stated cause from LPEA.",
+      "Monitor whether the highest-risk driver area keeps shifting between Pagosa Springs and La Plata County later this week.",
+      "Check for any new official COZ295 fire-weather alerts before conditions peak."
     ]
   },
   "confidence": {
@@ -45,13 +45,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-18T17:21:38.312842-06:00",
+  "generated_at": "2026-07-20T05:39:04.700025-06:00",
   "headline": {
     "monitor_heads_up_recommended": false,
     "overall_tier": "GREEN",
     "psps_likelihood": "ELEVATED",
-    "summary": "Highest LPEA PSPS concern is Thu, Jul 23 near Bayfield / east La Plata County (ELEVATED 20/100), driven by near-threshold wind/gust signal near 21 mph; Official fire-posture context for Bayfield / east La Plata County is escalated (STAGE 2; fire danger VERY HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 18 at 5:25 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "summary": "Highest LPEA PSPS concern is Tue, Jul 21 near Durango / La Plata County (ELEVATED 20/100), driven by near-threshold wind/gust signal near 21 mph; Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 19 at 5:23 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -62,25 +62,31 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Thu, Jul 23: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County.",
-    "Tue, Jul 21: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind -1 mph, RH -1%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
-    "Sat, Jul 18: easing vs prior run; PSPS LOW -> LOW; score 0, wind -1 mph, RH +5%, red-flag hours 0."
+    "Wed, Jul 22: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -1 mph, RH +2%, red-flag hours 0. Driver shifted to Pagosa Springs.",
+    "Sat, Jul 25: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +1 mph, RH +1%, red-flag hours 0. Driver shifted to Durango / La Plata County."
   ],
   "operational_outage_context": {
     "active": true,
-    "active_outage_count": 1,
-    "affected_members": 1,
+    "active_outage_count": 2,
+    "affected_members": 2,
     "areas": [
       "Durango / La Plata County"
     ],
-    "customers_affected": 1,
-    "customers_out_now": 1,
-    "customers_served": 47545,
+    "customers_affected": 2,
+    "customers_out_now": 2,
+    "customers_served": 47546,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 1 customer without power near Durango / La Plata County.",
+    "headline": "Official LPEA outage data shows 2 customers without power near Durango / La Plata County.",
     "hits": [
       {
-        "name": "138 FAT DOG LN",
+        "name": "BONDAD WELL #32 33.9",
+        "snippets": [
+          "Durango / La Plata County: 1 customer out; unplanned; cause 790 Public, other."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "511 COUNTY RD 220",
         "snippets": [
           "Durango / La Plata County: 1 customer out; unplanned; cause not posted."
         ],
@@ -89,25 +95,49 @@
     ],
     "outages": [
       {
+        "cause": "790 Public, other",
+        "crew_assigned": true,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 11.0,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-07-19-0131",
+        "latitude": 37.11846050558379,
+        "longitude": -107.84353630456918,
+        "modified_at": "2026-07-19T20:16:45.47-06:00",
+        "name": "BONDAD WELL #32 33.9",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-07-19T17:21:00-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": true,
+        "work_status": ""
+      },
+      {
         "cause": null,
         "crew_assigned": false,
         "customers_out_initially": 1,
         "customers_out_now": 1,
         "customers_restored": 0,
-        "distance_miles": 9.9,
+        "distance_miles": 4.8,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-07-18-0127",
-        "latitude": 37.413394911051746,
-        "longitude": -107.83404598754116,
-        "modified_at": "2026-07-18T15:13:16.533-06:00",
-        "name": "138 FAT DOG LN",
+        "id": "2026-07-20-0142",
+        "latitude": 37.21486507865924,
+        "longitude": -107.83613432175504,
+        "modified_at": "2026-07-20T00:21:48.547-06:00",
+        "name": "511 COUNTY RD 220",
         "nearest_area": "Durango / La Plata County",
         "planned": false,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-18T15:08:53-06:00",
+        "started_at": "2026-07-20T00:19:51-06:00",
         "url": "https://outage.lpea.coop",
         "verified": false,
         "work_status": ""
@@ -122,46 +152,46 @@
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
+    "summary": "2 active outages; 0 planned and 2 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 1,
-    "update_time": "2026-07-18T17:20:38.8715011-06:00"
+    "unplanned_outage_count": 2,
+    "update_time": "2026-07-20T05:38:51.9250625-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-07-23",
-      "display_date": "Thu, Jul 23",
+      "date": "2026-07-21",
+      "display_date": "Tue, Jul 21",
       "drivers": [
         "wind/gust near 21 mph",
         "official fire restrictions at STAGE 2",
-        "official fire danger is VERY HIGH"
+        "official fire danger is HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 4 PM local; RH 31%, wind 21 mph.",
-      "level": "MODERATE",
-      "location": "Bayfield / east La Plata County",
-      "score": 36
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 21 mph.",
+      "level": "LOW",
+      "location": "Durango / La Plata County",
+      "score": 32
     },
     "psps": {
-      "date": "2026-07-23",
-      "display_date": "Thu, Jul 23",
+      "date": "2026-07-21",
+      "display_date": "Tue, Jul 21",
       "drivers": [
         "near-threshold wind/gust signal near 21 mph",
-        "Official fire-posture context for Bayfield / east La Plata County is escalated (STAGE 2; fire danger VERY HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+        "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
-      "highest_risk_window": "Peak ingredients near 4 PM local; RH 31%, wind 21 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 21 mph.",
       "level": "ELEVATED",
-      "location": "Bayfield / east La Plata County",
+      "location": "Durango / La Plata County",
       "score": 20
     },
     "red_flag": {
-      "date": "2026-07-23",
-      "display_date": "Thu, Jul 23",
+      "date": "2026-07-21",
+      "display_date": "Tue, Jul 21",
       "drivers": [
         "breezy wind/gust near 21 mph"
       ],
-      "highest_risk_window": "Peak ingredients near 4 PM local; RH 31%, wind 21 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 21 mph.",
       "level": "LOW",
-      "location": "Bayfield / east La Plata County",
+      "location": "Durango / La Plata County",
       "score": 8
     }
   },
@@ -339,8 +369,8 @@
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 35,
-    "momentum": "Rising"
+    "forecast_volatility_score": 30,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [

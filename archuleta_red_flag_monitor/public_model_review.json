@@ -1,31 +1,31 @@
 {
   "changing_drivers": [
-    "Thu, Jul 23 worsened to ELEVATED near Bayfield / east La Plata County as wind edged higher and humidity eased slightly.",
-    "Tue, Jul 21 also worsened to ELEVATED near Chimney Rock / west county despite no WATCH-level signal.",
-    "Official fire posture remains STAGE 2 with VERY HIGH fire danger, which adds preparedness context but does not create an official alert or PSPS watch by itself.",
-    "A localized LPEA outage near Durango is active, but the public data does not identify a fire-weather or PSPS cause."
+    "Tuesday, July 21 remains the top screening concern near Durango / La Plata County because wind is near 21 mph and local fire posture is Stage 2 with HIGH fire danger.",
+    "No official COZ295 Red Flag or Fire Weather alerts are active in the monitored zones.",
+    "Official LPEA outage data shows two localized outages near Durango / La Plata County, but no fire-weather or PSPS cause has been identified.",
+    "Forecast momentum is steady, while late-week driver locations continue to shift within the broader service area."
   ],
   "evidence_ids": [
     "overall_status",
     "weather_peaks",
     "official_alerts",
-    "forecast_change",
     "lpea_context",
+    "forecast_change",
     "fire_posture",
     "calibration"
   ],
-  "generated_at": "2026-07-18T17:38:19.330988-06:00",
-  "headline": "Screening stays GREEN overall, while Thu, Jul 23 carries the highest ELEVATED PSPS concern near Bayfield under breezy conditions and Stage 2 restrictions.",
-  "report_generated_at": "2026-07-18T17:21:38.312842-06:00",
+  "generated_at": "2026-07-20T06:29:36-06:00",
+  "headline": "Screening stays GREEN overall, with the top PSPS estimate elevated for Tuesday, July 21 near Durango while official COZ295 fire alerts remain absent.",
+  "report_generated_at": "2026-07-20T05:39:04.700025-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The deterministic monitor remains GREEN overall with no HIGH or CONCERN dates and no official COZ295 Red Flag or Fire Weather alerts. Screening concern is highest on Thu, Jul 23 near Bayfield / east La Plata County, where PSPS likelihood reaches ELEVATED on near-threshold wind and very high fire posture, but that still falls short of a WATCH. A separate official LPEA outage affecting one customer near Durango is operational context only, with no posted fire-weather or PSPS cause.",
-  "uncertainty": "These outputs are screening estimates from public sources, the forecast changed materially versus the prior run, and no confirmed PSPS events are available yet for calibration.",
+  "summary": "Current screening stays GREEN overall with no official COZ295 Red Flag or Fire Weather alerts and no WATCH-or-higher PSPS dates. The top screening signal is an ELEVATED PSPS estimate for Tuesday, July 21 near Durango / La Plata County, driven by near-threshold wind and supported by Stage 2 restrictions with HIGH fire danger there. Official LPEA outage data separately shows two localized outages affecting two customers, but no fire-weather or PSPS cause has been identified.",
+  "uncertainty": "These are screening estimates rather than official forecasts, and confidence is limited by high forecast volatility plus the lack of confirmed PSPS events for calibration.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck whether Thu, Jul 23 near Bayfield climbs from ELEVATED toward WATCH if wind increases or humidity drops further.",
-    "Watch whether Tue, Jul 21 near Chimney Rock keeps its ELEVATED screening signal in the next run.",
-    "Confirm whether the Durango-area outage clears or gains any fire-weather or PSPS explanation.",
-    "Check for any new official COZ295 fire-weather alerts; the current official fire-alert count is zero."
+    "Recheck Tuesday, July 21 wind and humidity for any move toward WATCH-level PSPS screening.",
+    "Watch whether the localized Durango-area outages are cleared or receive a stated cause from LPEA.",
+    "Monitor whether the highest-risk driver area keeps shifting between Pagosa Springs and La Plata County later this week.",
+    "Check for any new official COZ295 fire-weather alerts before conditions peak."
   ]
 }
