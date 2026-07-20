@@ -1,33 +1,32 @@
 {
   "analyst_interpretation": {
     "changing_drivers": [
-      "Tuesday, July 21 remains the top screening concern near Durango / La Plata County because wind is near 21 mph and local fire posture is Stage 2 with HIGH fire danger.",
-      "No official COZ295 Red Flag or Fire Weather alerts are active in the monitored zones.",
-      "Official LPEA outage data shows two localized outages near Durango / La Plata County, but no fire-weather or PSPS cause has been identified.",
-      "Forecast momentum is steady, while late-week driver locations continue to shift within the broader service area."
+      "Jul 20 screening rose 16 points as wind increased 2 mph and RH fell 4 percentage points.",
+      "Jul 24 eased from ELEVATED to LOW, with the driver shifting to Pagosa Springs.",
+      "Stage 2 restrictions and HIGH fire danger remain important preparedness context."
     ],
     "evidence_ids": [
       "overall_status",
       "weather_peaks",
       "official_alerts",
-      "lpea_context",
       "forecast_change",
+      "lpea_context",
       "fire_posture",
       "calibration"
     ],
-    "generated_at": "2026-07-20T06:29:36-06:00",
-    "headline": "Screening stays GREEN overall, with the top PSPS estimate elevated for Tuesday, July 21 near Durango while official COZ295 fire alerts remain absent.",
-    "report_generated_at": "2026-07-20T05:39:04.700025-06:00",
+    "generated_at": "2026-07-20T17:50:04-06:00",
+    "headline": "Fire-weather and PSPS screening are ELEVATED for Jul 20, led by dry, breezy Chimney Rock conditions; no COZ295 fire alert or LPEA outage is active.",
+    "report_generated_at": "2026-07-20T17:41:30.660500-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Current screening stays GREEN overall with no official COZ295 Red Flag or Fire Weather alerts and no WATCH-or-higher PSPS dates. The top screening signal is an ELEVATED PSPS estimate for Tuesday, July 21 near Durango / La Plata County, driven by near-threshold wind and supported by Stage 2 restrictions with HIGH fire danger there. Official LPEA outage data separately shows two localized outages affecting two customers, but no fire-weather or PSPS cause has been identified.",
-    "uncertainty": "These are screening estimates rather than official forecasts, and confidence is limited by high forecast volatility plus the lack of confirmed PSPS events for calibration.",
+    "summary": "Mon, Jul 20 peaks near Chimney Rock at MODERATE fire potential (48/100), LOW Red Flag likelihood (25/100), and ELEVATED PSPS screening (34/100). The official NWS COZ295 fire-alert count is zero, while a Special Weather Statement is active for other zones; official LPEA data lists no current outages. Stage 2 restrictions and HIGH fire danger add preparedness context, but neither the LPEA keyword match nor these screening scores confirm PSPS intent.",
+    "uncertainty": "These are screening estimates, not official probabilities; PSPS calibration has no confirmed events, and only LPEA can determine operational shutoff actions.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Tuesday, July 21 wind and humidity for any move toward WATCH-level PSPS screening.",
-      "Watch whether the localized Durango-area outages are cleared or receive a stated cause from LPEA.",
-      "Monitor whether the highest-risk driver area keeps shifting between Pagosa Springs and La Plata County later this week.",
-      "Check for any new official COZ295 fire-weather alerts before conditions peak."
+      "Monitor whether Jul 20 dry, breezy conditions intensify near Chimney Rock.",
+      "Check NWS for any new COZ295 Red Flag Warning or Fire Weather Watch.",
+      "Confirm whether LPEA's keyword match remains general wildfire context rather than outage or PSPS intent.",
+      "Check the official LPEA outage viewer for any new operational outage."
     ]
   },
   "confidence": {
@@ -38,20 +37,19 @@
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "active LPEA operational outage context checked separately from PSPS scoring",
       "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-20T05:39:04.700025-06:00",
+  "generated_at": "2026-07-20T17:41:30.660500-06:00",
   "headline": {
     "monitor_heads_up_recommended": false,
-    "overall_tier": "GREEN",
+    "overall_tier": "ELEVATED",
     "psps_likelihood": "ELEVATED",
-    "summary": "Highest LPEA PSPS concern is Tue, Jul 21 near Durango / La Plata County (ELEVATED 20/100), driven by near-threshold wind/gust signal near 21 mph; Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
-    "trend_summary": "Momentum is steady versus the prior run (Jul 19 at 5:23 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "summary": "Highest LPEA PSPS concern is Mon, Jul 20 near Chimney Rock / west county (ELEVATED 34/100), driven by breezy wind/gust signal near 15 mph; red-flag RH near 15%; modest coincident dry-thunder signal near 17%.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 20 at 5:39 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -62,137 +60,74 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Wed, Jul 22: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -1 mph, RH +2%, red-flag hours 0. Driver shifted to Pagosa Springs.",
-    "Sat, Jul 25: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +1 mph, RH +1%, red-flag hours 0. Driver shifted to Durango / La Plata County."
+    "Mon, Jul 20: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +16, wind +2 mph, RH -4%, red-flag hours 0.",
+    "Fri, Jul 24: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -1 mph, RH -1%, red-flag hours 0. Driver shifted to Pagosa Springs."
   ],
   "operational_outage_context": {
-    "active": true,
-    "active_outage_count": 2,
-    "affected_members": 2,
-    "areas": [
-      "Durango / La Plata County"
-    ],
-    "customers_affected": 2,
-    "customers_out_now": 2,
-    "customers_served": 47546,
+    "active": false,
+    "active_outage_count": 0,
+    "affected_members": 0,
+    "areas": [],
+    "customers_affected": 0,
+    "customers_out_now": 0,
+    "customers_served": 47550,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 2 customers without power near Durango / La Plata County.",
-    "hits": [
-      {
-        "name": "BONDAD WELL #32 33.9",
-        "snippets": [
-          "Durango / La Plata County: 1 customer out; unplanned; cause 790 Public, other."
-        ],
-        "url": "https://outage.lpea.coop"
-      },
-      {
-        "name": "511 COUNTY RD 220",
-        "snippets": [
-          "Durango / La Plata County: 1 customer out; unplanned; cause not posted."
-        ],
-        "url": "https://outage.lpea.coop"
-      }
-    ],
-    "outages": [
-      {
-        "cause": "790 Public, other",
-        "crew_assigned": true,
-        "customers_out_initially": 1,
-        "customers_out_now": 1,
-        "customers_restored": 0,
-        "distance_miles": 11.0,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-07-19-0131",
-        "latitude": 37.11846050558379,
-        "longitude": -107.84353630456918,
-        "modified_at": "2026-07-19T20:16:45.47-06:00",
-        "name": "BONDAD WELL #32 33.9",
-        "nearest_area": "Durango / La Plata County",
-        "planned": false,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-19T17:21:00-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": true,
-        "work_status": ""
-      },
-      {
-        "cause": null,
-        "crew_assigned": false,
-        "customers_out_initially": 1,
-        "customers_out_now": 1,
-        "customers_restored": 0,
-        "distance_miles": 4.8,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-07-20-0142",
-        "latitude": 37.21486507865924,
-        "longitude": -107.83613432175504,
-        "modified_at": "2026-07-20T00:21:48.547-06:00",
-        "name": "511 COUNTY RD 220",
-        "nearest_area": "Durango / La Plata County",
-        "planned": false,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-20T00:19:51-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": false,
-        "work_status": ""
-      }
-    ],
+    "headline": "Official LPEA outage data shows no active customer outages.",
+    "hits": [],
+    "outages": [],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
     "planned_outage_count": 0,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "localized",
+    "severity": "none",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "2 active outages; 0 planned and 2 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.",
+    "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 2,
-    "update_time": "2026-07-20T05:38:51.9250625-06:00"
+    "unplanned_outage_count": 0,
+    "update_time": "2026-07-20T17:40:55.4004583-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-07-21",
-      "display_date": "Tue, Jul 21",
+      "date": "2026-07-20",
+      "display_date": "Mon, Jul 20",
       "drivers": [
-        "wind/gust near 21 mph",
+        "very dry RH near 15%",
         "official fire restrictions at STAGE 2",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 21 mph.",
-      "level": "LOW",
-      "location": "Durango / La Plata County",
-      "score": 32
+      "highest_risk_window": "Peak ingredients near 5 PM local; RH 15%, wind 15 mph.",
+      "level": "MODERATE",
+      "location": "Chimney Rock / west county",
+      "score": 48
     },
     "psps": {
-      "date": "2026-07-21",
-      "display_date": "Tue, Jul 21",
+      "date": "2026-07-20",
+      "display_date": "Mon, Jul 20",
       "drivers": [
-        "near-threshold wind/gust signal near 21 mph",
-        "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+        "breezy wind/gust signal near 15 mph",
+        "red-flag RH near 15%",
+        "modest coincident dry-thunder signal near 17%",
+        "Official fire-posture context for Chimney Rock / west county is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 21 mph.",
+      "highest_risk_window": "Peak ingredients near 5 PM local; RH 15%, wind 15 mph.",
       "level": "ELEVATED",
-      "location": "Durango / La Plata County",
-      "score": 20
+      "location": "Chimney Rock / west county",
+      "score": 34
     },
     "red_flag": {
-      "date": "2026-07-21",
-      "display_date": "Tue, Jul 21",
+      "date": "2026-07-20",
+      "display_date": "Mon, Jul 20",
       "drivers": [
-        "breezy wind/gust near 21 mph"
+        "RH near 15%",
+        "dry-thunder probability near 17%"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 21 mph.",
+      "highest_risk_window": "Peak ingredients near 5 PM local; RH 15%, wind 15 mph.",
       "level": "LOW",
-      "location": "Durango / La Plata County",
-      "score": 8
+      "location": "Chimney Rock / west county",
+      "score": 25
     }
   },
   "red_flag_calibration": {
@@ -369,7 +304,7 @@
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 30,
+    "forecast_volatility_score": 38,
     "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
