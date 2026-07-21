@@ -1,8 +1,9 @@
 {
   "changing_drivers": [
-    "Jul 20 screening rose 16 points as wind increased 2 mph and RH fell 4 percentage points.",
-    "Jul 24 eased from ELEVATED to LOW, with the driver shifting to Pagosa Springs.",
-    "Stage 2 restrictions and HIGH fire danger remain important preparedness context."
+    "Thu, Jul 23 eased from ELEVATED to LOW as wind fell about 1 mph and RH rose 1 point; the driver shifted to Pagosa Springs.",
+    "Sat, Jul 25 eased from ELEVATED to LOW as wind fell about 1 mph and RH rose 1 point; the driver shifted to Arboles / southwest county.",
+    "Sun, Jul 26 eased from ELEVATED to LOW as RH rose 3 points with wind steady.",
+    "No WATCH-or-higher PSPS date appears in either the current or prior run."
   ],
   "evidence_ids": [
     "overall_status",
@@ -13,18 +14,18 @@
     "fire_posture",
     "calibration"
   ],
-  "generated_at": "2026-07-20T17:50:04-06:00",
-  "headline": "Fire-weather and PSPS screening are ELEVATED for Jul 20, led by dry, breezy Chimney Rock conditions; no COZ295 fire alert or LPEA outage is active.",
-  "report_generated_at": "2026-07-20T17:41:30.660500-06:00",
+  "generated_at": "2026-07-21T05:21:44-06:00",
+  "headline": "Fire-weather screening is GREEN, with no official alerts or outages; Tue, Jul 21 has the highest PSPS screening estimate at ELEVATED.",
+  "report_generated_at": "2026-07-21T05:21:00.955723-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Mon, Jul 20 peaks near Chimney Rock at MODERATE fire potential (48/100), LOW Red Flag likelihood (25/100), and ELEVATED PSPS screening (34/100). The official NWS COZ295 fire-alert count is zero, while a Special Weather Statement is active for other zones; official LPEA data lists no current outages. Stage 2 restrictions and HIGH fire danger add preparedness context, but neither the LPEA keyword match nor these screening scores confirm PSPS intent.",
-  "uncertainty": "These are screening estimates, not official probabilities; PSPS calibration has no confirmed events, and only LPEA can determine operational shutoff actions.",
+  "summary": "NWS reports no active alerts for monitored zones, and official LPEA outage data lists no active customer outages. The ELEVATED PSPS estimate for Tue, Jul 21 near Durango / La Plata County is a screening result driven by wind near 21 mph plus Stage 2 restrictions and HIGH fire-danger context; it does not create a WATCH. Forecast momentum is easing, though volatility remains HIGH.",
+  "uncertainty": "PSPS scores are uncalibrated because no confirmed LPEA PSPS events are logged, and public evidence cannot show LPEA's internal conditions or shutoff thresholds.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Monitor whether Jul 20 dry, breezy conditions intensify near Chimney Rock.",
-    "Check NWS for any new COZ295 Red Flag Warning or Fire Weather Watch.",
-    "Confirm whether LPEA's keyword match remains general wildfire context rather than outage or PSPS intent.",
-    "Check the official LPEA outage viewer for any new operational outage."
+    "Recheck Tue, Jul 21 winds and humidity near Durango / La Plata County.",
+    "Verify whether the LPEA keyword match remains general wildfire-mitigation context rather than outage or PSPS intent.",
+    "Watch whether later-week driver locations continue to shift as the forecast changes.",
+    "Confirm any new official NWS alert or LPEA operational outage separately from screening estimates."
   ]
 }
