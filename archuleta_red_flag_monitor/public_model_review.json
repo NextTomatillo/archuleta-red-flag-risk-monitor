@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Thu, Jul 23 eased from ELEVATED to LOW as wind fell about 1 mph and RH rose 1 point; the driver shifted to Pagosa Springs.",
-    "Sat, Jul 25 eased from ELEVATED to LOW as wind fell about 1 mph and RH rose 1 point; the driver shifted to Arboles / southwest county.",
-    "Sun, Jul 26 eased from ELEVATED to LOW as RH rose 3 points with wind steady.",
-    "No WATCH-or-higher PSPS date appears in either the current or prior run."
+    "Jul 23 worsened from LOW to ELEVATED PSPS screening as the driver shifted to Ignacio, with wind near 21 mph.",
+    "Jul 21 eased from ELEVATED to LOW as wind fell 5 mph and RH rose 15 points.",
+    "Jul 26 and Jul 27 moved to ELEVATED PSPS screening, but no WATCH-or-higher date emerged.",
+    "Stage 2 restrictions and HIGH fire danger add preparedness context without creating a PSPS WATCH."
   ],
   "evidence_ids": [
     "overall_status",
@@ -14,18 +14,18 @@
     "fire_posture",
     "calibration"
   ],
-  "generated_at": "2026-07-21T05:21:44-06:00",
-  "headline": "Fire-weather screening is GREEN, with no official alerts or outages; Tue, Jul 21 has the highest PSPS screening estimate at ELEVATED.",
-  "report_generated_at": "2026-07-21T05:21:00.955723-06:00",
+  "generated_at": "2026-07-21T19:16:31-06:00",
+  "headline": "Fire-weather screening remains GREEN with no official COZ295 alerts, while Jul 23 has the highest ELEVATED PSPS screening estimate.",
+  "report_generated_at": "2026-07-21T19:15:39.596743-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "NWS reports no active alerts for monitored zones, and official LPEA outage data lists no active customer outages. The ELEVATED PSPS estimate for Tue, Jul 21 near Durango / La Plata County is a screening result driven by wind near 21 mph plus Stage 2 restrictions and HIGH fire-danger context; it does not create a WATCH. Forecast momentum is easing, though volatility remains HIGH.",
-  "uncertainty": "PSPS scores are uncalibrated because no confirmed LPEA PSPS events are logged, and public evidence cannot show LPEA's internal conditions or shutoff thresholds.",
+  "summary": "Official NWS data shows no active Red Flag or Fire Weather alerts for COZ295, and official LPEA outage data shows no active customer outages. Screening estimates put the Jul 23 PSPS peak at ELEVATED 20/100 near Ignacio, driven by near-threshold wind around 21 mph and Stage 2 fire-posture context; this does not create a WATCH or trigger a heads-up.",
+  "uncertainty": "These are screening estimates, not official or statistically calibrated probabilities; no confirmed LPEA PSPS events are available for calibration.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Tue, Jul 21 winds and humidity near Durango / La Plata County.",
-    "Verify whether the LPEA keyword match remains general wildfire-mitigation context rather than outage or PSPS intent.",
-    "Watch whether later-week driver locations continue to shift as the forecast changes.",
-    "Confirm any new official NWS alert or LPEA operational outage separately from screening estimates."
+    "Recheck Jul 23 wind and RH trends near Ignacio.",
+    "Verify whether LPEA keyword matches remain broad wildfire-mitigation context rather than a direct outage or PSPS notice.",
+    "Watch whether Jul 25-27 dryness and driver locations persist across runs.",
+    "Confirm any new official COZ295 alert or LPEA outage before taking action."
   ]
 }
