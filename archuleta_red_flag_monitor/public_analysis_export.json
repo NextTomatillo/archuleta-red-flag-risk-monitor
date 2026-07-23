@@ -1,10 +1,10 @@
 {
   "analyst_interpretation": {
     "changing_drivers": [
-      "Jul 23 worsened from LOW to ELEVATED PSPS screening as the driver shifted to Ignacio, with wind near 21 mph.",
-      "Jul 21 eased from ELEVATED to LOW as wind fell 5 mph and RH rose 15 points.",
-      "Jul 26 and Jul 27 moved to ELEVATED PSPS screening, but no WATCH-or-higher date emerged.",
-      "Stage 2 restrictions and HIGH fire danger add preparedness context without creating a PSPS WATCH."
+      "Overall PSPS screening eased from ELEVATED to LOW versus the prior run.",
+      "The Jul 23 screening score fell by 8 points as wind eased by 2 mph and relative humidity rose by 2 percentage points.",
+      "Stage 2 restrictions and HIGH official fire-danger posture remain preparedness context, but do not create a PSPS WATCH.",
+      "An LPEA keyword match remains present, while the official outage viewer reports no active outages."
     ],
     "evidence_ids": [
       "overall_status",
@@ -15,19 +15,19 @@
       "fire_posture",
       "calibration"
     ],
-    "generated_at": "2026-07-21T19:16:31-06:00",
-    "headline": "Fire-weather screening remains GREEN with no official COZ295 alerts, while Jul 23 has the highest ELEVATED PSPS screening estimate.",
-    "report_generated_at": "2026-07-21T19:15:39.596743-06:00",
+    "generated_at": "2026-07-22T18:45:51-06:00",
+    "headline": "Fire-weather risk is GREEN, with LOW PSPS screening and no official COZ295 fire alert or active LPEA outage.",
+    "report_generated_at": "2026-07-22T17:53:17.266756-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Official NWS data shows no active Red Flag or Fire Weather alerts for COZ295, and official LPEA outage data shows no active customer outages. Screening estimates put the Jul 23 PSPS peak at ELEVATED 20/100 near Ignacio, driven by near-threshold wind around 21 mph and Stage 2 fire-posture context; this does not create a WATCH or trigger a heads-up.",
-    "uncertainty": "These are screening estimates, not official or statistically calibrated probabilities; no confirmed LPEA PSPS events are available for calibration.",
+    "summary": "No HIGH or CONCERN fire-weather dates are identified, and the highest PSPS screening estimate is LOW 12/100 on Jul 23 near Pagosa Springs. Official sources show zero COZ295 fire alerts and no active LPEA operational outage; the LPEA keyword match is contextual and does not confirm outage or shutoff intent. Stage 2 restrictions and HIGH fire-danger posture support continued preparedness.",
+    "uncertainty": "These rules-based screening scores are not official or statistically calibrated probabilities, and no confirmed LPEA PSPS events have been logged for calibration.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Jul 23 wind and RH trends near Ignacio.",
-      "Verify whether LPEA keyword matches remain broad wildfire-mitigation context rather than a direct outage or PSPS notice.",
-      "Watch whether Jul 25-27 dryness and driver locations persist across runs.",
-      "Confirm any new official COZ295 alert or LPEA outage before taking action."
+      "Recheck Jul 23 wind and relative-humidity trends.",
+      "Confirm whether the LPEA keyword match remains general wildfire-mitigation context.",
+      "Watch for any new official COZ295 fire alert or LPEA operational outage.",
+      "Track whether the highest-risk location shifts in the next run."
     ]
   },
   "confidence": {
@@ -44,13 +44,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-21T19:15:39.596743-06:00",
+  "generated_at": "2026-07-22T17:53:17.266756-06:00",
   "headline": {
     "monitor_heads_up_recommended": false,
     "overall_tier": "GREEN",
-    "psps_likelihood": "ELEVATED",
-    "summary": "Highest LPEA PSPS concern is Thu, Jul 23 near Ignacio / southeast La Plata County (ELEVATED 20/100), driven by near-threshold wind/gust signal near 21 mph; Official fire-posture context for Ignacio / southeast La Plata County is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 21 at 5:21 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "psps_likelihood": "LOW",
+    "summary": "Highest LPEA PSPS concern is Thu, Jul 23 near Pagosa Springs (LOW 12/100), driven by breezy wind/gust signal near 17 mph; Official fire-posture context for Pagosa Springs is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+    "trend_summary": "Momentum is easing versus the prior run (Jul 21 at 7:15 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -61,10 +61,11 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Tue, Jul 21: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -5 mph, RH +15%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Thu, Jul 23: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +1 mph, RH +3%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-    "Sun, Jul 26: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind +1 mph, RH -3%, red-flag hours 0.",
-    "Mon, Jul 27: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind -1 mph, RH -1%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
+    "Overall PSPS likelihood changed from ELEVATED to LOW.",
+    "Thu, Jul 23: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -2 mph, RH +2%, red-flag hours 0. Driver shifted to Pagosa Springs.",
+    "Sun, Jul 26: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -2 mph, RH +2%, red-flag hours 0.",
+    "Sat, Jul 25: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -1 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Mon, Jul 27: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind 0 mph, RH +2%, red-flag hours 0. Driver shifted to Arboles / southwest county."
   ],
   "operational_outage_context": {
     "active": false,
@@ -73,7 +74,7 @@
     "areas": [],
     "customers_affected": 0,
     "customers_out_now": 0,
-    "customers_served": 47555,
+    "customers_served": 47540,
     "fire_related": false,
     "headline": "Official LPEA outage data shows no active customer outages.",
     "hits": [],
@@ -90,44 +91,43 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-07-21T19:15:07.1341501-06:00"
+    "update_time": "2026-07-22T17:53:13.0586632-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-07-25",
-      "display_date": "Sat, Jul 25",
+      "date": "2026-07-22",
+      "display_date": "Wed, Jul 22",
       "drivers": [
-        "dry RH near 22%",
         "official fire restrictions at STAGE 2",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 22%, wind 16 mph.",
+      "highest_risk_window": "Peak ingredients near 6 PM local; RH 42%, wind 12 mph.",
       "level": "LOW",
-      "location": "Chimney Rock / west county",
-      "score": 28
+      "location": "Pagosa Springs",
+      "score": 20
     },
     "psps": {
       "date": "2026-07-23",
       "display_date": "Thu, Jul 23",
       "drivers": [
-        "near-threshold wind/gust signal near 21 mph",
-        "Official fire-posture context for Ignacio / southeast La Plata County is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+        "breezy wind/gust signal near 17 mph",
+        "Official fire-posture context for Pagosa Springs is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 39%, wind 21 mph.",
-      "level": "ELEVATED",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 20
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 44%, wind 17 mph.",
+      "level": "LOW",
+      "location": "Pagosa Springs",
+      "score": 12
     },
     "red_flag": {
       "date": "2026-07-23",
       "display_date": "Thu, Jul 23",
       "drivers": [
-        "breezy wind/gust near 21 mph"
+        "below red-flag screening thresholds"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 39%, wind 21 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 44%, wind 17 mph.",
       "level": "LOW",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 8
+      "location": "Pagosa Springs",
+      "score": 0
     }
   },
   "red_flag_calibration": {
@@ -305,7 +305,7 @@
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility_label": "HIGH",
     "forecast_volatility_score": 45,
-    "momentum": "Rising"
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
