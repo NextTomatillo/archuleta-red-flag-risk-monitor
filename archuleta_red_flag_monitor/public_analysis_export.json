@@ -1,10 +1,10 @@
 {
   "analyst_interpretation": {
     "changing_drivers": [
-      "Overall PSPS screening eased from ELEVATED to LOW versus the prior run.",
-      "The Jul 23 screening score fell by 8 points as wind eased by 2 mph and relative humidity rose by 2 percentage points.",
-      "Stage 2 restrictions and HIGH official fire-danger posture remain preparedness context, but do not create a PSPS WATCH.",
-      "An LPEA keyword match remains present, while the official outage viewer reports no active outages."
+      "Overall PSPS screening increased from LOW to ELEVATED, but no date reaches WATCH.",
+      "Thursday near Arboles worsened to ELEVATED 20/100 as wind gusts approach 21 mph.",
+      "Friday and Saturday near Chimney Rock also moved from LOW to ELEVATED as relative humidity decreased.",
+      "Stage 2 restrictions and HIGH official fire danger add preparedness context without creating a PSPS WATCH."
     ],
     "evidence_ids": [
       "overall_status",
@@ -15,19 +15,19 @@
       "fire_posture",
       "calibration"
     ],
-    "generated_at": "2026-07-22T18:45:51-06:00",
-    "headline": "Fire-weather risk is GREEN, with LOW PSPS screening and no official COZ295 fire alert or active LPEA outage.",
-    "report_generated_at": "2026-07-22T17:53:17.266756-06:00",
+    "generated_at": "2026-07-23T07:29:26-06:00",
+    "headline": "Fire-weather remains GREEN with no official alerts or active outages, while PSPS screening peaks at ELEVATED near Arboles Thursday.",
+    "report_generated_at": "2026-07-23T05:37:16.120333-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "No HIGH or CONCERN fire-weather dates are identified, and the highest PSPS screening estimate is LOW 12/100 on Jul 23 near Pagosa Springs. Official sources show zero COZ295 fire alerts and no active LPEA operational outage; the LPEA keyword match is contextual and does not confirm outage or shutoff intent. Stage 2 restrictions and HIGH fire-danger posture support continued preparedness.",
-    "uncertainty": "These rules-based screening scores are not official or statistically calibrated probabilities, and no confirmed LPEA PSPS events have been logged for calibration.",
+    "summary": "No official NWS fire-weather alerts or active LPEA customer outages are reported, and a monitor notification is not recommended. The highest screening estimate is ELEVATED 20/100 near Arboles on Thursday; the LPEA keyword match and official fire posture provide context, not confirmation of outage or shutoff intent.",
+    "uncertainty": "These rules-based scores are screening estimates, PSPS calibration lacks confirmed events, and LPEA operational thresholds are not known.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Jul 23 wind and relative-humidity trends.",
-      "Confirm whether the LPEA keyword match remains general wildfire-mitigation context.",
-      "Watch for any new official COZ295 fire alert or LPEA operational outage.",
-      "Track whether the highest-risk location shifts in the next run."
+      "Watch Thursday afternoon wind near Arboles and any change in official NWS alerts.",
+      "Check whether the LPEA keyword match remains general wildfire context.",
+      "Track Friday and Saturday humidity and the driver shift toward Chimney Rock.",
+      "Confirm any outage or PSPS information directly with LPEA."
     ]
   },
   "confidence": {
@@ -44,13 +44,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-22T17:53:17.266756-06:00",
+  "generated_at": "2026-07-23T05:37:16.120333-06:00",
   "headline": {
     "monitor_heads_up_recommended": false,
     "overall_tier": "GREEN",
-    "psps_likelihood": "LOW",
-    "summary": "Highest LPEA PSPS concern is Thu, Jul 23 near Pagosa Springs (LOW 12/100), driven by breezy wind/gust signal near 17 mph; Official fire-posture context for Pagosa Springs is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
-    "trend_summary": "Momentum is easing versus the prior run (Jul 21 at 7:15 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "psps_likelihood": "ELEVATED",
+    "summary": "Highest LPEA PSPS concern is Thu, Jul 23 near Arboles / southwest county (ELEVATED 20/100), driven by near-threshold wind/gust signal near 21 mph; Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+    "trend_summary": "Momentum is rising versus the prior run (Jul 22 at 5:53 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -61,11 +61,10 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Overall PSPS likelihood changed from ELEVATED to LOW.",
-    "Thu, Jul 23: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -2 mph, RH +2%, red-flag hours 0. Driver shifted to Pagosa Springs.",
-    "Sun, Jul 26: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -2 mph, RH +2%, red-flag hours 0.",
-    "Sat, Jul 25: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind -1 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Mon, Jul 27: easing vs prior run; PSPS ELEVATED -> LOW; score -6, wind 0 mph, RH +2%, red-flag hours 0. Driver shifted to Arboles / southwest county."
+    "Overall PSPS likelihood changed from LOW to ELEVATED.",
+    "Thu, Jul 23: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +2 mph, RH -2%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Fri, Jul 24: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind -1 mph, RH -3%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
+    "Sat, Jul 25: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
   ],
   "operational_outage_context": {
     "active": false,
@@ -74,7 +73,7 @@
     "areas": [],
     "customers_affected": 0,
     "customers_out_now": 0,
-    "customers_served": 47540,
+    "customers_served": 47545,
     "fire_related": false,
     "headline": "Official LPEA outage data shows no active customer outages.",
     "hits": [],
@@ -91,43 +90,44 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-07-22T17:53:13.0586632-06:00"
+    "update_time": "2026-07-23T05:51:16.030567-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-07-22",
-      "display_date": "Wed, Jul 22",
+      "date": "2026-07-24",
+      "display_date": "Fri, Jul 24",
       "drivers": [
+        "dry RH near 22%",
         "official fire restrictions at STAGE 2",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 6 PM local; RH 42%, wind 12 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 22%, wind 16 mph.",
       "level": "LOW",
-      "location": "Pagosa Springs",
-      "score": 20
+      "location": "Chimney Rock / west county",
+      "score": 28
     },
     "psps": {
       "date": "2026-07-23",
       "display_date": "Thu, Jul 23",
       "drivers": [
-        "breezy wind/gust signal near 17 mph",
-        "Official fire-posture context for Pagosa Springs is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+        "near-threshold wind/gust signal near 21 mph",
+        "Official fire-posture context for Arboles / southwest county is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 44%, wind 17 mph.",
-      "level": "LOW",
-      "location": "Pagosa Springs",
-      "score": 12
+      "highest_risk_window": "Peak ingredients near 4 PM local; RH 37%, wind 21 mph.",
+      "level": "ELEVATED",
+      "location": "Arboles / southwest county",
+      "score": 20
     },
     "red_flag": {
       "date": "2026-07-23",
       "display_date": "Thu, Jul 23",
       "drivers": [
-        "below red-flag screening thresholds"
+        "breezy wind/gust near 21 mph"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 44%, wind 17 mph.",
+      "highest_risk_window": "Peak ingredients near 4 PM local; RH 37%, wind 21 mph.",
       "level": "LOW",
-      "location": "Pagosa Springs",
-      "score": 0
+      "location": "Arboles / southwest county",
+      "score": 8
     }
   },
   "red_flag_calibration": {
@@ -304,8 +304,8 @@
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 45,
-    "momentum": "Easing"
+    "forecast_volatility_score": 35,
+    "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
