@@ -1,9 +1,10 @@
 {
   "analyst_interpretation": {
     "changing_drivers": [
-      "Tuesday's PSPS screening rose from LOW to ELEVATED as wind increased about 5 mph and minimum RH fell about 7 percentage points.",
-      "The strongest Tuesday signal shifted to Arboles / southwest county, with two sampled hours near red-flag thresholds.",
-      "Wednesday and Monday also moved from LOW to ELEVATED PSPS screening, while no WATCH-or-higher date emerged."
+      "The forecast remains steady versus the prior run, with low volatility and no WATCH-or-higher PSPS date.",
+      "Tuesday's Arboles window has two sampled hours near red-flag thresholds.",
+      "Official-source fire posture reaches Stage 2 in parts of the monitored area.",
+      "The localized Pagosa Springs outage is operational context only and has no identified fire or PSPS cause."
     ],
     "evidence_ids": [
       "overall_status",
@@ -14,19 +15,19 @@
       "fire_posture",
       "calibration"
     ],
-    "generated_at": "2026-07-27T08:52:25-06:00",
-    "headline": "Tuesday brings CONCERN-level fire-weather screening near Arboles, but no official COZ295 fire alert or PSPS watch is active.",
-    "report_generated_at": "2026-07-27T08:51:46.964515-06:00",
+    "generated_at": "2026-07-27T08:54:24-06:00",
+    "headline": "Tuesday brings CONCERN-level fire-weather screening near Arboles, while no official COZ295 fire alert or confirmed PSPS signal is active.",
+    "report_generated_at": "2026-07-27T08:53:48.841722-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The screening peak is Tuesday, July 28 near Arboles, with HIGH weather fire potential, POSSIBLE Red Flag conditions, and ELEVATED PSPS screening during 3\u20134 PM. No official COZ295 Red Flag Warning or Fire Weather Watch is active. LPEA reports one localized unplanned outage affecting 12 customers near Pagosa Springs, but it has no identified fire-weather or PSPS cause and is separate from the screening estimate.",
-    "uncertainty": "Confidence is medium: forecast coverage is complete, but conditions changed substantially and PSPS estimates remain uncalibrated because no confirmed LPEA PSPS events are logged.",
+    "summary": "Tue, Jul 28 is the main watch period near Arboles, where roughly 18% RH and 21 mph wind support a CONCERN fire-weather tier and ELEVATED PSPS screening estimate. There are no official NWS fire-weather alerts for the monitored zones. A localized LPEA outage affects 12 customers near Pagosa Springs, but no fire-weather or PSPS cause is identified.",
+    "uncertainty": "These are rules-based screening estimates, not official or statistically calibrated probabilities, and no confirmed LPEA PSPS events are available for calibration.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Tuesday afternoon wind and humidity near Arboles for movement toward or away from thresholds.",
-      "Watch for any official COZ295 Red Flag Warning or Fire Weather Watch.",
-      "Check LPEA updates for a stated cause or restoration change for the localized outage.",
-      "Track whether the highest-risk location remains near Arboles as the forecast updates."
+      "Recheck Tuesday afternoon RH and wind near Arboles.",
+      "Watch for any official NWS Red Flag Warning or Fire Weather Watch.",
+      "Check LPEA updates for any stated cause or change in the localized outage.",
+      "Track whether the highest-risk location shifts in the next forecast."
     ]
   },
   "area_name": "LPEA service territory PSPS weather monitor",
@@ -2576,7 +2577,7 @@
       }
     ],
     "confidence": {
-      "label": "MEDIUM",
+      "label": "HIGH",
       "reasons": [
         "8/8 sampled weather points available",
         "7/7 fire-posture sources reachable",
@@ -2584,10 +2585,9 @@
         "13/13 LPEA public sources reachable",
         "LPEA active/update sources checked",
         "active LPEA operational outage context checked separately from PSPS scoring",
-        "forecast changed substantially versus prior run",
         "no confirmed PSPS events logged yet for calibration"
       ],
-      "score": 69
+      "score": 77
     },
     "daily_predictions": [
       {
@@ -3472,10 +3472,10 @@
         },
         "date": "2026-07-27",
         "display_date": "Mon, Jul 27",
-        "label": "Worsening",
-        "level_rank_delta": 1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "LOW",
+          "best_psps_level": "ELEVATED",
           "date": "2026-07-27",
           "fire_weather_tier": "GREEN",
           "lpea_signal_level": "active_wildfire_power_language",
@@ -3483,18 +3483,18 @@
           "max_fire_restriction_stage": "STAGE 2",
           "max_near_hours": 0,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 59.0,
-          "max_weather_score": 12.0,
-          "max_wind_mph": 18.4,
-          "min_rh_percent": 24.0,
+          "max_thunder_percent": 37.0,
+          "max_weather_score": 20.0,
+          "max_wind_mph": 20.7,
+          "min_rh_percent": 21.0,
           "official_fire_alert_count": 0,
-          "top_location": "Arboles / southwest county"
+          "top_location": "Bayfield / east La Plata County"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -3.0,
-        "score_delta": 8.0,
-        "summary": "Mon, Jul 27: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +2 mph, RH -3%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County.",
-        "wind_delta_mph": 2.3000000000000007
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Mon, Jul 27: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3515,29 +3515,29 @@
         },
         "date": "2026-07-28",
         "display_date": "Tue, Jul 28",
-        "label": "Worsening",
-        "level_rank_delta": 1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "LOW",
+          "best_psps_level": "ELEVATED",
           "date": "2026-07-28",
-          "fire_weather_tier": "GREEN",
+          "fire_weather_tier": "CONCERN",
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "HIGH",
           "max_fire_restriction_stage": "STAGE 2",
-          "max_near_hours": 0,
+          "max_near_hours": 2,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 54.0,
-          "max_weather_score": 12.0,
-          "max_wind_mph": 18.4,
-          "min_rh_percent": 25.0,
+          "max_thunder_percent": 44.0,
+          "max_weather_score": 40.0,
+          "max_wind_mph": 23.0,
+          "min_rh_percent": 18.0,
           "official_fire_alert_count": 0,
-          "top_location": "Pagosa Springs"
+          "top_location": "Arboles / southwest county"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -7.0,
-        "score_delta": 28.0,
-        "summary": "Tue, Jul 28: worsening vs prior run; PSPS LOW -> ELEVATED; score +28, wind +5 mph, RH -7%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-        "wind_delta_mph": 4.600000000000001
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Tue, Jul 28: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3558,10 +3558,10 @@
         },
         "date": "2026-07-29",
         "display_date": "Wed, Jul 29",
-        "label": "Worsening",
-        "level_rank_delta": 1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "LOW",
+          "best_psps_level": "ELEVATED",
           "date": "2026-07-29",
           "fire_weather_tier": "GREEN",
           "lpea_signal_level": "active_wildfire_power_language",
@@ -3569,18 +3569,18 @@
           "max_fire_restriction_stage": "STAGE 2",
           "max_near_hours": 0,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 46.0,
-          "max_weather_score": 12.0,
-          "max_wind_mph": 18.4,
-          "min_rh_percent": 24.0,
+          "max_thunder_percent": 60.0,
+          "max_weather_score": 20.0,
+          "max_wind_mph": 21.9,
+          "min_rh_percent": 22.0,
           "official_fire_alert_count": 0,
-          "top_location": "Pagosa Springs"
+          "top_location": "Durango / La Plata County"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -2.0,
-        "score_delta": 8.0,
-        "summary": "Wed, Jul 29: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +4 mph, RH -2%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
-        "wind_delta_mph": 3.5
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Wed, Jul 29: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3601,14 +3601,29 @@
         },
         "date": "2026-07-30",
         "display_date": "Thu, Jul 30",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Thu, Jul 30: new forecast-window date at ELEVATED 20/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "ELEVATED",
+          "date": "2026-07-30",
+          "fire_weather_tier": "GREEN",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "HIGH",
+          "max_fire_restriction_stage": "STAGE 2",
+          "max_near_hours": 0,
+          "max_red_flag_hours": 0,
+          "max_thunder_percent": 58.0,
+          "max_weather_score": 20.0,
+          "max_wind_mph": 20.7,
+          "min_rh_percent": 21.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Durango / La Plata County"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Thu, Jul 30: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3629,14 +3644,29 @@
         },
         "date": "2026-07-31",
         "display_date": "Fri, Jul 31",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Fri, Jul 31: new forecast-window date at ELEVATED 18/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "ELEVATED",
+          "date": "2026-07-31",
+          "fire_weather_tier": "GREEN",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "HIGH",
+          "max_fire_restriction_stage": "STAGE 2",
+          "max_near_hours": 0,
+          "max_red_flag_hours": 0,
+          "max_thunder_percent": 41.0,
+          "max_weather_score": 18.0,
+          "max_wind_mph": 17.3,
+          "min_rh_percent": 19.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Chimney Rock / west county"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Fri, Jul 31: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3657,14 +3687,29 @@
         },
         "date": "2026-08-01",
         "display_date": "Sat, Aug 1",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Sat, Aug 1: new forecast-window date at LOW 16/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "LOW",
+          "date": "2026-08-01",
+          "fire_weather_tier": "GREEN",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "HIGH",
+          "max_fire_restriction_stage": "STAGE 2",
+          "max_near_hours": 0,
+          "max_red_flag_hours": 0,
+          "max_thunder_percent": 40.0,
+          "max_weather_score": 16.0,
+          "max_wind_mph": 16.1,
+          "min_rh_percent": 20.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Arboles / southwest county"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Sat, Aug 1: steady vs prior run; PSPS LOW -> LOW; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -3685,55 +3730,68 @@
         },
         "date": "2026-08-02",
         "display_date": "Sun, Aug 2",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Sun, Aug 2: new forecast-window date at ELEVATED 26/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "ELEVATED",
+          "date": "2026-08-02",
+          "fire_weather_tier": "GREEN",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "HIGH",
+          "max_fire_restriction_stage": "STAGE 2",
+          "max_near_hours": 0,
+          "max_red_flag_hours": 0,
+          "max_thunder_percent": 48.0,
+          "max_weather_score": 26.0,
+          "max_wind_mph": 20.7,
+          "min_rh_percent": 20.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Ignacio / southeast La Plata County"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Sun, Aug 2: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       }
     ],
     "first_watch_or_likely_date": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility": {
-      "changed_day_count": 3,
-      "label": "HIGH",
-      "max_score_delta": 28.0,
-      "score": 55
+      "changed_day_count": 0,
+      "label": "LOW",
+      "max_score_delta": 0,
+      "score": 0
     },
     "notable_changes": [
       "No WATCH-or-higher PSPS dates in current or prior run.",
-      "Tue, Jul 28: worsening vs prior run; PSPS LOW -> ELEVATED; score +28, wind +5 mph, RH -7%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-      "Wed, Jul 29: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +4 mph, RH -2%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
-      "Mon, Jul 27: worsening vs prior run; PSPS LOW -> ELEVATED; score +8, wind +2 mph, RH -3%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County."
+      "No major day-level movement versus the prior run."
     ],
     "previous_first_watch_or_likely_date": null,
     "previous_overall_psps_level": "ELEVATED",
-    "previous_run_at": "2026-07-23T05:37:16.120333-06:00",
-    "previous_run_label": "Jul 23 at 5:37 AM MDT",
+    "previous_run_at": "2026-07-27T08:51:46.964515-06:00",
+    "previous_run_label": "Jul 27 at 8:51 AM MDT",
     "review_cues": [
       "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
       "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.",
       "Watch whether the highest-risk locations remain consistent across runs or the driver area is moving.",
       "If a PSPS occurs, log the confirmed date, location, and source so future hit-rate scoring can improve."
     ],
-    "risk_momentum": "Rising",
+    "risk_momentum": "Steady",
     "status": "compared",
-    "summary": "Momentum is rising versus the prior run (Jul 23 at 5:37 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "summary": "Momentum is steady versus the prior run (Jul 27 at 8:51 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present."
   },
   "freshness": {
-    "generated_at": "2026-07-27T08:51:46.964515-06:00",
+    "generated_at": "2026-07-27T08:53:48.841722-06:00",
     "late_after": "2026-07-27T18:50:00-06:00",
     "next_scheduled_update_at": "2026-07-27T17:20:00-06:00",
     "note": "Freshness is evaluated in the browser against the scheduled local update windows.",
-    "stale_after": "2026-07-27T23:51:46.964515-06:00",
+    "stale_after": "2026-07-27T23:53:48.841722-06:00",
     "status": "CURRENT",
     "update_grace_minutes": 90
   },
-  "generated_at": "2026-07-27T08:51:46.964515-06:00",
-  "generated_at_utc": "2026-07-27T14:51:46.964515+00:00",
+  "generated_at": "2026-07-27T08:53:48.841722-06:00",
+  "generated_at_utc": "2026-07-27T14:53:48.841722+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_signal_groups": [
@@ -3983,7 +4041,7 @@
       "status": "checked",
       "summary": "1 active outage; 0 planned and 1 unplanned; 12 customers out. No fire-weather or PSPS cause is identified.",
       "unplanned_outage_count": 1,
-      "update_time": "2026-07-27T08:50:32.6230708-06:00"
+      "update_time": "2026-07-27T08:52:33.0022034-06:00"
     },
     "reference_signal_groups": [
       {
