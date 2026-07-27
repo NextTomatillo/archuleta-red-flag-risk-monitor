@@ -1,9 +1,8 @@
 {
   "changing_drivers": [
-    "Overall PSPS screening increased from LOW to ELEVATED, but no date reaches WATCH.",
-    "Thursday near Arboles worsened to ELEVATED 20/100 as wind gusts approach 21 mph.",
-    "Friday and Saturday near Chimney Rock also moved from LOW to ELEVATED as relative humidity decreased.",
-    "Stage 2 restrictions and HIGH official fire danger add preparedness context without creating a PSPS WATCH."
+    "Tuesday's PSPS screening rose from LOW to ELEVATED as wind increased about 5 mph and minimum RH fell about 7 percentage points.",
+    "The strongest Tuesday signal shifted to Arboles / southwest county, with two sampled hours near red-flag thresholds.",
+    "Wednesday and Monday also moved from LOW to ELEVATED PSPS screening, while no WATCH-or-higher date emerged."
   ],
   "evidence_ids": [
     "overall_status",
@@ -14,18 +13,18 @@
     "fire_posture",
     "calibration"
   ],
-  "generated_at": "2026-07-23T07:29:26-06:00",
-  "headline": "Fire-weather remains GREEN with no official alerts or active outages, while PSPS screening peaks at ELEVATED near Arboles Thursday.",
-  "report_generated_at": "2026-07-23T05:37:16.120333-06:00",
+  "generated_at": "2026-07-27T08:52:25-06:00",
+  "headline": "Tuesday brings CONCERN-level fire-weather screening near Arboles, but no official COZ295 fire alert or PSPS watch is active.",
+  "report_generated_at": "2026-07-27T08:51:46.964515-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "No official NWS fire-weather alerts or active LPEA customer outages are reported, and a monitor notification is not recommended. The highest screening estimate is ELEVATED 20/100 near Arboles on Thursday; the LPEA keyword match and official fire posture provide context, not confirmation of outage or shutoff intent.",
-  "uncertainty": "These rules-based scores are screening estimates, PSPS calibration lacks confirmed events, and LPEA operational thresholds are not known.",
+  "summary": "The screening peak is Tuesday, July 28 near Arboles, with HIGH weather fire potential, POSSIBLE Red Flag conditions, and ELEVATED PSPS screening during 3\u20134 PM. No official COZ295 Red Flag Warning or Fire Weather Watch is active. LPEA reports one localized unplanned outage affecting 12 customers near Pagosa Springs, but it has no identified fire-weather or PSPS cause and is separate from the screening estimate.",
+  "uncertainty": "Confidence is medium: forecast coverage is complete, but conditions changed substantially and PSPS estimates remain uncalibrated because no confirmed LPEA PSPS events are logged.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch Thursday afternoon wind near Arboles and any change in official NWS alerts.",
-    "Check whether the LPEA keyword match remains general wildfire context.",
-    "Track Friday and Saturday humidity and the driver shift toward Chimney Rock.",
-    "Confirm any outage or PSPS information directly with LPEA."
+    "Recheck Tuesday afternoon wind and humidity near Arboles for movement toward or away from thresholds.",
+    "Watch for any official COZ295 Red Flag Warning or Fire Weather Watch.",
+    "Check LPEA updates for a stated cause or restoration change for the localized outage.",
+    "Track whether the highest-risk location remains near Arboles as the forecast updates."
   ]
 }
