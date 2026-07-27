@@ -1,6 +1,6 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jul 27, 2026 at 8:53 AM MDT (Pagosa Springs, CO local time)
+Generated: Jul 27, 2026 at 8:57 AM MDT (Pagosa Springs, CO local time)
 Next update: Jul 27, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -41,27 +41,27 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Analyst Interpretation
 
-- Headline: Tuesday brings CONCERN-level fire-weather screening near Arboles, while no official COZ295 fire alert or confirmed PSPS signal is active.
-- Summary: Tue, Jul 28 is the main watch period near Arboles, where roughly 18% RH and 21 mph wind support a CONCERN fire-weather tier and ELEVATED PSPS screening estimate. There are no official NWS fire-weather alerts for the monitored zones. A localized LPEA outage affects 12 customers near Pagosa Springs, but no fire-weather or PSPS cause is identified.
-- Uncertainty: These are rules-based screening estimates, not official or statistically calibrated probabilities, and no confirmed LPEA PSPS events are available for calibration.
+- Headline: Fire-weather screening reaches CONCERN Tuesday near Arboles, while no official COZ295 fire alert or PSPS notice is active.
+- Summary: Tuesday’s screening peak near Arboles reflects RH near 18%, wind or gusts near 21 mph, and two near-threshold hours; notification is recommended for this unofficial monitor result. The official alert check found no active NWS alerts, and a localized LPEA outage affecting 12 customers near Pagosa Springs has no identified fire-weather or PSPS cause.
+- Uncertainty: These are screening estimates, not official or statistically calibrated probabilities; no confirmed LPEA PSPS events are logged for calibration.
 - Evidence used: overall_status, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture, calibration
 - This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
 
 Changing drivers:
-- The forecast remains steady versus the prior run, with low volatility and no WATCH-or-higher PSPS date.
-- Tuesday's Arboles window has two sampled hours near red-flag thresholds.
-- Official-source fire posture reaches Stage 2 in parts of the monitored area.
-- The localized Pagosa Springs outage is operational context only and has no identified fire or PSPS cause.
+- The forecast is steady versus the prior run, with LOW volatility and no major day-level movement.
+- Tuesday remains the peak window at 3 PM-4 PM near Arboles.
+- Stage 1-2 restrictions and HIGH fire-danger context support preparedness but do not create an official alert.
+- The localized LPEA outage is operational context only and is not identified as fire- or PSPS-related.
 
 What to watch next:
-- Recheck Tuesday afternoon RH and wind near Arboles.
-- Watch for any official NWS Red Flag Warning or Fire Weather Watch.
-- Check LPEA updates for any stated cause or change in the localized outage.
-- Track whether the highest-risk location shifts in the next forecast.
+- Recheck Tuesday afternoon wind, humidity, and near-threshold duration.
+- Watch for any official NWS Red Flag or Fire Weather alert for COZ295.
+- Check LPEA for a stated cause or PSPS notice if the outage changes.
+- Track whether the highest-risk area shifts away from Arboles.
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jul 27 at 8:51 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present.
+- Summary: Momentum is steady versus the prior run (Jul 27 at 8:53 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present.
 - Momentum: **Steady**
 - Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: None
@@ -75,7 +75,7 @@ Notable changes:
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Tue, Jul 28 near Arboles / southwest county (ELEVATED 40/100), driven by near-threshold wind/gust signal near 21 mph; near-threshold RH near 18%; 2 sampled hours are near red-flag thresholds.
-- Trend: Momentum is steady versus the prior run (Jul 27 at 8:51 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present.
+- Trend: Momentum is steady versus the prior run (Jul 27 at 8:53 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present.
 - Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: None
 - PSPS peak: Tue, Jul 28 near Arboles / southwest county at ELEVATED 40/100
