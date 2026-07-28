@@ -39,6 +39,25 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 | Sun, Aug 2 | Durango / La Plata County: MODERATE 40/100 | Durango / La Plata County: LOW 8/100 | Durango / La Plata County: ELEVATED 26/100 | Peak ingredients near 4 PM local; RH 20%, wind 21 mph. |
 | Mon, Aug 3 | Durango / La Plata County: HIGH 66/100 | Arboles / southwest county: WATCH 60/100 | Arboles / southwest county: WATCH 50/100 | 3 PM-5 PM local; 3 near/red-flag threshold hours. |
 
+## Analyst Interpretation
+
+- Headline: Fire-weather screening is CONCERN, with Aug 3 the peak WATCH screening date; no official NWS fire alert or confirmed PSPS is reported.
+- Summary: Screening identifies CONCERN conditions on Jul 28 and Aug 3, with Aug 3 peaking near Arboles at WATCH for Red Flag likelihood and PSPS screening. Official NWS fire-alert count is zero; three active LPEA outages affect six customers, but the official outage data identifies no fire-weather or PSPS cause. Conditions are steady versus the prior run, and a monitor heads-up is recommended.
+- Uncertainty: These are screening estimates, not official forecasts or calibrated PSPS probabilities; no confirmed LPEA PSPS events are available for calibration, and 44 past WATCH-or-higher days did not confirm an event.
+- Evidence used: overall_status, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture, calibration
+- This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
+
+Changing drivers:
+- Aug 3 combines RH near 15%, wind or gusts near 23 mph, and three near-threshold hours near Arboles.
+- The first WATCH-or-higher PSPS screening date remains Aug 3, with no major day-level movement.
+- Official fire posture reaches Stage 2 restrictions and HIGH fire danger in the monitored region.
+- Three active LPEA outages are localized operational events with no identified fire-weather or PSPS cause.
+
+What to watch next:
+- Check official NWS alerts as Aug 3 approaches.
+- Track whether Aug 3 wind and RH remain near screening thresholds.
+- Monitor official LPEA updates for any explicit PSPS notice or outage-cause change.
+- Reassess if the peak location shifts away from Arboles.
 
 ## Trend Intelligence
 
