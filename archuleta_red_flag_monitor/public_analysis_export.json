@@ -1,35 +1,4 @@
 {
-  "analyst_interpretation": {
-    "changing_drivers": [
-      "Forecast momentum is steady with LOW volatility and no major day-level movement.",
-      "Tuesday's peak combines RH near 18%, wind or gusts near 21 mph, and two near-threshold hours.",
-      "Official fire posture reaches STAGE 2 restrictions and HIGH fire danger in parts of the monitored area.",
-      "The active LPEA outages are planned maintenance and are not identified as fire-related or PSPS-related."
-    ],
-    "evidence_ids": [
-      "overall_status",
-      "weather_peaks",
-      "official_alerts",
-      "forecast_change",
-      "lpea_context",
-      "fire_posture",
-      "calibration"
-    ],
-    "generated_at": "2026-07-27T10:29:47-06:00",
-    "headline": "Tuesday's fire-weather screen reaches CONCERN near Arboles, while no official COZ295 fire-weather alert or PSPS notice is active.",
-    "report_generated_at": "2026-07-27T10:29:01.509810-06:00",
-    "schema_version": 1,
-    "status": "reviewed",
-    "summary": "Tue, Jul 28 is the only CONCERN date, with dry air near 18% RH and wind or gusts near 21 mph producing two near-threshold hours around 3\u20134 PM near Arboles. The PSPS screen is ELEVATED, not WATCH or LIKELY, and there are no official COZ295 fire-weather alerts. Two localized planned LPEA maintenance outages affect seven customers near Durango, but neither is identified as fire-related or PSPS-related.",
-    "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; PSPS calibration remains limited because no confirmed LPEA PSPS events are logged.",
-    "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
-    "watch_items": [
-      "Recheck Tuesday afternoon wind and humidity near Arboles.",
-      "Watch for any new official COZ295 Red Flag Warning or Fire Weather Watch.",
-      "Confirm whether the LPEA outages clear or receive a different stated cause.",
-      "Track whether the highest-risk location or first WATCH-or-higher PSPS date changes."
-    ]
-  },
   "confidence": {
     "label": "HIGH",
     "reasons": [
@@ -44,13 +13,13 @@
     "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-27T10:29:01.509810-06:00",
+  "generated_at": "2026-07-28T09:34:44.232906-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
-    "psps_likelihood": "ELEVATED",
-    "summary": "Highest LPEA PSPS concern is Tue, Jul 28 near Arboles / southwest county (ELEVATED 40/100), driven by near-threshold wind/gust signal near 21 mph; near-threshold RH near 18%; 2 sampled hours are near red-flag thresholds.",
-    "trend_summary": "Momentum is steady versus the prior run (Jul 27 at 10:04 AM MDT); forecast volatility is low and first WATCH-or-higher date is not present."
+    "psps_likelihood": "WATCH",
+    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Arboles / southwest county (WATCH 50/100), driven by near-threshold wind/gust signal near 23 mph; red-flag RH near 15%; 3 sampled hours are near red-flag thresholds.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 28 at 9:32 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -60,89 +29,120 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "No WATCH-or-higher PSPS dates in current or prior run.",
+    "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
     "No major day-level movement versus the prior run."
   ],
   "operational_outage_context": {
     "active": true,
-    "active_outage_count": 2,
-    "affected_members": 7,
+    "active_outage_count": 3,
+    "affected_members": 6,
     "areas": [
       "Durango / La Plata County"
     ],
-    "customers_affected": 7,
-    "customers_out_now": 7,
-    "customers_served": 47548,
+    "customers_affected": 65,
+    "customers_out_now": 6,
+    "customers_served": 47562,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 7 customers without power near Durango / La Plata County.",
+    "headline": "Official LPEA outage data shows 6 customers without power near Durango / La Plata County.",
     "hits": [
       {
-        "name": "250 E. Park Ave",
+        "name": "2340 W 2ND AVE",
         "snippets": [
-          "Durango / La Plata County: 5 customers out; planned; cause 110 Maintenance."
+          "Durango / La Plata County: 1 customer out; unplanned; cause 790 Public, other."
         ],
         "url": "https://outage.lpea.coop"
       },
       {
-        "name": "5480 HWY 140",
+        "name": "2016 Crestview Dr",
         "snippets": [
-          "Durango / La Plata County: 2 customers out; planned; cause 110 Maintenance."
+          "Durango / La Plata County: 3 customers out; planned; cause 100 Construction."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "10893 CR 141",
+        "snippets": [
+          "Durango / La Plata County: 2 customers out; unplanned; cause 710 Motor vehicle."
         ],
         "url": "https://outage.lpea.coop"
       }
     ],
     "outages": [
       {
-        "cause": "110 Maintenance",
+        "cause": "790 Public, other",
         "crew_assigned": true,
-        "customers_out_initially": 5,
-        "customers_out_now": 5,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
         "customers_restored": 0,
-        "distance_miles": 0.5,
+        "distance_miles": 1.0,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-07-27-0212",
-        "latitude": 37.28202774836693,
-        "longitude": -107.87564649002036,
-        "modified_at": "2026-07-27T09:09:55.86-06:00",
-        "name": "250 E. Park Ave",
+        "id": "2026-07-28-0218",
+        "latitude": 37.28886923742602,
+        "longitude": -107.87661223023812,
+        "modified_at": "2026-07-28T08:54:08.733-06:00",
+        "name": "2340 W 2ND AVE",
         "nearest_area": "Durango / La Plata County",
-        "planned": true,
+        "planned": false,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-27T09:04:00-06:00",
+        "started_at": "2026-07-28T07:57:49-06:00",
         "url": "https://outage.lpea.coop",
         "verified": true,
         "work_status": ""
       },
       {
-        "cause": "110 Maintenance",
+        "cause": "100 Construction",
         "crew_assigned": true,
-        "customers_out_initially": 2,
-        "customers_out_now": 2,
+        "customers_out_initially": 3,
+        "customers_out_now": 3,
         "customers_restored": 0,
-        "distance_miles": 21.1,
+        "distance_miles": 0.8,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-07-27-0213",
-        "latitude": 37.07447482173956,
-        "longitude": -108.16975267088816,
-        "modified_at": "2026-07-27T09:30:39.127-06:00",
-        "name": "5480 HWY 140",
+        "id": "2026-07-28-0219",
+        "latitude": 37.287115183830764,
+        "longitude": -107.87976507228225,
+        "modified_at": "2026-07-28T08:11:19.02-06:00",
+        "name": "2016 Crestview Dr",
         "nearest_area": "Durango / La Plata County",
         "planned": true,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-27T09:27:26-06:00",
+        "started_at": "2026-07-28T08:08:01-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": true,
+        "work_status": ""
+      },
+      {
+        "cause": "710 Motor vehicle",
+        "crew_assigned": true,
+        "customers_out_initially": 61,
+        "customers_out_now": 2,
+        "customers_restored": 59,
+        "distance_miles": 10.5,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-07-28-0221",
+        "latitude": 37.19815274282996,
+        "longitude": -108.04361503594987,
+        "modified_at": "2026-07-28T09:22:46.927-06:00",
+        "name": "10893 CR 141",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-07-28T08:27:22-06:00",
         "url": "https://outage.lpea.coop",
         "verified": true,
         "work_status": ""
       }
     ],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
-    "planned_outage_count": 2,
+    "planned_outage_count": 1,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
     "severity": "localized",
@@ -150,51 +150,53 @@
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "2 active outages; 2 planned and 0 unplanned; 7 customers out. No fire-weather or PSPS cause is identified.",
+    "summary": "3 active outages; 1 planned and 2 unplanned; 6 customers out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 0,
-    "update_time": "2026-07-27T10:28:33.5588571-06:00"
+    "unplanned_outage_count": 2,
+    "update_time": "2026-07-28T09:34:41.2280075-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-07-28",
-      "display_date": "Tue, Jul 28",
+      "date": "2026-08-03",
+      "display_date": "Mon, Aug 3",
       "drivers": [
-        "dry RH near 18%",
-        "wind/gust near 21 mph",
-        "official fire restrictions at STAGE 1"
+        "dry RH near 17%",
+        "wind/gust near 22 mph",
+        "official fire restrictions at STAGE 2",
+        "official fire danger is HIGH"
       ],
-      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "HIGH",
-      "location": "Arboles / southwest county",
-      "score": 55
+      "location": "Durango / La Plata County",
+      "score": 66
     },
     "psps": {
-      "date": "2026-07-28",
-      "display_date": "Tue, Jul 28",
+      "date": "2026-08-03",
+      "display_date": "Mon, Aug 3",
       "drivers": [
-        "near-threshold wind/gust signal near 21 mph",
-        "near-threshold RH near 18%",
-        "2 sampled hours are near red-flag thresholds",
+        "near-threshold wind/gust signal near 23 mph",
+        "red-flag RH near 15%",
+        "3 sampled hours are near red-flag thresholds",
         "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
       ],
-      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
-      "level": "ELEVATED",
-      "location": "Arboles / southwest county",
-      "score": 40
-    },
-    "red_flag": {
-      "date": "2026-07-28",
-      "display_date": "Tue, Jul 28",
-      "drivers": [
-        "2 near-threshold hours",
-        "dry RH near 18%",
-        "breezy wind/gust near 21 mph"
-      ],
-      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
-      "level": "POSSIBLE",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
+      "level": "WATCH",
       "location": "Arboles / southwest county",
       "score": 50
+    },
+    "red_flag": {
+      "date": "2026-08-03",
+      "display_date": "Mon, Aug 3",
+      "drivers": [
+        "3 near-threshold hours",
+        "RH near 15%",
+        "breezy wind/gust near 23 mph",
+        "dry-thunder probability near 18%"
+      ],
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
+      "level": "WATCH",
+      "location": "Arboles / southwest county",
+      "score": 60
     }
   },
   "red_flag_calibration": {
@@ -367,9 +369,9 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": null,
-    "first_watch_or_likely_display": null,
-    "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
+    "first_watch_or_likely_date": "2026-08-03",
+    "first_watch_or_likely_display": "Mon, Aug 3",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
     "forecast_volatility_label": "LOW",
     "forecast_volatility_score": 0,
     "momentum": "Steady"

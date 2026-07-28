@@ -1,31 +1,6 @@
 {
-  "changing_drivers": [
-    "Forecast momentum is steady with LOW volatility and no major day-level movement.",
-    "Tuesday's peak combines RH near 18%, wind or gusts near 21 mph, and two near-threshold hours.",
-    "Official fire posture reaches STAGE 2 restrictions and HIGH fire danger in parts of the monitored area.",
-    "The active LPEA outages are planned maintenance and are not identified as fire-related or PSPS-related."
-  ],
-  "evidence_ids": [
-    "overall_status",
-    "weather_peaks",
-    "official_alerts",
-    "forecast_change",
-    "lpea_context",
-    "fire_posture",
-    "calibration"
-  ],
-  "generated_at": "2026-07-27T10:29:47-06:00",
-  "headline": "Tuesday's fire-weather screen reaches CONCERN near Arboles, while no official COZ295 fire-weather alert or PSPS notice is active.",
-  "report_generated_at": "2026-07-27T10:29:01.509810-06:00",
+  "report_generated_at": "2026-07-28T09:34:44.232906-06:00",
   "schema_version": 1,
-  "status": "reviewed",
-  "summary": "Tue, Jul 28 is the only CONCERN date, with dry air near 18% RH and wind or gusts near 21 mph producing two near-threshold hours around 3\u20134 PM near Arboles. The PSPS screen is ELEVATED, not WATCH or LIKELY, and there are no official COZ295 fire-weather alerts. Two localized planned LPEA maintenance outages affect seven customers near Durango, but neither is identified as fire-related or PSPS-related.",
-  "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; PSPS calibration remains limited because no confirmed LPEA PSPS events are logged.",
-  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
-  "watch_items": [
-    "Recheck Tuesday afternoon wind and humidity near Arboles.",
-    "Watch for any new official COZ295 Red Flag Warning or Fire Weather Watch.",
-    "Confirm whether the LPEA outages clear or receive a different stated cause.",
-    "Track whether the highest-risk location or first WATCH-or-higher PSPS date changes."
-  ]
+  "status": "not_reviewed",
+  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA."
 }
