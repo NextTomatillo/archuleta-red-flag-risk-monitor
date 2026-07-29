@@ -5504,7 +5504,7 @@ def render_markdown(report: Dict[str, Any]) -> str:
     likely_psps_dates = collect_psps_dates_by_level(report.get("psps", {}).get("days", []), "LIKELY")
     watch_psps_dates = collect_psps_dates_by_level(report.get("psps", {}).get("days", []), "WATCH")
     lines = [
-        "# Archuleta Red Flag Risk Monitor",
+        "# Archuleta County fire-weather monitor",
         "",
         f"Generated: {format_generated_at(report)}",
         f"Next update: {format_next_update_at(report)}",
@@ -5582,7 +5582,7 @@ def render_markdown(report: Dict[str, Any]) -> str:
 
 def render_email_text(report: Dict[str, Any]) -> str:
     lines = [
-        "Archuleta Red Flag Risk Monitor",
+        "Archuleta County fire-weather monitor",
         f"Generated: {format_generated_at(report)}",
         f"Next update: {format_next_update_at(report)}",
         f"Date/time basis: {local_time_context(report)}",
@@ -6313,7 +6313,7 @@ def render_html(report: Dict[str, Any]) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Archuleta Red Flag Risk Monitor</title>
+  <title>Archuleta County fire-weather monitor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
@@ -8075,8 +8075,8 @@ def render_html(report: Dict[str, Any]) -> str:
         <div class="brand-lockup">
           <span class="brand-mark" aria-hidden="true"><i class="ph ph-mountains"></i></span>
           <div class="brand-copy">
-            <p class="eyebrow">Archuleta County fire-weather monitor</p>
-            <h1>Archuleta Red Flag Risk</h1>
+            <p class="eyebrow">Public-source operating picture</p>
+            <h1>Archuleta County fire-weather monitor</h1>
             <p class="brand-meta">
               <span class="brand-meta-full">Updated {escape_html(format_generated_at(report))} · Next update: {escape_html(format_next_update_at(report))}</span>
               <span class="brand-meta-compact">Updated {escape_html(format_generated_label(report.get('generated_at_local'), report.get('timezone', 'America/Denver')))} · Next {escape_html(format_generated_label(report.get('next_update_at'), report.get('timezone', 'America/Denver')))}</span>

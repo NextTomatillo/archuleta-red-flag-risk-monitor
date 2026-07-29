@@ -1,4 +1,4 @@
-# Archuleta Red Flag Risk Monitor
+# Archuleta County fire-weather monitor
 
 Forecast-screening monitor for possible Red Flag / fire-setting days in Archuleta County, Colorado.
 

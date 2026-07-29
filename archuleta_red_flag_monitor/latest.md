@@ -1,6 +1,6 @@
-# Archuleta Red Flag Risk Monitor
+# Archuleta County fire-weather monitor
 
-Generated: Jul 29, 2026 at 1:21 PM MDT (Pagosa Springs, CO local time)
+Generated: Jul 29, 2026 at 1:36 PM MDT (Pagosa Springs, CO local time)
 Next update: Jul 29, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -25,7 +25,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (LIKELY 65/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.
-- Confidence: **MEDIUM** (69/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; no confirmed PSPS events logged yet for calibration
 - Weather fire-potential peak: Mon, Aug 3: Durango / La Plata County VERY HIGH 79/100
 - Red Flag likelihood peak: Mon, Aug 3: Ignacio / southeast La Plata County WATCH 71/100
 - LPEA PSPS peak: Mon, Aug 3: Ignacio / southeast La Plata County LIKELY 65/100
@@ -44,25 +44,22 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is rising versus the prior run (Jul 29 at 11:23 AM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Aug 3.
-- Momentum: **Rising**
-- Forecast volatility: **HIGH** (47/100)
+- Summary: Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Mon, Aug 3
 - Watch-date movement: First WATCH-or-higher PSPS date remains Mon, Aug 3.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
 - First WATCH-or-higher PSPS date remains Mon, Aug 3.
-- Overall PSPS likelihood changed from WATCH to LIKELY.
-- Tue, Aug 4: worsening vs prior run; PSPS ELEVATED -> WATCH; score +20, wind 0 mph, RH -3%, red-flag hours 0.
-- Mon, Aug 3: worsening vs prior run; PSPS WATCH -> LIKELY; score +11, wind +1 mph, RH -2%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.
-- Sun, Aug 2: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -12, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Chimney Rock / west county.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (LIKELY 65/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.
-- Trend: Momentum is rising versus the prior run (Jul 29 at 11:23 AM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Aug 3.
-- Confidence: **MEDIUM** (69/100)
+- Trend: Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
+- Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Mon, Aug 3
 - PSPS peak: Mon, Aug 3 near Ignacio / southeast La Plata County at LIKELY 65/100
 - Red Flag peak: Mon, Aug 3 near Ignacio / southeast La Plata County at WATCH 71/100
@@ -72,10 +69,7 @@ Notable changes:
 
 What changed:
 - First WATCH-or-higher PSPS date remains Mon, Aug 3.
-- Overall PSPS likelihood changed from WATCH to LIKELY.
-- Tue, Aug 4: worsening vs prior run; PSPS ELEVATED -> WATCH; score +20, wind 0 mph, RH -3%, red-flag hours 0.
-- Mon, Aug 3: worsening vs prior run; PSPS WATCH -> LIKELY; score +11, wind +1 mph, RH -2%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.
-- Sun, Aug 2: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -12, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Chimney Rock / west county.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.

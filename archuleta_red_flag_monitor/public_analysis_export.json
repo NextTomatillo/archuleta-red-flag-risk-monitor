@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-07-29T13:21:22.054568-06:00",
+    "checked_at": "2026-07-29T13:36:06.972575-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 4,
@@ -145,7 +145,7 @@
     "wildfire_count": 3
   },
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
@@ -155,19 +155,18 @@
       "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
-      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-29T13:21:22.054568-06:00",
+  "generated_at": "2026-07-29T13:36:06.972575-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "LIKELY",
     "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (LIKELY 65/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 29 at 11:23 AM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Aug 3."
+    "trend_summary": "Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -179,10 +178,7 @@
   ],
   "notable_changes": [
     "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
-    "Overall PSPS likelihood changed from WATCH to LIKELY.",
-    "Tue, Aug 4: worsening vs prior run; PSPS ELEVATED -> WATCH; score +20, wind 0 mph, RH -3%, red-flag hours 0.",
-    "Mon, Aug 3: worsening vs prior run; PSPS WATCH -> LIKELY; score +11, wind +1 mph, RH -2%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County.",
-    "Sun, Aug 2: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -12, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
+    "No major day-level movement versus the prior run."
   ],
   "operational_outage_context": {
     "active": true,
@@ -275,7 +271,7 @@
     "summary": "2 active outages; 1 planned and 1 unplanned; 4 customers out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 1,
-    "update_time": "2026-07-29T13:21:16.3660831-06:00"
+    "update_time": "2026-07-29T13:35:09.2000964-06:00"
   },
   "peaks": {
     "fire_danger": {
@@ -493,9 +489,9 @@
     "first_watch_or_likely_date": "2026-08-03",
     "first_watch_or_likely_display": "Mon, Aug 3",
     "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 47,
-    "momentum": "Rising"
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 0,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
