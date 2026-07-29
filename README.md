@@ -1,4 +1,4 @@
-# Archuleta Red Flag Risk Monitor
+# Archuleta County fire-weather monitor
 
 Public-source fire-weather and PSPS risk monitor for the LPEA / Archuleta County area.
 
