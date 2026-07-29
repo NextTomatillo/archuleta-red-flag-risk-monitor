@@ -800,6 +800,70 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(incident["nearest_area"], "Pagosa Springs")
         self.assertIn("-06:00", incident["updated_at"])
 
+    def test_wfigs_perimeter_normalizes_filtered_geojson_download(self):
+        tz = ZoneInfo("America/Denver")
+        config = {
+            "sample_points": [
+                {"name": "Pagosa Springs", "lat": 37.2695, "lon": -107.0098},
+            ]
+        }
+        perimeter = monitor.normalize_wfigs_perimeter(
+            {
+                "properties": {
+                    "poly_IncidentName": "Rio Blanco",
+                    "poly_GISAcres": 440.27393859514274,
+                    "poly_DateCurrent": "Wed, 29 Jul 2026 15:54:56 GMT",
+                    "poly_Source": "2026 NIFS",
+                    "attr_IncidentTypeCategory": "WF",
+                    "attr_IncidentSize": 120,
+                    "attr_PercentContained": 0,
+                    "attr_POOCounty": "Archuleta",
+                    "attr_InitialLatitude": 37.12465,
+                    "attr_InitialLongitude": -106.98522,
+                    "attr_UniqueFireIdentifier": "2026-COSJF-000806",
+                }
+            },
+            config,
+            tz,
+        )
+        self.assertEqual(perimeter["name"], "Rio Blanco")
+        self.assertEqual(perimeter["acres"], 440.27)
+        self.assertEqual(perimeter["incident_reported_acres"], 120)
+        self.assertEqual(perimeter["nearest_area"], "Pagosa Springs")
+        self.assertIn("09:54:56-06:00", perimeter["updated_at"])
+
+    def test_reconcile_wfigs_perimeters_prefers_mapped_acres_and_discloses_difference(self):
+        incidents = [
+            {
+                "id": "2026-COSJF-000806",
+                "name": "Rio Blanco",
+                "incident_type": "WF",
+                "acres": 120,
+                "updated_at": "2026-07-29T10:10:33-06:00",
+            }
+        ]
+        result = monitor.reconcile_wfigs_perimeters(
+            incidents,
+            {
+                "status": "checked",
+                "source_url": "https://example.test/nifc-perimeters",
+                "perimeters": [
+                    {
+                        "id": "2026-COSJF-000806",
+                        "name": "Rio Blanco",
+                        "acres": 440.27,
+                        "updated_at": "2026-07-29T09:54:56-06:00",
+                        "perimeter_source": "2026 NIFS",
+                    }
+                ],
+            },
+            "https://example.test/nifc-incidents",
+        )
+        self.assertEqual(result[0]["acres"], 440.27)
+        self.assertEqual(result[0]["incident_reported_acres"], 120)
+        self.assertEqual(result[0]["acres_source"], "NIFC active fire perimeter")
+        self.assertIn("currently lists 120.00 acres", result[0]["acres_note"])
+
     def test_archuleta_feed_extracts_current_order_and_warning(self):
         tz = ZoneInfo("America/Denver")
         now_local = dt.datetime(2026, 7, 29, 8, 0, tzinfo=tz)
@@ -895,7 +959,10 @@ class MonitorTests(unittest.TestCase):
                         "name": "Rio Blanco",
                         "incident_type": "WF",
                         "incident_type_label": "Wildfire",
-                        "acres": 120,
+                        "acres": 440.27,
+                        "incident_reported_acres": 120,
+                        "mapped_perimeter_acres": 440.27,
+                        "acres_source": "NIFC active fire perimeter",
                         "error": "private diagnostic",
                     }
                 ],
@@ -915,6 +982,7 @@ class MonitorTests(unittest.TestCase):
             }
         )
         self.assertEqual(snapshot["incidents"][0]["name"], "Rio Blanco")
+        self.assertEqual(snapshot["incidents"][0]["mapped_perimeter_acres"], 440.27)
         self.assertNotIn("error", snapshot["incidents"][0])
         self.assertNotIn("internal_note", snapshot["evacuations"]["directives"][0])
 

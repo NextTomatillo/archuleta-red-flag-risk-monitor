@@ -27,7 +27,8 @@ The HTML dashboard provides the same information in a one-page visual layout wit
 
 The monitor also checks current Archuleta County fire and evacuation context:
 
-- The National Interagency Fire Center WFIGS current-incident feed supplies named incidents, type, acreage, containment, discovery/update times, location, cause, and jurisdiction.
+- The National Interagency Fire Center WFIGS current-incident feed supplies named incidents, type, containment, discovery/update times, location, cause, and jurisdiction.
+- NIFC's current active-fire perimeter dataset supplies newer mapped acreage when available. The dashboard labels that acreage as preliminary and discloses any difference from the incident-location record.
 - Archuleta County's official emergency-alert and fire-update feeds supply recent evacuation orders and warnings with direct links to the underlying Nixle notices.
 - Source failures are explicit. An unavailable evacuation feed is never displayed as an all-clear.
 - Current incidents and evacuation notices are operational safety context. They can recommend sending the monitor report, but they do not raise weather-driven PSPS scores by themselves.

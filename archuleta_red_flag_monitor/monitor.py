@@ -1017,6 +1017,197 @@ def arcgis_epoch_to_local(value: Any, tz: ZoneInfo) -> Optional[str]:
         return None
 
 
+def arcgis_datetime_to_local(value: Any, tz: ZoneInfo) -> Optional[str]:
+    numeric = safe_float(value)
+    if numeric is not None:
+        return arcgis_epoch_to_local(numeric, tz)
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    try:
+        parsed = parsedate_to_datetime(text)
+    except (TypeError, ValueError):
+        try:
+            parsed = dt.datetime.fromisoformat(text.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+    return parsed.astimezone(tz).isoformat()
+
+
+def normalized_incident_id(value: Any) -> str:
+    return str(value or "").strip().strip("{}").upper()
+
+
+def normalized_incident_name(value: Any) -> str:
+    text = re.sub(r"\bfire\b", "", str(value or "").lower())
+    return re.sub(r"[^a-z0-9]+", "", text)
+
+
+def normalize_wfigs_perimeter(
+    feature: Dict[str, Any],
+    config: Dict[str, Any],
+    tz: ZoneInfo,
+) -> Dict[str, Any]:
+    attributes = feature.get("properties") or feature.get("attributes") or {}
+    incident_type = str(attributes.get("attr_IncidentTypeCategory") or "WF").upper()
+    latitude = safe_float(attributes.get("attr_InitialLatitude"))
+    longitude = safe_float(attributes.get("attr_InitialLongitude"))
+    nearest = nearest_sample_area(latitude, longitude, config)
+    acres = safe_float(attributes.get("poly_GISAcres"))
+    if acres is None:
+        acres = safe_float(attributes.get("poly_Acres_AutoCalc"))
+    unique_id = (
+        attributes.get("attr_UniqueFireIdentifier")
+        or attributes.get("poly_IRWINID")
+        or attributes.get("OBJECTID")
+    )
+    updated_value = (
+        attributes.get("poly_DateCurrent")
+        or attributes.get("poly_PolygonDateTime")
+        or attributes.get("attr_ModifiedOnDateTime_dt")
+    )
+    return {
+        "id": str(unique_id) if unique_id is not None else None,
+        "name": (
+            attributes.get("poly_IncidentName")
+            or attributes.get("attr_IncidentName")
+            or "Unnamed incident"
+        ),
+        "incident_type": incident_type,
+        "incident_type_label": WFIGS_INCIDENT_TYPE_LABELS.get(incident_type, "Fire incident"),
+        "acres": round(acres, 2) if acres is not None else None,
+        "percent_contained": safe_float(attributes.get("attr_PercentContained")),
+        "discovered_at": arcgis_datetime_to_local(attributes.get("attr_FireDiscoveryDateTime"), tz),
+        "updated_at": arcgis_datetime_to_local(updated_value, tz),
+        "county": attributes.get("attr_POOCounty"),
+        "state": attributes.get("attr_POOState"),
+        "city": attributes.get("attr_POOCity"),
+        "description": visible_source_text(
+            str(attributes.get("attr_IncidentShortDescription") or "")
+        ),
+        "cause": attributes.get("attr_FireCause"),
+        "jurisdiction": attributes.get("attr_POOJurisdictionalAgency"),
+        "latitude": latitude,
+        "longitude": longitude,
+        "nearest_area": nearest.get("name"),
+        "distance_miles": nearest.get("distance_miles"),
+        "perimeter_source": attributes.get("poly_Source"),
+        "incident_reported_acres": safe_float(attributes.get("attr_IncidentSize")),
+    }
+
+
+def fetch_wfigs_perimeters(
+    session: requests.Session,
+    config: Dict[str, Any],
+    tz: ZoneInfo,
+) -> Dict[str, Any]:
+    incident_config = config.get("active_incidents", {})
+    download_url = incident_config.get("wfigs_perimeter_download_url")
+    if not download_url:
+        return {
+            "status": "unavailable",
+            "error": "WFIGS perimeter download URL is not configured.",
+            "perimeters": [],
+        }
+
+    county_fips = str(incident_config.get("county_fips", "08007")).zfill(5)
+    params = {
+        "layers": "0",
+        "where": f"attr_POOFips='{county_fips}'",
+    }
+    try:
+        payload = request_json(session, f"{download_url}?{urlencode(params)}", timeout=45)
+        if not isinstance(payload, dict) or payload.get("error"):
+            message = (payload.get("error") or {}).get("message") if isinstance(payload, dict) else None
+            raise ValueError(message or "Unexpected WFIGS perimeter response.")
+        perimeters = [
+            normalize_wfigs_perimeter(feature, config, tz)
+            for feature in payload.get("features", [])
+            if isinstance(feature, dict)
+        ]
+    except (requests.RequestException, TypeError, ValueError) as exc:
+        return {
+            "status": "unavailable",
+            "error": f"{exc.__class__.__name__}: {exc}",
+            "perimeters": [],
+        }
+
+    return {
+        "status": "checked",
+        "perimeters": perimeters,
+        "source_url": incident_config.get("wfigs_perimeter_item_url"),
+    }
+
+
+def reconcile_wfigs_perimeters(
+    incidents: List[Dict[str, Any]],
+    perimeter_result: Dict[str, Any],
+    incident_source_url: Optional[str],
+) -> List[Dict[str, Any]]:
+    perimeters = perimeter_result.get("perimeters", [])
+    by_id = {
+        normalized_incident_id(item.get("id")): item
+        for item in perimeters
+        if normalized_incident_id(item.get("id"))
+    }
+    by_name = {
+        normalized_incident_name(item.get("name")): item
+        for item in perimeters
+        if normalized_incident_name(item.get("name"))
+    }
+    reconciled = []
+    for original in incidents:
+        incident = dict(original)
+        perimeter = (
+            by_id.get(normalized_incident_id(incident.get("id")))
+            or by_name.get(normalized_incident_name(incident.get("name")))
+        )
+        incident_acres = safe_float(incident.get("acres"))
+        if perimeter and perimeter.get("acres") is not None:
+            mapped_acres = safe_float(perimeter.get("acres"))
+            incident["incident_reported_acres"] = incident_acres
+            incident["mapped_perimeter_acres"] = mapped_acres
+            incident["acres"] = mapped_acres
+            incident["acres_source"] = "NIFC active fire perimeter"
+            incident["acres_source_url"] = perimeter_result.get("source_url")
+            incident["acres_updated_at"] = perimeter.get("updated_at")
+            incident["perimeter_source"] = perimeter.get("perimeter_source")
+            incident["acres_preliminary"] = True
+            if (
+                incident_acres is not None
+                and mapped_acres is not None
+                and abs(mapped_acres - incident_acres) >= 0.1
+            ):
+                incident["acres_note"] = (
+                    f"The latest NIFC mapped perimeter is {mapped_acres:,.2f} acres; "
+                    f"the NIFC incident-location record currently lists {incident_acres:,.2f} acres."
+                )
+            else:
+                incident["acres_note"] = (
+                    "Acreage comes from the latest available NIFC mapped perimeter and is preliminary."
+                )
+        else:
+            incident["incident_reported_acres"] = incident_acres
+            incident["acres_source"] = "NIFC current incident record"
+            incident["acres_source_url"] = incident_source_url
+            incident["acres_updated_at"] = incident.get("updated_at")
+            incident["acres_preliminary"] = False
+        reconciled.append(incident)
+
+    reconciled.sort(
+        key=lambda item: (
+            0 if item.get("incident_type") == "WF" else 1,
+            -(safe_float(item.get("acres")) or 0),
+            str(item.get("name") or ""),
+        )
+    )
+    return reconciled
+
+
 def normalize_wfigs_incident(
     feature: Dict[str, Any],
     config: Dict[str, Any],
@@ -1413,8 +1604,13 @@ def check_active_incidents(
         }
 
     incident_result = fetch_wfigs_incidents(session, config, tz)
+    perimeter_result = fetch_wfigs_perimeters(session, config, tz)
     evacuations = fetch_archuleta_evacuation_status(session, config, tz, now_local)
-    incidents = incident_result.get("incidents", [])
+    incidents = reconcile_wfigs_perimeters(
+        incident_result.get("incidents", []),
+        perimeter_result,
+        incident_result.get("source_url"),
+    )
     wildfires = [item for item in incidents if item.get("incident_type") == "WF"]
     prescribed = [item for item in incidents if item.get("incident_type") == "RX"]
     material_threshold = safe_float(incident_config.get("notify_wildfire_min_acres")) or 10
@@ -1452,6 +1648,7 @@ def check_active_incidents(
         "headline": headline,
         "checked_at": now_local.isoformat(),
         "incident_source_status": incident_result.get("status"),
+        "perimeter_source_status": perimeter_result.get("status"),
         "incident_count": len(incidents),
         "wildfire_count": len(wildfires),
         "prescribed_fire_count": len(prescribed),
@@ -1468,6 +1665,12 @@ def check_active_incidents(
                 "error": incident_result.get("error"),
             },
             {
+                "name": "NIFC WFIGS current fire perimeters",
+                "url": perimeter_result.get("source_url"),
+                "status": perimeter_result.get("status"),
+                "error": perimeter_result.get("error"),
+            },
+            {
                 "name": "Archuleta County official fire and emergency alerts",
                 "url": incident_config.get("county_fire_updates_url"),
                 "status": "checked" if evacuations.get("status") != "unavailable" else "unavailable",
@@ -1475,6 +1678,7 @@ def check_active_incidents(
         ],
         "links": {
             "nifc_map": incident_config.get("nifc_map_url"),
+            "nifc_perimeters": incident_config.get("wfigs_perimeter_item_url"),
             "county_fire_updates": incident_config.get("county_fire_updates_url"),
             "county_alert_signup": incident_config.get("county_alert_signup_url"),
             "nixle": incident_config.get("nixle_url"),
@@ -3925,6 +4129,7 @@ def public_active_incidents_snapshot(active_incidents: Dict[str, Any]) -> Dict[s
         "headline": active_incidents.get("headline"),
         "checked_at": active_incidents.get("checked_at"),
         "incident_source_status": active_incidents.get("incident_source_status"),
+        "perimeter_source_status": active_incidents.get("perimeter_source_status"),
         "incident_count": active_incidents.get("incident_count", 0),
         "wildfire_count": active_incidents.get("wildfire_count", 0),
         "prescribed_fire_count": active_incidents.get("prescribed_fire_count", 0),
@@ -3939,6 +4144,14 @@ def public_active_incidents_snapshot(active_incidents: Dict[str, Any]) -> Dict[s
                     "incident_type",
                     "incident_type_label",
                     "acres",
+                    "incident_reported_acres",
+                    "mapped_perimeter_acres",
+                    "acres_source",
+                    "acres_source_url",
+                    "acres_updated_at",
+                    "acres_note",
+                    "acres_preliminary",
+                    "perimeter_source",
                     "percent_contained",
                     "discovered_at",
                     "updated_at",
@@ -5840,9 +6053,10 @@ def render_html(report: Dict[str, Any]) -> str:
                 <span>Cause: {escape_html(incident.get('cause') or 'not reported')}</span>
                 <span>Agency: {escape_html(incident.get('jurisdiction') or 'not reported')}</span>
               </div>
-              <p class="source-meta">Updated {escape_html(format_generated_label(incident.get('updated_at')))}</p>
+              <p class="source-meta">Acreage source: {linked_text_html(incident.get('acres_source', 'NIFC current incident record'), incident.get('acres_source_url'))} · Updated {escape_html(format_generated_label(incident.get('acres_updated_at') or incident.get('updated_at')))}</p>
+              {f'<p class="source-meta">{escape_html(incident.get("acres_note"))}</p>' if incident.get('acres_note') else ''}
               <p class="definition-links">
-                {linked_text_html('Open authoritative NIFC source', active_incidents.get('links', {}).get('nifc_map'))}
+                {linked_text_html('Open authoritative NIFC source', incident.get('acres_source_url') or active_incidents.get('links', {}).get('nifc_map'))}
               </p>
             </article>
             """
@@ -5879,6 +6093,7 @@ def render_html(report: Dict[str, Any]) -> str:
         f'<a href="{escape_html(url)}" target="_blank" rel="noopener noreferrer">{escape_html(label)}</a>'
         for label, url in (
             ("NIFC fire map", active_incidents.get("links", {}).get("nifc_map")),
+            ("NIFC current fire perimeters", active_incidents.get("links", {}).get("nifc_perimeters")),
             ("Archuleta County fire updates", active_incidents.get("links", {}).get("county_fire_updates")),
             ("Official county alerts", active_incidents.get("links", {}).get("nixle")),
             ("Sign up for county alerts", active_incidents.get("links", {}).get("county_alert_signup")),
@@ -7301,7 +7516,7 @@ def render_html(report: Dict[str, Any]) -> str:
       </div>
       <div class="incident-subsection">
         <div class="subsection-heading incident-subsection-heading">
-          <p class="eyebrow">Authoritative current-incident feed</p>
+          <p class="eyebrow">Authoritative NIFC incident + perimeter feeds</p>
           <h3>Fires in Archuleta County</h3>
         </div>
         <div class="incident-grid">

@@ -142,6 +142,8 @@
     "county_fips": "08007",
     "wfigs_query_url": "https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Incident_Locations_Current/FeatureServer/0/query",
     "wfigs_item_url": "https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015",
+    "wfigs_perimeter_download_url": "https://hub.arcgis.com/api/download/v1/items/d1c32af3212341869b3c810f1a215824/geojson",
+    "wfigs_perimeter_item_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
     "nifc_map_url": "https://www.nifc.gov/fire-information/maps",
     "evacuation_feed_url": "https://www.archuletacounty.gov/category/emergency-management/emergency-alert/feed/",
     "fire_updates_feed_url": "https://www.archuletacounty.gov/category/emergency-management/fire-update/feed/",

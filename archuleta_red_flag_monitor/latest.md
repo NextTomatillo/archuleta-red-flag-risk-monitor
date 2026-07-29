@@ -1,6 +1,6 @@
 # Archuleta Red Flag Risk Monitor
 
-Generated: Jul 29, 2026 at 10:11 AM MDT (Pagosa Springs, CO local time)
+Generated: Jul 29, 2026 at 11:23 AM MDT (Pagosa Springs, CO local time)
 Next update: Jul 29, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -43,26 +43,27 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Analyst Interpretation
 
-- Headline: Active fire and evacuation context is the immediate concern while the weather trend remains steady
-- Summary: The monitor remains at CONCERN with a PSPS WATCH centered on Monday, August 3 near Arboles. Separate operational safety context is more immediate: NIFC reports three Archuleta County wildfires, led by the 120-acre Rio Blanco fire, while recent official county notices include one evacuation order and three evacuation warnings. No official NWS fire-weather alert is active, and LPEA's one-customer planned outage has no identified fire or PSPS cause. Treat the evacuation notices as immediate safety information, not evidence that LPEA will initiate a PSPS.
-- Uncertainty: Evacuation status is based on recent county notices and may change before the next refresh. NIFC acreage and containment can lag field reports. The monitor cannot see LPEA's internal circuit conditions or shutoff thresholds.
-- Evidence used: active_incidents, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture
+- Headline: Active Rio Blanco fire and evacuations outweigh a steady near-term PSPS watch outlook
+- Summary: The monitor remains at CONCERN, with the first PSPS WATCH on Monday, August 3 near Arboles. Immediate safety context is the preliminary 440.27-acre NIFC mapped perimeter for Rio Blanco, with one evacuation order and three warnings; the NIFC incident-location record still reports 120 acres. No official NWS fire-weather alert or LPEA PSPS notice is active.
+- Uncertainty: Mapped perimeter acreage is preliminary, evacuation status can change quickly, and LPEA internal operating thresholds are not public.
+- Evidence used: active_incidents, overall_status, forecast_change, lpea_context, fire_posture, official_alerts
 - This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
 
 Changing drivers:
-- Forecast momentum is steady, with no major day-level movement versus the prior run.
-- Current incident context now includes three wildfires, one evacuation order, and three evacuation warnings.
-- Monday, August 3 remains the first PSPS WATCH date, driven by very dry air and near-threshold winds around Arboles.
+- The seven-day weather and PSPS outlook is steady versus the prior run.
+- Rio Blanco now has a 440.27-acre NIFC mapped perimeter while the incident-location record remains at 120 acres.
+- An active one-customer LPEA outage has no identified fire-weather or PSPS cause.
+- Official fire restrictions reach Stage 2 and reported fire danger reaches High.
 
 What to watch next:
-- Check official county alerts for evacuation expansions, downgrades, or an all-clear.
-- Watch Rio Blanco acreage, containment, and proximity updates in the NIFC incident feed.
-- Watch Monday wind and humidity forecasts for escalation to an official NWS alert.
-- Look for direct LPEA PSPS or de-energization language; the current planned outage is not fire-related.
+- Follow Archuleta County notices for evacuation expansions, downgrades, or an all-clear.
+- Check NIFC for newer Rio Blanco perimeter, containment, and incident-size updates.
+- Recheck Monday afternoon wind and humidity near Arboles as the first PSPS WATCH window approaches.
+- Watch for an official NWS fire-weather alert or direct LPEA PSPS notice.
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jul 29 at 10:09 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
+- Summary: Momentum is steady versus the prior run (Jul 29 at 10:11 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
 - Momentum: **Steady**
 - Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Mon, Aug 3
@@ -76,13 +77,13 @@ Notable changes:
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Mon, Aug 3 near Arboles / southwest county (WATCH 54/100), driven by near-threshold wind/gust signal near 23 mph; very dry RH near 12%; 4 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.
-- Trend: Momentum is steady versus the prior run (Jul 29 at 10:09 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
+- Trend: Momentum is steady versus the prior run (Jul 29 at 10:11 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
 - Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Mon, Aug 3
 - PSPS peak: Mon, Aug 3 near Arboles / southwest county at WATCH 54/100
 - Red Flag peak: Mon, Aug 3 near Arboles / southwest county at WATCH 62/100
 - Weather fire-potential peak: Mon, Aug 3 near Durango / La Plata County at VERY HIGH 75/100
-- LPEA operational outage context: 1 active outage; 1 planned and 0 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.
+- LPEA operational outage context: 1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
@@ -146,9 +147,9 @@ What to watch next:
 
 | Incident | Type | Size | Containment | Nearest monitored area | Updated |
 | --- | --- | --- | --- | --- | --- |
-| Rio Blanco | Wildfire | 120.00 acres | 0% | Chromo / southeast county (9.9 mi) | Jul 28 at 9:10 PM MDT |
+| Rio Blanco | Wildfire | 440.27 acres | 0% | Chromo / southeast county (9.9 mi) | Jul 29 at 10:10 AM MDT |
 | Blanco | Wildfire | 0.41 acres | Not reported | Pagosa Springs (9.2 mi) | Jul 27 at 5:30 PM MDT |
-| Walker | Wildfire | 0.10 acres | Not reported | Arboles / southwest county (2.6 mi) | Jul 29 at 7:43 AM MDT |
+| Walker | Wildfire | 0.10 acres | Not reported | Arboles / southwest county (2.9 mi) | Jul 29 at 11:20 AM MDT |
 
 Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archuleta County fire updates](https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/), [County alerts](https://nixle.us/archuleta-county-office-of-emergency-management-aux/), [Watch Duty](https://app.watchduty.org/)
 
@@ -201,10 +202,10 @@ Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archule
 
 - Status: `operational_outage_active` - Official LPEA outage data indicates an operational outage; use as grid context, not PSPS/fire evidence unless LPEA identifies that cause.
 - Meaning: Active source match means a monitored LPEA active/update source currently contains fire, outage, PSPS, or power-interruption keywords. Operational outages are shown separately and are not treated as PSPS/fire evidence unless the source text says so.
-- Operational outage context: 1 active outage; 1 planned and 0 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.
+- Operational outage context: 1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.
 - Source coverage: 13 sources; 5/5 official social sources reachable
 - Evidence quality: 0 operational, 4 active/update, 0 archive/context, 6 reference source matches.
-- Operational outage source links: [91 PINECONE DR](https://outage.lpea.coop)
+- Operational outage source links: [4305 MC MANUS RD](https://outage.lpea.coop)
 - Active/update source pages with matches: LPEA homepage (public safety power shutoff, power shutoff, shutoff, power outage, fire mitigation, restoration); LPEA X (power outage, outage map, high winds, restore power); LPEA LinkedIn (wildfire, fire mitigation)
 - Distinct active/update signals: LPEA X (power outage, outage map, high winds, restore power); LPEA X (power outage, outage map, high winds, restore power); LPEA LinkedIn (wildfire, fire mitigation); LPEA LinkedIn (wildfire, fire mitigation)
 - Example signal: ...ibrary! 1 2 516 LPEA @LaPlataElectric May 7, 2024 LPEA members are experiencing power outages in the Bayfield and Pagosa Springs areas. Approximately 200 meters are out and it is suspected that the high winds are...

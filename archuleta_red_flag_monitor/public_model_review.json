@@ -1,29 +1,30 @@
 {
   "changing_drivers": [
-    "Forecast momentum is steady, with no major day-level movement versus the prior run.",
-    "Current incident context now includes three wildfires, one evacuation order, and three evacuation warnings.",
-    "Monday, August 3 remains the first PSPS WATCH date, driven by very dry air and near-threshold winds around Arboles."
+    "The seven-day weather and PSPS outlook is steady versus the prior run.",
+    "Rio Blanco now has a 440.27-acre NIFC mapped perimeter while the incident-location record remains at 120 acres.",
+    "An active one-customer LPEA outage has no identified fire-weather or PSPS cause.",
+    "Official fire restrictions reach Stage 2 and reported fire danger reaches High."
   ],
   "evidence_ids": [
     "active_incidents",
-    "weather_peaks",
-    "official_alerts",
+    "overall_status",
     "forecast_change",
     "lpea_context",
-    "fire_posture"
+    "fire_posture",
+    "official_alerts"
   ],
-  "generated_at": "2026-07-29T10:20:00-06:00",
-  "headline": "Active fire and evacuation context is the immediate concern while the weather trend remains steady",
-  "report_generated_at": "2026-07-29T10:11:27.910181-06:00",
+  "generated_at": "2026-07-29T11:25:15-06:00",
+  "headline": "Active Rio Blanco fire and evacuations outweigh a steady near-term PSPS watch outlook",
+  "report_generated_at": "2026-07-29T11:23:11.711165-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The monitor remains at CONCERN with a PSPS WATCH centered on Monday, August 3 near Arboles. Separate operational safety context is more immediate: NIFC reports three Archuleta County wildfires, led by the 120-acre Rio Blanco fire, while recent official county notices include one evacuation order and three evacuation warnings. No official NWS fire-weather alert is active, and LPEA's one-customer planned outage has no identified fire or PSPS cause. Treat the evacuation notices as immediate safety information, not evidence that LPEA will initiate a PSPS.",
-  "uncertainty": "Evacuation status is based on recent county notices and may change before the next refresh. NIFC acreage and containment can lag field reports. The monitor cannot see LPEA's internal circuit conditions or shutoff thresholds.",
+  "summary": "The monitor remains at CONCERN, with the first PSPS WATCH on Monday, August 3 near Arboles. Immediate safety context is the preliminary 440.27-acre NIFC mapped perimeter for Rio Blanco, with one evacuation order and three warnings; the NIFC incident-location record still reports 120 acres. No official NWS fire-weather alert or LPEA PSPS notice is active.",
+  "uncertainty": "Mapped perimeter acreage is preliminary, evacuation status can change quickly, and LPEA internal operating thresholds are not public.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check official county alerts for evacuation expansions, downgrades, or an all-clear.",
-    "Watch Rio Blanco acreage, containment, and proximity updates in the NIFC incident feed.",
-    "Watch Monday wind and humidity forecasts for escalation to an official NWS alert.",
-    "Look for direct LPEA PSPS or de-energization language; the current planned outage is not fire-related."
+    "Follow Archuleta County notices for evacuation expansions, downgrades, or an all-clear.",
+    "Check NIFC for newer Rio Blanco perimeter, containment, and incident-size updates.",
+    "Recheck Monday afternoon wind and humidity near Arboles as the first PSPS WATCH window approaches.",
+    "Watch for an official NWS fire-weather alert or direct LPEA PSPS notice."
   ]
 }
