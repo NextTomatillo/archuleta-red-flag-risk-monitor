@@ -821,7 +821,18 @@ class MonitorTests(unittest.TestCase):
                     "attr_InitialLatitude": 37.12465,
                     "attr_InitialLongitude": -106.98522,
                     "attr_UniqueFireIdentifier": "2026-COSJF-000806",
-                }
+                },
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [-106.9892621, 37.1231586],
+                            [-106.9639849, 37.1231586],
+                            [-106.9639849, 37.1363886],
+                            [-106.9892621, 37.1231586],
+                        ]
+                    ],
+                },
             },
             config,
             tz,
@@ -831,6 +842,36 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(perimeter["incident_reported_acres"], 120)
         self.assertEqual(perimeter["nearest_area"], "Pagosa Springs")
         self.assertIn("09:54:56-06:00", perimeter["updated_at"])
+        self.assertEqual(perimeter["perimeter_geometry"]["type"], "Polygon")
+        self.assertEqual(
+            perimeter["perimeter_geometry"]["coordinates"][0][0],
+            [-106.989262, 37.123159],
+        )
+
+    def test_public_geojson_geometry_rejects_invalid_or_unsupported_shapes(self):
+        self.assertIsNone(
+            monitor.normalize_public_geojson_geometry(
+                {
+                    "type": "LineString",
+                    "coordinates": [[-106.98, 37.12], [-106.97, 37.13]],
+                }
+            )
+        )
+        self.assertIsNone(
+            monitor.normalize_public_geojson_geometry(
+                {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [-106.98, 37.12],
+                            [-106.97, 95],
+                            [-106.96, 37.13],
+                            [-106.98, 37.12],
+                        ]
+                    ],
+                }
+            )
+        )
 
     def test_reconcile_wfigs_perimeters_prefers_mapped_acres_and_discloses_difference(self):
         incidents = [
@@ -854,6 +895,17 @@ class MonitorTests(unittest.TestCase):
                         "acres": 440.27,
                         "updated_at": "2026-07-29T09:54:56-06:00",
                         "perimeter_source": "2026 NIFS",
+                        "perimeter_geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [-106.99, 37.12],
+                                    [-106.96, 37.12],
+                                    [-106.96, 37.14],
+                                    [-106.99, 37.12],
+                                ]
+                            ],
+                        },
                     }
                 ],
             },
@@ -863,6 +915,11 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(result[0]["incident_reported_acres"], 120)
         self.assertEqual(result[0]["acres_source"], "NIFC active fire perimeter")
         self.assertIn("currently lists 120.00 acres", result[0]["acres_note"])
+        self.assertEqual(result[0]["perimeter_geometry"]["type"], "Polygon")
+        self.assertEqual(
+            result[0]["perimeter_geometry_source"],
+            "NIFC WFIGS active-fire perimeter",
+        )
 
     def test_archuleta_feed_extracts_current_order_and_warning(self):
         tz = ZoneInfo("America/Denver")
@@ -963,6 +1020,18 @@ class MonitorTests(unittest.TestCase):
                         "incident_reported_acres": 120,
                         "mapped_perimeter_acres": 440.27,
                         "acres_source": "NIFC active fire perimeter",
+                        "perimeter_geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [-106.99, 37.12],
+                                    [-106.96, 37.12],
+                                    [-106.96, 37.14],
+                                    [-106.99, 37.12],
+                                ]
+                            ],
+                        },
+                        "perimeter_geometry_source": "NIFC WFIGS active-fire perimeter",
                         "error": "private diagnostic",
                     }
                 ],
@@ -983,6 +1052,10 @@ class MonitorTests(unittest.TestCase):
         )
         self.assertEqual(snapshot["incidents"][0]["name"], "Rio Blanco")
         self.assertEqual(snapshot["incidents"][0]["mapped_perimeter_acres"], 440.27)
+        self.assertEqual(
+            snapshot["incidents"][0]["perimeter_geometry"]["type"],
+            "Polygon",
+        )
         self.assertNotIn("error", snapshot["incidents"][0])
         self.assertNotIn("internal_note", snapshot["evacuations"]["directives"][0])
 
@@ -1211,6 +1284,35 @@ class MonitorTests(unittest.TestCase):
                 ],
                 "reference_hits": [{"name": "Reference page", "url": "https://example.test/ref"}],
             },
+            "active_incidents": {
+                "status": "checked",
+                "headline": "One current wildfire.",
+                "incidents": [
+                    {
+                        "name": "Rio Blanco",
+                        "incident_type": "WF",
+                        "incident_type_label": "Wildfire",
+                        "acres": 440.27,
+                        "latitude": 37.12465,
+                        "longitude": -106.98522,
+                        "nearest_area": "Pagosa Springs",
+                        "perimeter_geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [-106.99, 37.12],
+                                    [-106.96, 37.12],
+                                    [-106.96, 37.14],
+                                    [-106.99, 37.12],
+                                ]
+                            ],
+                        },
+                        "perimeter_geometry_source_url": "https://example.test/nifc-perimeters",
+                    }
+                ],
+                "evacuations": {"status": "clear"},
+                "links": {"nifc_map": "https://example.test/nifc-map"},
+            },
             "discussion": {"headline": "Concern language found."},
             "calibration": {
                 "summary": "No confirmed LPEA PSPS events logged yet.",
@@ -1273,6 +1375,9 @@ class MonitorTests(unittest.TestCase):
         self.assertIn('data-map-layer="weather"', rendered)
         self.assertIn('data-map-layer="outages"', rendered)
         self.assertIn("Markers use public-source coordinates.", rendered)
+        self.assertIn("NIFC WFIGS active-fire perimeter geometry", rendered)
+        self.assertIn('"perimeter_geometry":{"type":"Polygon"', rendered)
+        self.assertIn("fire-perimeter-shape", rendered)
         self.assertIn("Evacuation boundaries are not mapped", rendered)
         self.assertIn("LPEA area-wide screen, Mon, Jun 1 to Tue, Jun 2", rendered)
         self.assertIn("Peak likely dates: Mon, Jun 1; drivers: Pagosa Springs.", rendered)

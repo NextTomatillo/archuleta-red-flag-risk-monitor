@@ -233,6 +233,16 @@
       color: var(--pine);
       font-size: 1rem;
     }
+    .map-note-swatch {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 12px;
+      margin-top: 2px;
+      border: 2px solid #e33b2e;
+      border-radius: 3px;
+      background: rgba(179, 53, 37, 0.28);
+      box-shadow: 0 0 0 1px rgba(255, 253, 247, 0.9);
+    }
     .leaflet-container {
       font-family: var(--body);
     }
@@ -276,6 +286,40 @@
     .map-icon-fire { background: var(--high); }
     .map-icon-outage { background: var(--outage); }
     .map-icon-home { background: var(--pine); }
+    .fire-perimeter-shape {
+      filter: drop-shadow(0 2px 3px rgba(92, 32, 23, 0.28));
+    }
+    .leaflet-tooltip.fire-perimeter-label {
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 253, 247, 0.85);
+      border-radius: 7px;
+      background: rgba(16, 46, 40, 0.92);
+      box-shadow: 0 4px 14px rgba(16, 46, 40, 0.24);
+      color: #fffdf7;
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .leaflet-tooltip.fire-perimeter-label::before {
+      display: none;
+    }
+    .fire-perimeter-label span {
+      display: block;
+    }
+    .fire-perimeter-label small {
+      display: block;
+      margin-top: 2px;
+      color: rgba(255, 253, 247, 0.82);
+      font-family: var(--body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
     .hero-status-rail {
       display: flex;
       flex-direction: column;
@@ -1768,8 +1812,8 @@
             <p class="eyebrow">Public-source operating picture</p>
             <h1>Archuleta County fire-weather monitor</h1>
             <p class="brand-meta">
-              <span class="brand-meta-full">Updated Jul 29, 2026 at 1:36 PM MDT (Pagosa Springs, CO local time) · Next update: Jul 29, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)</span>
-              <span class="brand-meta-compact">Updated Jul 29 at 1:36 PM MDT · Next Jul 29 at 5:20 PM MDT</span>
+              <span class="brand-meta-full">Updated Jul 29, 2026 at 1:58 PM MDT (Pagosa Springs, CO local time) · Next update: Jul 29, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)</span>
+              <span class="brand-meta-compact">Updated Jul 29 at 1:58 PM MDT · Next Jul 29 at 5:20 PM MDT</span>
             </p>
           </div>
         </div>
@@ -1812,8 +1856,8 @@
             </div>
           </div>
           <p class="map-card-note">
-            <i class="ph ph-info" aria-hidden="true"></i>
-            <span>Markers use public-source coordinates. Evacuation boundaries are not mapped because authoritative polygon data is not available in the checked county feed. Verify locations and instructions with official sources.</span>
+            <span class="map-note-swatch" aria-hidden="true"></span>
+            <span>Red shapes use the latest available NIFC WFIGS active-fire perimeter geometry and may be preliminary or lag field conditions. Markers use public-source coordinates. Evacuation boundaries are not mapped because authoritative polygon data is not available in the checked county feed. Verify locations and instructions with official sources.</span>
           </p>
         </section>
 
@@ -1867,9 +1911,9 @@
             <strong
               id="freshness-badge"
               class="hero-mini-chip freshness-current"
-              data-generated-at="2026-07-29T13:36:06.972575-06:00"
+              data-generated-at="2026-07-29T13:58:32.123013-06:00"
               data-late-after="2026-07-29T18:50:00-06:00"
-              data-stale-after="2026-07-30T04:36:06.972575-06:00"
+              data-stale-after="2026-07-30T04:58:32.123013-06:00"
             >CURRENT</strong>
           </div>
 
@@ -1995,7 +2039,7 @@
         <div>
           <p class="eyebrow">Operational Safety Context</p>
           <h2>Current Fires + Evacuations</h2>
-          <p class="footer-note">Official evacuation notices are active; 3 current wildfires reported in Archuleta County.</p>
+          <p class="footer-note">Official evacuation notices are active; 2 current wildfires reported in Archuleta County.</p>
         </div>
         <span class="summary-value incident-evacuation">EVACUATION NOTICE ACTIVE</span>
       </div>
@@ -2105,28 +2149,6 @@
                 <span>Agency: USFS</span>
               </div>
               <p class="source-meta">Acreage source: <a href="https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015" target="_blank" rel="noopener noreferrer">NIFC current incident record</a> · Updated Jul 27 at 5:30 PM MDT</p>
-              
-              <p class="definition-links">
-                <a href="https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015" target="_blank" rel="noopener noreferrer">Open authoritative NIFC source</a>
-              </p>
-            </article>
-            
-            <article class="incident-card">
-              <div class="incident-card-head">
-                <div>
-                  <p class="eyebrow">Wildfire</p>
-                  <h3>Walker</h3>
-                </div>
-                <span class="incident-chip incident-wildfire">0.10 acres</span>
-              </div>
-              <p class="incident-location">Arboles / southwest county · 2.9 mi away</p>
-              <p>Reported near Arboles / southwest county.</p>
-              <div class="incident-facts">
-                <span>Containment not reported</span>
-                <span>Cause: Natural</span>
-                <span>Agency: BIA</span>
-              </div>
-              <p class="source-meta">Acreage source: <a href="https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015" target="_blank" rel="noopener noreferrer">NIFC current incident record</a> · Updated Jul 29 at 11:20 AM MDT</p>
               
               <p class="definition-links">
                 <a href="https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015" target="_blank" rel="noopener noreferrer">Open authoritative NIFC source</a>
@@ -2514,13 +2536,13 @@
     <section class="section-panel">
       <p class="eyebrow">Trend Intelligence</p>
       <h2>Trend + Change Detection</h2>
-      <p class="footer-note">Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.</p>
+      <p class="footer-note">Momentum is steady versus the prior run (Jul 29 at 1:36 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.</p>
       <div class="trend-grid">
         
         <article class="trend-card trend-steady">
           <p class="eyebrow">Momentum</p>
           <strong>Steady</strong>
-          <span>Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.</span>
+          <span>Momentum is steady versus the prior run (Jul 29 at 1:36 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.</span>
         </article>
         
         <article class="trend-card trend-low-0-100">
@@ -2535,9 +2557,9 @@
           <span>First WATCH-or-higher PSPS date remains Mon, Aug 3.</span>
         </article>
         
-        <article class="trend-card trend-jul-29-at-1-21-pm-mdt">
+        <article class="trend-card trend-jul-29-at-1-36-pm-mdt">
           <p class="eyebrow">Prior run</p>
-          <strong>Jul 29 at 1:21 PM MDT</strong>
+          <strong>Jul 29 at 1:36 PM MDT</strong>
           <span>Compared against the most recent prior forecast run in local history.</span>
         </article>
         
@@ -2772,7 +2794,7 @@
             </li>
             </ul>
           <p>This is treated as operational grid context only; it does not raise PSPS scoring by itself.</p>
-          <p class="source-meta">Official data updated 2026-07-29T13:35:09.2000964-06:00. Source: <a href="https://outage.lpea.coop" target="_blank" rel="noopener noreferrer">LPEA outage map</a></p>
+          <p class="source-meta">Official data updated 2026-07-29T13:57:11.7696203-06:00. Source: <a href="https://outage.lpea.coop" target="_blank" rel="noopener noreferrer">LPEA outage map</a></p>
         </div>
         
       <div class="source-grid">
@@ -2891,7 +2913,7 @@
       const initializeMap = () => {
         const mapElement = document.getElementById("incident-map");
         if (!mapElement) return;
-        const payload = {"points":[{"name":"Pagosa Springs","latitude":37.2695,"longitude":-107.0098,"weather_tier":"GREEN","psps_level":"LOW","psps_score":12},{"name":"Arboles / southwest county","latitude":37.03,"longitude":-107.42,"weather_tier":"GREEN","psps_level":"LOW","psps_score":16},{"name":"Chimney Rock / west county","latitude":37.19,"longitude":-107.31,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":18},{"name":"Piedra / north county","latitude":37.37,"longitude":-107.18,"weather_tier":"GREEN","psps_level":"LOW","psps_score":12},{"name":"Chromo / southeast county","latitude":37.04,"longitude":-106.84,"weather_tier":"GREEN","psps_level":"LOW","psps_score":12},{"name":"Durango / La Plata County","latitude":37.2753,"longitude":-107.8801,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":26},{"name":"Bayfield / east La Plata County","latitude":37.2256,"longitude":-107.5981,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":20},{"name":"Ignacio / southeast La Plata County","latitude":37.115,"longitude":-107.6331,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":20}],"incidents":[{"name":"Rio Blanco","latitude":37.124654922175075,"longitude":-106.9852172787435,"acres":440.27,"incident_type":"WF","incident_type_label":"Wildfire","nearest_area":"Chromo / southeast county","source_url":"https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0"},{"name":"Blanco","latitude":37.14497292730487,"longitude":-106.94914327279822,"acres":0.41,"incident_type":"WF","incident_type_label":"Wildfire","nearest_area":"Pagosa Springs","source_url":"https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015"},{"name":"Walker","latitude":37.00833888142509,"longitude":-107.37504335273375,"acres":0.1,"incident_type":"WF","incident_type_label":"Wildfire","nearest_area":"Arboles / southwest county","source_url":"https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015"}],"outages":[{"latitude":37.46128458132634,"longitude":-107.12569540489015,"nearest_area":"Piedra / north county","customers_out_now":2,"planned":false,"cause":null,"source_url":"https://outage.lpea.coop"},{"latitude":37.111827149974644,"longitude":-107.85998419501598,"nearest_area":"Durango / La Plata County","customers_out_now":2,"planned":true,"cause":"100 Construction","source_url":"https://outage.lpea.coop"}],"evacuations":{"active":true,"order_count":1,"warning_count":3,"source_url":"https://nixle.us/HH7KM"},"links":{"nifc_map":"https://www.nifc.gov/fire-information/maps","county_alerts":"https://nixle.us/HH7KM","lpea_outage_map":"https://outage.lpea.coop"}};
+        const payload = {"points":[{"name":"Pagosa Springs","latitude":37.2695,"longitude":-107.0098,"weather_tier":"GREEN","psps_level":"LOW","psps_score":12},{"name":"Arboles / southwest county","latitude":37.03,"longitude":-107.42,"weather_tier":"GREEN","psps_level":"LOW","psps_score":16},{"name":"Chimney Rock / west county","latitude":37.19,"longitude":-107.31,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":18},{"name":"Piedra / north county","latitude":37.37,"longitude":-107.18,"weather_tier":"GREEN","psps_level":"LOW","psps_score":12},{"name":"Chromo / southeast county","latitude":37.04,"longitude":-106.84,"weather_tier":"GREEN","psps_level":"LOW","psps_score":12},{"name":"Durango / La Plata County","latitude":37.2753,"longitude":-107.8801,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":26},{"name":"Bayfield / east La Plata County","latitude":37.2256,"longitude":-107.5981,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":20},{"name":"Ignacio / southeast La Plata County","latitude":37.115,"longitude":-107.6331,"weather_tier":"GREEN","psps_level":"ELEVATED","psps_score":20}],"incidents":[{"name":"Rio Blanco","latitude":37.124654922175075,"longitude":-106.9852172787435,"acres":440.27,"incident_type":"WF","incident_type_label":"Wildfire","nearest_area":"Chromo / southeast county","perimeter_geometry":{"type":"Polygon","coordinates":[[[-106.987429,37.12991],[-106.987431,37.129942],[-106.987289,37.130162],[-106.987223,37.13029],[-106.987202,37.130592],[-106.987291,37.130671],[-106.987534,37.130757],[-106.987658,37.130814],[-106.987834,37.130846],[-106.988093,37.130857],[-106.988259,37.130923],[-106.988323,37.130956],[-106.988763,37.130915],[-106.988887,37.131051],[-106.988933,37.131171],[-106.988933,37.131336],[-106.988936,37.131427],[-106.989028,37.131538],[-106.989115,37.131561],[-106.989262,37.131571],[-106.989231,37.131836],[-106.989057,37.13179],[-106.988578,37.131673],[-106.988413,37.131804],[-106.988262,37.131885],[-106.988063,37.131902],[-106.987955,37.131715],[-106.987951,37.131667],[-106.98773,37.131469],[-106.987694,37.131499],[-106.987205,37.131569],[-106.987451,37.131315],[-106.987225,37.131332],[-106.987026,37.131388],[-106.986845,37.131431],[-106.986769,37.131502],[-106.986761,37.131547],[-106.986747,37.131616],[-106.986737,37.131684],[-106.986592,37.131864],[-106.986335,37.13175],[-106.986363,37.131546],[-106.986308,37.131494],[-106.985864,37.13158],[-106.984816,37.131588],[-106.984344,37.131581],[-106.983854,37.131658],[-106.983724,37.13163],[-106.982896,37.131474],[-106.982592,37.131429],[-106.982463,37.131336],[-106.982241,37.131285],[-106.982144,37.131298],[-106.981878,37.131309],[-106.981705,37.131354],[-106.981639,37.131539],[-106.981323,37.131611],[-106.981072,37.131787],[-106.981039,37.131841],[-106.98102,37.131924],[-106.981055,37.131978],[-106.981153,37.132181],[-106.981097,37.132332],[-106.98105,37.132424],[-106.980985,37.132529],[-106.980913,37.13263],[-106.980775,37.132797],[-106.980672,37.132907],[-106.980494,37.132952],[-106.980401,37.132945],[-106.979764,37.132965],[-106.979226,37.132827],[-106.979197,37.132377],[-106.979189,37.132431],[-106.979107,37.132591],[-106.978973,37.132568],[-106.978815,37.132564],[-106.978779,37.132608],[-106.978483,37.132655],[-106.978157,37.132656],[-106.977922,37.132688],[-106.977536,37.132695],[-106.977346,37.132735],[-106.977072,37.132698],[-106.976856,37.132716],[-106.97665,37.132742],[-106.976534,37.132794],[-106.976385,37.132776],[-106.976242,37.132725],[-106.976192,37.132814],[-106.976256,37.132921],[-106.976307,37.133018],[-106.976237,37.133107],[-106.976059,37.13308],[-106.975995,37.133084],[-106.97597,37.133136],[-106.976051,37.133356],[-106.97611,37.13343],[-106.975998,37.133462],[-106.975812,37.133496],[-106.975703,37.133464],[-106.97555,37.133372],[-106.975485,37.133407],[-106.975452,37.13345],[-106.975426,37.133499],[-106.97539,37.133555],[-106.975297,37.133653],[-106.975219,37.133702],[-106.975201,37.133762],[-106.975199,37.133828],[-106.975248,37.133913],[-106.975277,37.134016],[-106.975279,37.134103],[-106.975234,37.134161],[-106.975158,37.134199],[-106.975065,37.134181],[-106.974942,37.134184],[-106.974941,37.134266],[-106.974924,37.134371],[-106.974865,37.134435],[-106.974734,37.134316],[-106.974607,37.134141],[-106.974518,37.134173],[-106.974432,37.13424],[-106.974286,37.134419],[-106.974395,37.134431],[-106.974478,37.134503],[-106.974315,37.134586],[-106.974136,37.13462],[-106.97401,37.134657],[-106.97395,37.134755],[-106.973783,37.134977],[-106.973628,37.135136],[-106.973527,37.13533],[-106.973478,37.135448],[-106.973444,37.135533],[-106.973411,37.135755],[-106.973443,37.135887],[-106.973162,37.13604],[-106.973112,37.136041],[-106.973137,37.13616],[-106.972069,37.136369],[-106.971373,37.136389],[-106.970982,37.136169],[-106.970143,37.135522],[-106.970326,37.134851],[-106.969708,37.134135],[-106.96936,37.133171],[-106.969017,37.132578],[-106.967231,37.132508],[-106.966655,37.132245],[-106.966593,37.131291],[-106.966498,37.130611],[-106.964597,37.12939],[-106.965315,37.128412],[-106.964695,37.127898],[-106.963985,37.127187],[-106.964335,37.126367],[-106.966312,37.126944],[-106.967331,37.126299],[-106.966776,37.125958],[-106.966032,37.125166],[-106.965463,37.124323],[-106.967516,37.123206],[-106.968216,37.123276],[-106.968533,37.123589],[-106.969207,37.124213],[-106.969718,37.124412],[-106.97047,37.124839],[-106.971027,37.124889],[-106.971339,37.124549],[-106.971822,37.123868],[-106.972528,37.123423],[-106.973358,37.12321],[-106.973848,37.123188],[-106.974386,37.123159],[-106.975122,37.123218],[-106.975824,37.123163],[-106.97606,37.124184],[-106.975769,37.125148],[-106.976098,37.125853],[-106.976711,37.125405],[-106.977275,37.126363],[-106.977513,37.125793],[-106.977952,37.125755],[-106.978156,37.125912],[-106.97859,37.125614],[-106.97885,37.125579],[-106.980154,37.125407],[-106.980375,37.125424],[-106.980861,37.125561],[-106.981677,37.125737],[-106.982035,37.126035],[-106.982282,37.12669],[-106.982715,37.126554],[-106.982577,37.125981],[-106.982909,37.125905],[-106.983191,37.125832],[-106.98393,37.126294],[-106.984351,37.126249],[-106.984852,37.125961],[-106.985623,37.126172],[-106.985544,37.125947],[-106.986518,37.125878],[-106.986707,37.126165],[-106.986617,37.127004],[-106.986622,37.127311],[-106.986832,37.127635],[-106.987364,37.127489],[-106.988095,37.127444],[-106.988191,37.128026],[-106.988262,37.128216],[-106.988272,37.128675],[-106.988233,37.12944],[-106.987429,37.12991]]]},"perimeter_updated_at":"2026-07-29T09:54:56-06:00","source_url":"https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0"},{"name":"Blanco","latitude":37.14497292730487,"longitude":-106.94914327279822,"acres":0.41,"incident_type":"WF","incident_type_label":"Wildfire","nearest_area":"Pagosa Springs","perimeter_geometry":null,"perimeter_updated_at":null,"source_url":"https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015"}],"outages":[{"latitude":37.46128458132634,"longitude":-107.12569540489015,"nearest_area":"Piedra / north county","customers_out_now":2,"planned":false,"cause":null,"source_url":"https://outage.lpea.coop"},{"latitude":37.111827149974644,"longitude":-107.85998419501598,"nearest_area":"Durango / La Plata County","customers_out_now":2,"planned":true,"cause":"100 Construction","source_url":"https://outage.lpea.coop"}],"evacuations":{"active":true,"order_count":1,"warning_count":3,"source_url":"https://nixle.us/HH7KM"},"links":{"nifc_map":"https://www.nifc.gov/fire-information/maps","county_alerts":"https://nixle.us/HH7KM","lpea_outage_map":"https://outage.lpea.coop"}};
         if (!window.L) {
           mapElement.classList.add("map-unavailable");
           return;
@@ -3000,11 +3022,12 @@
           }
         }
 
+        let perimeterCount = 0;
         for (const incident of payload.incidents || []) {
           const latitude = Number(incident.latitude);
           const longitude = Number(incident.longitude);
-          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
-          bounds.push([latitude, longitude]);
+          const hasPoint = Number.isFinite(latitude) && Number.isFinite(longitude);
+          if (hasPoint) bounds.push([latitude, longitude]);
           const acres = Number(incident.acres);
           const acreage = Number.isFinite(acres)
             ? `${acres.toLocaleString(undefined, { maximumFractionDigits: 2 })} acres`
@@ -3016,11 +3039,63 @@
               ${escapeText(incident.nearest_area || "Archuleta County")}
               ${sourceLink(incident.source_url, "Open authoritative source")}
             </div>`;
-          L.marker(
-            [latitude, longitude],
-            { icon: icon("ph-fire", "map-icon-fire"), title: String(incident.name || "Current fire") }
-          ).bindPopup(popup).addTo(groups.fires);
+          const perimeterGeometry = incident.perimeter_geometry;
+          if (
+            perimeterGeometry
+            && ["Polygon", "MultiPolygon"].includes(String(perimeterGeometry.type || ""))
+          ) {
+            try {
+              const perimeterLayer = L.geoJSON(
+                {
+                  type: "Feature",
+                  properties: {},
+                  geometry: perimeterGeometry,
+                },
+                {
+                  style: {
+                    className: "fire-perimeter-shape",
+                    color: "#e33b2e",
+                    weight: 3,
+                    opacity: 1,
+                    fillColor: "#b33525",
+                    fillOpacity: 0.3,
+                  },
+                }
+              );
+              const perimeterLabel = `
+                <span>${escapeText(incident.name || "Current fire")}</span>
+                <small>${escapeText(acreage)}</small>`;
+              perimeterLayer.eachLayer((layer) => {
+                layer.bindPopup(popup);
+                layer.bindTooltip(perimeterLabel, {
+                  permanent: true,
+                  direction: "center",
+                  className: "fire-perimeter-label",
+                  opacity: 1,
+                });
+                layer.on({
+                  mouseover: (event) => event.target.setStyle({ fillOpacity: 0.42, weight: 4 }),
+                  mouseout: (event) => perimeterLayer.resetStyle(event.target),
+                });
+              });
+              perimeterLayer.addTo(groups.fires);
+              const perimeterBounds = perimeterLayer.getBounds();
+              if (perimeterBounds.isValid()) {
+                bounds.push(perimeterBounds.getSouthWest(), perimeterBounds.getNorthEast());
+              }
+              perimeterCount += 1;
+            } catch {
+              // Keep the incident marker available if a future source geometry is malformed.
+            }
+          }
+          if (hasPoint) {
+            L.marker(
+              [latitude, longitude],
+              { icon: icon("ph-fire", "map-icon-fire"), title: String(incident.name || "Current fire") }
+            ).bindPopup(popup).addTo(groups.fires);
+          }
         }
+        mapElement.dataset.perimeterCount = String(perimeterCount);
 
         for (const outage of payload.outages || []) {
           const latitude = Number(outage.latitude);

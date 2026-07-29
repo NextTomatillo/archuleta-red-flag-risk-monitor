@@ -1047,6 +1047,83 @@ def normalized_incident_name(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", "", text)
 
 
+def normalize_public_geojson_geometry(geometry: Any) -> Optional[Dict[str, Any]]:
+    if not isinstance(geometry, dict):
+        return None
+    geometry_type = geometry.get("type")
+    coordinates = geometry.get("coordinates")
+    if geometry_type not in {"Polygon", "MultiPolygon"} or not isinstance(coordinates, list):
+        return None
+
+    point_count = 0
+    max_points = 20_000
+
+    def normalize_position(value: Any) -> Optional[List[float]]:
+        nonlocal point_count
+        if not isinstance(value, (list, tuple)) or len(value) < 2:
+            return None
+        longitude = safe_float(value[0])
+        latitude = safe_float(value[1])
+        if (
+            longitude is None
+            or latitude is None
+            or not math.isfinite(longitude)
+            or not math.isfinite(latitude)
+            or not -180 <= longitude <= 180
+            or not -90 <= latitude <= 90
+        ):
+            return None
+        point_count += 1
+        if point_count > max_points:
+            return None
+        return [round(longitude, 6), round(latitude, 6)]
+
+    def normalize_ring(value: Any) -> Optional[List[List[float]]]:
+        if not isinstance(value, list):
+            return None
+        ring = []
+        for position in value:
+            normalized = normalize_position(position)
+            if normalized is None:
+                return None
+            ring.append(normalized)
+        if ring and ring[0] != ring[-1]:
+            ring.append(list(ring[0]))
+        if len(ring) < 4 or len({tuple(position) for position in ring[:-1]}) < 3:
+            return None
+        return ring
+
+    def normalize_polygon(value: Any) -> Optional[List[List[List[float]]]]:
+        if not isinstance(value, list) or not value:
+            return None
+        polygon = []
+        for ring in value:
+            normalized = normalize_ring(ring)
+            if normalized is None:
+                return None
+            polygon.append(normalized)
+        return polygon
+
+    if geometry_type == "Polygon":
+        normalized_coordinates = normalize_polygon(coordinates)
+    else:
+        normalized_coordinates = []
+        for polygon in coordinates:
+            normalized = normalize_polygon(polygon)
+            if normalized is None:
+                return None
+            normalized_coordinates.append(normalized)
+        if not normalized_coordinates:
+            return None
+
+    if normalized_coordinates is None or point_count > max_points:
+        return None
+    return {
+        "type": geometry_type,
+        "coordinates": normalized_coordinates,
+    }
+
+
 def normalize_wfigs_perimeter(
     feature: Dict[str, Any],
     config: Dict[str, Any],
@@ -1097,6 +1174,7 @@ def normalize_wfigs_perimeter(
         "distance_miles": nearest.get("distance_miles"),
         "perimeter_source": attributes.get("poly_Source"),
         "incident_reported_acres": safe_float(attributes.get("attr_IncidentSize")),
+        "perimeter_geometry": normalize_public_geojson_geometry(feature.get("geometry")),
     }
 
 
@@ -1167,6 +1245,11 @@ def reconcile_wfigs_perimeters(
             or by_name.get(normalized_incident_name(incident.get("name")))
         )
         incident_acres = safe_float(incident.get("acres"))
+        if perimeter and perimeter.get("perimeter_geometry"):
+            incident["perimeter_geometry"] = perimeter.get("perimeter_geometry")
+            incident["perimeter_geometry_source"] = "NIFC WFIGS active-fire perimeter"
+            incident["perimeter_geometry_source_url"] = perimeter_result.get("source_url")
+            incident["perimeter_geometry_updated_at"] = perimeter.get("updated_at")
         if perimeter and perimeter.get("acres") is not None:
             mapped_acres = safe_float(perimeter.get("acres"))
             incident["incident_reported_acres"] = incident_acres
@@ -4152,6 +4235,10 @@ def public_active_incidents_snapshot(active_incidents: Dict[str, Any]) -> Dict[s
                     "acres_note",
                     "acres_preliminary",
                     "perimeter_source",
+                    "perimeter_geometry",
+                    "perimeter_geometry_source",
+                    "perimeter_geometry_source_url",
+                    "perimeter_geometry_updated_at",
                     "percent_contained",
                     "discovered_at",
                     "updated_at",
@@ -6250,7 +6337,10 @@ def render_html(report: Dict[str, Any]) -> str:
     for incident in active_incidents.get("incidents", []):
         latitude = safe_float(incident.get("latitude"))
         longitude = safe_float(incident.get("longitude"))
-        if latitude is None or longitude is None:
+        perimeter_geometry = normalize_public_geojson_geometry(
+            incident.get("perimeter_geometry")
+        )
+        if (latitude is None or longitude is None) and perimeter_geometry is None:
             continue
         map_incidents.append(
             {
@@ -6261,8 +6351,11 @@ def render_html(report: Dict[str, Any]) -> str:
                 "incident_type": incident.get("incident_type"),
                 "incident_type_label": incident.get("incident_type_label"),
                 "nearest_area": incident.get("nearest_area"),
+                "perimeter_geometry": perimeter_geometry,
+                "perimeter_updated_at": incident.get("perimeter_geometry_updated_at"),
                 "source_url": (
-                    incident.get("acres_source_url")
+                    incident.get("perimeter_geometry_source_url")
+                    or incident.get("acres_source_url")
                     or active_incidents.get("links", {}).get("nifc_map")
                 ),
             }
@@ -6543,6 +6636,16 @@ def render_html(report: Dict[str, Any]) -> str:
       color: var(--pine);
       font-size: 1rem;
     }}
+    .map-note-swatch {{
+      flex: 0 0 auto;
+      width: 18px;
+      height: 12px;
+      margin-top: 2px;
+      border: 2px solid #e33b2e;
+      border-radius: 3px;
+      background: rgba(179, 53, 37, 0.28);
+      box-shadow: 0 0 0 1px rgba(255, 253, 247, 0.9);
+    }}
     .leaflet-container {{
       font-family: var(--body);
     }}
@@ -6586,6 +6689,40 @@ def render_html(report: Dict[str, Any]) -> str:
     .map-icon-fire {{ background: var(--high); }}
     .map-icon-outage {{ background: var(--outage); }}
     .map-icon-home {{ background: var(--pine); }}
+    .fire-perimeter-shape {{
+      filter: drop-shadow(0 2px 3px rgba(92, 32, 23, 0.28));
+    }}
+    .leaflet-tooltip.fire-perimeter-label {{
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 253, 247, 0.85);
+      border-radius: 7px;
+      background: rgba(16, 46, 40, 0.92);
+      box-shadow: 0 4px 14px rgba(16, 46, 40, 0.24);
+      color: #fffdf7;
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      text-align: center;
+      text-transform: uppercase;
+    }}
+    .leaflet-tooltip.fire-perimeter-label::before {{
+      display: none;
+    }}
+    .fire-perimeter-label span {{
+      display: block;
+    }}
+    .fire-perimeter-label small {{
+      display: block;
+      margin-top: 2px;
+      color: rgba(255, 253, 247, 0.82);
+      font-family: var(--body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }}
     .hero-status-rail {{
       display: flex;
       flex-direction: column;
@@ -8122,8 +8259,8 @@ def render_html(report: Dict[str, Any]) -> str:
             </div>
           </div>
           <p class="map-card-note">
-            <i class="ph ph-info" aria-hidden="true"></i>
-            <span>Markers use public-source coordinates. Evacuation boundaries are not mapped because authoritative polygon data is not available in the checked county feed. Verify locations and instructions with official sources.</span>
+            <span class="map-note-swatch" aria-hidden="true"></span>
+            <span>Red shapes use the latest available NIFC WFIGS active-fire perimeter geometry and may be preliminary or lag field conditions. Markers use public-source coordinates. Evacuation boundaries are not mapped because authoritative polygon data is not available in the checked county feed. Verify locations and instructions with official sources.</span>
           </p>
         </section>
 
@@ -8561,11 +8698,12 @@ def render_html(report: Dict[str, Any]) -> str:
           }}
         }}
 
+        let perimeterCount = 0;
         for (const incident of payload.incidents || []) {{
           const latitude = Number(incident.latitude);
           const longitude = Number(incident.longitude);
-          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
-          bounds.push([latitude, longitude]);
+          const hasPoint = Number.isFinite(latitude) && Number.isFinite(longitude);
+          if (hasPoint) bounds.push([latitude, longitude]);
           const acres = Number(incident.acres);
           const acreage = Number.isFinite(acres)
             ? `${{acres.toLocaleString(undefined, {{ maximumFractionDigits: 2 }})}} acres`
@@ -8577,11 +8715,63 @@ def render_html(report: Dict[str, Any]) -> str:
               ${{escapeText(incident.nearest_area || "Archuleta County")}}
               ${{sourceLink(incident.source_url, "Open authoritative source")}}
             </div>`;
-          L.marker(
-            [latitude, longitude],
-            {{ icon: icon("ph-fire", "map-icon-fire"), title: String(incident.name || "Current fire") }}
-          ).bindPopup(popup).addTo(groups.fires);
+          const perimeterGeometry = incident.perimeter_geometry;
+          if (
+            perimeterGeometry
+            && ["Polygon", "MultiPolygon"].includes(String(perimeterGeometry.type || ""))
+          ) {{
+            try {{
+              const perimeterLayer = L.geoJSON(
+                {{
+                  type: "Feature",
+                  properties: {{}},
+                  geometry: perimeterGeometry,
+                }},
+                {{
+                  style: {{
+                    className: "fire-perimeter-shape",
+                    color: "#e33b2e",
+                    weight: 3,
+                    opacity: 1,
+                    fillColor: "#b33525",
+                    fillOpacity: 0.3,
+                  }},
+                }}
+              );
+              const perimeterLabel = `
+                <span>${{escapeText(incident.name || "Current fire")}}</span>
+                <small>${{escapeText(acreage)}}</small>`;
+              perimeterLayer.eachLayer((layer) => {{
+                layer.bindPopup(popup);
+                layer.bindTooltip(perimeterLabel, {{
+                  permanent: true,
+                  direction: "center",
+                  className: "fire-perimeter-label",
+                  opacity: 1,
+                }});
+                layer.on({{
+                  mouseover: (event) => event.target.setStyle({{ fillOpacity: 0.42, weight: 4 }}),
+                  mouseout: (event) => perimeterLayer.resetStyle(event.target),
+                }});
+              }});
+              perimeterLayer.addTo(groups.fires);
+              const perimeterBounds = perimeterLayer.getBounds();
+              if (perimeterBounds.isValid()) {{
+                bounds.push(perimeterBounds.getSouthWest(), perimeterBounds.getNorthEast());
+              }}
+              perimeterCount += 1;
+            }} catch {{
+              // Keep the incident marker available if a future source geometry is malformed.
+            }}
+          }}
+          if (hasPoint) {{
+            L.marker(
+              [latitude, longitude],
+              {{ icon: icon("ph-fire", "map-icon-fire"), title: String(incident.name || "Current fire") }}
+            ).bindPopup(popup).addTo(groups.fires);
+          }}
         }}
+        mapElement.dataset.perimeterCount = String(perimeterCount);
 
         for (const outage of payload.outages || []) {{
           const latitude = Number(outage.latitude);

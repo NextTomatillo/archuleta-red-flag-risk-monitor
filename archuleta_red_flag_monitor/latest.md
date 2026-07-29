@@ -1,6 +1,6 @@
 # Archuleta County fire-weather monitor
 
-Generated: Jul 29, 2026 at 1:36 PM MDT (Pagosa Springs, CO local time)
+Generated: Jul 29, 2026 at 1:58 PM MDT (Pagosa Springs, CO local time)
 Next update: Jul 29, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
@@ -18,7 +18,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 - Official NWS Red Flag / Fire Weather alerts (COZ295): 0
 - LPEA signal: `operational_outage_active` - Official LPEA outage data indicates an operational outage; use as grid context, not PSPS/fire evidence unless LPEA identifies that cause.
 - LPEA source coverage: 13 sources; 5/5 official social sources reachable
-- Current Archuleta County wildfires: 3
+- Current Archuleta County wildfires: 2
 - Official evacuation notices: 1 evacuation order and 3 evacuation warnings detected in recent official county notices.
 - NWS discussion: No concerning fire-weather language found in latest GJT discussion.
 
@@ -44,7 +44,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Trend Intelligence
 
-- Summary: Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
+- Summary: Momentum is steady versus the prior run (Jul 29 at 1:36 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
 - Momentum: **Steady**
 - Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Mon, Aug 3
@@ -58,7 +58,7 @@ Notable changes:
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (LIKELY 65/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.
-- Trend: Momentum is steady versus the prior run (Jul 29 at 1:21 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
+- Trend: Momentum is steady versus the prior run (Jul 29 at 1:36 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3.
 - Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Mon, Aug 3
 - PSPS peak: Mon, Aug 3 near Ignacio / southeast La Plata County at LIKELY 65/100
@@ -111,7 +111,7 @@ What to watch next:
 
 ## Current Fires + Evacuations
 
-- Incident summary: Official evacuation notices are active; 3 current wildfires reported in Archuleta County.
+- Incident summary: Official evacuation notices are active; 2 current wildfires reported in Archuleta County.
 - Evacuation status: **ACTIVE** - 1 evacuation order and 3 evacuation warnings detected in recent official county notices.
 - Safety note: Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.
 
@@ -130,7 +130,6 @@ What to watch next:
 | --- | --- | --- | --- | --- | --- |
 | Rio Blanco | Wildfire | 440.27 acres | 0% | Chromo / southeast county (9.9 mi) | Jul 29 at 12:58 PM MDT |
 | Blanco | Wildfire | 0.41 acres | Not reported | Pagosa Springs (9.2 mi) | Jul 27 at 5:30 PM MDT |
-| Walker | Wildfire | 0.10 acres | Not reported | Arboles / southwest county (2.9 mi) | Jul 29 at 11:20 AM MDT |
 
 Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archuleta County fire updates](https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/), [County alerts](https://nixle.us/archuleta-county-office-of-emergency-management-aux/), [Watch Duty](https://app.watchduty.org/)
 
