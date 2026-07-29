@@ -136,6 +136,22 @@
       }
     ]
   },
+  "active_incidents": {
+    "enabled": true,
+    "county_name": "Archuleta County",
+    "county_fips": "08007",
+    "wfigs_query_url": "https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Incident_Locations_Current/FeatureServer/0/query",
+    "wfigs_item_url": "https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015",
+    "nifc_map_url": "https://www.nifc.gov/fire-information/maps",
+    "evacuation_feed_url": "https://www.archuletacounty.gov/category/emergency-management/emergency-alert/feed/",
+    "fire_updates_feed_url": "https://www.archuletacounty.gov/category/emergency-management/fire-update/feed/",
+    "county_fire_updates_url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/",
+    "county_alert_signup_url": "https://www.archuletacounty.gov/community/welcome-to-archuleta-county/news/sign-up-for-updates/",
+    "nixle_url": "https://nixle.us/archuleta-county-office-of-emergency-management-aux/",
+    "watch_duty_url": "https://app.watchduty.org/",
+    "evacuation_active_window_hours": 168,
+    "notify_wildfire_min_acres": 10
+  },
   "lpea": {
     "enabled": true,
     "outage_api": {

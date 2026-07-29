@@ -765,6 +765,159 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(signal["score_modifier"], 4)
         self.assertIn("STAGE 2", signal["reason"])
 
+    def test_wfigs_incident_is_normalized_and_matched_to_nearest_area(self):
+        tz = ZoneInfo("America/Denver")
+        config = {
+            "sample_points": [
+                {"name": "Pagosa Springs", "lat": 37.2695, "lon": -107.0098},
+                {"name": "Arboles", "lat": 37.03, "lon": -107.42},
+            ]
+        }
+        incident = monitor.normalize_wfigs_incident(
+            {
+                "attributes": {
+                    "OBJECTID": 42,
+                    "IncidentName": "Rio Blanco",
+                    "IncidentTypeCategory": "WF",
+                    "IncidentSize": 120,
+                    "PercentContained": 0,
+                    "FireDiscoveryDateTime": 1785185236000,
+                    "ModifiedOnDateTime_dt": 1785195053730,
+                    "POOCounty": "Archuleta",
+                    "FireCause": "Natural",
+                    "POOJurisdictionalAgency": "USFS",
+                    "UniqueFireIdentifier": "2026-COSJF-000806",
+                },
+                "geometry": {"x": -106.98522, "y": 37.12465},
+            },
+            config,
+            tz,
+        )
+        self.assertEqual(incident["name"], "Rio Blanco")
+        self.assertEqual(incident["incident_type_label"], "Wildfire")
+        self.assertEqual(incident["acres"], 120)
+        self.assertEqual(incident["percent_contained"], 0)
+        self.assertEqual(incident["nearest_area"], "Pagosa Springs")
+        self.assertIn("-06:00", incident["updated_at"])
+
+    def test_archuleta_feed_extracts_current_order_and_warning(self):
+        tz = ZoneInfo("America/Denver")
+        now_local = dt.datetime(2026, 7, 29, 8, 0, tzinfo=tz)
+        feed = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+          <channel>
+            <item>
+              <title>Emergency alerts</title>
+              <link>https://www.archuletacounty.gov/alerts/current/</link>
+              <pubDate>Tue, 28 Jul 2026 22:29:06 +0000</pubDate>
+              <content:encoded><![CDATA[
+                <p><a href="https://nixle.us/HH7KM">Tuesday July 28th, 2026 :: 04:28 p.m. MDT</a></p>
+                <h2>EMERGENCY ALERT: EVACUATION ORDER</h2>
+                <p>An evacuation order is in effect for County Road 335. LEAVE IMMEDIATELY.</p>
+                <p><a href="https://nixle.us/HH7YX">Tuesday July 28th, 2026 :: 06:42 p.m. MDT</a></p>
+                <h2>EVACUATION WARNING</h2>
+                <p>An evacuation warning is in effect for County Road 337 and County Road 339 area due to fire. Be prepared to evacuate.</p>
+              ]]></content:encoded>
+            </item>
+          </channel>
+        </rss>"""
+        result = monitor.parse_archuleta_evacuation_feed(feed, tz, now_local, 168)
+        self.assertEqual(result["status"], "active")
+        self.assertEqual(result["order_count"], 1)
+        self.assertEqual(result["warning_count"], 1)
+        self.assertEqual(result["directives"][0]["level"], "WARNING")
+        self.assertEqual(result["directives"][1]["area"], "County Road 335")
+        self.assertEqual(result["directives"][1]["source_url"], "https://nixle.us/HH7KM")
+
+    def test_archuleta_feed_does_not_treat_old_notice_as_current(self):
+        tz = ZoneInfo("America/Denver")
+        now_local = dt.datetime(2026, 7, 29, 8, 0, tzinfo=tz)
+        feed = """<?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+          <channel>
+            <item>
+              <link>https://www.archuletacounty.gov/alerts/old/</link>
+              <pubDate>Mon, 01 Jun 2026 18:00:00 +0000</pubDate>
+              <content:encoded><![CDATA[
+                <p><a href="https://nixle.us/OLD123">Monday June 1st, 2026 :: 12:00 p.m. MDT</a></p>
+                <h2>EVACUATION WARNING</h2>
+                <p>An evacuation warning is in effect for Test Road due to fire.</p>
+              ]]></content:encoded>
+            </item>
+          </channel>
+        </rss>"""
+        result = monitor.parse_archuleta_evacuation_feed(feed, tz, now_local, 168)
+        self.assertEqual(result["status"], "none_detected")
+        self.assertEqual(result["directives"], [])
+
+    def test_evacuation_source_failure_is_unavailable_not_all_clear(self):
+        session = mock.Mock()
+        session.get.side_effect = monitor.requests.ConnectionError("DNS unavailable")
+        result = monitor.fetch_archuleta_evacuation_status(
+            session,
+            {
+                "active_incidents": {
+                    "evacuation_feed_url": "https://example.test/emergency/feed/",
+                    "fire_updates_feed_url": "https://example.test/fire/feed/",
+                }
+            },
+            ZoneInfo("America/Denver"),
+            dt.datetime(2026, 7, 29, 8, 0, tzinfo=ZoneInfo("America/Denver")),
+        )
+        self.assertEqual(result["status"], "unavailable")
+        self.assertIn("unavailable", result["headline"].lower())
+
+    def test_active_evacuation_triggers_monitor_notification(self):
+        recommendation = monitor.notification_recommendation(
+            "GREEN",
+            {"overall_level": "LOW", "lpea_signal": {"level": "none"}},
+            {"fire_alert_count": 0},
+            {"operational_outage": {"active": False}},
+            False,
+            {
+                "material_wildfire_count": 0,
+                "evacuations": {"status": "active"},
+            },
+        )
+        self.assertTrue(recommendation["recommended"])
+        self.assertIn("official Archuleta County evacuation", recommendation["summary"])
+
+    def test_public_snapshot_includes_sanitized_active_incident_context(self):
+        snapshot = monitor.public_active_incidents_snapshot(
+            {
+                "status": "checked",
+                "headline": "One current wildfire.",
+                "wildfire_count": 1,
+                "incidents": [
+                    {
+                        "id": "fire-1",
+                        "name": "Rio Blanco",
+                        "incident_type": "WF",
+                        "incident_type_label": "Wildfire",
+                        "acres": 120,
+                        "error": "private diagnostic",
+                    }
+                ],
+                "evacuations": {
+                    "status": "active",
+                    "order_count": 1,
+                    "warning_count": 0,
+                    "directives": [
+                        {
+                            "level": "ORDER",
+                            "area": "County Road 335",
+                            "source_url": "https://nixle.us/HH7KM",
+                            "internal_note": "private",
+                        }
+                    ],
+                },
+            }
+        )
+        self.assertEqual(snapshot["incidents"][0]["name"], "Rio Blanco")
+        self.assertNotIn("error", snapshot["incidents"][0])
+        self.assertNotIn("internal_note", snapshot["evacuations"]["directives"][0])
+
     def test_localized_operational_outage_does_not_trigger_monitor_notification(self):
         recommendation = monitor.notification_recommendation(
             "GREEN",

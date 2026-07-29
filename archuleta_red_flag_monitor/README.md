@@ -25,6 +25,13 @@ Outputs are written beside the script:
 The Markdown report now starts with an `At A Glance` section that groups `HIGH`, `CONCERN`, and `ELEVATED` dates plus the notification decision and signal status.
 The HTML dashboard provides the same information in a one-page visual layout with colored tier chips and a 7-day risk strip.
 
+The monitor also checks current Archuleta County fire and evacuation context:
+
+- The National Interagency Fire Center WFIGS current-incident feed supplies named incidents, type, acreage, containment, discovery/update times, location, cause, and jurisdiction.
+- Archuleta County's official emergency-alert and fire-update feeds supply recent evacuation orders and warnings with direct links to the underlying Nixle notices.
+- Source failures are explicit. An unavailable evacuation feed is never displayed as an all-clear.
+- Current incidents and evacuation notices are operational safety context. They can recommend sending the monitor report, but they do not raise weather-driven PSPS scores by themselves.
+
 The dashboard also includes a trend-intelligence layer. It compares the current forecast against `forecast_history.csv`, reports whether risk is rising/easing/steady, flags forecast volatility, and tracks the first WATCH-or-higher PSPS date. Public-safe analysis and report snapshots are published with the dashboard, while forecast history, `analyst_review_packet.json`, and `model_review_request.json` remain local/private.
 
 An optional model-assisted review can interpret the current evidence without changing deterministic scores, tiers, alerts, or notification decisions. The automation writes a response matching the schema in `model_review_request.json`, then validates and applies it before publishing:

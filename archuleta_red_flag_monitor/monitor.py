@@ -8,10 +8,13 @@ import math
 import os
 import re
 import smtplib
+import xml.etree.ElementTree as ET
 from collections import defaultdict
 from email.message import EmailMessage
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
+from urllib.parse import urlencode
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import requests
@@ -987,6 +990,501 @@ def nearest_sample_area(lat: Optional[float], lon: Optional[float], config: Dict
         if nearest is None or distance < nearest["distance_miles"]:
             nearest = {"name": point["name"], "distance_miles": round(distance, 1)}
     return nearest or {"name": "LPEA service territory", "distance_miles": None}
+
+
+WFIGS_INCIDENT_TYPE_LABELS = {
+    "WF": "Wildfire",
+    "RX": "Prescribed fire",
+    "CX": "Incident complex",
+}
+
+EVACUATION_LEVEL_RANK = {
+    "ADVISORY": 1,
+    "WARNING": 2,
+    "ORDER": 3,
+}
+
+
+def arcgis_epoch_to_local(value: Any, tz: ZoneInfo) -> Optional[str]:
+    numeric = safe_float(value)
+    if numeric is None:
+        return None
+    if numeric > 10_000_000_000:
+        numeric /= 1000
+    try:
+        return dt.datetime.fromtimestamp(numeric, tz=dt.timezone.utc).astimezone(tz).isoformat()
+    except (OSError, OverflowError, ValueError):
+        return None
+
+
+def normalize_wfigs_incident(
+    feature: Dict[str, Any],
+    config: Dict[str, Any],
+    tz: ZoneInfo,
+) -> Dict[str, Any]:
+    attributes = feature.get("attributes") or {}
+    geometry = feature.get("geometry") or {}
+    incident_type = str(attributes.get("IncidentTypeCategory") or "WF").upper()
+    latitude = safe_float(geometry.get("y"))
+    longitude = safe_float(geometry.get("x"))
+    if latitude is None:
+        latitude = safe_float(attributes.get("InitialLatitude"))
+    if longitude is None:
+        longitude = safe_float(attributes.get("InitialLongitude"))
+    nearest = nearest_sample_area(latitude, longitude, config)
+    acres = safe_float(attributes.get("IncidentSize"))
+    containment = safe_float(attributes.get("PercentContained"))
+    unique_id = attributes.get("UniqueFireIdentifier") or attributes.get("OBJECTID")
+    return {
+        "id": str(unique_id) if unique_id is not None else None,
+        "name": attributes.get("IncidentName") or "Unnamed incident",
+        "incident_type": incident_type,
+        "incident_type_label": WFIGS_INCIDENT_TYPE_LABELS.get(incident_type, "Fire incident"),
+        "acres": round(acres, 2) if acres is not None else None,
+        "percent_contained": round(containment, 1) if containment is not None else None,
+        "discovered_at": arcgis_epoch_to_local(attributes.get("FireDiscoveryDateTime"), tz),
+        "updated_at": arcgis_epoch_to_local(attributes.get("ModifiedOnDateTime_dt"), tz),
+        "county": attributes.get("POOCounty"),
+        "state": attributes.get("POOState"),
+        "city": attributes.get("POOCity"),
+        "description": visible_source_text(str(attributes.get("IncidentShortDescription") or "")),
+        "cause": attributes.get("FireCause"),
+        "jurisdiction": attributes.get("POOJurisdictionalAgency"),
+        "latitude": latitude,
+        "longitude": longitude,
+        "nearest_area": nearest.get("name"),
+        "distance_miles": nearest.get("distance_miles"),
+    }
+
+
+def fetch_wfigs_incidents(
+    session: requests.Session,
+    config: Dict[str, Any],
+    tz: ZoneInfo,
+) -> Dict[str, Any]:
+    incident_config = config.get("active_incidents", {})
+    query_url = incident_config.get("wfigs_query_url")
+    if not query_url:
+        return {
+            "status": "unavailable",
+            "error": "WFIGS query URL is not configured.",
+            "incidents": [],
+        }
+
+    county_fips = str(incident_config.get("county_fips", "08007")).zfill(5)
+    params = {
+        "where": f"POOFips='{county_fips}'",
+        "outFields": ",".join(
+            [
+                "OBJECTID",
+                "IncidentName",
+                "IncidentTypeCategory",
+                "IncidentSize",
+                "PercentContained",
+                "FireDiscoveryDateTime",
+                "ModifiedOnDateTime_dt",
+                "POOCounty",
+                "POOFips",
+                "POOState",
+                "POOCity",
+                "IncidentShortDescription",
+                "InitialLatitude",
+                "InitialLongitude",
+                "FireCause",
+                "POOJurisdictionalAgency",
+                "UniqueFireIdentifier",
+            ]
+        ),
+        "returnGeometry": "true",
+        "outSR": "4326",
+        "f": "json",
+    }
+    try:
+        payload = request_json(session, f"{query_url}?{urlencode(params)}", timeout=30)
+        if not isinstance(payload, dict) or payload.get("error"):
+            message = (payload.get("error") or {}).get("message") if isinstance(payload, dict) else None
+            raise ValueError(message or "Unexpected WFIGS response.")
+        incidents = [
+            normalize_wfigs_incident(feature, config, tz)
+            for feature in payload.get("features", [])
+            if isinstance(feature, dict)
+        ]
+    except (requests.RequestException, TypeError, ValueError) as exc:
+        return {
+            "status": "unavailable",
+            "error": f"{exc.__class__.__name__}: {exc}",
+            "incidents": [],
+        }
+
+    incidents.sort(
+        key=lambda item: (
+            0 if item.get("incident_type") == "WF" else 1,
+            -(safe_float(item.get("acres")) or 0),
+            str(item.get("name") or ""),
+        )
+    )
+    return {
+        "status": "checked",
+        "incidents": incidents,
+        "source_url": incident_config.get("wfigs_item_url"),
+        "map_url": incident_config.get("nifc_map_url"),
+    }
+
+
+def parse_official_alert_time(value: str, tz: ZoneInfo) -> Optional[dt.datetime]:
+    plain = visible_source_text(value)
+    plain = re.sub(r"(\d+)(st|nd|rd|th)\b", r"\1", plain, flags=re.IGNORECASE)
+    plain = re.sub(r"\b(?:MST|MDT)\b", "", plain, flags=re.IGNORECASE)
+    plain = re.sub(r"\ba\s*\.?\s*m\s*\.?", "AM", plain, flags=re.IGNORECASE)
+    plain = re.sub(r"\bp\s*\.?\s*m\s*\.?", "PM", plain, flags=re.IGNORECASE)
+    plain = re.sub(r"\s+", " ", plain).strip()
+    for pattern in (
+        "%A %B %d, %Y :: %I:%M %p",
+        "%A %B %d, %Y %I:%M %p",
+        "%B %d, %Y %I:%M %p",
+    ):
+        try:
+            return dt.datetime.strptime(plain, pattern).replace(tzinfo=tz)
+        except ValueError:
+            continue
+    return None
+
+
+def evacuation_level(label: str, body: str) -> Optional[str]:
+    text = f"{label} {body}".lower()
+    if "evacuation order" in text or "evacuate immediately" in text or "leave immediately" in text:
+        return "ORDER"
+    if "evacuation warning" in text or "be prepared to evacuate" in text:
+        return "WARNING"
+    if "evacuation advisory" in text:
+        return "ADVISORY"
+    return None
+
+
+def evacuation_area(body: str) -> str:
+    text = visible_source_text(body)
+    match = re.search(
+        r"(?:order|warning|advisory)\s+is\s+in\s+effect\s+for\s+(.+?)(?:\s+due\s+to|\.\s|$)",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return match.group(1).strip(" .")
+    match = re.search(r"(?:evacuate|evacuation)\s+(?:the\s+)?(.+?)(?:\s+immediately|\.\s|$)", text, flags=re.IGNORECASE)
+    return match.group(1).strip(" .") if match else "Area named in official notice"
+
+
+def evacuation_directive_is_cancellation(label: str, body: str) -> bool:
+    text = f"{label} {body}".lower()
+    return any(
+        phrase in text
+        for phrase in (
+            "evacuation order lifted",
+            "evacuation warning lifted",
+            "evacuation notice lifted",
+            "evacuation rescinded",
+            "evacuations rescinded",
+            "all clear",
+            "re-entry",
+            "reentry",
+            "may return home",
+        )
+    )
+
+
+def extract_evacuation_directives(
+    content: str,
+    item_url: Optional[str],
+    item_published_at: Optional[dt.datetime],
+    tz: ZoneInfo,
+) -> List[Dict[str, Any]]:
+    pattern = re.compile(
+        r'<a[^>]+href=["\'](?P<url>https://nixle\.us/[A-Z0-9]+/?)["\'][^>]*>'
+        r"(?P<time>.*?)</a>\s*</p>.*?"
+        r"<h[1-3][^>]*>(?P<label>.*?)</h[1-3]>.*?"
+        r"<p[^>]*>(?P<body>.*?)</p>",
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    directives = []
+    for match in pattern.finditer(content):
+        label = visible_source_text(match.group("label"))
+        body = visible_source_text(match.group("body"))
+        level = evacuation_level(label, body)
+        cancellation = evacuation_directive_is_cancellation(label, body)
+        if not level and not cancellation:
+            continue
+        issued = parse_official_alert_time(match.group("time"), tz) or item_published_at
+        directives.append(
+            {
+                "level": level or "UPDATE",
+                "area": evacuation_area(body),
+                "headline": label,
+                "summary": body,
+                "issued_at": issued.isoformat() if issued else None,
+                "source_url": match.group("url"),
+                "county_post_url": item_url,
+                "is_cancellation": cancellation,
+            }
+        )
+    return directives
+
+
+def parse_archuleta_evacuation_feed(
+    feed_text: str,
+    tz: ZoneInfo,
+    now_local: dt.datetime,
+    active_window_hours: int,
+) -> Dict[str, Any]:
+    root = ET.fromstring(feed_text.lstrip("\ufeff \t\r\n"))
+    channel = root.find("channel")
+    if channel is None:
+        raise ValueError("Archuleta County feed has no channel element.")
+    content_tag = "{http://purl.org/rss/1.0/modules/content/}encoded"
+    directives: List[Dict[str, Any]] = []
+    for item in channel.findall("item"):
+        item_url = item.findtext("link")
+        published_text = item.findtext("pubDate")
+        published = None
+        if published_text:
+            try:
+                published = parsedate_to_datetime(published_text).astimezone(tz)
+            except (TypeError, ValueError):
+                published = None
+        content = item.findtext(content_tag) or item.findtext("description") or ""
+        directives.extend(extract_evacuation_directives(content, item_url, published, tz))
+
+    cutoff = now_local - dt.timedelta(hours=max(1, active_window_hours))
+    recent = []
+    for directive in directives:
+        issued_text = directive.get("issued_at")
+        try:
+            issued = dt.datetime.fromisoformat(issued_text) if issued_text else None
+        except ValueError:
+            issued = None
+        if issued is None or issued >= cutoff:
+            recent.append(directive)
+    recent.sort(key=lambda item: item.get("issued_at") or "", reverse=True)
+
+    cancellations = [item for item in recent if item.get("is_cancellation")]
+    active = [item for item in recent if not item.get("is_cancellation") and item.get("level") in EVACUATION_LEVEL_RANK]
+    if cancellations:
+        newest_cancel = max(item.get("issued_at") or "" for item in cancellations)
+        active = [item for item in active if (item.get("issued_at") or "") > newest_cancel]
+
+    deduped = []
+    seen = set()
+    for directive in active:
+        key = (
+            directive.get("level"),
+            str(directive.get("area") or "").lower(),
+            directive.get("source_url"),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(directive)
+    order_count = sum(1 for item in deduped if item.get("level") == "ORDER")
+    warning_count = sum(1 for item in deduped if item.get("level") == "WARNING")
+    return {
+        "status": "active" if deduped else "none_detected",
+        "headline": (
+            f"{order_count} evacuation order{'s' if order_count != 1 else ''} and "
+            f"{warning_count} evacuation warning{'s' if warning_count != 1 else ''} detected in recent official county notices."
+            if deduped
+            else "No current evacuation order or warning detected in the checked official county feed."
+        ),
+        "active_count": len(deduped),
+        "order_count": order_count,
+        "warning_count": warning_count,
+        "directives": deduped,
+        "cancellations": cancellations,
+        "recent_cancellation_count": len(cancellations),
+    }
+
+
+def fetch_archuleta_evacuation_status(
+    session: requests.Session,
+    config: Dict[str, Any],
+    tz: ZoneInfo,
+    now_local: dt.datetime,
+) -> Dict[str, Any]:
+    incident_config = config.get("active_incidents", {})
+    feed_urls = [
+        value
+        for value in (
+            incident_config.get("evacuation_feed_url"),
+            incident_config.get("fire_updates_feed_url"),
+        )
+        if value
+    ]
+    if not feed_urls:
+        return {
+            "status": "unavailable",
+            "headline": "Official Archuleta County evacuation feeds are not configured.",
+            "active_count": 0,
+            "order_count": 0,
+            "warning_count": 0,
+            "directives": [],
+            "sources": [],
+        }
+
+    combined = []
+    combined_cancellations = []
+    sources = []
+    for feed_url in feed_urls:
+        source = {"url": feed_url, "status": "unavailable"}
+        try:
+            response = session.get(feed_url, timeout=30)
+            response.raise_for_status()
+            parsed = parse_archuleta_evacuation_feed(
+                response.text,
+                tz,
+                now_local,
+                safe_int(incident_config.get("evacuation_active_window_hours"), 168),
+            )
+            source["status"] = "checked"
+            combined.extend(parsed.get("directives", []))
+            combined_cancellations.extend(parsed.get("cancellations", []))
+        except (requests.RequestException, ET.ParseError, TypeError, ValueError) as exc:
+            source["error"] = f"{exc.__class__.__name__}: {exc}"
+        sources.append(source)
+
+    reachable = [source for source in sources if source.get("status") == "checked"]
+    if not reachable:
+        return {
+            "status": "unavailable",
+            "headline": "Official Archuleta County evacuation status is unavailable.",
+            "active_count": 0,
+            "order_count": 0,
+            "warning_count": 0,
+            "directives": [],
+            "sources": sources,
+        }
+
+    if combined_cancellations:
+        newest_cancel = max(item.get("issued_at") or "" for item in combined_cancellations)
+        combined = [item for item in combined if (item.get("issued_at") or "") > newest_cancel]
+    combined.sort(key=lambda item: item.get("issued_at") or "", reverse=True)
+    deduped = []
+    seen = set()
+    for directive in combined:
+        key = (
+            directive.get("level"),
+            str(directive.get("area") or "").lower(),
+            directive.get("source_url"),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(directive)
+    order_count = sum(1 for item in deduped if item.get("level") == "ORDER")
+    warning_count = sum(1 for item in deduped if item.get("level") == "WARNING")
+    return {
+        "status": "active" if deduped else "none_detected",
+        "headline": (
+            f"{order_count} evacuation order{'s' if order_count != 1 else ''} and "
+            f"{warning_count} evacuation warning{'s' if warning_count != 1 else ''} detected in recent official county notices."
+            if deduped
+            else "No current evacuation order or warning detected in the checked official county feeds."
+        ),
+        "active_count": len(deduped),
+        "order_count": order_count,
+        "warning_count": warning_count,
+        "directives": deduped,
+        "sources": sources,
+        "source_url": incident_config.get("county_fire_updates_url"),
+        "all_alerts_url": incident_config.get("nixle_url"),
+    }
+
+
+def check_active_incidents(
+    session: requests.Session,
+    config: Dict[str, Any],
+    tz: ZoneInfo,
+    now_local: dt.datetime,
+) -> Dict[str, Any]:
+    incident_config = config.get("active_incidents", {})
+    if not incident_config.get("enabled", False):
+        return {
+            "status": "disabled",
+            "headline": "Active fire and evacuation monitoring is disabled.",
+            "incidents": [],
+            "evacuations": {"status": "disabled", "directives": []},
+        }
+
+    incident_result = fetch_wfigs_incidents(session, config, tz)
+    evacuations = fetch_archuleta_evacuation_status(session, config, tz, now_local)
+    incidents = incident_result.get("incidents", [])
+    wildfires = [item for item in incidents if item.get("incident_type") == "WF"]
+    prescribed = [item for item in incidents if item.get("incident_type") == "RX"]
+    material_threshold = safe_float(incident_config.get("notify_wildfire_min_acres")) or 10
+    material_wildfires = [
+        item
+        for item in wildfires
+        if item.get("acres") is not None and safe_float(item.get("acres")) >= material_threshold
+    ]
+    largest_wildfire = max((safe_float(item.get("acres")) or 0 for item in wildfires), default=0)
+    statuses = {incident_result.get("status"), evacuations.get("status")}
+    status = "checked"
+    if incident_result.get("status") != "checked" and evacuations.get("status") == "unavailable":
+        status = "unavailable"
+    elif incident_result.get("status") != "checked" or evacuations.get("status") == "unavailable":
+        status = "partial"
+
+    if evacuations.get("status") == "active":
+        headline = f"Official evacuation notices are active; {len(wildfires)} current wildfire{'s' if len(wildfires) != 1 else ''} reported in Archuleta County."
+    elif incident_result.get("status") == "checked" and wildfires:
+        if evacuations.get("status") == "none_detected":
+            evacuation_clause = "no current evacuation notice detected in checked county feeds"
+        else:
+            evacuation_clause = "official county evacuation status is unavailable"
+        headline = (
+            f"{len(wildfires)} current wildfire{'s' if len(wildfires) != 1 else ''} "
+            f"reported in Archuleta County; {evacuation_clause}."
+        )
+    elif incident_result.get("status") == "checked":
+        headline = "No current wildfire reported in Archuleta County by the checked NIFC feed."
+    else:
+        headline = "Current Archuleta County fire incident status is unavailable."
+
+    return {
+        "status": status,
+        "headline": headline,
+        "checked_at": now_local.isoformat(),
+        "incident_source_status": incident_result.get("status"),
+        "incident_count": len(incidents),
+        "wildfire_count": len(wildfires),
+        "prescribed_fire_count": len(prescribed),
+        "material_wildfire_count": len(material_wildfires),
+        "largest_wildfire_acres": round(largest_wildfire, 2),
+        "incidents": incidents,
+        "evacuations": evacuations,
+        "sources": [
+            {
+                "name": "NIFC WFIGS current incidents",
+                "url": incident_result.get("source_url"),
+                "map_url": incident_result.get("map_url"),
+                "status": incident_result.get("status"),
+                "error": incident_result.get("error"),
+            },
+            {
+                "name": "Archuleta County official fire and emergency alerts",
+                "url": incident_config.get("county_fire_updates_url"),
+                "status": "checked" if evacuations.get("status") != "unavailable" else "unavailable",
+            },
+        ],
+        "links": {
+            "nifc_map": incident_config.get("nifc_map_url"),
+            "county_fire_updates": incident_config.get("county_fire_updates_url"),
+            "county_alert_signup": incident_config.get("county_alert_signup_url"),
+            "nixle": incident_config.get("nixle_url"),
+            "watch_duty": incident_config.get("watch_duty_url"),
+        },
+        "context_note": (
+            "Current incidents and evacuation notices are operational context. "
+            "They do not raise PSPS scores by themselves; follow official evacuation instructions immediately."
+        ),
+    }
 
 
 def normalize_lpea_api_outage(outage: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
@@ -2422,6 +2920,16 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
     operational_outage = lpea.get("operational_outage", {})
     if operational_outage.get("active"):
         confidence_reasons.append("active LPEA operational outage context checked separately from PSPS scoring")
+    active_incidents = report.get("active_incidents", {})
+    if active_incidents.get("incident_source_status") == "checked":
+        confidence_reasons.append("authoritative NIFC current-incident feed checked for Archuleta County")
+    elif active_incidents.get("status") in {"partial", "unavailable"}:
+        confidence_reasons.append("current Archuleta County fire-incident data is partially or fully unavailable")
+    evacuation_status = active_incidents.get("evacuations", {}).get("status")
+    if evacuation_status in {"active", "none_detected"}:
+        confidence_reasons.append("official Archuleta County evacuation feeds checked")
+    elif evacuation_status == "unavailable":
+        confidence_reasons.append("official Archuleta County evacuation status is unavailable")
     evidence_counts = lpea.get("evidence_quality", {}).get("counts", {})
     if lpea.get("active_hits") and safe_int(evidence_counts.get("active")) == 0 and safe_int(evidence_counts.get("operational")) == 0:
         confidence_score -= 5
@@ -2452,6 +2960,13 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
         )
     else:
         summary = "No area-level decision-support prediction is available for this run."
+    if active_incidents.get("evacuations", {}).get("status") == "active":
+        summary += f" {active_incidents.get('evacuations', {}).get('headline')}"
+    elif active_incidents.get("wildfire_count", 0):
+        summary += (
+            f" NIFC reports {active_incidents.get('wildfire_count')} current wildfire"
+            f"{'s' if active_incidents.get('wildfire_count') != 1 else ''} in Archuleta County."
+        )
 
     return {
         "mode": "rules_first_decision_support",
@@ -2467,8 +2982,9 @@ def build_ai_analysis(report: Dict[str, Any]) -> Dict[str, Any]:
         "daily_predictions": daily_predictions,
         "area_predictions": all_predictions,
         "notes": [
-            "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+            "Rules-based decision support using public weather, fire-posture, current-incident, evacuation, and LPEA source signals.",
             "Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.",
+            "Current fires and evacuation notices are operational safety context and do not raise PSPS scores by themselves.",
             "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
             "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see.",
         ],
@@ -2492,6 +3008,7 @@ def notification_recommendation(
     official_alerts: Dict[str, Any],
     lpea: Dict[str, Any],
     all_forecasts_unavailable: bool,
+    active_incidents: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     reasons = []
     if all_forecasts_unavailable:
@@ -2511,10 +3028,15 @@ def notification_recommendation(
         or operational_outage.get("severity") in {"moderate", "major"}
     ):
         reasons.append("a material official LPEA operational outage is active")
+    active_incidents = active_incidents or {}
+    if active_incidents.get("evacuations", {}).get("status") == "active":
+        reasons.append("an official Archuleta County evacuation order or warning is active")
+    elif active_incidents.get("material_wildfire_count", 0):
+        reasons.append("a material current wildfire is reported in Archuleta County")
     return {
         "recommended": bool(reasons),
         "reasons": reasons,
-        "summary": "; ".join(reasons) if reasons else "No material alert, outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present.",
+        "summary": "; ".join(reasons) if reasons else "No material alert, fire, evacuation, outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present.",
     }
 
 
@@ -3377,6 +3899,7 @@ def build_analyst_review_packet(report: Dict[str, Any]) -> Dict[str, Any]:
             "reachable_source_count": report.get("fire_posture", {}).get("reachable_source_count"),
             "source_count": report.get("fire_posture", {}).get("source_count"),
         },
+        "active_incidents": report.get("active_incidents", {}),
         "calibration": report.get("calibration", {}),
         "red_flag_calibration": report.get("red_flag_calibration", {}),
     }
@@ -3392,6 +3915,70 @@ def public_prediction_snapshot(prediction: Optional[Dict[str, Any]], score_key: 
         "score": prediction.get(score_key),
         "highest_risk_window": prediction.get("highest_risk_window"),
         "drivers": prediction.get(driver_key, [])[:5],
+    }
+
+
+def public_active_incidents_snapshot(active_incidents: Dict[str, Any]) -> Dict[str, Any]:
+    evacuations = active_incidents.get("evacuations", {})
+    return {
+        "status": active_incidents.get("status"),
+        "headline": active_incidents.get("headline"),
+        "checked_at": active_incidents.get("checked_at"),
+        "incident_source_status": active_incidents.get("incident_source_status"),
+        "incident_count": active_incidents.get("incident_count", 0),
+        "wildfire_count": active_incidents.get("wildfire_count", 0),
+        "prescribed_fire_count": active_incidents.get("prescribed_fire_count", 0),
+        "material_wildfire_count": active_incidents.get("material_wildfire_count", 0),
+        "largest_wildfire_acres": active_incidents.get("largest_wildfire_acres"),
+        "incidents": [
+            {
+                key: incident.get(key)
+                for key in (
+                    "id",
+                    "name",
+                    "incident_type",
+                    "incident_type_label",
+                    "acres",
+                    "percent_contained",
+                    "discovered_at",
+                    "updated_at",
+                    "description",
+                    "cause",
+                    "jurisdiction",
+                    "latitude",
+                    "longitude",
+                    "nearest_area",
+                    "distance_miles",
+                )
+            }
+            for incident in active_incidents.get("incidents", [])[:20]
+        ],
+        "evacuations": {
+            "status": evacuations.get("status"),
+            "headline": evacuations.get("headline"),
+            "active_count": evacuations.get("active_count", 0),
+            "order_count": evacuations.get("order_count", 0),
+            "warning_count": evacuations.get("warning_count", 0),
+            "source_url": evacuations.get("source_url"),
+            "all_alerts_url": evacuations.get("all_alerts_url"),
+            "directives": [
+                {
+                    key: directive.get(key)
+                    for key in (
+                        "level",
+                        "area",
+                        "headline",
+                        "summary",
+                        "issued_at",
+                        "source_url",
+                        "county_post_url",
+                    )
+                }
+                for directive in evacuations.get("directives", [])[:20]
+            ],
+        },
+        "links": active_incidents.get("links", {}),
+        "context_note": active_incidents.get("context_note"),
     }
 
 
@@ -3448,6 +4035,7 @@ def build_public_analysis_export(report: Dict[str, Any]) -> Dict[str, Any]:
         "method_notes": analysis.get("notes", []),
         "red_flag_calibration": report.get("red_flag_calibration", {}),
         "operational_outage_context": report.get("lpea", {}).get("operational_outage", {}),
+        "active_incident_context": public_active_incidents_snapshot(report.get("active_incidents", {})),
     }
     model_review = report.get("model_review", {})
     if model_review.get("status") == "reviewed":
@@ -3512,6 +4100,11 @@ def build_model_review_request(report: Dict[str, Any]) -> Dict[str, Any]:
                 "restriction_stage": report.get("fire_posture", {}).get("max_restriction_stage"),
                 "fire_danger": report.get("fire_posture", {}).get("max_fire_danger"),
             },
+        },
+        {
+            "id": "active_incidents",
+            "label": "Current Archuleta County fires and official evacuation notices",
+            "data": public_active_incidents_snapshot(report.get("active_incidents", {})),
         },
         {
             "id": "calibration",
@@ -3661,7 +4254,7 @@ def build_public_latest_snapshot(report: Dict[str, Any]) -> Dict[str, Any]:
     lpea = report.get("lpea", {})
     fire_posture = report.get("fire_posture", {})
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "generated_at": report.get("generated_at_local") or report.get("generated_at"),
         "generated_at_utc": report.get("generated_at_utc"),
         "next_update_at": report.get("next_update_at"),
@@ -3723,6 +4316,7 @@ def build_public_latest_snapshot(report: Dict[str, Any]) -> Dict[str, Any]:
                 for source in fire_posture.get("sources", [])
             ],
         },
+        "active_incidents": public_active_incidents_snapshot(report.get("active_incidents", {})),
         "psps": report.get("psps", {}),
         "days": report.get("days", []),
         "points": [
@@ -4066,6 +4660,8 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
     notify_text = "YES" if report["notify_recommended"] else "NO"
     operational_outage = report.get("lpea", {}).get("operational_outage", {})
     operational_text = operational_outage.get("summary", "No active operational LPEA outage detected by public-source text.")
+    active_incidents = report.get("active_incidents", {})
+    evacuation_text = active_incidents.get("evacuations", {}).get("headline", "Official evacuation status unavailable.")
     return [
         f"Fire-weather tier: {report['overall_tier']}",
         f"PSPS likelihood: {report.get('psps', {}).get('overall_level', 'UNKNOWN')}",
@@ -4079,6 +4675,8 @@ def build_brief_summary(report: Dict[str, Any]) -> List[str]:
         f"LPEA status: {report['lpea']['status']} - {report['lpea']['headline']}",
         f"LPEA operational outage context: {operational_text}",
         f"LPEA source coverage: {report['lpea'].get('monitored_source_count', 0)} sources; {report['lpea'].get('social_status', 'social sources not configured')}",
+        f"Current Archuleta County wildfires: {active_incidents.get('wildfire_count', 0)}",
+        f"Evacuation status: {evacuation_text}",
         f"Fire posture: {report.get('fire_posture', {}).get('max_restriction_stage', 'UNKNOWN')} restrictions; fire danger {report.get('fire_posture', {}).get('max_fire_danger', 'UNKNOWN')}",
         f"NWS discussion: {report['discussion']['headline']}",
     ]
@@ -4089,7 +4687,7 @@ def monitor_heads_up_note(report: Dict[str, Any]) -> str:
         reasons = report.get("notification", {}).get("reasons", [])
         reason_text = "; ".join(reasons[:3]) if reasons else "a material monitored signal is active"
         return f"Send this monitor report because {reason_text}. This is not an official LPEA or NWS notice."
-    return "No material alert, significant outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present."
+    return "No material alert, fire, evacuation, significant outage, CONCERN/HIGH weather, or WATCH/LIKELY PSPS signal is present."
 
 
 def lpea_hit_summary(hit: Dict[str, Any]) -> str:
@@ -4604,6 +5202,88 @@ def render_fire_posture_markdown(report: Dict[str, Any]) -> List[str]:
     return lines
 
 
+def render_active_incidents_markdown(report: Dict[str, Any]) -> List[str]:
+    active_incidents = report.get("active_incidents", {})
+    evacuations = active_incidents.get("evacuations", {})
+    lines = [
+        "## Current Fires + Evacuations",
+        "",
+        f"- Incident summary: {active_incidents.get('headline', 'Current incident status unavailable.')}",
+        f"- Evacuation status: **{str(evacuations.get('status', 'unavailable')).replace('_', ' ').upper()}** - {evacuations.get('headline', 'Official evacuation status unavailable.')}",
+        f"- Safety note: {active_incidents.get('context_note', 'Follow official evacuation instructions immediately.')}",
+        "",
+    ]
+    directives = evacuations.get("directives", [])
+    if directives:
+        lines.extend(
+            [
+                "### Official Evacuation Notices",
+                "",
+                "| Level | Area | Issued | Official notice |",
+                "| --- | --- | --- | --- |",
+            ]
+        )
+        for directive in directives:
+            source = directive.get("source_url") or directive.get("county_post_url")
+            source_label = f"[Open notice]({source})" if source else "Source unavailable"
+            lines.append(
+                f"| {directive.get('level', 'UPDATE')} | {str(directive.get('area', 'Area named in notice')).replace('|', '/')} | "
+                f"{format_generated_label(directive.get('issued_at'))} | {source_label} |"
+            )
+        lines.append("")
+
+    incidents = active_incidents.get("incidents", [])
+    if incidents:
+        lines.extend(
+            [
+                "### Current NIFC Incidents",
+                "",
+                "| Incident | Type | Size | Containment | Nearest monitored area | Updated |",
+                "| --- | --- | --- | --- | --- | --- |",
+            ]
+        )
+        for incident in incidents:
+            acres = f"{incident.get('acres'):,.2f} acres" if incident.get("acres") is not None else "Not reported"
+            containment = (
+                f"{incident.get('percent_contained'):g}%"
+                if incident.get("percent_contained") is not None
+                else "Not reported"
+            )
+            distance = (
+                f" ({incident.get('distance_miles'):g} mi)"
+                if incident.get("distance_miles") is not None
+                else ""
+            )
+            lines.append(
+                f"| {str(incident.get('name', 'Unnamed incident')).replace('|', '/')} | "
+                f"{incident.get('incident_type_label', 'Fire incident')} | {acres} | {containment} | "
+                f"{incident.get('nearest_area', 'Unknown')}{distance} | {format_generated_label(incident.get('updated_at'))} |"
+            )
+    else:
+        lines.append(
+            "No current incidents were returned by the checked NIFC feed."
+            if active_incidents.get("incident_source_status") == "checked"
+            else "The current NIFC incident feed was unavailable."
+        )
+    lines.extend(
+        [
+            "",
+            "Official links: "
+            + ", ".join(
+                f"[{label}]({url})"
+                for label, url in (
+                    ("NIFC map", active_incidents.get("links", {}).get("nifc_map")),
+                    ("Archuleta County fire updates", active_incidents.get("links", {}).get("county_fire_updates")),
+                    ("County alerts", active_incidents.get("links", {}).get("nixle")),
+                    ("Watch Duty", active_incidents.get("links", {}).get("watch_duty")),
+                )
+                if url
+            ),
+        ]
+    )
+    return lines
+
+
 def render_markdown(report: Dict[str, Any]) -> str:
     high_dates = collect_dates_by_tier(report["days"], "HIGH")
     concern_dates = collect_dates_by_tier(report["days"], "CONCERN")
@@ -4631,6 +5311,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         f"- {official_fire_alert_label(report)}: {report['official_alerts']['fire_alert_count']}",
         f"- LPEA signal: `{report['lpea']['status']}` - {report['lpea']['headline']}",
         f"- LPEA source coverage: {report['lpea'].get('monitored_source_count', 0)} sources; {report['lpea'].get('social_status', 'social sources not configured')}",
+        f"- Current Archuleta County wildfires: {report.get('active_incidents', {}).get('wildfire_count', 0)}",
+        f"- Official evacuation notices: {report.get('active_incidents', {}).get('evacuations', {}).get('headline', 'Status unavailable.')}",
         f"- NWS discussion: {report['discussion']['headline']}",
         "",
         *render_ai_analysis_markdown(report),
@@ -4644,6 +5326,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
         *render_psps_markdown(report),
         "",
         *render_area_outlook_markdown(report),
+        "",
+        *render_active_incidents_markdown(report),
         "",
         *render_fire_posture_markdown(report),
         "",
@@ -4713,6 +5397,21 @@ def render_html(report: Dict[str, Any]) -> str:
     pagosa_card = pagosa_outlook_card(report)
     psps_rail_context = psps_likelihood_rail_context(report)
     operational_outage = report.get("lpea", {}).get("operational_outage", {})
+    active_incidents = report.get("active_incidents", {})
+    evacuations = active_incidents.get("evacuations", {})
+    evacuation_status_label = {
+        "active": "EVACUATION NOTICE ACTIVE",
+        "none_detected": "NO NOTICE DETECTED",
+        "unavailable": "STATUS UNAVAILABLE",
+        "disabled": "MONITORING DISABLED",
+    }.get(evacuations.get("status"), "STATUS UNKNOWN")
+    evacuation_status_class = (
+        "incident-evacuation"
+        if evacuations.get("status") == "active"
+        else "tier-green"
+        if evacuations.get("status") == "none_detected"
+        else "signal-watch"
+    )
     freshness = report.get("freshness", {})
 
     summary_cards = [
@@ -4724,6 +5423,27 @@ def render_html(report: Dict[str, Any]) -> str:
             "value": "ACTIVE" if operational_outage.get("active") else "NONE ACTIVE",
             "class": "signal-outage" if operational_outage.get("active") else "tier-green",
             "note": operational_outage.get("headline", "Official LPEA outage data unavailable."),
+        }
+    )
+    if evacuations.get("status") == "active":
+        incident_summary_value = "EVACUATION ACTIVE"
+        incident_summary_class = "incident-evacuation"
+    elif active_incidents.get("incident_source_status") == "checked" and active_incidents.get("wildfire_count", 0):
+        wildfire_count = active_incidents.get("wildfire_count", 0)
+        incident_summary_value = f"{wildfire_count} CURRENT FIRE{'S' if wildfire_count != 1 else ''}"
+        incident_summary_class = "signal-watch"
+    elif active_incidents.get("incident_source_status") == "checked":
+        incident_summary_value = "NO CURRENT FIRES"
+        incident_summary_class = "tier-green"
+    else:
+        incident_summary_value = "STATUS UNAVAILABLE"
+        incident_summary_class = ""
+    summary_cards.append(
+        {
+            "label": "Fires + evacuations",
+            "value": incident_summary_value,
+            "class": incident_summary_class,
+            "note": active_incidents.get("headline", "Current incident status unavailable."),
         }
     )
     summary_cards.extend([
@@ -5083,6 +5803,89 @@ def render_html(report: Dict[str, Any]) -> str:
           <span>current HIGH dates not yet alert-confirmed</span>
         </article>
     """
+    incident_cards = []
+    for incident in active_incidents.get("incidents", []):
+        acres = (
+            f"{incident.get('acres'):,.2f} acres"
+            if incident.get("acres") is not None
+            else "Size not reported"
+        )
+        containment = (
+            f"{incident.get('percent_contained'):g}% contained"
+            if incident.get("percent_contained") is not None
+            else "Containment not reported"
+        )
+        distance = (
+            f" · {incident.get('distance_miles'):g} mi away"
+            if incident.get("distance_miles") is not None
+            else ""
+        )
+        description = incident.get("description") or (
+            f"Reported near {incident.get('nearest_area', 'Archuleta County')}."
+        )
+        incident_cards.append(
+            f"""
+            <article class="incident-card">
+              <div class="incident-card-head">
+                <div>
+                  <p class="eyebrow">{escape_html(incident.get('incident_type_label', 'Fire incident'))}</p>
+                  <h3>{escape_html(incident.get('name', 'Unnamed incident'))}</h3>
+                </div>
+                <span class="incident-chip {'incident-wildfire' if incident.get('incident_type') == 'WF' else 'incident-managed'}">{escape_html(acres)}</span>
+              </div>
+              <p class="incident-location">{escape_html(incident.get('nearest_area', 'Archuleta County'))}{escape_html(distance)}</p>
+              <p>{escape_html(description)}</p>
+              <div class="incident-facts">
+                <span>{escape_html(containment)}</span>
+                <span>Cause: {escape_html(incident.get('cause') or 'not reported')}</span>
+                <span>Agency: {escape_html(incident.get('jurisdiction') or 'not reported')}</span>
+              </div>
+              <p class="source-meta">Updated {escape_html(format_generated_label(incident.get('updated_at')))}</p>
+              <p class="definition-links">
+                {linked_text_html('Open authoritative NIFC source', active_incidents.get('links', {}).get('nifc_map'))}
+              </p>
+            </article>
+            """
+        )
+    if incident_cards:
+        incident_cards_html = "".join(incident_cards)
+    elif active_incidents.get("incident_source_status") == "checked":
+        incident_cards_html = '<p class="empty-state incident-empty">No current fires were returned for Archuleta County by the checked NIFC feed.</p>'
+    else:
+        incident_cards_html = '<p class="empty-state incident-unavailable">The current NIFC fire-incident feed could not be checked. Do not interpret this as no active fires.</p>'
+
+    evacuation_cards_html = "".join(
+        f"""
+        <article class="evacuation-card evacuation-{escape_html(str(directive.get('level', 'update')).lower())}">
+          <div class="evacuation-card-head">
+            <span class="evacuation-level">{escape_html(directive.get('level', 'UPDATE'))}</span>
+            <span class="source-meta">{escape_html(format_generated_label(directive.get('issued_at')))}</span>
+          </div>
+          <h3>{escape_html(directive.get('area', 'Area named in official notice'))}</h3>
+          <p>{escape_html(directive.get('summary', directive.get('headline', 'Review the official notice.')))}</p>
+          <p class="definition-links">
+            {linked_text_html('Open official alert', directive.get('source_url') or directive.get('county_post_url'))}
+          </p>
+        </article>
+        """
+        for directive in evacuations.get("directives", [])
+    )
+    if not evacuation_cards_html:
+        if evacuations.get("status") == "none_detected":
+            evacuation_cards_html = '<p class="empty-state incident-empty">No current evacuation order or warning was detected in the checked official Archuleta County feeds.</p>'
+        else:
+            evacuation_cards_html = '<p class="empty-state incident-unavailable">Official evacuation status could not be checked. Do not interpret this as an all-clear.</p>'
+    incident_links_html = " ".join(
+        f'<a href="{escape_html(url)}" target="_blank" rel="noopener noreferrer">{escape_html(label)}</a>'
+        for label, url in (
+            ("NIFC fire map", active_incidents.get("links", {}).get("nifc_map")),
+            ("Archuleta County fire updates", active_incidents.get("links", {}).get("county_fire_updates")),
+            ("Official county alerts", active_incidents.get("links", {}).get("nixle")),
+            ("Sign up for county alerts", active_incidents.get("links", {}).get("county_alert_signup")),
+            ("Watch Duty", active_incidents.get("links", {}).get("watch_duty")),
+        )
+        if url
+    )
     fire_posture = report.get("fire_posture", {})
     fire_posture_cards_html = "".join(
         f"""
@@ -5481,9 +6284,6 @@ def render_html(report: Dict[str, Any]) -> str:
       padding: 18px;
       min-height: 0;
     }}
-    .summary-card:last-child {{
-      grid-column: span 2;
-    }}
     .summary-value {{
       margin: 0;
       font-size: 1.15rem;
@@ -5515,6 +6315,18 @@ def render_html(report: Dict[str, Any]) -> str:
       border-radius: 12px;
       background: rgba(203, 90, 27, 0.16);
       color: #5b2209;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
+    .summary-value.incident-evacuation {{
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: var(--high);
+      color: #fff;
       font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
       font-size: 1rem;
       font-weight: 900;
@@ -5567,6 +6379,160 @@ def render_html(report: Dict[str, Any]) -> str:
     .section-panel {{
       margin-top: 24px;
       padding: 22px;
+    }}
+    .incident-panel {{
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 94% 8%, rgba(203, 90, 27, 0.10), transparent 30%),
+        linear-gradient(145deg, rgba(255, 252, 246, 0.97), rgba(244, 237, 224, 0.94));
+    }}
+    .incident-panel-active {{
+      border-color: rgba(167, 47, 35, 0.42);
+      box-shadow: 0 20px 48px rgba(93, 34, 23, 0.16);
+    }}
+    .incident-panel-head {{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }}
+    .incident-panel-head .summary-value {{
+      flex: 0 0 auto;
+      max-width: 18rem;
+      text-align: center;
+    }}
+    .incident-safety-note {{
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 13px 15px;
+      border-left: 6px solid var(--high);
+      border-radius: 12px;
+      background: rgba(167, 47, 35, 0.09);
+      color: #4f2118;
+      line-height: 1.4;
+    }}
+    .incident-safety-note strong {{
+      flex: 0 0 auto;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+    }}
+    .incident-subsection {{
+      margin-top: 22px;
+    }}
+    .incident-subsection-heading {{
+      margin-top: 0;
+    }}
+    .incident-grid,
+    .evacuation-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }}
+    .incident-card,
+    .evacuation-card {{
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.76);
+      padding: 16px;
+      box-shadow: 0 9px 22px rgba(55, 45, 34, 0.07);
+    }}
+    .incident-card-head,
+    .evacuation-card-head {{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }}
+    .incident-card h3,
+    .evacuation-card h3 {{
+      margin: 3px 0 8px;
+      font-size: 1.2rem;
+    }}
+    .incident-card p,
+    .evacuation-card p {{
+      line-height: 1.4;
+    }}
+    .incident-chip,
+    .evacuation-level {{
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }}
+    .incident-wildfire {{
+      background: rgba(203, 90, 27, 0.16);
+      color: #5b2209;
+    }}
+    .incident-managed {{
+      background: rgba(60, 122, 68, 0.14);
+      color: #204923;
+    }}
+    .incident-location {{
+      color: var(--muted);
+      font-weight: 800;
+    }}
+    .incident-facts {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 12px 0;
+    }}
+    .incident-facts span {{
+      padding: 5px 8px;
+      border-radius: 9px;
+      background: rgba(29, 42, 42, 0.07);
+      color: #344241;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }}
+    .evacuation-order {{
+      border-left: 8px solid var(--high);
+      background: rgba(255, 244, 241, 0.92);
+    }}
+    .evacuation-order .evacuation-level {{
+      background: var(--high);
+      color: #fff;
+    }}
+    .evacuation-warning {{
+      border-left: 8px solid var(--concern);
+      background: rgba(255, 249, 240, 0.94);
+    }}
+    .evacuation-warning .evacuation-level {{
+      background: var(--concern);
+      color: #fff;
+    }}
+    .evacuation-advisory .evacuation-level {{
+      background: var(--elevated);
+      color: #1f1700;
+    }}
+    .incident-empty,
+    .incident-unavailable {{
+      grid-column: 1 / -1;
+      margin: 0;
+      padding: 15px;
+      border-radius: 13px;
+      background: rgba(60, 122, 68, 0.10);
+      color: #204923;
+      font-style: normal;
+      font-weight: 700;
+    }}
+    .incident-unavailable {{
+      background: rgba(184, 132, 24, 0.13);
+      color: #4b3400;
+    }}
+    .incident-source-links {{
+      margin: 20px 0 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
     }}
     .subsection-heading {{
       margin-top: 18px;
@@ -6228,7 +7194,14 @@ def render_html(report: Dict[str, Any]) -> str:
         margin-top: 18px;
         gap: 12px;
       }}
-      .summary-card:last-child {{ grid-column: span 1; }}
+      .incident-panel-head,
+      .incident-safety-note {{
+        align-items: flex-start;
+        flex-direction: column;
+      }}
+      .incident-panel-head .summary-value {{
+        max-width: 100%;
+      }}
       .analysis-grid {{
         grid-template-columns: 1fr;
       }}
@@ -6302,6 +7275,40 @@ def render_html(report: Dict[str, Any]) -> str:
           {alert_cards_html}
         </div>
       </section>
+    </section>
+
+    <section class="section-panel incident-panel {'incident-panel-active' if evacuations.get('status') == 'active' else ''}">
+      <div class="incident-panel-head">
+        <div>
+          <p class="eyebrow">Operational Safety Context</p>
+          <h2>Current Fires + Evacuations</h2>
+          <p class="footer-note">{escape_html(active_incidents.get('headline', 'Current incident status unavailable.'))}</p>
+        </div>
+        <span class="summary-value {escape_html(evacuation_status_class)}">{escape_html(evacuation_status_label)}</span>
+      </div>
+      <div class="incident-safety-note">
+        <strong>Follow official evacuation instructions immediately.</strong>
+        <span>{escape_html(active_incidents.get('context_note', 'Current incidents are operational context and do not create a PSPS prediction by themselves.'))}</span>
+      </div>
+      <div class="incident-subsection">
+        <div class="subsection-heading incident-subsection-heading">
+          <p class="eyebrow">Official Archuleta County notices</p>
+          <h3>Evacuations</h3>
+        </div>
+        <div class="evacuation-grid">
+          {evacuation_cards_html}
+        </div>
+      </div>
+      <div class="incident-subsection">
+        <div class="subsection-heading incident-subsection-heading">
+          <p class="eyebrow">Authoritative current-incident feed</p>
+          <h3>Fires in Archuleta County</h3>
+        </div>
+        <div class="incident-grid">
+          {incident_cards_html}
+        </div>
+      </div>
+      <p class="definition-links incident-source-links">{incident_links_html}</p>
     </section>
 
     <section class="section-panel">
@@ -6565,6 +7572,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     lpea = check_lpea(session, config)
     lpea["evidence_quality"] = lpea_evidence_quality(lpea)
     fire_posture = check_fire_posture(session, config)
+    active_incidents = check_active_incidents(session, config, tz, now_local)
     days = combine_daily_results(point_results, alert_summary, discussion, config, now_utc, tz)
     all_forecasts_unavailable = all(point.get("status") != "ok" for point in point_results)
     if all_forecasts_unavailable:
@@ -6605,6 +7613,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         alert_summary,
         lpea,
         all_forecasts_unavailable,
+        active_incidents,
     )
 
     report = {
@@ -6632,6 +7641,7 @@ def build_report(config_path: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "discussion": discussion,
         "lpea": lpea,
         "fire_posture": fire_posture,
+        "active_incidents": active_incidents,
         "psps": psps,
         "calibration": calibration,
         "red_flag_alert_log": red_flag_alert_log,

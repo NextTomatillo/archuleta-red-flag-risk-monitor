@@ -1,31 +1,29 @@
 {
   "changing_drivers": [
-    "Aug 3 combines RH near 15%, wind or gusts near 23 mph, and three near-threshold hours near Arboles.",
-    "The first WATCH-or-higher PSPS screening date remains Aug 3, with no major day-level movement.",
-    "Official fire posture reaches Stage 2 restrictions and HIGH fire danger in the monitored region.",
-    "Three active LPEA outages are localized operational events with no identified fire-weather or PSPS cause."
+    "Forecast momentum is steady, with no major day-level movement versus the prior run.",
+    "Current incident context now includes three wildfires, one evacuation order, and three evacuation warnings.",
+    "Monday, August 3 remains the first PSPS WATCH date, driven by very dry air and near-threshold winds around Arboles."
   ],
   "evidence_ids": [
-    "overall_status",
+    "active_incidents",
     "weather_peaks",
     "official_alerts",
     "forecast_change",
     "lpea_context",
-    "fire_posture",
-    "calibration"
+    "fire_posture"
   ],
-  "generated_at": "2026-07-28T09:35:17-06:00",
-  "headline": "Fire-weather screening is CONCERN, with Aug 3 the peak WATCH screening date; no official NWS fire alert or confirmed PSPS is reported.",
-  "report_generated_at": "2026-07-28T09:34:44.232906-06:00",
+  "generated_at": "2026-07-29T10:20:00-06:00",
+  "headline": "Active fire and evacuation context is the immediate concern while the weather trend remains steady",
+  "report_generated_at": "2026-07-29T10:11:27.910181-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Screening identifies CONCERN conditions on Jul 28 and Aug 3, with Aug 3 peaking near Arboles at WATCH for Red Flag likelihood and PSPS screening. Official NWS fire-alert count is zero; three active LPEA outages affect six customers, but the official outage data identifies no fire-weather or PSPS cause. Conditions are steady versus the prior run, and a monitor heads-up is recommended.",
-  "uncertainty": "These are screening estimates, not official forecasts or calibrated PSPS probabilities; no confirmed LPEA PSPS events are available for calibration, and 44 past WATCH-or-higher days did not confirm an event.",
+  "summary": "The monitor remains at CONCERN with a PSPS WATCH centered on Monday, August 3 near Arboles. Separate operational safety context is more immediate: NIFC reports three Archuleta County wildfires, led by the 120-acre Rio Blanco fire, while recent official county notices include one evacuation order and three evacuation warnings. No official NWS fire-weather alert is active, and LPEA's one-customer planned outage has no identified fire or PSPS cause. Treat the evacuation notices as immediate safety information, not evidence that LPEA will initiate a PSPS.",
+  "uncertainty": "Evacuation status is based on recent county notices and may change before the next refresh. NIFC acreage and containment can lag field reports. The monitor cannot see LPEA's internal circuit conditions or shutoff thresholds.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check official NWS alerts as Aug 3 approaches.",
-    "Track whether Aug 3 wind and RH remain near screening thresholds.",
-    "Monitor official LPEA updates for any explicit PSPS notice or outage-cause change.",
-    "Reassess if the peak location shifts away from Arboles."
+    "Check official county alerts for evacuation expansions, downgrades, or an all-clear.",
+    "Watch Rio Blanco acreage, containment, and proximity updates in the NIFC incident feed.",
+    "Watch Monday wind and humidity forecasts for escalation to an official NWS alert.",
+    "Look for direct LPEA PSPS or de-energization language; the current planned outage is not fire-related."
   ]
 }

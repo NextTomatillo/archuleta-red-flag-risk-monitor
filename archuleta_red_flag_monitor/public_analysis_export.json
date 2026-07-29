@@ -1,33 +1,150 @@
 {
+  "active_incident_context": {
+    "checked_at": "2026-07-29T10:11:27.910181-06:00",
+    "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
+    "evacuations": {
+      "active_count": 4,
+      "all_alerts_url": "https://nixle.us/archuleta-county-office-of-emergency-management-aux/",
+      "directives": [
+        {
+          "area": "County Road 337 and County Road 339 area",
+          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
+          "headline": "EVACUATION WARNING",
+          "issued_at": "2026-07-28T18:42:00-06:00",
+          "level": "WARNING",
+          "source_url": "https://nixle.us/HH7YX",
+          "summary": "An evacuation warning is in effect for County Road 337 and County Road 339 area due to fire. There is a significant, imminent threat to the area. Residents should be prepared to evacuate. Persons with special needs or large animals should evacuate now."
+        },
+        {
+          "area": "Pinon Hills Subdivision, at Mile marker 13.5 on County Road 500",
+          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
+          "headline": "EMERGENCY ALERT: EVACUATION WARNING",
+          "issued_at": "2026-07-28T18:18:00-06:00",
+          "level": "WARNING",
+          "source_url": "https://nixle.us/HH7XB",
+          "summary": "An evacuation warning is in effect for Pinon Hills Subdivision, at Mile marker 13.5 on County Road 500 due to fire. There is a significant, imminent threat to the area. Residents should be prepared to evacuate. Persons with special needs or large animals should evacuate now."
+        },
+        {
+          "area": "County Road 335",
+          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
+          "headline": "EMERGENCY ALERT: EVACUATION ORDER",
+          "issued_at": "2026-07-28T16:28:00-06:00",
+          "level": "ORDER",
+          "source_url": "https://nixle.us/HH7KM",
+          "summary": "An evacuation order is in effect for County Road 335. LEAVE IMMEDIATELY. Danger is imminent and life threatening. If you choose to ignore this order, emergency services may not be able to assist you. An evacuation center is set up at Pagosa Springs High School. For more information about the incident, call 970-508-9928"
+        },
+        {
+          "area": "Lower Blanco area",
+          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
+          "headline": "EMERGENCY ALERT: EVACUATION WARNING",
+          "issued_at": "2026-07-28T16:09:00-06:00",
+          "level": "WARNING",
+          "source_url": "https://nixle.us/HH7HT",
+          "summary": "An evacuation warning is in effect for Lower Blanco area due to incident. There is a significant, imminent threat to the area. Residents should be prepared to evacuate. Persons with special needs or large animals should evacuate now."
+        }
+      ],
+      "headline": "1 evacuation order and 3 evacuation warnings detected in recent official county notices.",
+      "order_count": 1,
+      "source_url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/",
+      "status": "active",
+      "warning_count": 3
+    },
+    "headline": "Official evacuation notices are active; 3 current wildfires reported in Archuleta County.",
+    "incident_count": 3,
+    "incident_source_status": "checked",
+    "incidents": [
+      {
+        "acres": 120.0,
+        "cause": "Natural",
+        "description": "10 Miles S from Pagosa Springs, CO",
+        "discovered_at": "2026-07-28T15:11:24-06:00",
+        "distance_miles": 9.9,
+        "id": "2026-COSJF-000806",
+        "incident_type": "WF",
+        "incident_type_label": "Wildfire",
+        "jurisdiction": "USFS",
+        "latitude": 37.124654922175075,
+        "longitude": -106.9852172787435,
+        "name": "Rio Blanco",
+        "nearest_area": "Chromo / southeast county",
+        "percent_contained": 0.0,
+        "updated_at": "2026-07-28T21:10:51.350000-06:00"
+      },
+      {
+        "acres": 0.41,
+        "cause": "Natural",
+        "description": "",
+        "discovered_at": "2026-07-27T14:47:16-06:00",
+        "distance_miles": 9.2,
+        "id": "2026-COSJF-000798",
+        "incident_type": "WF",
+        "incident_type_label": "Wildfire",
+        "jurisdiction": "USFS",
+        "latitude": 37.14497292730487,
+        "longitude": -106.94914327279822,
+        "name": "Blanco",
+        "nearest_area": "Pagosa Springs",
+        "percent_contained": null,
+        "updated_at": "2026-07-27T17:30:53.730000-06:00"
+      },
+      {
+        "acres": 0.1,
+        "cause": "Natural",
+        "description": "",
+        "discovered_at": "2026-07-28T20:54:52-06:00",
+        "distance_miles": 2.6,
+        "id": "2026-COSUA-000811",
+        "incident_type": "WF",
+        "incident_type_label": "Wildfire",
+        "jurisdiction": "BIA",
+        "latitude": 37.00080587947213,
+        "longitude": -107.38937735512681,
+        "name": "Walker",
+        "nearest_area": "Arboles / southwest county",
+        "percent_contained": null,
+        "updated_at": "2026-07-29T07:43:34.870000-06:00"
+      }
+    ],
+    "largest_wildfire_acres": 120.0,
+    "links": {
+      "county_alert_signup": "https://www.archuletacounty.gov/community/welcome-to-archuleta-county/news/sign-up-for-updates/",
+      "county_fire_updates": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/",
+      "nifc_map": "https://www.nifc.gov/fire-information/maps",
+      "nixle": "https://nixle.us/archuleta-county-office-of-emergency-management-aux/",
+      "watch_duty": "https://app.watchduty.org/"
+    },
+    "material_wildfire_count": 1,
+    "prescribed_fire_count": 0,
+    "status": "checked",
+    "wildfire_count": 3
+  },
   "analyst_interpretation": {
     "changing_drivers": [
-      "Aug 3 combines RH near 15%, wind or gusts near 23 mph, and three near-threshold hours near Arboles.",
-      "The first WATCH-or-higher PSPS screening date remains Aug 3, with no major day-level movement.",
-      "Official fire posture reaches Stage 2 restrictions and HIGH fire danger in the monitored region.",
-      "Three active LPEA outages are localized operational events with no identified fire-weather or PSPS cause."
+      "Forecast momentum is steady, with no major day-level movement versus the prior run.",
+      "Current incident context now includes three wildfires, one evacuation order, and three evacuation warnings.",
+      "Monday, August 3 remains the first PSPS WATCH date, driven by very dry air and near-threshold winds around Arboles."
     ],
     "evidence_ids": [
-      "overall_status",
+      "active_incidents",
       "weather_peaks",
       "official_alerts",
       "forecast_change",
       "lpea_context",
-      "fire_posture",
-      "calibration"
+      "fire_posture"
     ],
-    "generated_at": "2026-07-28T09:35:17-06:00",
-    "headline": "Fire-weather screening is CONCERN, with Aug 3 the peak WATCH screening date; no official NWS fire alert or confirmed PSPS is reported.",
-    "report_generated_at": "2026-07-28T09:34:44.232906-06:00",
+    "generated_at": "2026-07-29T10:20:00-06:00",
+    "headline": "Active fire and evacuation context is the immediate concern while the weather trend remains steady",
+    "report_generated_at": "2026-07-29T10:11:27.910181-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Screening identifies CONCERN conditions on Jul 28 and Aug 3, with Aug 3 peaking near Arboles at WATCH for Red Flag likelihood and PSPS screening. Official NWS fire-alert count is zero; three active LPEA outages affect six customers, but the official outage data identifies no fire-weather or PSPS cause. Conditions are steady versus the prior run, and a monitor heads-up is recommended.",
-    "uncertainty": "These are screening estimates, not official forecasts or calibrated PSPS probabilities; no confirmed LPEA PSPS events are available for calibration, and 44 past WATCH-or-higher days did not confirm an event.",
+    "summary": "The monitor remains at CONCERN with a PSPS WATCH centered on Monday, August 3 near Arboles. Separate operational safety context is more immediate: NIFC reports three Archuleta County wildfires, led by the 120-acre Rio Blanco fire, while recent official county notices include one evacuation order and three evacuation warnings. No official NWS fire-weather alert is active, and LPEA's one-customer planned outage has no identified fire or PSPS cause. Treat the evacuation notices as immediate safety information, not evidence that LPEA will initiate a PSPS.",
+    "uncertainty": "Evacuation status is based on recent county notices and may change before the next refresh. NIFC acreage and containment can lag field reports. The monitor cannot see LPEA's internal circuit conditions or shutoff thresholds.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Check official NWS alerts as Aug 3 approaches.",
-      "Track whether Aug 3 wind and RH remain near screening thresholds.",
-      "Monitor official LPEA updates for any explicit PSPS notice or outage-cause change.",
-      "Reassess if the peak location shifts away from Arboles."
+      "Check official county alerts for evacuation expansions, downgrades, or an all-clear.",
+      "Watch Rio Blanco acreage, containment, and proximity updates in the NIFC incident feed.",
+      "Watch Monday wind and humidity forecasts for escalation to an official NWS alert.",
+      "Look for direct LPEA PSPS or de-energization language; the current planned outage is not fire-related."
     ]
   },
   "confidence": {
@@ -39,23 +156,26 @@
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
       "active LPEA operational outage context checked separately from PSPS scoring",
+      "authoritative NIFC current-incident feed checked for Archuleta County",
+      "official Archuleta County evacuation feeds checked",
       "no confirmed PSPS events logged yet for calibration"
     ],
     "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-28T09:34:44.232906-06:00",
+  "generated_at": "2026-07-29T10:11:27.910181-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Arboles / southwest county (WATCH 50/100), driven by near-threshold wind/gust signal near 23 mph; red-flag RH near 15%; 3 sampled hours are near red-flag thresholds.",
-    "trend_summary": "Momentum is steady versus the prior run (Jul 28 at 9:32 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3."
+    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Arboles / southwest county (WATCH 54/100), driven by near-threshold wind/gust signal near 23 mph; very dry RH near 12%; 4 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 29 at 10:09 AM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
-    "Rules-based decision support using public weather, fire-posture, and LPEA source signals.",
+    "Rules-based decision support using public weather, fire-posture, current-incident, evacuation, and LPEA source signals.",
     "Active operational outages are surfaced as grid context and do not raise PSPS scores unless fire, red-flag, or PSPS language is present.",
+    "Current fires and evacuation notices are operational safety context and do not raise PSPS scores by themselves.",
     "Scores are screening estimates, not statistically calibrated probabilities or official forecasts.",
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
@@ -65,108 +185,46 @@
   ],
   "operational_outage_context": {
     "active": true,
-    "active_outage_count": 3,
-    "affected_members": 6,
+    "active_outage_count": 1,
+    "affected_members": 1,
     "areas": [
-      "Durango / La Plata County"
+      "Bayfield / east La Plata County"
     ],
-    "customers_affected": 65,
-    "customers_out_now": 6,
-    "customers_served": 47562,
+    "customers_affected": 1,
+    "customers_out_now": 1,
+    "customers_served": 47541,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 6 customers without power near Durango / La Plata County.",
+    "headline": "Official LPEA outage data shows 1 customer without power near Bayfield / east La Plata County.",
     "hits": [
       {
-        "name": "2340 W 2ND AVE",
+        "name": "91 PINECONE DR",
         "snippets": [
-          "Durango / La Plata County: 1 customer out; unplanned; cause 790 Public, other."
-        ],
-        "url": "https://outage.lpea.coop"
-      },
-      {
-        "name": "2016 Crestview Dr",
-        "snippets": [
-          "Durango / La Plata County: 3 customers out; planned; cause 100 Construction."
-        ],
-        "url": "https://outage.lpea.coop"
-      },
-      {
-        "name": "10893 CR 141",
-        "snippets": [
-          "Durango / La Plata County: 2 customers out; unplanned; cause 710 Motor vehicle."
+          "Bayfield / east La Plata County: 1 customer out; planned; cause 110 Maintenance."
         ],
         "url": "https://outage.lpea.coop"
       }
     ],
     "outages": [
       {
-        "cause": "790 Public, other",
+        "cause": "110 Maintenance",
         "crew_assigned": true,
         "customers_out_initially": 1,
         "customers_out_now": 1,
         "customers_restored": 0,
-        "distance_miles": 1.0,
+        "distance_miles": 7.0,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-07-28-0218",
-        "latitude": 37.28886923742602,
-        "longitude": -107.87661223023812,
-        "modified_at": "2026-07-28T08:54:08.733-06:00",
-        "name": "2340 W 2ND AVE",
-        "nearest_area": "Durango / La Plata County",
-        "planned": false,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-28T07:57:49-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": true,
-        "work_status": ""
-      },
-      {
-        "cause": "100 Construction",
-        "crew_assigned": true,
-        "customers_out_initially": 3,
-        "customers_out_now": 3,
-        "customers_restored": 0,
-        "distance_miles": 0.8,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-07-28-0219",
-        "latitude": 37.287115183830764,
-        "longitude": -107.87976507228225,
-        "modified_at": "2026-07-28T08:11:19.02-06:00",
-        "name": "2016 Crestview Dr",
-        "nearest_area": "Durango / La Plata County",
+        "id": "2026-07-29-0275",
+        "latitude": 37.32730788868867,
+        "longitude": -107.58803817128218,
+        "modified_at": "2026-07-29T10:05:15.947-06:00",
+        "name": "91 PINECONE DR",
+        "nearest_area": "Bayfield / east La Plata County",
         "planned": true,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-28T08:08:01-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": true,
-        "work_status": ""
-      },
-      {
-        "cause": "710 Motor vehicle",
-        "crew_assigned": true,
-        "customers_out_initially": 61,
-        "customers_out_now": 2,
-        "customers_restored": 59,
-        "distance_miles": 10.5,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-07-28-0221",
-        "latitude": 37.19815274282996,
-        "longitude": -108.04361503594987,
-        "modified_at": "2026-07-28T09:22:46.927-06:00",
-        "name": "10893 CR 141",
-        "nearest_area": "Durango / La Plata County",
-        "planned": false,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-28T08:27:22-06:00",
+        "started_at": "2026-07-29T09:50:11-06:00",
         "url": "https://outage.lpea.coop",
         "verified": true,
         "work_status": ""
@@ -181,53 +239,52 @@
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "3 active outages; 1 planned and 2 unplanned; 6 customers out. No fire-weather or PSPS cause is identified.",
+    "summary": "1 active outage; 1 planned and 0 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 2,
-    "update_time": "2026-07-28T09:34:41.2280075-06:00"
+    "unplanned_outage_count": 0,
+    "update_time": "2026-07-29T10:10:49.8994643-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-03",
       "display_date": "Mon, Aug 3",
       "drivers": [
-        "dry RH near 17%",
+        "very dry RH near 15%",
         "wind/gust near 22 mph",
         "official fire restrictions at STAGE 2",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
-      "level": "HIGH",
+      "highest_risk_window": "3 PM-6 PM local; 4 near/red-flag threshold hours.",
+      "level": "VERY HIGH",
       "location": "Durango / La Plata County",
-      "score": 66
+      "score": 75
     },
     "psps": {
       "date": "2026-08-03",
       "display_date": "Mon, Aug 3",
       "drivers": [
         "near-threshold wind/gust signal near 23 mph",
-        "red-flag RH near 15%",
-        "3 sampled hours are near red-flag thresholds",
+        "very dry RH near 12%",
+        "4 sampled hours are near red-flag thresholds",
         "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
       ],
-      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-6 PM local; 4 near/red-flag threshold hours.",
       "level": "WATCH",
       "location": "Arboles / southwest county",
-      "score": 50
+      "score": 54
     },
     "red_flag": {
       "date": "2026-08-03",
       "display_date": "Mon, Aug 3",
       "drivers": [
-        "3 near-threshold hours",
-        "RH near 15%",
-        "breezy wind/gust near 23 mph",
-        "dry-thunder probability near 18%"
+        "4 near-threshold hours",
+        "RH near 12%",
+        "breezy wind/gust near 23 mph"
       ],
-      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-6 PM local; 4 near/red-flag threshold hours.",
       "level": "WATCH",
       "location": "Arboles / southwest county",
-      "score": 60
+      "score": 62
     }
   },
   "red_flag_calibration": {
