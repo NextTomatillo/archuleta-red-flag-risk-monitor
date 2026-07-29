@@ -1,30 +1,6 @@
 {
-  "changing_drivers": [
-    "The seven-day weather and PSPS outlook is steady versus the prior run.",
-    "Rio Blanco now has a 440.27-acre NIFC mapped perimeter while the incident-location record remains at 120 acres.",
-    "An active one-customer LPEA outage has no identified fire-weather or PSPS cause.",
-    "Official fire restrictions reach Stage 2 and reported fire danger reaches High."
-  ],
-  "evidence_ids": [
-    "active_incidents",
-    "overall_status",
-    "forecast_change",
-    "lpea_context",
-    "fire_posture",
-    "official_alerts"
-  ],
-  "generated_at": "2026-07-29T11:25:15-06:00",
-  "headline": "Active Rio Blanco fire and evacuations outweigh a steady near-term PSPS watch outlook",
-  "report_generated_at": "2026-07-29T11:23:11.711165-06:00",
+  "report_generated_at": "2026-07-29T13:21:22.054568-06:00",
   "schema_version": 1,
-  "status": "reviewed",
-  "summary": "The monitor remains at CONCERN, with the first PSPS WATCH on Monday, August 3 near Arboles. Immediate safety context is the preliminary 440.27-acre NIFC mapped perimeter for Rio Blanco, with one evacuation order and three warnings; the NIFC incident-location record still reports 120 acres. No official NWS fire-weather alert or LPEA PSPS notice is active.",
-  "uncertainty": "Mapped perimeter acreage is preliminary, evacuation status can change quickly, and LPEA internal operating thresholds are not public.",
-  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
-  "watch_items": [
-    "Follow Archuleta County notices for evacuation expansions, downgrades, or an all-clear.",
-    "Check NIFC for newer Rio Blanco perimeter, containment, and incident-size updates.",
-    "Recheck Monday afternoon wind and humidity near Arboles as the first PSPS WATCH window approaches.",
-    "Watch for an official NWS fire-weather alert or direct LPEA PSPS notice."
-  ]
+  "status": "not_reviewed",
+  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA."
 }

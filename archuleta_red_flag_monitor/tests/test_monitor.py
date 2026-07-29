@@ -1178,7 +1178,7 @@ class MonitorTests(unittest.TestCase):
                 ],
             },
             "lpea": {
-                "status": "keyword_match",
+                "status": "active_keyword_match",
                 "headline": "Keyword detected.",
                 "operational_outage": {
                     "active": True,
@@ -1267,6 +1267,13 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("1 active", rendered)
         self.assertIn("hero-status-rail", rendered)
         self.assertIn("Current monitor status", rendered)
+        self.assertIn('id="incident-map"', rendered)
+        self.assertIn('data-map-layer="fires"', rendered)
+        self.assertIn("layer-evacuations", rendered)
+        self.assertIn('data-map-layer="weather"', rendered)
+        self.assertIn('data-map-layer="outages"', rendered)
+        self.assertIn("Markers use public-source coordinates.", rendered)
+        self.assertIn("Evacuation boundaries are not mapped", rendered)
         self.assertIn("LPEA area-wide screen, Mon, Jun 1 to Tue, Jun 2", rendered)
         self.assertIn("Peak likely dates: Mon, Jun 1; drivers: Pagosa Springs.", rendered)
         self.assertIn("Official NWS", rendered)
@@ -1292,7 +1299,7 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Send monitor heads-up?", rendered)
         self.assertIn("Send this monitor report because a material monitored signal is active.", rendered)
         self.assertIn("risk-strip", rendered)
-        self.assertIn("Mon</strong><span>Jun 1", rendered)
+        self.assertIn("<span>Mon</span>", rendered)
         self.assertIn("<small>Jun 1</small>", rendered)
         self.assertIn("day-card tier-high", rendered)
         self.assertIn("Forecast Accuracy Scorecard", rendered)
@@ -1307,7 +1314,7 @@ class MonitorTests(unittest.TestCase):
         self.assertIn("Area-specific", rendered)
         self.assertIn("Highest-risk window", rendered)
         self.assertIn("Evidence quality", rendered)
-        self.assertIn("Keyword Match", rendered)
+        self.assertIn("Active source match", rendered)
         self.assertIn("Keyword detected.", rendered)
         self.assertIn("Official LPEA outage status", rendered)
         self.assertIn("about 11,556 members affected", rendered)

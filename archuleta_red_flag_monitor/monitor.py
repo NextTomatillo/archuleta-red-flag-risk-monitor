@@ -5626,6 +5626,37 @@ def render_html(report: Dict[str, Any]) -> str:
         else "signal-watch"
     )
     freshness = report.get("freshness", {})
+    evacuation_directives = evacuations.get("directives", [])
+    primary_evacuation = next(
+        (directive for directive in evacuation_directives if directive.get("level") == "ORDER"),
+        evacuation_directives[0] if evacuation_directives else {},
+    )
+    evacuation_action_url = (
+        primary_evacuation.get("source_url")
+        or primary_evacuation.get("county_post_url")
+        or evacuations.get("source_url")
+        or evacuations.get("all_alerts_url")
+        or active_incidents.get("links", {}).get("county_fire_updates")
+        or "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/"
+    )
+    if evacuations.get("status") == "active":
+        emergency_label = "EVACUATION ACTIVE"
+        emergency_summary = evacuations.get(
+            "headline",
+            "Official evacuation instructions are active.",
+        )
+        emergency_class = "emergency-active"
+        emergency_action_label = "View official notice"
+    elif evacuations.get("status") == "none_detected":
+        emergency_label = "NO ACTIVE EVACUATION NOTICE"
+        emergency_summary = "No current order or warning was detected in the checked official county feeds."
+        emergency_class = "emergency-clear"
+        emergency_action_label = "Check county alerts"
+    else:
+        emergency_label = "EVACUATION STATUS UNAVAILABLE"
+        emergency_summary = "Official evacuation feeds could not be confirmed. Do not interpret this as an all-clear."
+        emergency_class = "emergency-unavailable"
+        emergency_action_label = "Check county alerts"
 
     summary_cards = [
         pagosa_card,
@@ -6180,6 +6211,102 @@ def render_html(report: Dict[str, Any]) -> str:
     monitored_zone_text = ", ".join(report.get("official_alerts", {}).get("monitored_zones", [])) or report.get("fire_weather_zone", "COZ295")
     official_alert_count = int(report.get("official_alerts", {}).get("fire_alert_count", 0))
     official_alert_count_label = f"{official_alert_count} active" if official_alert_count != 1 else "1 active"
+    first_official_alert = next(
+        (
+            alert
+            for alert in report.get("official_alerts", {}).get("alerts", [])
+            if alert.get("url")
+        ),
+        {},
+    )
+    official_alert_url = first_official_alert.get("url") or "https://www.weather.gov/gjt/"
+
+    today_psps = (psps.get("days") or [{}])[0]
+    today_psps_scores = {
+        str(location.get("name")): location
+        for location in today_psps.get("location_scores", [])
+        if location.get("name")
+    }
+    map_points = []
+    for point in report.get("points", []):
+        latitude = safe_float(point.get("lat"))
+        longitude = safe_float(point.get("lon"))
+        if latitude is None or longitude is None:
+            continue
+        today_weather = (point.get("days") or [{}])[0]
+        location_score = today_psps_scores.get(str(point.get("name")), {})
+        map_points.append(
+            {
+                "name": point.get("name"),
+                "latitude": latitude,
+                "longitude": longitude,
+                "weather_tier": today_weather.get("tier", "UNKNOWN"),
+                "psps_level": location_score.get("level", "UNKNOWN"),
+                "psps_score": location_score.get("score"),
+            }
+        )
+
+    map_incidents = []
+    for incident in active_incidents.get("incidents", []):
+        latitude = safe_float(incident.get("latitude"))
+        longitude = safe_float(incident.get("longitude"))
+        if latitude is None or longitude is None:
+            continue
+        map_incidents.append(
+            {
+                "name": incident.get("name"),
+                "latitude": latitude,
+                "longitude": longitude,
+                "acres": incident.get("acres"),
+                "incident_type": incident.get("incident_type"),
+                "incident_type_label": incident.get("incident_type_label"),
+                "nearest_area": incident.get("nearest_area"),
+                "source_url": (
+                    incident.get("acres_source_url")
+                    or active_incidents.get("links", {}).get("nifc_map")
+                ),
+            }
+        )
+
+    map_outages = []
+    for outage in operational_outage.get("outages", []):
+        latitude = safe_float(outage.get("latitude"))
+        longitude = safe_float(outage.get("longitude"))
+        if latitude is None or longitude is None:
+            continue
+        map_outages.append(
+            {
+                "latitude": latitude,
+                "longitude": longitude,
+                "nearest_area": outage.get("nearest_area"),
+                "customers_out_now": outage.get("customers_out_now", 0),
+                "planned": bool(outage.get("planned")),
+                "cause": outage.get("cause"),
+                "source_url": operational_outage.get("source_url") or outage_map_url,
+            }
+        )
+
+    map_payload = {
+        "points": map_points,
+        "incidents": map_incidents,
+        "outages": map_outages,
+        "evacuations": {
+            "active": evacuations.get("status") == "active",
+            "order_count": evacuations.get("order_count", 0),
+            "warning_count": evacuations.get("warning_count", 0),
+            "source_url": evacuation_action_url,
+        },
+        "links": {
+            "nifc_map": active_incidents.get("links", {}).get("nifc_map"),
+            "county_alerts": evacuation_action_url,
+            "lpea_outage_map": outage_map_url,
+        },
+    }
+    map_payload_json = json.dumps(
+        map_payload,
+        ensure_ascii=True,
+        separators=(",", ":"),
+    ).replace("</", "<\\/")
 
     return f"""<!doctype html>
 <html lang="en">
@@ -6187,73 +6314,407 @@ def render_html(report: Dict[str, Any]) -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Archuleta Red Flag Risk Monitor</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a72f23'/%3E%3Cpath d='M34 8c4 11-5 14 2 23 3-6 8-7 10-14 9 12 10 24 4 33-7 11-29 11-36-1-7-13 3-26 14-36-1 9 2 13 6 15 3-6-2-11 0-20z' fill='%23fff3e2'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
   <style>
     :root {{
-      --bg: #f4efe5;
-      --panel: rgba(255, 250, 242, 0.88);
-      --ink: #1d2a2a;
-      --muted: #5c6766;
-      --line: rgba(29, 42, 42, 0.12);
-      --green: #3c7a44;
-      --elevated: #b88418;
-      --concern: #cb5a1b;
-      --high: #a72f23;
-      --shadow: 0 16px 40px rgba(58, 48, 31, 0.12);
+      --bg: #eee7da;
+      --paper: #fffdf7;
+      --panel: #fffaf1;
+      --panel-muted: #f4eee3;
+      --ink: #172724;
+      --muted: #52615e;
+      --line: rgba(23, 39, 36, 0.16);
+      --pine: #173f36;
+      --pine-deep: #102e28;
+      --green: #34733f;
+      --elevated: #bd8618;
+      --concern: #cb5c20;
+      --high: #b33525;
+      --outage: #355f73;
+      --display: "Barlow Condensed", "Avenir Next Condensed", "Franklin Gothic Medium", sans-serif;
+      --body: "Atkinson Hyperlegible", "Avenir Next", sans-serif;
+      --shadow: 0 18px 44px rgba(39, 45, 37, 0.11);
     }}
     * {{ box-sizing: border-box; }}
+    html {{ scroll-behavior: smooth; }}
     body {{
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: var(--body);
       color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(203, 90, 27, 0.18), transparent 32%),
-        radial-gradient(circle at top right, rgba(167, 47, 35, 0.16), transparent 28%),
-        linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+      background: var(--bg);
+    }}
+    a {{ color: inherit; }}
+    button, a {{ -webkit-tap-highlight-color: transparent; }}
+    :focus-visible {{
+      outline: 3px solid #1f73b7;
+      outline-offset: 3px;
     }}
     .wrap {{
-      max-width: 1180px;
+      max-width: 1380px;
       margin: 0 auto;
-      padding: 32px 20px 48px;
+      padding: 24px 20px 52px;
     }}
     .hero {{
-      background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,245,232,0.92));
+      background: var(--paper);
       border: 1px solid var(--line);
-      border-radius: 28px;
+      border-radius: 22px;
       box-shadow: var(--shadow);
-      padding: 28px;
+      overflow: hidden;
+      padding: 0;
     }}
-    .hero-top {{
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(290px, 340px);
+    .unofficial-banner {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 9px 18px;
+      background: var(--pine-deep);
+      color: #fffdf7;
+      font-size: 0.9rem;
+      line-height: 1.25;
+      text-align: center;
+    }}
+    .unofficial-banner strong {{
+      color: #fff;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }}
+    .monitor-header {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 22px;
-      align-items: start;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
     }}
-    .hero-copy {{
+    .brand-lockup {{
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 14px;
+    }}
+    .brand-mark {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 52px;
+      width: 52px;
+      height: 52px;
+      border: 2px solid var(--pine);
+      border-radius: 50%;
+      color: var(--pine);
+      font-size: 1.8rem;
+    }}
+    .brand-copy {{
       min-width: 0;
     }}
+    .brand-copy h1 {{
+      color: var(--pine);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.94;
+    }}
+    .brand-meta {{
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.25;
+    }}
+    .brand-meta-compact {{
+      display: none;
+    }}
+    .header-status {{
+      flex: 0 0 auto;
+    }}
+    .operating-grid {{
+      display: grid;
+      grid-template-columns: minmax(0, 1.85fr) minmax(300px, 0.82fr);
+      gap: 14px;
+      padding: 14px;
+      align-items: stretch;
+    }}
+    .map-card {{
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel-muted);
+    }}
+    .map-card-head {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }}
+    .map-card-title {{
+      min-width: 0;
+    }}
+    .map-card-title strong {{
+      display: block;
+      color: var(--pine);
+      font-size: 1.15rem;
+      line-height: 1;
+      text-transform: uppercase;
+    }}
+    .map-card-title span {{
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }}
+    .map-controls {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }}
+    .map-layer-button {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 34px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--paper);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }}
+    .map-layer-button[aria-pressed="true"] {{
+      border-color: var(--pine);
+      background: var(--pine);
+      color: #fff;
+    }}
+    .map-layer-button.layer-evacuations[aria-pressed="true"] {{
+      border-color: var(--high);
+      background: var(--high);
+    }}
+    .map-layer-button.layer-evacuations.has-active-evacuation {{
+      border-color: var(--high);
+      background: var(--high);
+      color: #fff;
+    }}
+    .incident-map {{
+      position: relative;
+      height: 510px;
+      background: #e8e3d5;
+    }}
+    .map-fallback {{
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+    }}
+    .incident-map.map-ready .map-fallback {{
+      display: none;
+    }}
+    .map-card-note {{
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 0;
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.32;
+    }}
+    .map-card-note i {{
+      color: var(--pine);
+      font-size: 1rem;
+    }}
+    .leaflet-container {{
+      font-family: var(--body);
+    }}
+    .leaflet-control-attribution {{
+      font-size: 0.68rem;
+    }}
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {{
+      background: var(--paper);
+      color: var(--ink);
+    }}
+    .leaflet-popup-content {{
+      margin: 12px 14px;
+      line-height: 1.35;
+    }}
+    .map-popup strong {{
+      display: block;
+      margin-bottom: 4px;
+      color: var(--pine);
+      font-size: 1rem;
+      text-transform: uppercase;
+    }}
+    .map-popup a {{
+      display: inline-block;
+      margin-top: 7px;
+      color: var(--pine);
+      font-weight: 700;
+    }}
+    .map-icon {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 4px 14px rgba(16, 46, 40, 0.28);
+      color: #fff;
+      font-size: 1rem;
+    }}
+    .map-icon-fire {{ background: var(--high); }}
+    .map-icon-outage {{ background: var(--outage); }}
+    .map-icon-home {{ background: var(--pine); }}
     .hero-status-rail {{
-      align-self: start;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 14px;
-      border: 1px solid rgba(29, 42, 42, 0.12);
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at 90% 10%, rgba(167, 47, 35, 0.12), transparent 34%),
-        rgba(255, 255, 255, 0.58);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
+      gap: 8px;
+      min-width: 0;
     }}
-    .hero-status-primary {{
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.68);
+    .emergency-card,
+    .status-card,
+    .status-compact {{
       border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper);
+      padding: 14px;
     }}
-    .hero-status-primary .chip {{
-      margin-top: 2px;
-      min-width: 128px;
+    .emergency-card {{
+      display: flex;
+      flex-direction: column;
+      min-height: 176px;
+      border-color: rgba(179, 53, 37, 0.45);
+      background: #fff3ee;
+      color: #5c2017;
+    }}
+    .emergency-card.emergency-active {{
+      border-color: var(--high);
+      background: var(--high);
+      color: #fff;
+    }}
+    .emergency-card.emergency-clear {{
+      border-color: rgba(52, 115, 63, 0.42);
+      background: #eef7ed;
+      color: #204a28;
+    }}
+    .emergency-card.emergency-unavailable {{
+      border-color: rgba(189, 134, 24, 0.45);
+      background: #fff8e8;
+      color: #4f3600;
+    }}
+    .emergency-heading {{
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }}
+    .emergency-heading i {{
+      font-size: 1.5rem;
+    }}
+    .emergency-heading h2 {{
+      margin: 0;
+      font-size: 1.62rem;
+      line-height: 1;
+    }}
+    .emergency-card p {{
+      margin: 12px 0 14px;
+      line-height: 1.34;
+    }}
+    .emergency-link {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 42px;
+      margin-top: auto;
+      padding: 9px 11px;
+      border: 1px solid currentColor;
+      border-radius: 9px;
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }}
+    .status-card {{
+      flex: 1 1 auto;
+    }}
+    .status-card-head,
+    .status-compact {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }}
+    .status-card h3 {{
+      color: var(--pine);
+      font-size: 1.15rem;
+    }}
+    .status-card p {{
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.32;
+    }}
+    .status-compact {{
+      min-height: 48px;
+      padding: 10px 12px;
+      color: var(--muted);
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }}
+    .status-compact a {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 10px;
+      text-decoration: none;
+    }}
+    .status-time-card {{
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper);
+    }}
+    .status-time-card span {{
+      display: block;
+      color: var(--muted);
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }}
+    .status-time-card strong {{
+      display: block;
+      margin-top: 4px;
+      color: var(--ink);
+      font-size: 0.96rem;
+      line-height: 1.2;
     }}
     .hero-status-row,
     .hero-status-time {{
@@ -6335,7 +6796,7 @@ def render_html(report: Dict[str, Any]) -> str:
       margin-top: 14px;
     }}
     h1, h2, h3, strong {{
-      font-family: "Avenir Next Condensed", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+      font-family: var(--display);
       letter-spacing: 0.02em;
       margin: 0;
     }}
@@ -6355,6 +6816,8 @@ def render_html(report: Dict[str, Any]) -> str:
     }}
     .eyebrow {{
       margin: 0 0 8px;
+      font-family: var(--display);
+      font-weight: 700;
       font-size: 0.78rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -6406,12 +6869,75 @@ def render_html(report: Dict[str, Any]) -> str:
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }}
+    .overview-panel {{
+      margin: 0 14px 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+    }}
+    .overview-head {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+    }}
+    .overview-head h2 {{
+      margin: 0;
+      color: var(--pine);
+      font-size: 1.12rem;
+    }}
+    .overview-head p {{
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.83rem;
+    }}
+    .quick-links {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0 14px 14px;
+    }}
+    .quick-link {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      min-height: 54px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+      color: var(--pine);
+      text-decoration: none;
+    }}
+    .quick-link i {{
+      flex: 0 0 auto;
+      font-size: 1.35rem;
+    }}
+    .quick-link span {{
+      min-width: 0;
+      font-family: var(--display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.06;
+      text-transform: uppercase;
+    }}
     .hero-alert-panel {{
-      margin-top: 16px;
+      margin: 0 14px 14px;
       padding: 14px 16px;
-      border: 1px solid rgba(29, 42, 42, 0.12);
-      border-radius: 18px;
-      background: rgba(29, 42, 42, 0.045);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-muted);
+    }}
+    .hero-alert-panel.no-alerts {{
+      padding-block: 11px;
+    }}
+    .hero-alert-panel.has-alerts {{
+      border-color: rgba(179, 53, 37, 0.42);
+      background: #fff4ef;
     }}
     .hero-alert-head {{
       display: flex;
@@ -6592,14 +7118,12 @@ def render_html(report: Dict[str, Any]) -> str:
       text-transform: uppercase;
     }}
     .section-panel {{
-      margin-top: 24px;
-      padding: 22px;
+      margin-top: 18px;
+      padding: 22px 24px;
     }}
     .incident-panel {{
       overflow: hidden;
-      background:
-        radial-gradient(circle at 94% 8%, rgba(203, 90, 27, 0.10), transparent 30%),
-        linear-gradient(145deg, rgba(255, 252, 246, 0.97), rgba(244, 237, 224, 0.94));
+      background: var(--paper);
     }}
     .incident-panel-active {{
       border-color: rgba(167, 47, 35, 0.42);
@@ -6782,9 +7306,7 @@ def render_html(report: Dict[str, Any]) -> str:
       border: 1px solid rgba(203, 90, 27, 0.26);
       border-left: 8px solid var(--concern);
       border-radius: 16px;
-      background:
-        radial-gradient(circle at 96% 10%, rgba(203, 90, 27, 0.12), transparent 38%),
-        rgba(255, 248, 240, 0.82);
+      background: #fff8f0;
       padding: 16px;
     }}
     .outage-context-panel h3 {{
@@ -6904,22 +7426,49 @@ def render_html(report: Dict[str, Any]) -> str:
     .risk-strip {{
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 14px;
+      gap: 0;
+      margin: 0;
     }}
     .risk-segment,
     .outlook-segment,
     .psps-segment {{
-      border-radius: 18px;
-      padding: 14px 10px;
+      border-radius: 0;
+      padding: 12px 10px 11px;
       text-align: center;
-      min-height: 118px;
+      min-height: 126px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 6px;
-      border: 1px solid rgba(255,255,255,0.28);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+      border: 0;
+      border-right: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: none;
+    }}
+    .outlook-segment:last-child {{
+      border-right: 0;
+    }}
+    .overview-panel .outlook-segment.psps-low {{
+      border-top: 5px solid var(--green);
+      background: var(--paper);
+      color: var(--ink);
+    }}
+    .overview-panel .outlook-segment.psps-elevated {{
+      border-top: 5px solid var(--elevated);
+      background: var(--paper);
+      color: var(--ink);
+    }}
+    .overview-panel .outlook-segment.psps-watch {{
+      border-top: 5px solid var(--concern);
+      background: var(--paper);
+      color: var(--ink);
+    }}
+    .overview-panel .outlook-segment.psps-likely,
+    .overview-panel .outlook-segment.psps-confirmed {{
+      border-top: 5px solid var(--high);
+      background: var(--paper);
+      color: var(--ink);
     }}
     .risk-segment span,
     .outlook-segment span,
@@ -6939,7 +7488,29 @@ def render_html(report: Dict[str, Any]) -> str:
     .risk-segment strong,
     .outlook-segment strong,
     .psps-segment strong {{
-      font-size: 1.05rem;
+      align-self: center;
+      padding: 5px 8px;
+      border-radius: 7px;
+      background: rgba(23, 39, 36, 0.08);
+      font-size: 0.96rem;
+      line-height: 1;
+    }}
+    .overview-panel .outlook-segment.psps-low strong {{
+      background: var(--green);
+      color: #fff;
+    }}
+    .overview-panel .outlook-segment.psps-elevated strong {{
+      background: var(--elevated);
+      color: #1f1700;
+    }}
+    .overview-panel .outlook-segment.psps-watch strong {{
+      background: var(--concern);
+      color: #fff;
+    }}
+    .overview-panel .outlook-segment.psps-likely strong,
+    .overview-panel .outlook-segment.psps-confirmed strong {{
+      background: var(--high);
+      color: #fff;
     }}
     .outlook-segment em,
     .outlook-segment b,
@@ -7040,9 +7611,7 @@ def render_html(report: Dict[str, Any]) -> str:
       padding: 16px;
       border: 1px solid rgba(167, 47, 35, 0.22);
       border-radius: 18px;
-      background:
-        radial-gradient(circle at 94% 10%, rgba(167, 47, 35, 0.12), transparent 36%),
-        rgba(255, 248, 240, 0.78);
+      background: #fff8f0;
     }}
     .analysis-summary strong {{
       display: block;
@@ -7111,9 +7680,7 @@ def render_html(report: Dict[str, Any]) -> str:
     .trend-card {{
       border: 1px solid var(--line);
       border-radius: 16px;
-      background:
-        radial-gradient(circle at 92% 8%, rgba(203, 90, 27, 0.1), transparent 34%),
-        rgba(255, 255, 255, 0.68);
+      background: var(--paper);
       padding: 14px;
       box-shadow: var(--shadow);
     }}
@@ -7312,15 +7879,6 @@ def render_html(report: Dict[str, Any]) -> str:
     .day-card.tier-elevated {{ border-left: 8px solid var(--elevated); background: rgba(255, 249, 229, 0.94); }}
     .day-card.tier-concern {{ border-left: 8px solid var(--concern); background: rgba(255, 244, 236, 0.94); }}
     .day-card.tier-high {{ border-left: 8px solid var(--high); background: rgba(255, 241, 239, 0.94); }}
-    .day-card::after {{
-      content: "";
-      position: absolute;
-      inset: auto -10% -40% auto;
-      width: 140px;
-      height: 140px;
-      background: rgba(255,255,255,0.14);
-      border-radius: 50%;
-    }}
     .day-card-top {{
       display: flex;
       justify-content: space-between;
@@ -7372,37 +7930,109 @@ def render_html(report: Dict[str, Any]) -> str:
     }}
     @media (max-width: 1080px) {{
       .summary-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .operating-grid {{
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.8fr);
+      }}
+      .incident-map {{ height: 460px; }}
+      .quick-links {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
     }}
     @media (max-width: 760px) {{
-      .wrap {{ padding: 18px 14px 32px; }}
-      .hero, .section-panel, .summary-card, .day-card {{ border-radius: 18px; }}
-      .hero {{ padding: 24px 24px 26px; }}
-      .hero-top {{ display: block; }}
-      .hero-status-rail {{
-        margin-top: 16px;
-        padding: 12px;
-        border-radius: 18px;
+      .wrap {{ padding: 12px 10px 30px; }}
+      .unofficial-banner {{
+        align-items: flex-start;
+        justify-content: flex-start;
+        min-height: 0;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+        text-align: left;
       }}
-      .hero-status-primary {{
-        padding: 12px;
+      .unofficial-banner strong {{ white-space: normal; }}
+      .hero, .section-panel, .summary-card, .day-card {{ border-radius: 16px; }}
+      .monitor-header {{
+        align-items: flex-start;
+        padding: 15px;
       }}
-      .hero-status-primary .chip {{
-        margin-top: 16px;
+      .brand-mark {{
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.4rem;
+      }}
+      .brand-lockup {{ gap: 10px; }}
+      .brand-copy h1 {{ font-size: 1.9rem; }}
+      .brand-meta {{
+        font-size: 0.78rem;
+        line-height: 1.2;
+      }}
+      .brand-meta-full {{ display: none; }}
+      .brand-meta-compact {{ display: inline; }}
+      .header-status .chip {{
         min-width: 0;
-        padding: 8px 16px;
-        font-size: 0.86rem;
-        box-shadow: none;
+        padding: 7px 10px;
+        font-size: 0.78rem;
       }}
-      .hero-status-row,
-      .hero-status-time {{
+      .operating-grid {{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         padding: 10px;
       }}
-      .hero-note {{
-        margin-top: 14px;
-        font-size: 1rem;
+      .hero-status-rail {{ order: 1; }}
+      .map-card {{ order: 2; }}
+      .hero-status-rail {{
+        margin: 0;
       }}
-      .official-warning {{
-        padding: 12px 14px;
+      .emergency-card {{
+        min-height: 0;
+        padding: 13px;
+      }}
+      .emergency-heading h2 {{ font-size: 1.45rem; }}
+      .emergency-card p {{ margin: 8px 0 10px; }}
+      .status-card {{ padding: 12px; }}
+      .map-card-head {{
+        align-items: flex-start;
+        flex-direction: column;
+      }}
+      .map-controls {{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+      }}
+      .map-layer-button {{
+        justify-content: center;
+      }}
+      .incident-map {{ height: 325px; }}
+      .overview-panel {{
+        margin: 0 10px 10px;
+      }}
+      .overview-head {{
+        align-items: flex-start;
+        flex-direction: column;
+      }}
+      .risk-strip {{
+        display: flex;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scroll-snap-type: inline mandatory;
+        scrollbar-width: thin;
+      }}
+      .outlook-segment {{
+        flex: 0 0 128px;
+        min-height: 120px;
+        scroll-snap-align: start;
+      }}
+      .quick-links {{
+        display: flex;
+        margin: 0 10px 10px;
+        overflow-x: auto;
+        scroll-snap-type: inline mandatory;
+      }}
+      .quick-link {{
+        flex: 0 0 182px;
+        scroll-snap-align: start;
+      }}
+      .hero-alert-panel {{
+        margin: 0 10px 10px;
       }}
       .summary-grid {{
         grid-template-columns: 1fr;
@@ -7424,45 +8054,125 @@ def render_html(report: Dict[str, Any]) -> str:
       .review-grid {{
         grid-template-columns: 1fr;
       }}
-      .risk-strip {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .section-panel {{ padding: 19px 17px; }}
       .source-meta {{ font-size: 0.92rem; }}
       .audit-summary {{ align-items: start; flex-direction: column; }}
+    }}
+    @media (prefers-reduced-motion: reduce) {{
+      html {{ scroll-behavior: auto; }}
     }}
   </style>
 </head>
 <body>
-  <main class="wrap">
+  <div class="unofficial-banner" role="note">
+    <i class="ph ph-warning-circle" aria-hidden="true"></i>
+    <strong>{escape_html(UNOFFICIAL_MONITOR_LABEL)}</strong>
+    <span>{escape_html(UNOFFICIAL_MONITOR_DISCLAIMER)}</span>
+  </div>
+  <main class="wrap map-first-dashboard">
     <section class="hero">
-      <div class="hero-top">
-        <div class="hero-copy">
-          <p class="eyebrow">Archuleta County fire-weather monitor</p>
-          <h1>Red Flag Risk</h1>
-          <p class="hero-note">Generated {escape_html(format_generated_at(report))}. This page is a public-source screening view for early heads-up decisions.</p>
-          <div class="official-warning">
-            <strong>{escape_html(UNOFFICIAL_MONITOR_LABEL)}</strong>
-            {escape_html(UNOFFICIAL_MONITOR_DISCLAIMER)}
+      <header class="monitor-header">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true"><i class="ph ph-mountains"></i></span>
+          <div class="brand-copy">
+            <p class="eyebrow">Archuleta County fire-weather monitor</p>
+            <h1>Archuleta Red Flag Risk</h1>
+            <p class="brand-meta">
+              <span class="brand-meta-full">Updated {escape_html(format_generated_at(report))} · Next update: {escape_html(format_next_update_at(report))}</span>
+              <span class="brand-meta-compact">Updated {escape_html(format_generated_label(report.get('generated_at_local'), report.get('timezone', 'America/Denver')))} · Next {escape_html(format_generated_label(report.get('next_update_at'), report.get('timezone', 'America/Denver')))}</span>
+            </p>
           </div>
-          <p class="time-note hero-time-note">All dates and times use {escape_html(local_time_context(report))}.</p>
-          <p class="next-update-note">Next update: {escape_html(format_next_update_at(report))}</p>
         </div>
-        <aside class="hero-status-rail" aria-label="Current monitor status">
-          <div class="hero-status-primary">
-            <p class="eyebrow">Fire-weather tier</p>
-            <span class="chip {tier_badge_class(report['overall_tier'])}">{escape_html(report['overall_tier'])}</span>
-          </div>
-          <div class="hero-status-row hero-status-row-detail">
-            <div class="hero-status-copy">
-              <span>PSPS likelihood</span>
-              <p>{escape_html(psps_rail_context['scope'])}</p>
-              <small>{escape_html(psps_rail_context['detail'])}</small>
+        <div class="header-status">
+          <span class="chip {tier_badge_class(report['overall_tier'])}">{escape_html(report['overall_tier'])}</span>
+        </div>
+      </header>
+
+      <div class="operating-grid">
+        <section class="map-card" aria-labelledby="operating-map-title">
+          <div class="map-card-head">
+            <div class="map-card-title">
+              <strong id="operating-map-title">Current operating picture</strong>
+              <span>Archuleta County with nearby LPEA context</span>
             </div>
-            <strong class="hero-mini-chip psps-{escape_html(psps.get('overall_level', 'unknown').lower())}">{escape_html(psps.get('overall_level', 'UNKNOWN'))}</strong>
+            <div class="map-controls" aria-label="Map layers">
+              <button class="map-layer-button" type="button" data-map-layer="fires" aria-pressed="true">
+                <i class="ph ph-fire" aria-hidden="true"></i> Fires
+              </button>
+              <a
+                class="map-layer-button layer-evacuations {'has-active-evacuation' if evacuations.get('status') == 'active' else ''}"
+                href="{escape_html(evacuation_action_url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open official evacuation notices; authoritative evacuation boundaries are not available in the checked feed."
+              >
+                <i class="ph ph-warning" aria-hidden="true"></i> Evac notices
+              </a>
+              <button class="map-layer-button" type="button" data-map-layer="weather" aria-pressed="false">
+                <i class="ph ph-cloud-sun" aria-hidden="true"></i> Weather / PSPS
+              </button>
+              <button class="map-layer-button" type="button" data-map-layer="outages" aria-pressed="false">
+                <i class="ph ph-lightning" aria-hidden="true"></i> Outages
+              </button>
+            </div>
           </div>
-          <div class="hero-status-row">
-            <span>Pagosa Springs</span>
-            <strong class="hero-mini-chip {escape_html(pagosa_card.get('class', ''))}">{escape_html(pagosa_card.get('value', 'UNKNOWN'))}</strong>
+          <div id="incident-map" class="incident-map" role="region" aria-label="Map of active fires, evacuation context, weather sampling points, and LPEA outages">
+            <div class="map-fallback">
+              <p>Interactive map loading. <a href="{escape_html(active_incidents.get('links', {}).get('nifc_map') or 'https://www.nifc.gov/fire-information/maps')}" target="_blank" rel="noopener noreferrer">Open the official NIFC fire map</a>.</p>
+            </div>
           </div>
-          <div class="hero-status-row">
+          <p class="map-card-note">
+            <i class="ph ph-info" aria-hidden="true"></i>
+            <span>Markers use public-source coordinates. Evacuation boundaries are not mapped because authoritative polygon data is not available in the checked county feed. Verify locations and instructions with official sources.</span>
+          </p>
+        </section>
+
+        <aside class="hero-status-rail" aria-label="Current monitor status">
+          <section class="emergency-card {escape_html(emergency_class)}">
+            <div class="emergency-heading">
+              <i class="ph ph-warning-circle" aria-hidden="true"></i>
+              <h2>{escape_html(emergency_label)}</h2>
+            </div>
+            <p>{escape_html(emergency_summary)}</p>
+            <a class="emergency-link" href="{escape_html(evacuation_action_url)}" target="_blank" rel="noopener noreferrer">
+              <span>{escape_html(emergency_action_label)}</span>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </section>
+
+          <section class="status-card">
+            <div class="status-card-head">
+              <h3>Pagosa Springs today</h3>
+              <strong class="hero-mini-chip {escape_html(pagosa_card.get('class', ''))}">{escape_html(pagosa_card.get('value', 'UNKNOWN'))}</strong>
+            </div>
+            <p>{escape_html(pagosa_card.get('note', 'Local outlook unavailable.'))}</p>
+          </section>
+
+          <section class="status-card">
+            <div class="status-card-head">
+              <h3>LPEA area-wide</h3>
+              <strong class="hero-mini-chip psps-{escape_html(psps.get('overall_level', 'unknown').lower())}">{escape_html(psps.get('overall_level', 'UNKNOWN'))}</strong>
+            </div>
+            <p>{escape_html(psps_rail_context['scope'])}. {escape_html(psps_rail_context['detail'])}</p>
+          </section>
+
+          <div class="status-compact">
+            <a href="{escape_html(official_alert_url)}" target="_blank" rel="noopener noreferrer">
+              <span>NWS fire-weather alerts</span>
+              <strong>{escape_html(official_alert_count_label)}</strong>
+            </a>
+          </div>
+
+          <div
+            class="status-compact"
+            title="{escape_html(monitor_heads_up_note(report))}"
+            aria-label="{escape_html(monitor_heads_up_note(report))}"
+          >
+            <span>Send monitor heads-up?</span>
+            <strong>{'YES' if report.get('notify_recommended') else 'NO'}</strong>
+          </div>
+
+          <div class="status-compact">
             <span>Data freshness</span>
             <strong
               id="freshness-badge"
@@ -7472,12 +8182,47 @@ def render_html(report: Dict[str, Any]) -> str:
               data-stale-after="{escape_html(freshness.get('stale_after', ''))}"
             >CURRENT</strong>
           </div>
+
+          <div class="status-time-card">
+            <span>Next update</span>
+            <strong>{escape_html(format_next_update_at(report))}</strong>
+          </div>
         </aside>
       </div>
-      <div class="summary-grid">
-        {summary_cards_html}
-      </div>
-      <section class="hero-alert-panel">
+
+      <section class="overview-panel">
+        <div class="overview-head">
+          <div>
+            <p class="eyebrow">7-Day outlook</p>
+            <h2>Weather + PSPS</h2>
+          </div>
+          <p>All dates and times use {escape_html(report.get('local_time_name', 'Pagosa Springs, CO'))} local time ({escape_html(report.get('timezone', 'America/Denver'))}).</p>
+        </div>
+        <div class="risk-strip">
+          {combined_outlook_html}
+        </div>
+      </section>
+
+      <nav class="quick-links" aria-label="Official source links">
+        <a class="quick-link" href="{escape_html(official_alert_url)}" target="_blank" rel="noopener noreferrer">
+          <i class="ph ph-cloud-sun" aria-hidden="true"></i>
+          <span>NWS Pagosa Springs</span>
+        </a>
+        <a class="quick-link" href="{escape_html(evacuation_action_url)}" target="_blank" rel="noopener noreferrer">
+          <i class="ph ph-shield-warning" aria-hidden="true"></i>
+          <span>Archuleta emergency notices</span>
+        </a>
+        <a class="quick-link" href="{escape_html(outage_map_url)}" target="_blank" rel="noopener noreferrer">
+          <i class="ph ph-lightning" aria-hidden="true"></i>
+          <span>LPEA outage map</span>
+        </a>
+        <a class="quick-link" href="{escape_html(active_incidents.get('links', {}).get('nifc_map') or 'https://www.nifc.gov/fire-information/maps')}" target="_blank" rel="noopener noreferrer">
+          <i class="ph ph-fire" aria-hidden="true"></i>
+          <span>NIFC current fires</span>
+        </a>
+      </nav>
+
+      <section class="hero-alert-panel {'has-alerts' if official_alert_count else 'no-alerts'}">
         <div class="hero-alert-head">
           <div>
             <p class="eyebrow">Official Weather Alerts</p>
@@ -7538,9 +8283,6 @@ def render_html(report: Dict[str, Any]) -> str:
           <a href="{escape_html(outage_url)}" target="_blank" rel="noopener noreferrer">LPEA outage center</a>
           <a href="{escape_html(outage_map_url)}" target="_blank" rel="noopener noreferrer">LPEA outage map</a>
         </p>
-      </div>
-      <div class="risk-strip">
-        {combined_outlook_html}
       </div>
       <div class="subsection-heading">
         <p class="eyebrow">Area-specific PSPS outlook</p>
@@ -7668,6 +8410,7 @@ def render_html(report: Dict[str, Any]) -> str:
     <section class="section-panel">
       <p class="eyebrow">LPEA Monitor</p>
       <h2>Power Interruption Signals</h2>
+      <p class="quality-pill quality-current">{escape_html(lpea_status_label(lpea.get('status', 'unavailable')))}</p>
       <p class="footer-note">{escape_html(lpea.get('headline', 'No LPEA headline available.'))}</p>
       <p class="footer-note">{escape_html(lpea_active_source_meaning())}</p>
       <p class="footer-note">Evidence quality: {escape_html(evidence_quality.get('summary', 'Evidence quality not classified.'))}</p>
@@ -7705,6 +8448,185 @@ def render_html(report: Dict[str, Any]) -> str:
     </section>
   </main>
   <script>
+    (() => {{
+      const initializeMap = () => {{
+        const mapElement = document.getElementById("incident-map");
+        if (!mapElement) return;
+        const payload = {map_payload_json};
+        if (!window.L) {{
+          mapElement.classList.add("map-unavailable");
+          return;
+        }}
+
+        const escapeText = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({{
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        }}[character]));
+        const safeUrl = (value) => {{
+          if (!value) return "";
+          try {{
+            const parsed = new URL(value, window.location.href);
+            return ["http:", "https:"].includes(parsed.protocol) ? parsed.href : "";
+          }} catch {{
+            return "";
+          }}
+        }};
+        const sourceLink = (url, label) => {{
+          const safe = safeUrl(url);
+          return safe
+            ? `<a href="${{escapeText(safe)}}" target="_blank" rel="noopener noreferrer">${{escapeText(label)}}</a>`
+            : "";
+        }};
+        const levelColor = (level) => ({{
+          GREEN: "#34733f",
+          LOW: "#34733f",
+          ELEVATED: "#bd8618",
+          CONCERN: "#cb5c20",
+          WATCH: "#cb5c20",
+          HIGH: "#b33525",
+          LIKELY: "#b33525",
+          CONFIRMED: "#b33525",
+        }}[String(level || "").toUpperCase()] || "#52615e");
+        const map = L.map(mapElement, {{
+          scrollWheelZoom: false,
+          zoomControl: true,
+          attributionControl: true,
+        }}).setView([37.24, -107.08], 9);
+        const topoTiles = L.tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{{z}}/{{y}}/{{x}}",
+          {{
+            maxZoom: 17,
+            attribution: 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>',
+          }}
+        );
+        let fallbackLoaded = false;
+        topoTiles.once("tileerror", () => {{
+          if (fallbackLoaded) return;
+          fallbackLoaded = true;
+          map.removeLayer(topoTiles);
+          L.tileLayer(
+            "https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png",
+            {{
+              maxZoom: 18,
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            }}
+          ).addTo(map);
+        }});
+        topoTiles.addTo(map);
+
+        const groups = {{
+          fires: L.layerGroup().addTo(map),
+          weather: L.layerGroup(),
+          outages: L.layerGroup(),
+        }};
+        const bounds = [];
+        const icon = (iconName, className) => L.divIcon({{
+          className: "",
+          html: `<span class="map-icon ${{className}}"><i class="ph ${{iconName}}" aria-hidden="true"></i></span>`,
+          iconSize: [34, 34],
+          iconAnchor: [17, 17],
+          popupAnchor: [0, -17],
+        }});
+
+        for (const point of payload.points || []) {{
+          const latitude = Number(point.latitude);
+          const longitude = Number(point.longitude);
+          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
+          bounds.push([latitude, longitude]);
+          const pointName = String(point.name || "");
+          const popup = `
+            <div class="map-popup">
+              <strong>${{escapeText(pointName)}}</strong>
+              Weather: ${{escapeText(point.weather_tier || "UNKNOWN")}}<br>
+              PSPS: ${{escapeText(point.psps_level || "UNKNOWN")}}${{
+                point.psps_score == null ? "" : ` · ${{escapeText(point.psps_score)}}/100`
+              }}
+            </div>`;
+          if (pointName.toLowerCase().startsWith("pagosa springs")) {{
+            L.marker(
+              [latitude, longitude],
+              {{ icon: icon("ph-house-line", "map-icon-home"), title: pointName }}
+            ).bindPopup(popup).addTo(map);
+          }} else {{
+            L.circleMarker([latitude, longitude], {{
+              radius: 7,
+              color: "#fffdf7",
+              weight: 2,
+              fillColor: levelColor(point.psps_level || point.weather_tier),
+              fillOpacity: 0.94,
+            }}).bindPopup(popup).addTo(groups.weather);
+          }}
+        }}
+
+        for (const incident of payload.incidents || []) {{
+          const latitude = Number(incident.latitude);
+          const longitude = Number(incident.longitude);
+          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
+          bounds.push([latitude, longitude]);
+          const acres = Number(incident.acres);
+          const acreage = Number.isFinite(acres)
+            ? `${{acres.toLocaleString(undefined, {{ maximumFractionDigits: 2 }})}} acres`
+            : "Size not reported";
+          const popup = `
+            <div class="map-popup">
+              <strong>${{escapeText(incident.name || "Current fire")}}</strong>
+              ${{escapeText(incident.incident_type_label || "Fire incident")}} · ${{escapeText(acreage)}}<br>
+              ${{escapeText(incident.nearest_area || "Archuleta County")}}
+              ${{sourceLink(incident.source_url, "Open authoritative source")}}
+            </div>`;
+          L.marker(
+            [latitude, longitude],
+            {{ icon: icon("ph-fire", "map-icon-fire"), title: String(incident.name || "Current fire") }}
+          ).bindPopup(popup).addTo(groups.fires);
+        }}
+
+        for (const outage of payload.outages || []) {{
+          const latitude = Number(outage.latitude);
+          const longitude = Number(outage.longitude);
+          if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
+          bounds.push([latitude, longitude]);
+          const customers = Number(outage.customers_out_now || 0);
+          const popup = `
+            <div class="map-popup">
+              <strong>LPEA outage</strong>
+              ${{escapeText(outage.nearest_area || "LPEA service territory")}}<br>
+              ${{escapeText(customers)}} customer${{customers === 1 ? "" : "s"}} out · ${{outage.planned ? "planned" : "unplanned"}}
+              ${{sourceLink(outage.source_url, "Open LPEA outage map")}}
+            </div>`;
+          L.marker(
+            [latitude, longitude],
+            {{ icon: icon("ph-lightning", "map-icon-outage"), title: "LPEA outage" }}
+          ).bindPopup(popup).addTo(groups.outages);
+        }}
+
+        if (bounds.length) {{
+          map.fitBounds(bounds, {{ padding: [36, 36], maxZoom: 10 }});
+        }}
+        mapElement.classList.add("map-ready");
+        window.setTimeout(() => map.invalidateSize(), 100);
+
+        for (const button of document.querySelectorAll("[data-map-layer]")) {{
+          button.addEventListener("click", () => {{
+            const layerName = button.dataset.mapLayer;
+            const layer = groups[layerName];
+            if (!layer) return;
+            const willShow = !map.hasLayer(layer);
+            if (willShow) layer.addTo(map);
+            else map.removeLayer(layer);
+            button.setAttribute("aria-pressed", willShow ? "true" : "false");
+          }});
+        }}
+      }};
+      if (document.readyState === "loading") {{
+        document.addEventListener("DOMContentLoaded", initializeMap, {{ once: true }});
+      }} else {{
+        initializeMap();
+      }}
+    }})();
+
     (() => {{
       const badge = document.getElementById("freshness-badge");
       if (!badge) return;
