@@ -1,55 +1,18 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-07-29T13:58:32.123013-06:00",
+    "checked_at": "2026-07-29T20:04:25.224106-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
-      "active_count": 4,
+      "active_count": 0,
       "all_alerts_url": "https://nixle.us/archuleta-county-office-of-emergency-management-aux/",
-      "directives": [
-        {
-          "area": "County Road 337 and County Road 339 area",
-          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
-          "headline": "EVACUATION WARNING",
-          "issued_at": "2026-07-28T18:42:00-06:00",
-          "level": "WARNING",
-          "source_url": "https://nixle.us/HH7YX",
-          "summary": "An evacuation warning is in effect for County Road 337 and County Road 339 area due to fire. There is a significant, imminent threat to the area. Residents should be prepared to evacuate. Persons with special needs or large animals should evacuate now."
-        },
-        {
-          "area": "Pinon Hills Subdivision, at Mile marker 13.5 on County Road 500",
-          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
-          "headline": "EMERGENCY ALERT: EVACUATION WARNING",
-          "issued_at": "2026-07-28T18:18:00-06:00",
-          "level": "WARNING",
-          "source_url": "https://nixle.us/HH7XB",
-          "summary": "An evacuation warning is in effect for Pinon Hills Subdivision, at Mile marker 13.5 on County Road 500 due to fire. There is a significant, imminent threat to the area. Residents should be prepared to evacuate. Persons with special needs or large animals should evacuate now."
-        },
-        {
-          "area": "County Road 335",
-          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
-          "headline": "EMERGENCY ALERT: EVACUATION ORDER",
-          "issued_at": "2026-07-28T16:28:00-06:00",
-          "level": "ORDER",
-          "source_url": "https://nixle.us/HH7KM",
-          "summary": "An evacuation order is in effect for County Road 335. LEAVE IMMEDIATELY. Danger is imminent and life threatening. If you choose to ignore this order, emergency services may not be able to assist you. An evacuation center is set up at Pagosa Springs High School. For more information about the incident, call 970-508-9928"
-        },
-        {
-          "area": "Lower Blanco area",
-          "county_post_url": "https://www.archuletacounty.gov/2026/07/emergency-alert-evacuation-warning-joint-work-session-cancelled/",
-          "headline": "EMERGENCY ALERT: EVACUATION WARNING",
-          "issued_at": "2026-07-28T16:09:00-06:00",
-          "level": "WARNING",
-          "source_url": "https://nixle.us/HH7HT",
-          "summary": "An evacuation warning is in effect for Lower Blanco area due to incident. There is a significant, imminent threat to the area. Residents should be prepared to evacuate. Persons with special needs or large animals should evacuate now."
-        }
-      ],
-      "headline": "1 evacuation order and 3 evacuation warnings detected in recent official county notices.",
-      "order_count": 1,
+      "directives": [],
+      "headline": "No current evacuation order or warning detected in the checked official county feeds.",
+      "order_count": 0,
       "source_url": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/",
-      "status": "active",
-      "warning_count": 3
+      "status": "none_detected",
+      "warning_count": 0
     },
-    "headline": "Official evacuation notices are active; 2 current wildfires reported in Archuleta County.",
+    "headline": "2 current wildfires reported in Archuleta County; no current evacuation notice detected in checked county feeds.",
     "incident_count": 2,
     "incident_source_status": "checked",
     "incidents": [
@@ -62,7 +25,7 @@
         "acres_updated_at": "2026-07-29T09:54:56-06:00",
         "cause": "Natural",
         "description": "10 Miles S from Pagosa Springs, CO",
-        "discovered_at": "2026-07-28T15:11:24-06:00",
+        "discovered_at": "2026-07-28T15:11:00-06:00",
         "distance_miles": 9.9,
         "id": "2026-COSJF-000806",
         "incident_reported_acres": 440.0,
@@ -946,7 +909,7 @@
         "perimeter_geometry_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
         "perimeter_geometry_updated_at": "2026-07-29T09:54:56-06:00",
         "perimeter_source": "2026 NIFS",
-        "updated_at": "2026-07-29T12:58:37.787000-06:00"
+        "updated_at": "2026-07-29T19:09:40.047000-06:00"
       },
       {
         "acres": 0.41,
@@ -993,29 +956,61 @@
     "status": "checked",
     "wildfire_count": 2
   },
+  "analyst_interpretation": {
+    "changing_drivers": [
+      "Overall PSPS screening eased from LIKELY to WATCH while the first WATCH-or-higher date remained Mon, Aug 3.",
+      "Jul 29 eased from ELEVATED to LOW as wind fell about 5 mph and RH rose 11 percentage points.",
+      "Aug 3 eased by four points but remains the peak WATCH period.",
+      "Stage 2 restrictions and HIGH official fire danger continue to support elevated preparedness."
+    ],
+    "evidence_ids": [
+      "overall_status",
+      "weather_peaks",
+      "official_alerts",
+      "forecast_change",
+      "lpea_context",
+      "fire_posture",
+      "active_incidents",
+      "calibration"
+    ],
+    "generated_at": "2026-07-29T20:05:13-06:00",
+    "headline": "CONCERN screening continues, with Aug 3 the main WATCH period; no official COZ295 fire alert or active LPEA outage is reported.",
+    "report_generated_at": "2026-07-29T20:04:25.224106-06:00",
+    "schema_version": 1,
+    "status": "reviewed",
+    "summary": "The highest screening concern is Mon, Aug 3 near Ignacio, where very dry air, wind near 25 mph, and five near-threshold hours produce WATCH estimates. Official checks show zero COZ295 fire-weather alerts and no active LPEA customer outage; the LPEA keyword match is context, not confirmed outage or PSPS intent. Two current Archuleta County wildfires are operational context, with no evacuation order or warning detected.",
+    "uncertainty": "These are rules-based screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged, and LPEA may use operational data not visible here.",
+    "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
+    "watch_items": [
+      "Recheck Aug 3 wind, RH, and the 3 PM-7 PM near-threshold window.",
+      "Confirm whether LPEA active-source language remains general context rather than direct PSPS or outage intent.",
+      "Follow official updates for the Rio Blanco and Blanco fires and any evacuation notices.",
+      "Monitor for any new official COZ295 Red Flag or Fire Weather alert."
+    ]
+  },
   "confidence": {
-    "label": "HIGH",
+    "label": "MEDIUM",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
+      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 77
+    "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-29T13:58:32.123013-06:00",
+  "generated_at": "2026-07-29T20:04:25.224106-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
-    "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (LIKELY 65/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. 1 evacuation order and 3 evacuation warnings detected in recent official county notices.",
-    "trend_summary": "Momentum is steady versus the prior run (Jul 29 at 1:36 PM MDT); forecast volatility is low and first WATCH-or-higher date is Mon, Aug 3."
+    "psps_likelihood": "WATCH",
+    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (WATCH 61/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Jul 29 at 1:58 PM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Aug 3."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -1027,100 +1022,35 @@
   ],
   "notable_changes": [
     "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
-    "No major day-level movement versus the prior run."
+    "Overall PSPS likelihood changed from LIKELY to WATCH.",
+    "Wed, Jul 29: easing vs prior run; PSPS ELEVATED -> LOW; score -14, wind -5 mph, RH +11%, red-flag hours 0.",
+    "Mon, Aug 3: easing vs prior run; PSPS LIKELY -> WATCH; score -4, wind 0 mph, RH 0%, red-flag hours 0."
   ],
   "operational_outage_context": {
-    "active": true,
-    "active_outage_count": 2,
-    "affected_members": 4,
-    "areas": [
-      "Piedra / north county",
-      "Durango / La Plata County"
-    ],
-    "customers_affected": 4,
-    "customers_out_now": 4,
-    "customers_served": 47542,
+    "active": false,
+    "active_outage_count": 0,
+    "affected_members": 0,
+    "areas": [],
+    "customers_affected": 0,
+    "customers_out_now": 0,
+    "customers_served": 47553,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 4 customers without power near Piedra / north county, Durango / La Plata County.",
-    "hits": [
-      {
-        "name": "4838 CR 633",
-        "snippets": [
-          "Piedra / north county: 2 customers out; unplanned; cause not posted."
-        ],
-        "url": "https://outage.lpea.coop"
-      },
-      {
-        "name": "358 Quarter Horse",
-        "snippets": [
-          "Durango / La Plata County: 2 customers out; planned; cause 100 Construction."
-        ],
-        "url": "https://outage.lpea.coop"
-      }
-    ],
-    "outages": [
-      {
-        "cause": null,
-        "crew_assigned": true,
-        "customers_out_initially": 2,
-        "customers_out_now": 2,
-        "customers_restored": 0,
-        "distance_miles": 7.0,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-07-29-0276",
-        "latitude": 37.46128458132634,
-        "longitude": -107.12569540489015,
-        "modified_at": "2026-07-29T12:00:12.857-06:00",
-        "name": "4838 CR 633",
-        "nearest_area": "Piedra / north county",
-        "planned": false,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-29T10:19:09-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": true,
-        "work_status": ""
-      },
-      {
-        "cause": "100 Construction",
-        "crew_assigned": true,
-        "customers_out_initially": 2,
-        "customers_out_now": 2,
-        "customers_restored": 0,
-        "distance_miles": 11.3,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-07-29-0278",
-        "latitude": 37.111827149974644,
-        "longitude": -107.85998419501598,
-        "modified_at": "2026-07-29T12:40:05.803-06:00",
-        "name": "358 Quarter Horse",
-        "nearest_area": "Durango / La Plata County",
-        "planned": true,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-07-29T12:38:42-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": true,
-        "work_status": ""
-      }
-    ],
+    "headline": "Official LPEA outage data shows no active customer outages.",
+    "hits": [],
+    "outages": [],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
-    "planned_outage_count": 1,
+    "planned_outage_count": 0,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "localized",
+    "severity": "none",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "2 active outages; 1 planned and 1 unplanned; 4 customers out. No fire-weather or PSPS cause is identified.",
+    "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 1,
-    "update_time": "2026-07-29T13:57:11.7696203-06:00"
+    "unplanned_outage_count": 0,
+    "update_time": "2026-07-29T20:03:10.0929526-06:00"
   },
   "peaks": {
     "fire_danger": {
@@ -1143,13 +1073,12 @@
       "drivers": [
         "red-flag wind/gust signal near 25 mph",
         "very dry RH near 12%",
-        "5 sampled hours are near red-flag thresholds",
-        "Official fire-posture context for Ignacio / southeast La Plata County is escalated (STAGE 2; fire danger UNKNOWN); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+        "5 sampled hours are near red-flag thresholds"
       ],
       "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
-      "level": "LIKELY",
+      "level": "WATCH",
       "location": "Ignacio / southeast La Plata County",
-      "score": 65
+      "score": 61
     },
     "red_flag": {
       "date": "2026-08-03",
@@ -1338,9 +1267,9 @@
     "first_watch_or_likely_date": "2026-08-03",
     "first_watch_or_likely_display": "Mon, Aug 3",
     "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
-    "forecast_volatility_label": "LOW",
-    "forecast_volatility_score": 0,
-    "momentum": "Steady"
+    "forecast_volatility_label": "HIGH",
+    "forecast_volatility_score": 36,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [

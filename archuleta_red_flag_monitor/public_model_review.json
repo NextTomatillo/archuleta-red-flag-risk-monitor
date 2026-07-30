@@ -1,6 +1,32 @@
 {
-  "report_generated_at": "2026-07-29T13:58:32.123013-06:00",
+  "changing_drivers": [
+    "Overall PSPS screening eased from LIKELY to WATCH while the first WATCH-or-higher date remained Mon, Aug 3.",
+    "Jul 29 eased from ELEVATED to LOW as wind fell about 5 mph and RH rose 11 percentage points.",
+    "Aug 3 eased by four points but remains the peak WATCH period.",
+    "Stage 2 restrictions and HIGH official fire danger continue to support elevated preparedness."
+  ],
+  "evidence_ids": [
+    "overall_status",
+    "weather_peaks",
+    "official_alerts",
+    "forecast_change",
+    "lpea_context",
+    "fire_posture",
+    "active_incidents",
+    "calibration"
+  ],
+  "generated_at": "2026-07-29T20:05:13-06:00",
+  "headline": "CONCERN screening continues, with Aug 3 the main WATCH period; no official COZ295 fire alert or active LPEA outage is reported.",
+  "report_generated_at": "2026-07-29T20:04:25.224106-06:00",
   "schema_version": 1,
-  "status": "not_reviewed",
-  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA."
+  "status": "reviewed",
+  "summary": "The highest screening concern is Mon, Aug 3 near Ignacio, where very dry air, wind near 25 mph, and five near-threshold hours produce WATCH estimates. Official checks show zero COZ295 fire-weather alerts and no active LPEA customer outage; the LPEA keyword match is context, not confirmed outage or PSPS intent. Two current Archuleta County wildfires are operational context, with no evacuation order or warning detected.",
+  "uncertainty": "These are rules-based screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged, and LPEA may use operational data not visible here.",
+  "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
+  "watch_items": [
+    "Recheck Aug 3 wind, RH, and the 3 PM-7 PM near-threshold window.",
+    "Confirm whether LPEA active-source language remains general context rather than direct PSPS or outage intent.",
+    "Follow official updates for the Rio Blanco and Blanco fires and any evacuation notices.",
+    "Monitor for any new official COZ295 Red Flag or Fire Weather alert."
+  ]
 }
