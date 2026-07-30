@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Overall PSPS screening eased from LIKELY to WATCH while the first WATCH-or-higher date remained Mon, Aug 3.",
-    "Jul 29 eased from ELEVATED to LOW as wind fell about 5 mph and RH rose 11 percentage points.",
-    "Aug 3 eased by four points but remains the peak WATCH period.",
-    "Stage 2 restrictions and HIGH official fire danger continue to support elevated preparedness."
+    "The first WATCH-or-higher PSPS screening date moved earlier from Monday, Aug 3 to Saturday, Aug 1.",
+    "Saturday, Aug 1 worsened from ELEVATED to WATCH as the driver shifted to Durango and La Plata County.",
+    "Monday, Aug 3 eased by 9 points but remains WATCH.",
+    "Stage 2 restrictions and HIGH fire danger add preparedness context without creating an official alert."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-07-29T20:05:13-06:00",
-  "headline": "CONCERN screening continues, with Aug 3 the main WATCH period; no official COZ295 fire alert or active LPEA outage is reported.",
-  "report_generated_at": "2026-07-29T20:04:25.224106-06:00",
+  "generated_at": "2026-07-30T09:01:48-06:00",
+  "headline": "CONCERN fire-weather and WATCH PSPS screening warrant a heads-up, while no official COZ295 alert or active LPEA outage is reported.",
+  "report_generated_at": "2026-07-30T09:00:35.145541-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The highest screening concern is Mon, Aug 3 near Ignacio, where very dry air, wind near 25 mph, and five near-threshold hours produce WATCH estimates. Official checks show zero COZ295 fire-weather alerts and no active LPEA customer outage; the LPEA keyword match is context, not confirmed outage or PSPS intent. Two current Archuleta County wildfires are operational context, with no evacuation order or warning detected.",
-  "uncertainty": "These are rules-based screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged, and LPEA may use operational data not visible here.",
+  "summary": "Screening peaks Tuesday, Aug 4 near Arboles at VERY HIGH fire potential (78/100), WATCH Red Flag likelihood (71/100), and WATCH PSPS concern (62/100). Official checks found zero COZ295 fire-weather alerts and no active LPEA outage; keyword matches are context, not confirmed outage or shutoff intent. Two current Archuleta County wildfires are reported, including the 440.27-acre Rio Blanco fire at 0% containment, with no current evacuation notice detected.",
+  "uncertainty": "These are screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged and 44 past WATCH or LIKELY days were false watches.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Aug 3 wind, RH, and the 3 PM-7 PM near-threshold window.",
-    "Confirm whether LPEA active-source language remains general context rather than direct PSPS or outage intent.",
-    "Follow official updates for the Rio Blanco and Blanco fires and any evacuation notices.",
-    "Monitor for any new official COZ295 Red Flag or Fire Weather alert."
+    "Monitor official NWS and LPEA updates for Saturday, Aug 1 through Tuesday, Aug 4.",
+    "Recheck Tuesday afternoon near Arboles for RH near 13%, wind or gusts near 25 mph, and dry-thunder overlap.",
+    "Track the Rio Blanco fire and follow any official evacuation direction immediately.",
+    "Confirm whether LPEA keyword matches develop into direct outage or shutoff intent."
   ]
 }

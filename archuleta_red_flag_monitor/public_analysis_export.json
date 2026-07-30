@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-07-29T20:04:25.224106-06:00",
+    "checked_at": "2026-07-30T09:00:35.145541-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -958,10 +958,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "Overall PSPS screening eased from LIKELY to WATCH while the first WATCH-or-higher date remained Mon, Aug 3.",
-      "Jul 29 eased from ELEVATED to LOW as wind fell about 5 mph and RH rose 11 percentage points.",
-      "Aug 3 eased by four points but remains the peak WATCH period.",
-      "Stage 2 restrictions and HIGH official fire danger continue to support elevated preparedness."
+      "The first WATCH-or-higher PSPS screening date moved earlier from Monday, Aug 3 to Saturday, Aug 1.",
+      "Saturday, Aug 1 worsened from ELEVATED to WATCH as the driver shifted to Durango and La Plata County.",
+      "Monday, Aug 3 eased by 9 points but remains WATCH.",
+      "Stage 2 restrictions and HIGH fire danger add preparedness context without creating an official alert."
     ],
     "evidence_ids": [
       "overall_status",
@@ -973,19 +973,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-07-29T20:05:13-06:00",
-    "headline": "CONCERN screening continues, with Aug 3 the main WATCH period; no official COZ295 fire alert or active LPEA outage is reported.",
-    "report_generated_at": "2026-07-29T20:04:25.224106-06:00",
+    "generated_at": "2026-07-30T09:01:48-06:00",
+    "headline": "CONCERN fire-weather and WATCH PSPS screening warrant a heads-up, while no official COZ295 alert or active LPEA outage is reported.",
+    "report_generated_at": "2026-07-30T09:00:35.145541-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The highest screening concern is Mon, Aug 3 near Ignacio, where very dry air, wind near 25 mph, and five near-threshold hours produce WATCH estimates. Official checks show zero COZ295 fire-weather alerts and no active LPEA customer outage; the LPEA keyword match is context, not confirmed outage or PSPS intent. Two current Archuleta County wildfires are operational context, with no evacuation order or warning detected.",
-    "uncertainty": "These are rules-based screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged, and LPEA may use operational data not visible here.",
+    "summary": "Screening peaks Tuesday, Aug 4 near Arboles at VERY HIGH fire potential (78/100), WATCH Red Flag likelihood (71/100), and WATCH PSPS concern (62/100). Official checks found zero COZ295 fire-weather alerts and no active LPEA outage; keyword matches are context, not confirmed outage or shutoff intent. Two current Archuleta County wildfires are reported, including the 440.27-acre Rio Blanco fire at 0% containment, with no current evacuation notice detected.",
+    "uncertainty": "These are screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged and 44 past WATCH or LIKELY days were false watches.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Aug 3 wind, RH, and the 3 PM-7 PM near-threshold window.",
-      "Confirm whether LPEA active-source language remains general context rather than direct PSPS or outage intent.",
-      "Follow official updates for the Rio Blanco and Blanco fires and any evacuation notices.",
-      "Monitor for any new official COZ295 Red Flag or Fire Weather alert."
+      "Monitor official NWS and LPEA updates for Saturday, Aug 1 through Tuesday, Aug 4.",
+      "Recheck Tuesday afternoon near Arboles for RH near 13%, wind or gusts near 25 mph, and dry-thunder overlap.",
+      "Track the Rio Blanco fire and follow any official evacuation direction immediately.",
+      "Confirm whether LPEA keyword matches develop into direct outage or shutoff intent."
     ]
   },
   "confidence": {
@@ -1004,13 +1004,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-07-29T20:04:25.224106-06:00",
+  "generated_at": "2026-07-30T09:00:35.145541-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Ignacio / southeast La Plata County (WATCH 61/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 5 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
-    "trend_summary": "Momentum is easing versus the prior run (Jul 29 at 1:58 PM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Aug 3."
+    "summary": "Highest LPEA PSPS concern is Tue, Aug 4 near Arboles / southwest county (WATCH 62/100), driven by red-flag wind/gust signal near 25 mph; red-flag RH near 13%; 3 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
+    "trend_summary": "Momentum is steady versus the prior run (Jul 29 at 8:04 PM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Aug 1."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -1021,10 +1021,9 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
-    "Overall PSPS likelihood changed from LIKELY to WATCH.",
-    "Wed, Jul 29: easing vs prior run; PSPS ELEVATED -> LOW; score -14, wind -5 mph, RH +11%, red-flag hours 0.",
-    "Mon, Aug 3: easing vs prior run; PSPS LIKELY -> WATCH; score -4, wind 0 mph, RH 0%, red-flag hours 0."
+    "First WATCH-or-higher PSPS date moved earlier from Mon, Aug 3 to Sat, Aug 1.",
+    "Sat, Aug 1: worsening vs prior run; PSPS ELEVATED -> WATCH; score +18, wind +3 mph, RH +1%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
+    "Mon, Aug 3: easing vs prior run; PSPS WATCH -> WATCH; score -9, wind -1 mph, RH +1%, red-flag hours -2."
   ],
   "operational_outage_context": {
     "active": false,
@@ -1033,7 +1032,7 @@
     "areas": [],
     "customers_affected": 0,
     "customers_out_now": 0,
-    "customers_served": 47553,
+    "customers_served": 47560,
     "fire_related": false,
     "headline": "Official LPEA outage data shows no active customer outages.",
     "hits": [],
@@ -1050,47 +1049,49 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-07-29T20:03:10.0929526-06:00"
+    "update_time": "2026-07-30T08:59:14.9970571-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-08-03",
-      "display_date": "Mon, Aug 3",
+      "date": "2026-08-04",
+      "display_date": "Tue, Aug 4",
       "drivers": [
-        "very dry RH near 12%",
-        "wind/gust near 23 mph",
-        "official fire restrictions at STAGE 2",
-        "official fire danger is HIGH"
+        "very dry RH near 13%",
+        "wind/gust near 25 mph",
+        "dry-thunder probability near 20%",
+        "official fire restrictions at STAGE 1"
       ],
-      "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "VERY HIGH",
-      "location": "Durango / La Plata County",
-      "score": 79
+      "location": "Arboles / southwest county",
+      "score": 78
     },
     "psps": {
-      "date": "2026-08-03",
-      "display_date": "Mon, Aug 3",
+      "date": "2026-08-04",
+      "display_date": "Tue, Aug 4",
       "drivers": [
         "red-flag wind/gust signal near 25 mph",
-        "very dry RH near 12%",
-        "5 sampled hours are near red-flag thresholds"
+        "red-flag RH near 13%",
+        "3 sampled hours are near red-flag thresholds",
+        "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
       ],
-      "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "WATCH",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 61
+      "location": "Arboles / southwest county",
+      "score": 62
     },
     "red_flag": {
-      "date": "2026-08-03",
-      "display_date": "Mon, Aug 3",
+      "date": "2026-08-04",
+      "display_date": "Tue, Aug 4",
       "drivers": [
-        "5 near-threshold hours",
-        "RH near 12%",
-        "wind/gust near 25 mph"
+        "3 near-threshold hours",
+        "RH near 13%",
+        "wind/gust near 25 mph",
+        "6 coincident dry-thunder hours near 20%"
       ],
-      "highest_risk_window": "3 PM-7 PM local; 5 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "WATCH",
-      "location": "Ignacio / southeast La Plata County",
+      "location": "Arboles / southwest county",
       "score": 71
     }
   },
@@ -1264,12 +1265,12 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-03",
-    "first_watch_or_likely_display": "Mon, Aug 3",
-    "first_watch_shift": "First WATCH-or-higher PSPS date remains Mon, Aug 3.",
+    "first_watch_or_likely_date": "2026-08-01",
+    "first_watch_or_likely_display": "Sat, Aug 1",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Mon, Aug 3 to Sat, Aug 1.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 36,
-    "momentum": "Easing"
+    "forecast_volatility_score": 40,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
