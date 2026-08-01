@@ -1,6 +1,6 @@
 {
   "active_incidents": {
-    "checked_at": "2026-07-31T17:37:57.020701-06:00",
+    "checked_at": "2026-07-31T18:07:39.747996-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -18,7 +18,7 @@
     "incidents": [
       {
         "acres": 783.3,
-        "acres_note": "The latest NIFC mapped perimeter is 783.30 acres; the NIFC incident-location record currently lists 687.00 acres.",
+        "acres_note": "The latest NIFC mapped perimeter is 783.30 acres; the NIFC incident-location record currently lists 783.00 acres.",
         "acres_preliminary": true,
         "acres_source": "NIFC active fire perimeter",
         "acres_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
@@ -28,7 +28,7 @@
         "discovered_at": "2026-07-28T15:11:00-06:00",
         "distance_miles": 9.9,
         "id": "2026-COSJF-000806",
-        "incident_reported_acres": 687.0,
+        "incident_reported_acres": 783.0,
         "incident_type": "WF",
         "incident_type_label": "Wildfire",
         "jurisdiction": "USFS",
@@ -813,7 +813,7 @@
         "perimeter_geometry_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
         "perimeter_geometry_updated_at": "2026-07-31T10:18:22-06:00",
         "perimeter_source": "2026 NIFS",
-        "updated_at": "2026-07-31T12:59:20.260000-06:00"
+        "updated_at": "2026-07-31T17:38:53.567000-06:00"
       }
     ],
     "largest_wildfire_acres": 783.3,
@@ -833,10 +833,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date moved earlier from Sat, Aug 1 to Fri, Jul 31.",
-      "Overall PSPS screening rose from WATCH to LIKELY.",
-      "Mon, Aug 3 worsened to LIKELY as wind, dryness, and sampled red-flag hours increased.",
-      "Tue, Aug 4 worsened to LIKELY near Arboles, with gusts near 33 mph and RH near 9%."
+      "Forecast momentum is steady, with low volatility (6/100) and no major day-level movement.",
+      "The first WATCH-or-higher PSPS date remains Fri, Jul 31.",
+      "Tue, Aug 4 remains the PSPS screening peak near Arboles at LIKELY 69/100, driven by RH near 9% and wind/gust near 33 mph.",
+      "One current wildfire remains reported; no current evacuation notice was detected."
     ],
     "evidence_ids": [
       "overall_status",
@@ -848,19 +848,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-07-31T17:38:57-06:00",
-    "headline": "HIGH fire-weather screening is focused on Aug 3, while PSPS screening is LIKELY for Aug 3-4 and no official alert or outage is active.",
-    "report_generated_at": "2026-07-31T17:37:57.020701-06:00",
+    "generated_at": "2026-07-31T18:08:37-06:00",
+    "headline": "HIGH fire-weather screening continues, with the strongest PSPS screening on Aug 3-4 and no official COZ295 alert or active LPEA outage.",
+    "report_generated_at": "2026-07-31T18:07:39.747996-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The screening outlook has risen, with HIGH fire-weather conditions on Mon, Aug 3 and the strongest PSPS estimate at LIKELY 69/100 near Arboles on Tue, Aug 4. Official checks show no current National Weather Service alert and no active LPEA outage; the LPEA keyword match is contextual, not confirmation of a planned shutoff. One current Archuleta County wildfire is reported, with no evacuation order or warning detected in the checked county feeds.",
-    "uncertainty": "These are screening estimates, not official forecasts or outage notices; PSPS calibration has no confirmed events and includes 44 prior false-watch days.",
+    "summary": "The monitor places Mon, Aug 3 at HIGH fire-weather screening and Tue, Aug 4 at LIKELY PSPS screening near Arboles, driven by very dry RH and strong wind. Official checks show no COZ295 Red Flag or Fire Weather alert and no active LPEA outage; one current wildfire is reported with no evacuation notice detected. A heads-up remains recommended.",
+    "uncertainty": "These are screening estimates, not official forecasts or calibrated outage probabilities; LPEA operational decisions and thresholds are not visible, and no confirmed PSPS events are logged.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Monitor official NWS alerts for COZ295 as Aug 3 approaches.",
-      "Check LPEA notices for explicit PSPS intent rather than relying on keyword context.",
-      "Track wind and humidity changes for Aug 3-5, especially near Ignacio and Arboles.",
-      "Follow official updates for the Rio Blanco fire and any evacuation instructions."
+      "Recheck Mon, Aug 3 for HIGH fire-weather ingredients near Ignacio and Durango.",
+      "Recheck Tue, Aug 4 for dry, windy conditions near Arboles.",
+      "Confirm any change in official COZ295 alerts or LPEA outage status.",
+      "Follow official incident and evacuation updates for the Rio Blanco wildfire."
     ]
   },
   "area_name": "LPEA service territory PSPS weather monitor",
@@ -981,14 +981,14 @@
         },
         {
           "dry_thunder_hours": 0,
-          "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+          "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
           "max_dry_thunder_percent": null,
-          "max_precip_percent": 1.0,
-          "max_thunder_percent": 1.0,
+          "max_precip_percent": 0.0,
+          "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
-          "min_rh_percent": 12.0,
+          "min_rh_percent": 13.0,
           "name": "Durango / La Plata County",
-          "near_hours": 4,
+          "near_hours": 3,
           "reasons": [
             "Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours."
           ],
@@ -997,14 +997,14 @@
         },
         {
           "dry_thunder_hours": 0,
-          "highest_risk_window": "5 PM-5 PM local; 1 near/red-flag threshold hour.",
+          "highest_risk_window": "Peak ingredients near 9 PM local; RH 24%, wind 21 mph.",
           "max_dry_thunder_percent": null,
           "max_precip_percent": 1.0,
           "max_thunder_percent": 1.0,
           "max_usable_wind_mph": 20.7,
           "min_rh_percent": 14.0,
           "name": "Bayfield / east La Plata County",
-          "near_hours": 1,
+          "near_hours": 0,
           "reasons": [
             "Elevated ingredient present: very low RH forecast near 14%."
           ],
@@ -1013,14 +1013,14 @@
         },
         {
           "dry_thunder_hours": 0,
-          "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+          "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
           "max_dry_thunder_percent": null,
           "max_precip_percent": 0.0,
           "max_thunder_percent": 0.0,
           "max_usable_wind_mph": 23.0,
           "min_rh_percent": 13.0,
           "name": "Ignacio / southeast La Plata County",
-          "near_hours": 4,
+          "near_hours": 3,
           "reasons": [
             "Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours."
           ],
@@ -2037,33 +2037,33 @@
         "date": "2026-07-31",
         "display_date": "Fri, Jul 31",
         "fire_danger_drivers": [
-          "very dry RH near 12%",
+          "very dry RH near 13%",
           "wind/gust near 23 mph",
           "official fire restrictions at STAGE 2",
           "official fire danger is HIGH"
         ],
         "fire_danger_level": "VERY HIGH",
-        "fire_danger_score": 77,
-        "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+        "fire_danger_score": 73,
+        "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
         "location": "Durango / La Plata County",
-        "max_thunder_percent": 1.0,
+        "max_thunder_percent": 0.0,
         "max_wind_mph": 23.0,
-        "min_rh_percent": 12.0,
+        "min_rh_percent": 13.0,
         "psps_drivers": [
           "near-threshold wind/gust signal near 23 mph",
-          "very dry RH near 12%",
-          "4 sampled hours are near red-flag thresholds",
+          "red-flag RH near 13%",
+          "3 sampled hours are near red-flag thresholds",
           "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
         ],
         "psps_level": "WATCH",
-        "psps_score": 56,
+        "psps_score": 48,
         "red_flag_drivers": [
-          "4 near-threshold hours",
-          "RH near 12%",
+          "3 near-threshold hours",
+          "RH near 13%",
           "breezy wind/gust near 23 mph"
         ],
         "red_flag_likelihood": "WATCH",
-        "red_flag_score": 62,
+        "red_flag_score": 55,
         "weather_tier": "CONCERN"
       },
       {
@@ -2077,7 +2077,7 @@
         ],
         "fire_danger_level": "MODERATE",
         "fire_danger_score": 49,
-        "highest_risk_window": "5 PM-5 PM local; 1 near/red-flag threshold hour.",
+        "highest_risk_window": "Peak ingredients near 9 PM local; RH 24%, wind 21 mph.",
         "location": "Bayfield / east La Plata County",
         "max_thunder_percent": 1.0,
         "max_wind_mph": 20.7,
@@ -2106,7 +2106,7 @@
         ],
         "fire_danger_level": "HIGH",
         "fire_danger_score": 55,
-        "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+        "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
         "location": "Ignacio / southeast La Plata County",
         "max_thunder_percent": 0.0,
         "max_wind_mph": 23.0,
@@ -2114,17 +2114,17 @@
         "psps_drivers": [
           "near-threshold wind/gust signal near 23 mph",
           "red-flag RH near 13%",
-          "4 sampled hours are near red-flag thresholds"
+          "3 sampled hours are near red-flag thresholds"
         ],
-        "psps_level": "WATCH",
-        "psps_score": 48,
+        "psps_level": "ELEVATED",
+        "psps_score": 44,
         "red_flag_drivers": [
-          "4 near-threshold hours",
+          "3 near-threshold hours",
           "RH near 13%",
           "breezy wind/gust near 23 mph"
         ],
         "red_flag_likelihood": "WATCH",
-        "red_flag_score": 58,
+        "red_flag_score": 55,
         "weather_tier": "CONCERN"
       },
       {
@@ -3564,7 +3564,7 @@
       }
     ],
     "confidence": {
-      "label": "MEDIUM",
+      "label": "HIGH",
       "reasons": [
         "8/8 sampled weather points available",
         "7/7 fire-posture sources reachable",
@@ -3573,47 +3573,46 @@
         "LPEA active/update sources checked",
         "authoritative NIFC current-incident feed checked for Archuleta County",
         "official Archuleta County evacuation feeds checked",
-        "forecast changed substantially versus prior run",
         "no confirmed PSPS events logged yet for calibration"
       ],
-      "score": 69
+      "score": 77
     },
     "daily_predictions": [
       {
         "date": "2026-07-31",
         "display_date": "Fri, Jul 31",
-        "takeaway": "Fri, Jul 31: highest PSPS concern is Durango / La Plata County (WATCH 56/100), with strongest window 5 PM-8 PM local; 4 near/red-flag threshold hours..",
+        "takeaway": "Fri, Jul 31: highest PSPS concern is Arboles / southwest county (WATCH 50/100), with strongest window 6 PM-7 PM local; 2 near/red-flag threshold hours..",
         "top_fire_danger": {
           "date": "2026-07-31",
           "display_date": "Fri, Jul 31",
           "fire_danger_drivers": [
-            "very dry RH near 12%",
+            "very dry RH near 13%",
             "wind/gust near 23 mph",
             "official fire restrictions at STAGE 2",
             "official fire danger is HIGH"
           ],
           "fire_danger_level": "VERY HIGH",
-          "fire_danger_score": 77,
-          "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+          "fire_danger_score": 73,
+          "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
           "location": "Durango / La Plata County",
-          "max_thunder_percent": 1.0,
+          "max_thunder_percent": 0.0,
           "max_wind_mph": 23.0,
-          "min_rh_percent": 12.0,
+          "min_rh_percent": 13.0,
           "psps_drivers": [
             "near-threshold wind/gust signal near 23 mph",
-            "very dry RH near 12%",
-            "4 sampled hours are near red-flag thresholds",
+            "red-flag RH near 13%",
+            "3 sampled hours are near red-flag thresholds",
             "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
           ],
           "psps_level": "WATCH",
-          "psps_score": 56,
+          "psps_score": 48,
           "red_flag_drivers": [
-            "4 near-threshold hours",
-            "RH near 12%",
+            "3 near-threshold hours",
+            "RH near 13%",
             "breezy wind/gust near 23 mph"
           ],
           "red_flag_likelihood": "WATCH",
-          "red_flag_score": 62,
+          "red_flag_score": 55,
           "weather_tier": "CONCERN"
         },
         "top_psps": {
@@ -3621,32 +3620,31 @@
           "display_date": "Fri, Jul 31",
           "fire_danger_drivers": [
             "very dry RH near 12%",
-            "wind/gust near 23 mph",
-            "official fire restrictions at STAGE 2",
-            "official fire danger is HIGH"
+            "wind/gust near 21 mph",
+            "official fire restrictions at STAGE 1"
           ],
-          "fire_danger_level": "VERY HIGH",
-          "fire_danger_score": 77,
-          "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
-          "location": "Durango / La Plata County",
+          "fire_danger_level": "HIGH",
+          "fire_danger_score": 61,
+          "highest_risk_window": "6 PM-7 PM local; 2 near/red-flag threshold hours.",
+          "location": "Arboles / southwest county",
           "max_thunder_percent": 1.0,
-          "max_wind_mph": 23.0,
+          "max_wind_mph": 20.7,
           "min_rh_percent": 12.0,
           "psps_drivers": [
-            "near-threshold wind/gust signal near 23 mph",
+            "near-threshold wind/gust signal near 21 mph",
             "very dry RH near 12%",
-            "4 sampled hours are near red-flag thresholds",
-            "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+            "2 sampled hours are near red-flag thresholds",
+            "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
           ],
           "psps_level": "WATCH",
-          "psps_score": 56,
+          "psps_score": 50,
           "red_flag_drivers": [
-            "4 near-threshold hours",
+            "2 near-threshold hours",
             "RH near 12%",
-            "breezy wind/gust near 23 mph"
+            "breezy wind/gust near 21 mph"
           ],
           "red_flag_likelihood": "WATCH",
-          "red_flag_score": 62,
+          "red_flag_score": 56,
           "weather_tier": "CONCERN"
         },
         "top_red_flag": {
@@ -3654,32 +3652,31 @@
           "display_date": "Fri, Jul 31",
           "fire_danger_drivers": [
             "very dry RH near 12%",
-            "wind/gust near 23 mph",
-            "official fire restrictions at STAGE 2",
-            "official fire danger is HIGH"
+            "wind/gust near 21 mph",
+            "official fire restrictions at STAGE 1"
           ],
-          "fire_danger_level": "VERY HIGH",
-          "fire_danger_score": 77,
-          "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
-          "location": "Durango / La Plata County",
+          "fire_danger_level": "HIGH",
+          "fire_danger_score": 61,
+          "highest_risk_window": "6 PM-7 PM local; 2 near/red-flag threshold hours.",
+          "location": "Arboles / southwest county",
           "max_thunder_percent": 1.0,
-          "max_wind_mph": 23.0,
+          "max_wind_mph": 20.7,
           "min_rh_percent": 12.0,
           "psps_drivers": [
-            "near-threshold wind/gust signal near 23 mph",
+            "near-threshold wind/gust signal near 21 mph",
             "very dry RH near 12%",
-            "4 sampled hours are near red-flag thresholds",
-            "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
+            "2 sampled hours are near red-flag thresholds",
+            "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
           ],
           "psps_level": "WATCH",
-          "psps_score": 56,
+          "psps_score": 50,
           "red_flag_drivers": [
-            "4 near-threshold hours",
+            "2 near-threshold hours",
             "RH near 12%",
-            "breezy wind/gust near 23 mph"
+            "breezy wind/gust near 21 mph"
           ],
           "red_flag_likelihood": "WATCH",
-          "red_flag_score": 62,
+          "red_flag_score": 56,
           "weather_tier": "CONCERN"
         }
       },
@@ -4386,7 +4383,7 @@
     "matched_lines": [
       "Also, localized critical fire weather is possible through that"
     ],
-    "product_url": "https://api.weather.gov/products/4d4bfa38-4e8d-4df4-9db5-fb1602ef9a73",
+    "product_url": "https://api.weather.gov/products/64e823ba-6f91-4597-85f1-5da23d3a906a",
     "status": "checked",
     "tier": "CONCERN"
   },
@@ -4507,6 +4504,26 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "HIGH",
           "max_fire_restriction_stage": "STAGE 2",
+          "max_near_hours": 3,
+          "max_red_flag_hours": 0,
+          "max_thunder_percent": 4.0,
+          "max_weather_score": 50.0,
+          "max_wind_mph": 23.0,
+          "min_rh_percent": 11.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Arboles / southwest county"
+        },
+        "date": "2026-07-31",
+        "display_date": "Fri, Jul 31",
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "WATCH",
+          "date": "2026-07-31",
+          "fire_weather_tier": "CONCERN",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "HIGH",
+          "max_fire_restriction_stage": "STAGE 2",
           "max_near_hours": 4,
           "max_red_flag_hours": 0,
           "max_thunder_percent": 4.0,
@@ -4516,30 +4533,10 @@
           "official_fire_alert_count": 0,
           "top_location": "Durango / La Plata County"
         },
-        "date": "2026-07-31",
-        "display_date": "Fri, Jul 31",
-        "label": "Worsening",
-        "level_rank_delta": 1,
-        "previous": {
-          "best_psps_level": "ELEVATED",
-          "date": "2026-07-31",
-          "fire_weather_tier": "CONCERN",
-          "lpea_signal_level": "active_wildfire_power_language",
-          "max_fire_danger": "HIGH",
-          "max_fire_restriction_stage": "STAGE 2",
-          "max_near_hours": 2,
-          "max_red_flag_hours": 0,
-          "max_thunder_percent": 23.0,
-          "max_weather_score": 44.0,
-          "max_wind_mph": 23.0,
-          "min_rh_percent": 12.0,
-          "official_fire_alert_count": 0,
-          "top_location": "Ignacio / southeast La Plata County"
-        },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -1.0,
-        "score_delta": 12.0,
-        "summary": "Fri, Jul 31: worsening vs prior run; PSPS ELEVATED -> WATCH; score +12, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
+        "rh_delta_percent": 0.0,
+        "score_delta": -6.0,
+        "summary": "Fri, Jul 31: steady vs prior run; PSPS WATCH -> WATCH; score -6, wind 0 mph, RH 0%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
         "wind_delta_mph": 0.0
       },
       {
@@ -4570,11 +4567,11 @@
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "HIGH",
           "max_fire_restriction_stage": "STAGE 2",
-          "max_near_hours": 2,
+          "max_near_hours": 3,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 16.0,
+          "max_thunder_percent": 25.0,
           "max_weather_score": 48.0,
-          "max_wind_mph": 23.0,
+          "max_wind_mph": 21.9,
           "min_rh_percent": 14.0,
           "official_fire_alert_count": 0,
           "top_location": "Durango / La Plata County"
@@ -4582,8 +4579,8 @@
         "red_flag_hours_delta": 0.0,
         "rh_delta_percent": 0.0,
         "score_delta": 0.0,
-        "summary": "Sat, Aug 1: steady vs prior run; PSPS WATCH -> WATCH; score 0, wind -1 mph, RH 0%, red-flag hours 0.",
-        "wind_delta_mph": -1.1000000000000014
+        "summary": "Sat, Aug 1: steady vs prior run; PSPS WATCH -> WATCH; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4615,17 +4612,17 @@
           "max_fire_restriction_stage": "STAGE 2",
           "max_near_hours": 0,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 15.0,
-          "max_weather_score": 30.0,
+          "max_thunder_percent": 14.0,
+          "max_weather_score": 32.0,
           "max_wind_mph": 19.6,
-          "min_rh_percent": 15.0,
+          "min_rh_percent": 12.0,
           "official_fire_alert_count": 0,
-          "top_location": "Chimney Rock / west county"
+          "top_location": "Arboles / southwest county"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -3.0,
-        "score_delta": 2.0,
-        "summary": "Sun, Aug 2: steady vs prior run; PSPS ELEVATED -> ELEVATED; score +2, wind 0 mph, RH -3%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Sun, Aug 2: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
         "wind_delta_mph": 0.0
       },
       {
@@ -4647,29 +4644,29 @@
         },
         "date": "2026-08-03",
         "display_date": "Mon, Aug 3",
-        "label": "Worsening",
-        "level_rank_delta": 1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "WATCH",
+          "best_psps_level": "LIKELY",
           "date": "2026-08-03",
-          "fire_weather_tier": "CONCERN",
+          "fire_weather_tier": "HIGH",
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "HIGH",
           "max_fire_restriction_stage": "STAGE 2",
           "max_near_hours": 6,
-          "max_red_flag_hours": 0,
-          "max_thunder_percent": 13.0,
-          "max_weather_score": 52.0,
-          "max_wind_mph": 24.2,
-          "min_rh_percent": 11.0,
+          "max_red_flag_hours": 3,
+          "max_thunder_percent": 4.0,
+          "max_weather_score": 67.0,
+          "max_wind_mph": 26.5,
+          "min_rh_percent": 9.0,
           "official_fire_alert_count": 0,
           "top_location": "Ignacio / southeast La Plata County"
         },
-        "red_flag_hours_delta": 3.0,
-        "rh_delta_percent": -2.0,
-        "score_delta": 15.0,
-        "summary": "Mon, Aug 3: worsening vs prior run; PSPS WATCH -> LIKELY; score +15, wind +2 mph, RH -2%, red-flag hours +3.",
-        "wind_delta_mph": 2.3000000000000007
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Mon, Aug 3: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4690,29 +4687,29 @@
         },
         "date": "2026-08-04",
         "display_date": "Tue, Aug 4",
-        "label": "Worsening",
-        "level_rank_delta": 1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "WATCH",
+          "best_psps_level": "LIKELY",
           "date": "2026-08-04",
           "fire_weather_tier": "CONCERN",
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "HIGH",
           "max_fire_restriction_stage": "STAGE 2",
-          "max_near_hours": 3,
-          "max_red_flag_hours": 0,
-          "max_thunder_percent": 43.0,
-          "max_weather_score": 62.0,
-          "max_wind_mph": 25.3,
-          "min_rh_percent": 13.0,
+          "max_near_hours": 6,
+          "max_red_flag_hours": 1,
+          "max_thunder_percent": 19.0,
+          "max_weather_score": 69.0,
+          "max_wind_mph": 33.4,
+          "min_rh_percent": 9.0,
           "official_fire_alert_count": 0,
           "top_location": "Arboles / southwest county"
         },
-        "red_flag_hours_delta": 1.0,
-        "rh_delta_percent": -4.0,
-        "score_delta": 7.0,
-        "summary": "Tue, Aug 4: worsening vs prior run; PSPS WATCH -> LIKELY; score +7, wind +8 mph, RH -4%, red-flag hours +1.",
-        "wind_delta_mph": 8.099999999999998
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Tue, Aug 4: steady vs prior run; PSPS LIKELY -> LIKELY; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4733,29 +4730,29 @@
         },
         "date": "2026-08-05",
         "display_date": "Wed, Aug 5",
-        "label": "Worsening",
-        "level_rank_delta": 1,
+        "label": "Steady",
+        "level_rank_delta": 0,
         "previous": {
-          "best_psps_level": "ELEVATED",
+          "best_psps_level": "WATCH",
           "date": "2026-08-05",
-          "fire_weather_tier": "GREEN",
+          "fire_weather_tier": "CONCERN",
           "lpea_signal_level": "active_wildfire_power_language",
           "max_fire_danger": "HIGH",
           "max_fire_restriction_stage": "STAGE 2",
-          "max_near_hours": 0,
+          "max_near_hours": 2,
           "max_red_flag_hours": 0,
-          "max_thunder_percent": 50.0,
-          "max_weather_score": 26.0,
-          "max_wind_mph": 21.9,
-          "min_rh_percent": 16.0,
+          "max_thunder_percent": 45.0,
+          "max_weather_score": 50.0,
+          "max_wind_mph": 23.0,
+          "min_rh_percent": 12.0,
           "official_fire_alert_count": 0,
-          "top_location": "Durango / La Plata County"
+          "top_location": "Arboles / southwest county"
         },
         "red_flag_hours_delta": 0.0,
-        "rh_delta_percent": -4.0,
-        "score_delta": 24.0,
-        "summary": "Wed, Aug 5: worsening vs prior run; PSPS ELEVATED -> WATCH; score +24, wind +1 mph, RH -4%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-        "wind_delta_mph": 1.1000000000000014
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Wed, Aug 5: steady vs prior run; PSPS WATCH -> WATCH; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       },
       {
         "current": {
@@ -4776,57 +4773,68 @@
         },
         "date": "2026-08-06",
         "display_date": "Thu, Aug 6",
-        "label": "New date",
-        "level_rank_delta": null,
-        "previous": null,
-        "red_flag_hours_delta": null,
-        "rh_delta_percent": null,
-        "score_delta": null,
-        "summary": "Thu, Aug 6: new forecast-window date at ELEVATED 26/100.",
-        "wind_delta_mph": null
+        "label": "Steady",
+        "level_rank_delta": 0,
+        "previous": {
+          "best_psps_level": "ELEVATED",
+          "date": "2026-08-06",
+          "fire_weather_tier": "GREEN",
+          "lpea_signal_level": "active_wildfire_power_language",
+          "max_fire_danger": "HIGH",
+          "max_fire_restriction_stage": "STAGE 2",
+          "max_near_hours": 0,
+          "max_red_flag_hours": 0,
+          "max_thunder_percent": 44.0,
+          "max_weather_score": 26.0,
+          "max_wind_mph": 20.7,
+          "min_rh_percent": 16.0,
+          "official_fire_alert_count": 0,
+          "top_location": "Durango / La Plata County"
+        },
+        "red_flag_hours_delta": 0.0,
+        "rh_delta_percent": 0.0,
+        "score_delta": 0.0,
+        "summary": "Thu, Aug 6: steady vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind 0 mph, RH 0%, red-flag hours 0.",
+        "wind_delta_mph": 0.0
       }
     ],
     "first_watch_or_likely_date": "2026-07-31",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Sat, Aug 1 to Fri, Jul 31.",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Fri, Jul 31.",
     "forecast_volatility": {
-      "changed_day_count": 4,
-      "label": "HIGH",
-      "max_score_delta": 24.0,
-      "score": 56
+      "changed_day_count": 0,
+      "label": "LOW",
+      "max_score_delta": 6.0,
+      "score": 6
     },
     "notable_changes": [
-      "First WATCH-or-higher PSPS date moved earlier from Sat, Aug 1 to Fri, Jul 31.",
-      "Overall PSPS likelihood changed from WATCH to LIKELY.",
-      "Mon, Aug 3: worsening vs prior run; PSPS WATCH -> LIKELY; score +15, wind +2 mph, RH -2%, red-flag hours +3.",
-      "Wed, Aug 5: worsening vs prior run; PSPS ELEVATED -> WATCH; score +24, wind +1 mph, RH -4%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-      "Tue, Aug 4: worsening vs prior run; PSPS WATCH -> LIKELY; score +7, wind +8 mph, RH -4%, red-flag hours +1.",
-      "Fri, Jul 31: worsening vs prior run; PSPS ELEVATED -> WATCH; score +12, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Durango / La Plata County."
+      "First WATCH-or-higher PSPS date remains Fri, Jul 31.",
+      "No major day-level movement versus the prior run."
     ],
-    "previous_first_watch_or_likely_date": "2026-08-01",
-    "previous_overall_psps_level": "WATCH",
-    "previous_run_at": "2026-07-30T09:00:35.145541-06:00",
-    "previous_run_label": "Jul 30 at 9:00 AM MDT",
+    "previous_first_watch_or_likely_date": "2026-07-31",
+    "previous_overall_psps_level": "LIKELY",
+    "previous_run_at": "2026-07-31T17:37:57.020701-06:00",
+    "previous_run_label": "Jul 31 at 5:37 PM MDT",
     "review_cues": [
       "Check whether the largest day-level changes line up with wind/RH movement or public-source context.",
       "Check whether the LPEA active match is still a broad red-flag banner rather than direct PSPS/outage intent.",
       "Watch whether the highest-risk locations remain consistent across runs or the driver area is moving.",
       "If a PSPS occurs, log the confirmed date, location, and source so future hit-rate scoring can improve."
     ],
-    "risk_momentum": "Rising",
+    "risk_momentum": "Steady",
     "status": "compared",
-    "summary": "Momentum is rising versus the prior run (Jul 30 at 9:00 AM MDT); forecast volatility is high and first WATCH-or-higher date is Fri, Jul 31."
+    "summary": "Momentum is steady versus the prior run (Jul 31 at 5:37 PM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, Jul 31."
   },
   "freshness": {
-    "generated_at": "2026-07-31T17:37:57.020701-06:00",
+    "generated_at": "2026-07-31T18:07:39.747996-06:00",
     "late_after": "2026-08-01T06:50:00-06:00",
     "next_scheduled_update_at": "2026-08-01T05:20:00-06:00",
     "note": "Freshness is evaluated in the browser against the scheduled local update windows.",
-    "stale_after": "2026-08-01T08:37:57.020701-06:00",
+    "stale_after": "2026-08-01T09:07:39.747996-06:00",
     "status": "CURRENT",
     "update_grace_minutes": 90
   },
-  "generated_at": "2026-07-31T17:37:57.020701-06:00",
-  "generated_at_utc": "2026-07-31T23:37:57.020701+00:00",
+  "generated_at": "2026-07-31T18:07:39.747996-06:00",
+  "generated_at_utc": "2026-08-01T00:07:39.747996+00:00",
   "local_time_name": "Pagosa Springs, CO",
   "lpea": {
     "active_signal_groups": [
@@ -5058,7 +5066,7 @@
       "status": "checked",
       "summary": "No active outages are listed by the official LPEA outage viewer.",
       "unplanned_outage_count": 0,
-      "update_time": "2026-07-31T17:36:57.7918288-06:00"
+      "update_time": "2026-07-31T18:06:56.9646002-06:00"
     },
     "reference_signal_groups": [
       {
@@ -5468,37 +5476,6 @@
         "driver_locations": [
           {
             "factors": [
-              "near-threshold wind/gust signal near 23 mph",
-              "very dry RH near 12%",
-              "4 sampled hours are near red-flag thresholds"
-            ],
-            "fire_weather_tier": "CONCERN",
-            "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
-            "level": "WATCH",
-            "metrics": {
-              "dry_thunder_hours": 0,
-              "max_dry_thunder_percent": null,
-              "max_near_hours": 4,
-              "max_precip_percent": 1.0,
-              "max_red_flag_hours": 0,
-              "max_thunder_percent": 1.0,
-              "max_usable_wind_mph": 23.0,
-              "min_rh_percent": 12.0
-            },
-            "name": "Durango / La Plata County",
-            "posture_context": {
-              "context_level": "WATCH",
-              "level_floor": "LOW",
-              "reason": "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
-              "score_modifier": 4
-            },
-            "score": 56,
-            "summary": "Weather score 52/100: RH 12%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4. Fire-posture adjustment +4.",
-            "weather_level": "WATCH",
-            "weather_score": 52
-          },
-          {
-            "factors": [
               "near-threshold wind/gust signal near 21 mph",
               "very dry RH near 12%",
               "2 sampled hours are near red-flag thresholds"
@@ -5532,32 +5509,32 @@
             "factors": [
               "near-threshold wind/gust signal near 23 mph",
               "red-flag RH near 13%",
-              "4 sampled hours are near red-flag thresholds"
+              "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
-            "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+            "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "dry_thunder_hours": 0,
               "max_dry_thunder_percent": null,
-              "max_near_hours": 4,
+              "max_near_hours": 3,
               "max_precip_percent": 0.0,
               "max_red_flag_hours": 0,
               "max_thunder_percent": 0.0,
               "max_usable_wind_mph": 23.0,
               "min_rh_percent": 13.0
             },
-            "name": "Ignacio / southeast La Plata County",
+            "name": "Durango / La Plata County",
             "posture_context": {
-              "context_level": "LOW",
+              "context_level": "WATCH",
               "level_floor": "LOW",
-              "reason": "Official fire-posture context for Ignacio / southeast La Plata County is UNKNOWN; fire danger UNKNOWN.",
-              "score_modifier": 0
+              "reason": "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+              "score_modifier": 4
             },
             "score": 48,
-            "summary": "Weather score 48/100: RH 13%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4.",
-            "weather_level": "WATCH",
-            "weather_score": 48
+            "summary": "Weather score 44/100: RH 13%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 3. Fire-posture adjustment +4.",
+            "weather_level": "ELEVATED",
+            "weather_score": 44
           }
         ],
         "fire_weather_tier": "CONCERN",
@@ -5565,37 +5542,6 @@
         "location_scores": [
           {
             "factors": [
-              "near-threshold wind/gust signal near 23 mph",
-              "very dry RH near 12%",
-              "4 sampled hours are near red-flag thresholds"
-            ],
-            "fire_weather_tier": "CONCERN",
-            "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
-            "level": "WATCH",
-            "metrics": {
-              "dry_thunder_hours": 0,
-              "max_dry_thunder_percent": null,
-              "max_near_hours": 4,
-              "max_precip_percent": 1.0,
-              "max_red_flag_hours": 0,
-              "max_thunder_percent": 1.0,
-              "max_usable_wind_mph": 23.0,
-              "min_rh_percent": 12.0
-            },
-            "name": "Durango / La Plata County",
-            "posture_context": {
-              "context_level": "WATCH",
-              "level_floor": "LOW",
-              "reason": "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
-              "score_modifier": 4
-            },
-            "score": 56,
-            "summary": "Weather score 52/100: RH 12%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4. Fire-posture adjustment +4.",
-            "weather_level": "WATCH",
-            "weather_score": 52
-          },
-          {
-            "factors": [
               "near-threshold wind/gust signal near 21 mph",
               "very dry RH near 12%",
               "2 sampled hours are near red-flag thresholds"
@@ -5629,15 +5575,46 @@
             "factors": [
               "near-threshold wind/gust signal near 23 mph",
               "red-flag RH near 13%",
-              "4 sampled hours are near red-flag thresholds"
+              "3 sampled hours are near red-flag thresholds"
             ],
             "fire_weather_tier": "CONCERN",
-            "highest_risk_window": "5 PM-8 PM local; 4 near/red-flag threshold hours.",
+            "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
             "level": "WATCH",
             "metrics": {
               "dry_thunder_hours": 0,
               "max_dry_thunder_percent": null,
-              "max_near_hours": 4,
+              "max_near_hours": 3,
+              "max_precip_percent": 0.0,
+              "max_red_flag_hours": 0,
+              "max_thunder_percent": 0.0,
+              "max_usable_wind_mph": 23.0,
+              "min_rh_percent": 13.0
+            },
+            "name": "Durango / La Plata County",
+            "posture_context": {
+              "context_level": "WATCH",
+              "level_floor": "LOW",
+              "reason": "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+              "score_modifier": 4
+            },
+            "score": 48,
+            "summary": "Weather score 44/100: RH 13%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 3. Fire-posture adjustment +4.",
+            "weather_level": "ELEVATED",
+            "weather_score": 44
+          },
+          {
+            "factors": [
+              "near-threshold wind/gust signal near 23 mph",
+              "red-flag RH near 13%",
+              "3 sampled hours are near red-flag thresholds"
+            ],
+            "fire_weather_tier": "CONCERN",
+            "highest_risk_window": "6 PM-8 PM local; 3 near/red-flag threshold hours.",
+            "level": "ELEVATED",
+            "metrics": {
+              "dry_thunder_hours": 0,
+              "max_dry_thunder_percent": null,
+              "max_near_hours": 3,
               "max_precip_percent": 0.0,
               "max_red_flag_hours": 0,
               "max_thunder_percent": 0.0,
@@ -5651,10 +5628,10 @@
               "reason": "Official fire-posture context for Ignacio / southeast La Plata County is UNKNOWN; fire danger UNKNOWN.",
               "score_modifier": 0
             },
-            "score": 48,
-            "summary": "Weather score 48/100: RH 13%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4.",
-            "weather_level": "WATCH",
-            "weather_score": 48
+            "score": 44,
+            "summary": "Weather score 44/100: RH 13%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 3.",
+            "weather_level": "ELEVATED",
+            "weather_score": 44
           },
           {
             "factors": [
@@ -5662,12 +5639,12 @@
               "red-flag RH near 14%"
             ],
             "fire_weather_tier": "ELEVATED",
-            "highest_risk_window": "5 PM-5 PM local; 1 near/red-flag threshold hour.",
+            "highest_risk_window": "Peak ingredients near 9 PM local; RH 24%, wind 21 mph.",
             "level": "ELEVATED",
             "metrics": {
               "dry_thunder_hours": 0,
               "max_dry_thunder_percent": null,
-              "max_near_hours": 1,
+              "max_near_hours": 0,
               "max_precip_percent": 1.0,
               "max_red_flag_hours": 0,
               "max_thunder_percent": 1.0,
@@ -5682,7 +5659,7 @@
               "score_modifier": 2
             },
             "score": 36,
-            "summary": "Weather score 34/100: RH 14%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 1. Fire-posture adjustment +2.",
+            "summary": "Weather score 34/100: RH 14%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. Fire-posture adjustment +2.",
             "weather_level": "ELEVATED",
             "weather_score": 34
           },
@@ -5808,15 +5785,15 @@
           }
         ],
         "reasons": [
-          "Top weather score 52/100 at Durango / La Plata County. Weather score 52/100: RH 12%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 4.",
-          "near-threshold wind/gust signal near 23 mph",
+          "Top weather score 48/100 at Arboles / southwest county. Weather score 48/100: RH 12%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 2.",
+          "near-threshold wind/gust signal near 21 mph",
           "very dry RH near 12%",
-          "4 sampled hours are near red-flag thresholds",
-          "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
+          "2 sampled hours are near red-flag thresholds",
           "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier.",
+          "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself.",
           "LPEA active/update sources currently contain red-flag, wildfire, or PSPS-relevant language, used as supporting context."
         ],
-        "screening_score": 56,
+        "screening_score": 50,
         "trend": {
           "label": "Starting point",
           "red_flag_hours_delta": null,
@@ -5826,22 +5803,22 @@
           "wind_delta_mph": null
         },
         "weather_factors": [
-          "near-threshold wind/gust signal near 23 mph",
+          "near-threshold wind/gust signal near 21 mph",
           "very dry RH near 12%",
-          "4 sampled hours are near red-flag thresholds"
+          "2 sampled hours are near red-flag thresholds"
         ],
         "weather_level": "WATCH",
         "weather_metrics": {
           "dry_thunder_hours": 0,
           "max_dry_thunder_percent": null,
-          "max_near_hours": 4,
+          "max_near_hours": 2,
           "max_precip_percent": 1.0,
           "max_red_flag_hours": 0,
           "max_thunder_percent": 1.0,
-          "max_usable_wind_mph": 23.0,
+          "max_usable_wind_mph": 20.7,
           "min_rh_percent": 12.0
         },
-        "weather_score": 52
+        "weather_score": 48
       },
       {
         "date": "2026-08-01",
@@ -6134,12 +6111,12 @@
         ],
         "screening_score": 48,
         "trend": {
-          "label": "Easing",
+          "label": "Steady",
           "red_flag_hours_delta": 0.0,
           "rh_delta_percent": 2.0,
-          "score_delta": -8.0,
-          "summary": "Easing: score -8, wind -1 mph, RH +2%, red-flag hours 0 vs prior day.",
-          "wind_delta_mph": -1.1000000000000014
+          "score_delta": -4.0,
+          "summary": "Steady: score -4, wind +1 mph, RH +2%, red-flag hours 0 vs prior day.",
+          "wind_delta_mph": 1.1999999999999993
         },
         "weather_factors": [
           "near-threshold wind/gust signal near 22 mph",

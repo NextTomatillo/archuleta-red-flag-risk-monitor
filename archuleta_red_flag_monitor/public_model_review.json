@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date moved earlier from Sat, Aug 1 to Fri, Jul 31.",
-    "Overall PSPS screening rose from WATCH to LIKELY.",
-    "Mon, Aug 3 worsened to LIKELY as wind, dryness, and sampled red-flag hours increased.",
-    "Tue, Aug 4 worsened to LIKELY near Arboles, with gusts near 33 mph and RH near 9%."
+    "Forecast momentum is steady, with low volatility (6/100) and no major day-level movement.",
+    "The first WATCH-or-higher PSPS date remains Fri, Jul 31.",
+    "Tue, Aug 4 remains the PSPS screening peak near Arboles at LIKELY 69/100, driven by RH near 9% and wind/gust near 33 mph.",
+    "One current wildfire remains reported; no current evacuation notice was detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-07-31T17:38:57-06:00",
-  "headline": "HIGH fire-weather screening is focused on Aug 3, while PSPS screening is LIKELY for Aug 3-4 and no official alert or outage is active.",
-  "report_generated_at": "2026-07-31T17:37:57.020701-06:00",
+  "generated_at": "2026-07-31T18:08:37-06:00",
+  "headline": "HIGH fire-weather screening continues, with the strongest PSPS screening on Aug 3-4 and no official COZ295 alert or active LPEA outage.",
+  "report_generated_at": "2026-07-31T18:07:39.747996-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The screening outlook has risen, with HIGH fire-weather conditions on Mon, Aug 3 and the strongest PSPS estimate at LIKELY 69/100 near Arboles on Tue, Aug 4. Official checks show no current National Weather Service alert and no active LPEA outage; the LPEA keyword match is contextual, not confirmation of a planned shutoff. One current Archuleta County wildfire is reported, with no evacuation order or warning detected in the checked county feeds.",
-  "uncertainty": "These are screening estimates, not official forecasts or outage notices; PSPS calibration has no confirmed events and includes 44 prior false-watch days.",
+  "summary": "The monitor places Mon, Aug 3 at HIGH fire-weather screening and Tue, Aug 4 at LIKELY PSPS screening near Arboles, driven by very dry RH and strong wind. Official checks show no COZ295 Red Flag or Fire Weather alert and no active LPEA outage; one current wildfire is reported with no evacuation notice detected. A heads-up remains recommended.",
+  "uncertainty": "These are screening estimates, not official forecasts or calibrated outage probabilities; LPEA operational decisions and thresholds are not visible, and no confirmed PSPS events are logged.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Monitor official NWS alerts for COZ295 as Aug 3 approaches.",
-    "Check LPEA notices for explicit PSPS intent rather than relying on keyword context.",
-    "Track wind and humidity changes for Aug 3-5, especially near Ignacio and Arboles.",
-    "Follow official updates for the Rio Blanco fire and any evacuation instructions."
+    "Recheck Mon, Aug 3 for HIGH fire-weather ingredients near Ignacio and Durango.",
+    "Recheck Tue, Aug 4 for dry, windy conditions near Arboles.",
+    "Confirm any change in official COZ295 alerts or LPEA outage status.",
+    "Follow official incident and evacuation updates for the Rio Blanco wildfire."
   ]
 }
