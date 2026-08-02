@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS screening date moved later from Jul 31 to Aug 3.",
-    "Aug 6 worsened from ELEVATED to WATCH as humidity fell and winds increased.",
-    "Aug 1 eased from WATCH to ELEVATED as forecast winds declined.",
-    "Forecast momentum is rising and volatility is HIGH at 56/100."
+    "The first WATCH-or-higher PSPS screening date moved earlier from Mon, Aug 3 to Sun, Aug 2.",
+    "Fri, Aug 7 rose from ELEVATED to WATCH as the driver shifted to Arboles / southwest county.",
+    "Sun, Aug 2 rose from ELEVATED to WATCH as the driver shifted to Durango / La Plata County.",
+    "Stage 2 restrictions and HIGH official-source fire danger add preparedness context but do not create an official alert or PSPS notice."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-01T05:45:45-06:00",
-  "headline": "HIGH fire-weather screening centers on Aug 3-4, while no official COZ295 fire alert or active LPEA outage is currently reported.",
-  "report_generated_at": "2026-08-01T05:29:54.108631-06:00",
+  "generated_at": "2026-08-01T18:41:03-06:00",
+  "headline": "HIGH screening is focused on Aug 3-4, while no official COZ295 fire-weather alert or active LPEA outage is currently reported.",
+  "report_generated_at": "2026-08-01T18:35:42.921018-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The monitor recommends a heads-up: screening reaches HIGH on Aug 3-4, with the Aug 3 peak driven by very dry humidity, gusts near 26 mph, and several sampled red-flag hours. These are screening estimates, not official warnings or shutdown notices. Official checks show zero COZ295 fire-weather alerts and no active LPEA outage; one current Archuleta County wildfire is reported, with no evacuation order or warning detected in the checked county feeds.",
-  "uncertainty": "PSPS scores are uncalibrated screening estimates: no confirmed LPEA PSPS events are logged, and 45 past WATCH/LIKELY days did not become confirmed events.",
+  "summary": "The monitor's HIGH tier and LIKELY PSPS screening peak on Mon, Aug 3 near Durango / La Plata County, where very dry air and strong winds drive the estimate; Tue, Aug 4 is also HIGH. These are screening estimates, not official warnings or shutoff notices: official COZ295 alert count is zero, the LPEA outage viewer lists no active outage, and the current fire-incident feed is unavailable.",
+  "uncertainty": "Confidence is medium: weather and public-source coverage are strong, but incident data is incomplete, the forecast changed substantially, and no confirmed LPEA PSPS events are available for calibration.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch for an official NWS COZ295 fire-weather alert for Aug 3-4.",
-    "Check whether LPEA posts direct outage or PSPS intent rather than general keyword context.",
-    "Monitor the Rio Blanco wildfire and official county evacuation feeds.",
-    "Recheck wind, humidity, and red-flag-hour changes for Aug 3-6."
+    "Check official NWS zones for any new Red Flag or Fire Weather alert.",
+    "Recheck the official LPEA outage viewer and active updates for a direct operational notice.",
+    "Watch Aug 3-4 wind, humidity, and red-flag-hour forecasts for further changes.",
+    "Recheck official incident and evacuation sources because the current incident feed is unavailable."
   ]
 }

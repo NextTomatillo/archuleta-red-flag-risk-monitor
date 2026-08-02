@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-01T05:29:54.108631-06:00",
+    "checked_at": "2026-08-01T18:35:42.921018-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -12,811 +12,11 @@
       "status": "none_detected",
       "warning_count": 0
     },
-    "headline": "1 current wildfire reported in Archuleta County; no current evacuation notice detected in checked county feeds.",
-    "incident_count": 1,
-    "incident_source_status": "checked",
-    "incidents": [
-      {
-        "acres": 783.3,
-        "acres_note": "The latest NIFC mapped perimeter is 783.30 acres; the NIFC incident-location record currently lists 783.00 acres.",
-        "acres_preliminary": true,
-        "acres_source": "NIFC active fire perimeter",
-        "acres_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
-        "acres_updated_at": "2026-07-31T10:18:22-06:00",
-        "cause": "Natural",
-        "description": "10 Miles S from Pagosa Springs, CO",
-        "discovered_at": "2026-07-28T15:11:00-06:00",
-        "distance_miles": 9.9,
-        "id": "2026-COSJF-000806",
-        "incident_reported_acres": 783.0,
-        "incident_type": "WF",
-        "incident_type_label": "Wildfire",
-        "jurisdiction": "USFS",
-        "latitude": 37.124654922175075,
-        "longitude": -106.9852172787435,
-        "mapped_perimeter_acres": 783.3,
-        "name": "Rio Blanco",
-        "nearest_area": "Chromo / southeast county",
-        "percent_contained": 0.0,
-        "perimeter_geometry": {
-          "coordinates": [
-            [
-              [
-                -106.963944,
-                37.138553
-              ],
-              [
-                -106.963406,
-                37.138392
-              ],
-              [
-                -106.963584,
-                37.138174
-              ],
-              [
-                -106.963535,
-                37.137982
-              ],
-              [
-                -106.963097,
-                37.137618
-              ],
-              [
-                -106.963036,
-                37.137357
-              ],
-              [
-                -106.962623,
-                37.137015
-              ],
-              [
-                -106.96266,
-                37.136838
-              ],
-              [
-                -106.962469,
-                37.136887
-              ],
-              [
-                -106.961939,
-                37.136669
-              ],
-              [
-                -106.962697,
-                37.136145
-              ],
-              [
-                -106.963664,
-                37.135611
-              ],
-              [
-                -106.964848,
-                37.134077
-              ],
-              [
-                -106.965533,
-                37.133013
-              ],
-              [
-                -106.96633,
-                37.132811
-              ],
-              [
-                -106.966637,
-                37.131977
-              ],
-              [
-                -106.966593,
-                37.131291
-              ],
-              [
-                -106.966498,
-                37.130611
-              ],
-              [
-                -106.965966,
-                37.129447
-              ],
-              [
-                -106.965087,
-                37.128961
-              ],
-              [
-                -106.965063,
-                37.128333
-              ],
-              [
-                -106.964695,
-                37.127898
-              ],
-              [
-                -106.963998,
-                37.126908
-              ],
-              [
-                -106.964099,
-                37.126101
-              ],
-              [
-                -106.964365,
-                37.124962
-              ],
-              [
-                -106.964995,
-                37.12383
-              ],
-              [
-                -106.966166,
-                37.123229
-              ],
-              [
-                -106.96659,
-                37.12371
-              ],
-              [
-                -106.967516,
-                37.123206
-              ],
-              [
-                -106.968216,
-                37.123276
-              ],
-              [
-                -106.968533,
-                37.123589
-              ],
-              [
-                -106.969207,
-                37.124213
-              ],
-              [
-                -106.969718,
-                37.124412
-              ],
-              [
-                -106.97047,
-                37.124839
-              ],
-              [
-                -106.971027,
-                37.124889
-              ],
-              [
-                -106.971339,
-                37.124549
-              ],
-              [
-                -106.971822,
-                37.123868
-              ],
-              [
-                -106.972528,
-                37.123423
-              ],
-              [
-                -106.973358,
-                37.12321
-              ],
-              [
-                -106.973848,
-                37.123188
-              ],
-              [
-                -106.974386,
-                37.123159
-              ],
-              [
-                -106.975122,
-                37.123218
-              ],
-              [
-                -106.975656,
-                37.123176
-              ],
-              [
-                -106.975672,
-                37.123162
-              ],
-              [
-                -106.975739,
-                37.123169
-              ],
-              [
-                -106.975824,
-                37.123163
-              ],
-              [
-                -106.975828,
-                37.123179
-              ],
-              [
-                -106.977105,
-                37.123318
-              ],
-              [
-                -106.977823,
-                37.123652
-              ],
-              [
-                -106.97824,
-                37.124247
-              ],
-              [
-                -106.977754,
-                37.124857
-              ],
-              [
-                -106.977901,
-                37.125318
-              ],
-              [
-                -106.978397,
-                37.125746
-              ],
-              [
-                -106.97859,
-                37.125614
-              ],
-              [
-                -106.97885,
-                37.125579
-              ],
-              [
-                -106.979866,
-                37.125324
-              ],
-              [
-                -106.980164,
-                37.125192
-              ],
-              [
-                -106.980482,
-                37.125044
-              ],
-              [
-                -106.980823,
-                37.124965
-              ],
-              [
-                -106.980825,
-                37.1253
-              ],
-              [
-                -106.980586,
-                37.125833
-              ],
-              [
-                -106.981027,
-                37.125835
-              ],
-              [
-                -106.981677,
-                37.125737
-              ],
-              [
-                -106.982035,
-                37.126035
-              ],
-              [
-                -106.982282,
-                37.12669
-              ],
-              [
-                -106.982715,
-                37.126554
-              ],
-              [
-                -106.982577,
-                37.125981
-              ],
-              [
-                -106.98272,
-                37.125617
-              ],
-              [
-                -106.982318,
-                37.1254
-              ],
-              [
-                -106.982391,
-                37.125218
-              ],
-              [
-                -106.982757,
-                37.125437
-              ],
-              [
-                -106.983191,
-                37.125832
-              ],
-              [
-                -106.983562,
-                37.126064
-              ],
-              [
-                -106.983782,
-                37.125804
-              ],
-              [
-                -106.983597,
-                37.1254
-              ],
-              [
-                -106.98363,
-                37.125106
-              ],
-              [
-                -106.984109,
-                37.124921
-              ],
-              [
-                -106.984858,
-                37.124774
-              ],
-              [
-                -106.985332,
-                37.124642
-              ],
-              [
-                -106.98561,
-                37.124403
-              ],
-              [
-                -106.985867,
-                37.124408
-              ],
-              [
-                -106.986092,
-                37.124585
-              ],
-              [
-                -106.986135,
-                37.124711
-              ],
-              [
-                -106.986742,
-                37.124891
-              ],
-              [
-                -106.987383,
-                37.125255
-              ],
-              [
-                -106.988174,
-                37.126031
-              ],
-              [
-                -106.987698,
-                37.126467
-              ],
-              [
-                -106.987989,
-                37.126872
-              ],
-              [
-                -106.988615,
-                37.126704
-              ],
-              [
-                -106.989401,
-                37.127516
-              ],
-              [
-                -106.989815,
-                37.128518
-              ],
-              [
-                -106.990182,
-                37.129182
-              ],
-              [
-                -106.990413,
-                37.130392
-              ],
-              [
-                -106.990328,
-                37.13136
-              ],
-              [
-                -106.990586,
-                37.132552
-              ],
-              [
-                -106.990036,
-                37.133727
-              ],
-              [
-                -106.989436,
-                37.134005
-              ],
-              [
-                -106.989399,
-                37.134003
-              ],
-              [
-                -106.989617,
-                37.134584
-              ],
-              [
-                -106.989476,
-                37.135369
-              ],
-              [
-                -106.987811,
-                37.135927
-              ],
-              [
-                -106.987238,
-                37.135717
-              ],
-              [
-                -106.986958,
-                37.134957
-              ],
-              [
-                -106.986749,
-                37.135189
-              ],
-              [
-                -106.98614,
-                37.1361
-              ],
-              [
-                -106.985633,
-                37.136919
-              ],
-              [
-                -106.985026,
-                37.137389
-              ],
-              [
-                -106.984838,
-                37.137632
-              ],
-              [
-                -106.9845,
-                37.138091
-              ],
-              [
-                -106.98441,
-                37.138002
-              ],
-              [
-                -106.983826,
-                37.1379
-              ],
-              [
-                -106.983077,
-                37.138118
-              ],
-              [
-                -106.982902,
-                37.138024
-              ],
-              [
-                -106.982419,
-                37.137509
-              ],
-              [
-                -106.982038,
-                37.137481
-              ],
-              [
-                -106.981965,
-                37.137549
-              ],
-              [
-                -106.98197,
-                37.137855
-              ],
-              [
-                -106.981919,
-                37.138046
-              ],
-              [
-                -106.981651,
-                37.138077
-              ],
-              [
-                -106.981438,
-                37.138124
-              ],
-              [
-                -106.981,
-                37.138382
-              ],
-              [
-                -106.980609,
-                37.138533
-              ],
-              [
-                -106.980326,
-                37.138442
-              ],
-              [
-                -106.980062,
-                37.138201
-              ],
-              [
-                -106.979412,
-                37.137914
-              ],
-              [
-                -106.979347,
-                37.137776
-              ],
-              [
-                -106.979233,
-                37.137723
-              ],
-              [
-                -106.979111,
-                37.137627
-              ],
-              [
-                -106.97905,
-                37.137742
-              ],
-              [
-                -106.979129,
-                37.137897
-              ],
-              [
-                -106.979075,
-                37.138262
-              ],
-              [
-                -106.978894,
-                37.138374
-              ],
-              [
-                -106.97883,
-                37.138406
-              ],
-              [
-                -106.978452,
-                37.138357
-              ],
-              [
-                -106.978263,
-                37.138171
-              ],
-              [
-                -106.978284,
-                37.1384
-              ],
-              [
-                -106.978269,
-                37.138493
-              ],
-              [
-                -106.978061,
-                37.138565
-              ],
-              [
-                -106.977909,
-                37.13854
-              ],
-              [
-                -106.977795,
-                37.138414
-              ],
-              [
-                -106.977628,
-                37.138306
-              ],
-              [
-                -106.977427,
-                37.138181
-              ],
-              [
-                -106.977327,
-                37.138031
-              ],
-              [
-                -106.977114,
-                37.138011
-              ],
-              [
-                -106.976915,
-                37.137939
-              ],
-              [
-                -106.976808,
-                37.137757
-              ],
-              [
-                -106.976682,
-                37.137663
-              ],
-              [
-                -106.976398,
-                37.137655
-              ],
-              [
-                -106.976116,
-                37.137437
-              ],
-              [
-                -106.975947,
-                37.137348
-              ],
-              [
-                -106.974669,
-                37.137173
-              ],
-              [
-                -106.974679,
-                37.137386
-              ],
-              [
-                -106.97448,
-                37.137655
-              ],
-              [
-                -106.974196,
-                37.137623
-              ],
-              [
-                -106.974068,
-                37.137493
-              ],
-              [
-                -106.973828,
-                37.137375
-              ],
-              [
-                -106.97375,
-                37.137078
-              ],
-              [
-                -106.973237,
-                37.137172
-              ],
-              [
-                -106.972906,
-                37.137125
-              ],
-              [
-                -106.972514,
-                37.137344
-              ],
-              [
-                -106.972079,
-                37.137132
-              ],
-              [
-                -106.97168,
-                37.137158
-              ],
-              [
-                -106.971007,
-                37.1373
-              ],
-              [
-                -106.970457,
-                37.137269
-              ],
-              [
-                -106.970118,
-                37.136866
-              ],
-              [
-                -106.970091,
-                37.13681
-              ],
-              [
-                -106.969974,
-                37.13644
-              ],
-              [
-                -106.969705,
-                37.136123
-              ],
-              [
-                -106.969555,
-                37.135772
-              ],
-              [
-                -106.969475,
-                37.135373
-              ],
-              [
-                -106.969128,
-                37.134556
-              ],
-              [
-                -106.96874,
-                37.134515
-              ],
-              [
-                -106.968231,
-                37.134967
-              ],
-              [
-                -106.968332,
-                37.135331
-              ],
-              [
-                -106.968225,
-                37.135733
-              ],
-              [
-                -106.967878,
-                37.136254
-              ],
-              [
-                -106.967963,
-                37.136773
-              ],
-              [
-                -106.968205,
-                37.137078
-              ],
-              [
-                -106.968569,
-                37.137623
-              ],
-              [
-                -106.968336,
-                37.137881
-              ],
-              [
-                -106.968119,
-                37.138179
-              ],
-              [
-                -106.967879,
-                37.1383
-              ],
-              [
-                -106.967272,
-                37.13839
-              ],
-              [
-                -106.966983,
-                37.138373
-              ],
-              [
-                -106.966307,
-                37.138326
-              ],
-              [
-                -106.965861,
-                37.138655
-              ],
-              [
-                -106.965398,
-                37.138612
-              ],
-              [
-                -106.965024,
-                37.138684
-              ],
-              [
-                -106.964736,
-                37.13878
-              ],
-              [
-                -106.964414,
-                37.138801
-              ],
-              [
-                -106.963944,
-                37.138553
-              ]
-            ]
-          ],
-          "type": "Polygon"
-        },
-        "perimeter_geometry_source": "NIFC WFIGS active-fire perimeter",
-        "perimeter_geometry_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
-        "perimeter_geometry_updated_at": "2026-07-31T10:18:22-06:00",
-        "perimeter_source": "2026 NIFS",
-        "updated_at": "2026-07-31T19:16:55.857000-06:00"
-      }
-    ],
-    "largest_wildfire_acres": 783.3,
+    "headline": "Current Archuleta County fire incident status is unavailable.",
+    "incident_count": 0,
+    "incident_source_status": "unavailable",
+    "incidents": [],
+    "largest_wildfire_acres": 0,
     "links": {
       "county_alert_signup": "https://www.archuletacounty.gov/community/welcome-to-archuleta-county/news/sign-up-for-updates/",
       "county_fire_updates": "https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/",
@@ -825,18 +25,18 @@
       "nixle": "https://nixle.us/archuleta-county-office-of-emergency-management-aux/",
       "watch_duty": "https://app.watchduty.org/"
     },
-    "material_wildfire_count": 1,
+    "material_wildfire_count": 0,
     "perimeter_source_status": "checked",
     "prescribed_fire_count": 0,
-    "status": "checked",
-    "wildfire_count": 1
+    "status": "partial",
+    "wildfire_count": 0
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS screening date moved later from Jul 31 to Aug 3.",
-      "Aug 6 worsened from ELEVATED to WATCH as humidity fell and winds increased.",
-      "Aug 1 eased from WATCH to ELEVATED as forecast winds declined.",
-      "Forecast momentum is rising and volatility is HIGH at 56/100."
+      "The first WATCH-or-higher PSPS screening date moved earlier from Mon, Aug 3 to Sun, Aug 2.",
+      "Fri, Aug 7 rose from ELEVATED to WATCH as the driver shifted to Arboles / southwest county.",
+      "Sun, Aug 2 rose from ELEVATED to WATCH as the driver shifted to Durango / La Plata County.",
+      "Stage 2 restrictions and HIGH official-source fire danger add preparedness context but do not create an official alert or PSPS notice."
     ],
     "evidence_ids": [
       "overall_status",
@@ -848,19 +48,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-01T05:45:45-06:00",
-    "headline": "HIGH fire-weather screening centers on Aug 3-4, while no official COZ295 fire alert or active LPEA outage is currently reported.",
-    "report_generated_at": "2026-08-01T05:29:54.108631-06:00",
+    "generated_at": "2026-08-01T18:41:03-06:00",
+    "headline": "HIGH screening is focused on Aug 3-4, while no official COZ295 fire-weather alert or active LPEA outage is currently reported.",
+    "report_generated_at": "2026-08-01T18:35:42.921018-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The monitor recommends a heads-up: screening reaches HIGH on Aug 3-4, with the Aug 3 peak driven by very dry humidity, gusts near 26 mph, and several sampled red-flag hours. These are screening estimates, not official warnings or shutdown notices. Official checks show zero COZ295 fire-weather alerts and no active LPEA outage; one current Archuleta County wildfire is reported, with no evacuation order or warning detected in the checked county feeds.",
-    "uncertainty": "PSPS scores are uncalibrated screening estimates: no confirmed LPEA PSPS events are logged, and 45 past WATCH/LIKELY days did not become confirmed events.",
+    "summary": "The monitor's HIGH tier and LIKELY PSPS screening peak on Mon, Aug 3 near Durango / La Plata County, where very dry air and strong winds drive the estimate; Tue, Aug 4 is also HIGH. These are screening estimates, not official warnings or shutoff notices: official COZ295 alert count is zero, the LPEA outage viewer lists no active outage, and the current fire-incident feed is unavailable.",
+    "uncertainty": "Confidence is medium: weather and public-source coverage are strong, but incident data is incomplete, the forecast changed substantially, and no confirmed LPEA PSPS events are available for calibration.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Watch for an official NWS COZ295 fire-weather alert for Aug 3-4.",
-      "Check whether LPEA posts direct outage or PSPS intent rather than general keyword context.",
-      "Monitor the Rio Blanco wildfire and official county evacuation feeds.",
-      "Recheck wind, humidity, and red-flag-hour changes for Aug 3-6."
+      "Check official NWS zones for any new Red Flag or Fire Weather alert.",
+      "Recheck the official LPEA outage viewer and active updates for a direct operational notice.",
+      "Watch Aug 3-4 wind, humidity, and red-flag-hour forecasts for further changes.",
+      "Recheck official incident and evacuation sources because the current incident feed is unavailable."
     ]
   },
   "confidence": {
@@ -871,7 +71,7 @@
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "authoritative NIFC current-incident feed checked for Archuleta County",
+      "current Archuleta County fire-incident data is partially or fully unavailable",
       "official Archuleta County evacuation feeds checked",
       "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
@@ -879,13 +79,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-01T05:29:54.108631-06:00",
+  "generated_at": "2026-08-01T18:35:42.921018-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Bayfield / east La Plata County (LIKELY 73/100), driven by red-flag wind/gust signal near 26 mph; very dry RH near 12%; 4 sampled hours meet red-flag screen. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is rising versus the prior run (Jul 31 at 6:07 PM MDT); forecast volatility is high and first WATCH-or-higher date is Mon, Aug 3."
+    "summary": "Highest LPEA PSPS concern is Mon, Aug 3 near Durango / La Plata County (LIKELY 75/100), driven by red-flag wind/gust signal near 26 mph; very dry RH near 10%; 4 sampled hours meet red-flag screen.",
+    "trend_summary": "Momentum is rising versus the prior run (Aug 1 at 5:29 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, Aug 2."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -896,11 +96,9 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Fri, Jul 31 to Mon, Aug 3.",
-    "Thu, Aug 6: worsening vs prior run; PSPS ELEVATED -> WATCH; score +24, wind +2 mph, RH -3%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Sat, Aug 1: easing vs prior run; PSPS WATCH -> ELEVATED; score -18, wind -4 mph, RH 0%, red-flag hours 0.",
-    "Wed, Aug 5: worsening vs prior run; PSPS WATCH -> WATCH; score +11, wind +4 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
-    "Tue, Aug 4: worsening vs prior run; PSPS LIKELY -> LIKELY; score -2, wind -4 mph, RH 0%, red-flag hours +2. Driver shifted to Ignacio / southeast La Plata County."
+    "First WATCH-or-higher PSPS date moved earlier from Mon, Aug 3 to Sun, Aug 2.",
+    "Fri, Aug 7: worsening vs prior run; PSPS ELEVATED -> WATCH; score +18, wind +1 mph, RH -3%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Sun, Aug 2: worsening vs prior run; PSPS ELEVATED -> WATCH; score +16, wind +1 mph, RH +1%, red-flag hours 0. Driver shifted to Durango / La Plata County."
   ],
   "operational_outage_context": {
     "active": false,
@@ -926,14 +124,14 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-08-01T05:29:05.2404964-06:00"
+    "update_time": "2026-08-01T18:35:04.1740471-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-03",
       "display_date": "Mon, Aug 3",
       "drivers": [
-        "very dry RH near 11%",
+        "very dry RH near 10%",
         "wind/gust near 26 mph",
         "official fire restrictions at STAGE 2",
         "official fire danger is HIGH"
@@ -941,33 +139,33 @@
       "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
       "level": "EXTREME",
       "location": "Durango / La Plata County",
-      "score": 87
+      "score": 90
     },
     "psps": {
       "date": "2026-08-03",
       "display_date": "Mon, Aug 3",
       "drivers": [
         "red-flag wind/gust signal near 26 mph",
-        "very dry RH near 12%",
+        "very dry RH near 10%",
         "4 sampled hours meet red-flag screen",
-        "Official fire-posture context for Bayfield / east La Plata County is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier."
+        "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
       "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Bayfield / east La Plata County",
-      "score": 73
+      "location": "Durango / La Plata County",
+      "score": 75
     },
     "red_flag": {
       "date": "2026-08-03",
       "display_date": "Mon, Aug 3",
       "drivers": [
         "4 sampled red-flag hours",
-        "RH near 12%",
+        "RH near 10%",
         "wind/gust near 26 mph"
       ],
       "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Bayfield / east La Plata County",
+      "location": "Durango / La Plata County",
       "score": 84
     }
   },
@@ -1144,11 +342,11 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-03",
-    "first_watch_or_likely_display": "Mon, Aug 3",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Fri, Jul 31 to Mon, Aug 3.",
+    "first_watch_or_likely_date": "2026-08-02",
+    "first_watch_or_likely_display": "Sun, Aug 2",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Mon, Aug 3 to Sun, Aug 2.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 56,
+    "forecast_volatility_score": 40,
     "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
