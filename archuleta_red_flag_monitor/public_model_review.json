@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Forecast momentum is rising, while the first WATCH-or-higher screening date remains Sun, Aug 2.",
-    "Fri, Aug 7 remains WATCH but its screening score rose 8 points as minimum humidity fell 1 percentage point.",
-    "The Aug 3 peak remains LIKELY, with very dry humidity, gusts near 26 mph, and four sampled red-flag-screen hours.",
-    "Rio Blanco is reported at 1,011 acres and 13% containment, with no current evacuation notice detected in checked county feeds."
+    "Momentum is steady and forecast volatility is low at 6/100.",
+    "The first WATCH-or-higher PSPS screening date remains Sunday, Aug 2.",
+    "No major day-level movement is identified versus the prior run.",
+    "Stage 2 restrictions and HIGH official fire danger remain supporting fire-posture context."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-02T05:40:06-06:00",
-  "headline": "HIGH fire-weather screening continues, peaking Aug 3-4, while no official NWS fire alert or fire-related LPEA outage is identified.",
-  "report_generated_at": "2026-08-02T05:24:24.255605-06:00",
+  "generated_at": "2026-08-02T17:27:00-06:00",
+  "headline": "HIGH screening continues for Monday and Tuesday, while no official COZ295 fire alert or active LPEA outage is reported.",
+  "report_generated_at": "2026-08-02T17:23:56.429641-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The screening outlook is HIGH with LIKELY PSPS conditions on Aug 3-4, led by dry humidity, strong wind, and multiple sampled red-flag-screen hours. Officially, there are zero active NWS fire-weather alerts, and LPEA reports one planned outage affecting 38 customers with no fire-weather or PSPS cause identified. Rio Blanco remains an active wildfire, while checked county feeds show no current evacuation order or warning.",
-  "uncertainty": "These are rules-based screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged, 46 prior WATCH/LIKELY days were false watches, and conditions may change.",
+  "summary": "Rules-based screening is HIGH, with Monday's peak near Ignacio driven by RH near 11%, gusts near 31 mph, and five sampled red-flag hours; Tuesday also screens HIGH. These are screening estimates, not official alerts or shutoff notices: COZ295 has zero active fire alerts, the official LPEA viewer lists no active outages, and the keyword signal is contextual. Rio Blanco remains reported at 1,011 acres and 13% containment, with no current evacuation notice detected.",
+  "uncertainty": "Confidence is medium because 7 of 8 weather points were available and no confirmed LPEA PSPS events exist for calibration; 46 past WATCH or LIKELY days did not become confirmed events.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check NWS zones for any new official Red Flag Warning or Fire Weather Watch.",
-    "Recheck whether the planned LPEA outage remains active and whether LPEA identifies any fire-weather or PSPS cause.",
-    "Track wind, humidity, and sampled red-flag hours for the Aug 3-4 peak.",
-    "Follow official Rio Blanco containment and evacuation updates."
+    "Watch Monday from 1 PM to 7 PM for the strongest dry and windy overlap near Ignacio.",
+    "Recheck COZ295 for any official Red Flag or Fire Weather alert issuance.",
+    "Check the official LPEA outage viewer for operational changes or explicit PSPS language.",
+    "Follow official incident and evacuation sources for Rio Blanco updates."
   ]
 }
