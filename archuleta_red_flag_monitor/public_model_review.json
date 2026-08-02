@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS screening date moved earlier from Mon, Aug 3 to Sun, Aug 2.",
-    "Fri, Aug 7 rose from ELEVATED to WATCH as the driver shifted to Arboles / southwest county.",
-    "Sun, Aug 2 rose from ELEVATED to WATCH as the driver shifted to Durango / La Plata County.",
-    "Stage 2 restrictions and HIGH official-source fire danger add preparedness context but do not create an official alert or PSPS notice."
+    "Forecast momentum is rising, while the first WATCH-or-higher screening date remains Sun, Aug 2.",
+    "Fri, Aug 7 remains WATCH but its screening score rose 8 points as minimum humidity fell 1 percentage point.",
+    "The Aug 3 peak remains LIKELY, with very dry humidity, gusts near 26 mph, and four sampled red-flag-screen hours.",
+    "Rio Blanco is reported at 1,011 acres and 13% containment, with no current evacuation notice detected in checked county feeds."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-01T18:41:03-06:00",
-  "headline": "HIGH screening is focused on Aug 3-4, while no official COZ295 fire-weather alert or active LPEA outage is currently reported.",
-  "report_generated_at": "2026-08-01T18:35:42.921018-06:00",
+  "generated_at": "2026-08-02T05:40:06-06:00",
+  "headline": "HIGH fire-weather screening continues, peaking Aug 3-4, while no official NWS fire alert or fire-related LPEA outage is identified.",
+  "report_generated_at": "2026-08-02T05:24:24.255605-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The monitor's HIGH tier and LIKELY PSPS screening peak on Mon, Aug 3 near Durango / La Plata County, where very dry air and strong winds drive the estimate; Tue, Aug 4 is also HIGH. These are screening estimates, not official warnings or shutoff notices: official COZ295 alert count is zero, the LPEA outage viewer lists no active outage, and the current fire-incident feed is unavailable.",
-  "uncertainty": "Confidence is medium: weather and public-source coverage are strong, but incident data is incomplete, the forecast changed substantially, and no confirmed LPEA PSPS events are available for calibration.",
+  "summary": "The screening outlook is HIGH with LIKELY PSPS conditions on Aug 3-4, led by dry humidity, strong wind, and multiple sampled red-flag-screen hours. Officially, there are zero active NWS fire-weather alerts, and LPEA reports one planned outage affecting 38 customers with no fire-weather or PSPS cause identified. Rio Blanco remains an active wildfire, while checked county feeds show no current evacuation order or warning.",
+  "uncertainty": "These are rules-based screening estimates, not official or calibrated probabilities; no confirmed LPEA PSPS events are logged, 46 prior WATCH/LIKELY days were false watches, and conditions may change.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check official NWS zones for any new Red Flag or Fire Weather alert.",
-    "Recheck the official LPEA outage viewer and active updates for a direct operational notice.",
-    "Watch Aug 3-4 wind, humidity, and red-flag-hour forecasts for further changes.",
-    "Recheck official incident and evacuation sources because the current incident feed is unavailable."
+    "Check NWS zones for any new official Red Flag Warning or Fire Weather Watch.",
+    "Recheck whether the planned LPEA outage remains active and whether LPEA identifies any fire-weather or PSPS cause.",
+    "Track wind, humidity, and sampled red-flag hours for the Aug 3-4 peak.",
+    "Follow official Rio Blanco containment and evacuation updates."
   ]
 }
