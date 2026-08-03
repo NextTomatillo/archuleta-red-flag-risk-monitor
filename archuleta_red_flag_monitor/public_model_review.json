@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Thu, Aug 6 worsened from WATCH to LIKELY as wind increased 7 mph, RH fell 3 points, and four more hours met the red-flag screen.",
-    "Wed, Aug 5 worsened from WATCH to LIKELY with a 9-point score increase.",
-    "The first WATCH-or-higher screening date moved later from Sun, Aug 2 to Mon, Aug 3.",
-    "One unplanned LPEA outage affects 38 customers near Pagosa Springs, with no identified fire-weather or PSPS cause."
+    "Overall momentum is easing, though forecast volatility remains HIGH.",
+    "Mon, Aug 3 eased from LIKELY to WATCH as wind fell 5 mph and the driver shifted to Ignacio.",
+    "Wed, Aug 5 eased from LIKELY to WATCH, and Sat, Aug 8 eased from WATCH to ELEVATED.",
+    "Thu, Aug 6 remains the peak, with RH near 7%, wind/gust near 29 mph, and four sampled red-flag hours."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-03T06:04:22-06:00",
-  "headline": "HIGH fire-weather screening continues, with LIKELY PSPS screening through Thu, Aug 6 and no active official COZ295 alert.",
-  "report_generated_at": "2026-08-03T05:32:41.279658-06:00",
+  "generated_at": "2026-08-03T17:29:39-06:00",
+  "headline": "HIGH screening continues, led by Tue, Aug 4 and Thu, Aug 6, while no official COZ295 fire-weather alert is active.",
+  "report_generated_at": "2026-08-03T17:24:25.091903-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Rules-based screening is HIGH, with the strongest PSPS estimate on Thu, Aug 6 near Durango at LIKELY 78/100, driven by wind near 30 mph, RH near 8%, and four sampled red-flag hours. No official COZ295 fire-weather alert is active. One current wildfire and one localized unplanned LPEA outage are operational context; neither is treated as proof of a PSPS or an official warning.",
-  "uncertainty": "These are uncalibrated screening estimates, not official probabilities; no confirmed LPEA PSPS events are logged, and utility operational data may not be publicly visible.",
+  "summary": "Screening identifies HIGH fire-weather conditions and LIKELY PSPS concern, peaking Thu, Aug 6 near Durango / La Plata County at 78/100. No official COZ295 fire-weather alert is active. LPEA reports one localized unplanned outage affecting 38 customers near Pagosa Springs, with no identified fire-weather or PSPS cause.",
+  "uncertainty": "Confidence is MEDIUM because the forecast changed substantially, current incident data is unavailable, and PSPS estimates have no confirmed LPEA events for calibration.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check official NWS alerts as the Mon-Thu HIGH and LIKELY windows evolve.",
-    "Watch whether Thu, Aug 6 wind and RH forecasts remain near the current peak.",
-    "Confirm the localized outage cause and restoration status directly with LPEA.",
-    "Follow official incident and evacuation sources for Rio Blanco updates."
+    "Recheck official NWS COZ295 alerts as Tue, Aug 4 and Thu, Aug 6 approach.",
+    "Track whether the Thu, Aug 6 wind and RH peak persists near Durango / La Plata County.",
+    "Verify any updated cause for the localized LPEA outage before linking it to fire weather or PSPS.",
+    "Recheck incident and evacuation sources; incident status is unavailable, while no evacuation notice was detected."
   ]
 }
