@@ -1,8 +1,8 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date moved later from Tuesday to Wednesday as overall momentum eased.",
-    "Wednesday eased from LIKELY to WATCH, with its score down 12 points and the leading location shifting to Arboles.",
-    "Monday remains WATCH, but its screening score eased 8 points from the prior run."
+    "The first WATCH-or-higher PSPS date remains Thursday, August 6.",
+    "The forecast is steady versus the prior run, with no major day-level movement.",
+    "The prior localized LPEA outage has cleared; no active outage is listed by the official viewer."
   ],
   "evidence_ids": [
     "overall_status",
@@ -14,18 +14,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-05T18:27:58.918773-06:00",
-  "headline": "Fire-weather screening eased to CONCERN, but Thursday near Durango remains the strongest weather-driven PSPS signal.",
-  "report_generated_at": "2026-08-05T17:37:17.716090-06:00",
+  "generated_at": "2026-08-06T07:59:05.314899-06:00",
+  "headline": "Fire-weather screening remains CONCERN, with Thursday afternoon near Durango carrying the strongest weather-driven PSPS signal.",
+  "report_generated_at": "2026-08-06T07:29:27.899803-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Thursday has the strongest combined signal near Durango: LIKELY PSPS screening at 65/100, relative humidity near 9%, gusts near 28 mph, and an EXTREME fire-danger estimate. No official COZ295 Red Flag or Fire Weather alert is active; one unplanned one-customer Durango-area outage has no identified PSPS or fire-weather cause. Rio Blanco is mapped at about 1,388 acres and 55% containment, with no evacuation notice detected.",
-  "uncertainty": "Confidence is medium: 8/8 weather and 7/7 fire-posture sources were available, but only 12/13 LPEA sources responded, the forecast shifted materially, and no confirmed PSPS events exist for calibration.",
+  "summary": "Thursday has the strongest combined signal near Durango: LIKELY PSPS screening at 68/100, relative humidity near 8%, gusts near 28 mph, and an EXTREME fire-danger estimate. No official COZ295 Red Flag or Fire Weather alert or active LPEA outage is present; the LPEA keyword match is public-source context, not confirmed shutoff intent. Rio Blanco is mapped at about 1,388 acres and 55% containment, with no evacuation notice detected.",
+  "uncertainty": "Source coverage is strong, but PSPS screening remains uncalibrated because no confirmed LPEA PSPS events have been logged; public keyword matches may also reflect older or general content.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch Thursday's 3-11 PM Durango-area window for relative humidity near 9% and gusts near 28 mph.",
-    "Check whether Thursday's signal strengthens or an official NWS fire-weather alert is issued.",
-    "Keep the localized LPEA outage separate from PSPS inference unless LPEA identifies a fire-weather or safety-shutoff cause.",
+    "Watch Thursday's 2-11 PM Durango-area window for relative humidity near 8% and gusts near 28 mph.",
+    "Check whether an official NWS fire-weather alert is issued as the peak window approaches.",
+    "Treat the LPEA keyword match as context unless a current official source states outage or PSPS intent.",
     "Monitor Rio Blanco and official county evacuation feeds for changes."
   ]
 }

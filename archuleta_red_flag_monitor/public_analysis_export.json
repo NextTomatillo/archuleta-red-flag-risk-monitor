@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-05T17:37:17.716090-06:00",
+    "checked_at": "2026-08-06T07:29:27.899803-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -22,7 +22,7 @@
         "acres_preliminary": true,
         "acres_source": "NIFC active fire perimeter",
         "acres_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
-        "acres_updated_at": "2026-08-05T16:02:37-06:00",
+        "acres_updated_at": "2026-08-05T18:13:23-06:00",
         "cause": "Natural",
         "description": "10 Miles S from Pagosa Springs, CO",
         "discovered_at": "2026-07-28T15:11:00-06:00",
@@ -6646,14 +6646,6 @@
                 37.137233
               ],
               [
-                -106.994108,
-                37.137262
-              ],
-              [
-                -106.994071,
-                37.137263
-              ],
-              [
                 -106.994079,
                 37.137211
               ],
@@ -7747,7 +7739,7 @@
         },
         "perimeter_geometry_source": "NIFC WFIGS active-fire perimeter",
         "perimeter_geometry_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
-        "perimeter_geometry_updated_at": "2026-08-05T16:02:37-06:00",
+        "perimeter_geometry_updated_at": "2026-08-05T18:13:23-06:00",
         "perimeter_source": "2026 NIFS",
         "updated_at": "2026-08-05T17:36:35.743000-06:00"
       }
@@ -7769,9 +7761,9 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date moved later from Tuesday to Wednesday as overall momentum eased.",
-      "Wednesday eased from LIKELY to WATCH, with its score down 12 points and the leading location shifting to Arboles.",
-      "Monday remains WATCH, but its screening score eased 8 points from the prior run."
+      "The first WATCH-or-higher PSPS date remains Thursday, August 6.",
+      "The forecast is steady versus the prior run, with no major day-level movement.",
+      "The prior localized LPEA outage has cleared; no active outage is listed by the official viewer."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7783,45 +7775,43 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-05T18:27:58.918773-06:00",
-    "headline": "Fire-weather screening eased to CONCERN, but Thursday near Durango remains the strongest weather-driven PSPS signal.",
-    "report_generated_at": "2026-08-05T17:37:17.716090-06:00",
+    "generated_at": "2026-08-06T07:59:05.314899-06:00",
+    "headline": "Fire-weather screening remains CONCERN, with Thursday afternoon near Durango carrying the strongest weather-driven PSPS signal.",
+    "report_generated_at": "2026-08-06T07:29:27.899803-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Thursday has the strongest combined signal near Durango: LIKELY PSPS screening at 65/100, relative humidity near 9%, gusts near 28 mph, and an EXTREME fire-danger estimate. No official COZ295 Red Flag or Fire Weather alert is active; one unplanned one-customer Durango-area outage has no identified PSPS or fire-weather cause. Rio Blanco is mapped at about 1,388 acres and 55% containment, with no evacuation notice detected.",
-    "uncertainty": "Confidence is medium: 8/8 weather and 7/7 fire-posture sources were available, but only 12/13 LPEA sources responded, the forecast shifted materially, and no confirmed PSPS events exist for calibration.",
+    "summary": "Thursday has the strongest combined signal near Durango: LIKELY PSPS screening at 68/100, relative humidity near 8%, gusts near 28 mph, and an EXTREME fire-danger estimate. No official COZ295 Red Flag or Fire Weather alert or active LPEA outage is present; the LPEA keyword match is public-source context, not confirmed shutoff intent. Rio Blanco is mapped at about 1,388 acres and 55% containment, with no evacuation notice detected.",
+    "uncertainty": "Source coverage is strong, but PSPS screening remains uncalibrated because no confirmed LPEA PSPS events have been logged; public keyword matches may also reflect older or general content.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Watch Thursday's 3-11 PM Durango-area window for relative humidity near 9% and gusts near 28 mph.",
-      "Check whether Thursday's signal strengthens or an official NWS fire-weather alert is issued.",
-      "Keep the localized LPEA outage separate from PSPS inference unless LPEA identifies a fire-weather or safety-shutoff cause.",
+      "Watch Thursday's 2-11 PM Durango-area window for relative humidity near 8% and gusts near 28 mph.",
+      "Check whether an official NWS fire-weather alert is issued as the peak window approaches.",
+      "Treat the LPEA keyword match as context unless a current official source states outage or PSPS intent.",
       "Monitor Rio Blanco and official county evacuation feeds for changes."
     ]
   },
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
-      "12/13 LPEA public sources reachable",
+      "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
-      "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
-      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-05T17:37:17.716090-06:00",
+  "generated_at": "2026-08-06T07:29:27.899803-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Thu, Aug 6 near Durango / La Plata County (LIKELY 65/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 9%; 7 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is easing versus the prior run (Aug 4 at 5:56 PM MDT); forecast volatility is high and first WATCH-or-higher date is Wed, Aug 5."
+    "summary": "Highest LPEA PSPS concern is Thu, Aug 6 near Durango / La Plata County (LIKELY 68/100), driven by red-flag wind/gust signal near 28 mph; critically dry RH near 8%; 7 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
+    "trend_summary": "Momentum is steady versus the prior run (Aug 6 at 5:36 AM MDT); forecast volatility is low and first WATCH-or-higher date is Thu, Aug 6."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7832,112 +7822,76 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Tue, Aug 4 to Wed, Aug 5.",
-    "Wed, Aug 5: easing vs prior run; PSPS LIKELY -> WATCH; score -12, wind -1 mph, RH +1%, red-flag hours -4. Driver shifted to Arboles / southwest county.",
-    "Mon, Aug 10: easing vs prior run; PSPS WATCH -> WATCH; score -8, wind 0 mph, RH +1%, red-flag hours 0."
+    "First WATCH-or-higher PSPS date remains Thu, Aug 6.",
+    "No major day-level movement versus the prior run."
   ],
   "operational_outage_context": {
-    "active": true,
-    "active_outage_count": 1,
-    "affected_members": 1,
-    "areas": [
-      "Durango / La Plata County"
-    ],
-    "customers_affected": 1,
-    "customers_out_now": 1,
-    "customers_served": 47546,
+    "active": false,
+    "active_outage_count": 0,
+    "affected_members": 0,
+    "areas": [],
+    "customers_affected": 0,
+    "customers_out_now": 0,
+    "customers_served": 47556,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 1 customer without power near Durango / La Plata County.",
-    "hits": [
-      {
-        "name": "99 WINTERHAWK DR",
-        "snippets": [
-          "Durango / La Plata County: 1 customer out; unplanned; cause not posted."
-        ],
-        "url": "https://outage.lpea.coop"
-      }
-    ],
-    "outages": [
-      {
-        "cause": null,
-        "crew_assigned": false,
-        "customers_out_initially": 1,
-        "customers_out_now": 1,
-        "customers_restored": 0,
-        "distance_miles": 21.8,
-        "ended_at": null,
-        "estimated_restoration_at": null,
-        "fire_related": false,
-        "id": "2026-08-05-0030",
-        "latitude": 37.58775130196526,
-        "longitude": -107.8250175050117,
-        "modified_at": "2026-08-05T14:59:59.367-06:00",
-        "name": "99 WINTERHAWK DR",
-        "nearest_area": "Durango / La Plata County",
-        "planned": false,
-        "psps_related": false,
-        "source": "Official LPEA outage viewer",
-        "started_at": "2026-08-05T14:58:34-06:00",
-        "url": "https://outage.lpea.coop",
-        "verified": false,
-        "work_status": ""
-      }
-    ],
+    "headline": "Official LPEA outage data shows no active customer outages.",
+    "hits": [],
+    "outages": [],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
     "planned_outage_count": 0,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "localized",
+    "severity": "none",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
+    "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 1,
-    "update_time": "2026-08-05T17:51:09.5582431-06:00"
+    "unplanned_outage_count": 0,
+    "update_time": "2026-08-06T07:29:14.0074099-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-06",
       "display_date": "Thu, Aug 6",
       "drivers": [
-        "very dry RH near 9%",
+        "very dry RH near 8%",
         "wind/gust near 28 mph",
         "official fire restrictions at STAGE 2",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "3 PM-11 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-11 PM local; 7 near/red-flag threshold hours.",
       "level": "EXTREME",
       "location": "Durango / La Plata County",
-      "score": 86
+      "score": 88
     },
     "psps": {
       "date": "2026-08-06",
       "display_date": "Thu, Aug 6",
       "drivers": [
         "red-flag wind/gust signal near 28 mph",
-        "very dry RH near 9%",
+        "critically dry RH near 8%",
         "7 sampled hours are near red-flag thresholds",
         "Official fire-posture context for Durango / La Plata County is escalated (STAGE 2; fire danger HIGH); it adds a small preparedness modifier but does not create a PSPS WATCH by itself."
       ],
-      "highest_risk_window": "3 PM-11 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-11 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Durango / La Plata County",
-      "score": 65
+      "score": 68
     },
     "red_flag": {
       "date": "2026-08-06",
       "display_date": "Thu, Aug 6",
       "drivers": [
         "7 near-threshold hours",
-        "RH near 9%",
+        "RH near 8%",
         "wind/gust near 28 mph"
       ],
-      "highest_risk_window": "3 PM-11 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-11 PM local; 7 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Durango / La Plata County",
-      "score": 77
+      "score": 81
     }
   },
   "red_flag_calibration": {
@@ -7996,13 +7950,13 @@
         "status": "hit"
       }
     ],
-    "false_high_day_count": 18,
+    "false_high_day_count": 19,
     "false_high_examples": [
-      "2026-07-08",
       "2026-07-09",
       "2026-07-10",
       "2026-08-03",
-      "2026-08-04"
+      "2026-08-04",
+      "2026-08-05"
     ],
     "forecast_history_path": "forecast_history.csv",
     "hit_count": 21,
@@ -8110,12 +8064,12 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-05",
-    "first_watch_or_likely_display": "Wed, Aug 5",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Aug 4 to Wed, Aug 5.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 34,
-    "momentum": "Easing"
+    "first_watch_or_likely_date": "2026-08-06",
+    "first_watch_or_likely_display": "Thu, Aug 6",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Thu, Aug 6.",
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 0,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
