@@ -1,9 +1,8 @@
 {
   "changing_drivers": [
-    "Thursday worsened from WATCH to LIKELY as wind rose about 2 mph and one red-flag-screen hour appeared.",
-    "Friday eased from WATCH to ELEVATED, with its PSPS screening score down 13 points.",
-    "Saturday eased from WATCH to ELEVATED, with its PSPS screening score down 8 points as wind declined about 2 mph.",
-    "Tuesday remained LIKELY but eased 3 points and the leading location shifted to Ignacio."
+    "The first WATCH-or-higher PSPS date moved later from Tuesday to Wednesday as overall momentum eased.",
+    "Wednesday eased from LIKELY to WATCH, with its score down 12 points and the leading location shifting to Arboles.",
+    "Monday remains WATCH, but its screening score eased 8 points from the prior run."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +14,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-04T18:29:19.099498-06:00",
-  "headline": "Fire-weather risk remains HIGH, with the strongest weather-driven PSPS screening Wednesday near Ignacio.",
-  "report_generated_at": "2026-08-04T17:56:03.072207-06:00",
+  "generated_at": "2026-08-05T18:27:58.918773-06:00",
+  "headline": "Fire-weather screening eased to CONCERN, but Thursday near Durango remains the strongest weather-driven PSPS signal.",
+  "report_generated_at": "2026-08-05T17:37:17.716090-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Wednesday carries the strongest combined signal: LIKELY PSPS screening at 74/100 near Ignacio, with relative humidity near 8%, gusts near 28 mph, and five red-flag-screen hours. No official COZ295 Red Flag or Fire Weather alert is active; the localized 38-customer Pagosa outage is operational context with no identified PSPS or fire-weather cause. Rio Blanco is mapped at about 1,246 acres and 12% containment, with no evacuation notice detected.",
-  "uncertainty": "Confidence is medium: all monitored sources were available, but the forecast changed substantially and no confirmed LPEA PSPS events exist for calibration.",
+  "summary": "Thursday has the strongest combined signal near Durango: LIKELY PSPS screening at 65/100, relative humidity near 9%, gusts near 28 mph, and an EXTREME fire-danger estimate. No official COZ295 Red Flag or Fire Weather alert is active; one unplanned one-customer Durango-area outage has no identified PSPS or fire-weather cause. Rio Blanco is mapped at about 1,388 acres and 55% containment, with no evacuation notice detected.",
+  "uncertainty": "Confidence is medium: 8/8 weather and 7/7 fire-posture sources were available, but only 12/13 LPEA sources responded, the forecast shifted materially, and no confirmed PSPS events exist for calibration.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch Wednesday's 2-9 PM Ignacio window for relative humidity near 8% and gusts near 28 mph.",
-    "Recheck whether Thursday's worsening weather signal persists in the next forecast cycle.",
-    "Monitor official NWS, LPEA, Rio Blanco, and county evacuation updates for status changes.",
-    "Keep the Pagosa outage separate from PSPS inference unless LPEA identifies a fire-weather or safety-shutoff cause."
+    "Watch Thursday's 3-11 PM Durango-area window for relative humidity near 9% and gusts near 28 mph.",
+    "Check whether Thursday's signal strengthens or an official NWS fire-weather alert is issued.",
+    "Keep the localized LPEA outage separate from PSPS inference unless LPEA identifies a fire-weather or safety-shutoff cause.",
+    "Monitor Rio Blanco and official county evacuation feeds for changes."
   ]
 }
