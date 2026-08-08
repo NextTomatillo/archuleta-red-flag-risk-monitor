@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date remains Sunday, August 9.",
-    "The highest PSPS estimate is WATCH 51/100 Monday near Ignacio, driven by gusts near 25 mph and relative humidity near 18%.",
-    "Thursday, August 13 rose from LOW to ELEVATED, with the driver shifting to Durango / La Plata County.",
-    "Official fire posture includes Stage 2 restrictions and VERY HIGH fire danger."
+    "The first WATCH-or-higher PSPS date remains Sunday, August 9, with low forecast volatility.",
+    "Monday's Arboles peak combines RH near 14%, wind near 24 mph, and four near-threshold hours.",
+    "Official LPEA outage data currently lists no active customer outages.",
+    "Rio Blanco is reported at about 1,388 acres and 63% contained, with no evacuation notice detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-07T18:35:29.368089-06:00",
-  "headline": "Fire-weather screening remains CONCERN, with PSPS WATCH conditions Sunday and Monday while two unrelated LPEA outages affect 24 customers.",
-  "report_generated_at": "2026-08-07T18:08:24.437302-06:00",
+  "generated_at": "2026-08-08T06:55:16-06:00",
+  "headline": "Screening remains CONCERN, with PSPS WATCH periods Sunday and Monday; no official COZ295 fire-weather alert or active LPEA outage is reported.",
+  "report_generated_at": "2026-08-08T05:21:06.255464-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Screening peaks Sunday for fire danger near Chimney Rock and Arboles, while the highest PSPS estimate is WATCH 51/100 Monday near Ignacio. Official NWS data shows no COZ295 Red Flag or Fire Weather alert; official LPEA data shows two unplanned outages affecting 24 customers, with no fire-weather or PSPS cause identified. Rio Blanco remains mapped at about 1,388 acres and 55% containment, with no evacuation notice detected.",
-  "uncertainty": "Forecast volatility is MEDIUM and no confirmed LPEA PSPS events exist for calibration; the active outages have no identified fire or PSPS cause, and public keyword matches may reflect older content.",
+  "summary": "Sunday has the strongest estimated fire danger near Durango, while Monday has the highest PSPS screening near Arboles at WATCH 54/100. Official NWS data shows no COZ295 Red Flag or Fire Weather alert, and the official LPEA outage viewer lists no active outages; the LPEA keyword match is context, not confirmed shutoff intent. Rio Blanco is mapped at about 1,388 acres and 63% contained, with no evacuation notice detected.",
+  "uncertainty": "PSPS screening is not statistically calibrated because no confirmed LPEA PSPS events have been logged; public keyword matches may reflect broad or older context, and forecasts can change.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch the Arboles and Chimney Rock area Sunday afternoon as relative humidity approaches 11% and gusts approach 22 mph.",
-    "Watch Ignacio Monday from 2-3 PM for gusts near 25 mph with relative humidity near 18%.",
-    "Check the official LPEA outage viewer for restoration or an identified cause; do not treat these outages as PSPS without official confirmation.",
-    "Monitor Rio Blanco and official county evacuation feeds for changes."
+    "Watch Durango and Ignacio from roughly 3 PM to 6 PM Sunday for near-threshold fire-weather conditions.",
+    "Watch Arboles from roughly 2 PM to 5 PM Monday for the run's highest PSPS and Red Flag screening scores.",
+    "Recheck official NWS alerts and the LPEA outage viewer for operational changes.",
+    "Recheck Rio Blanco containment and official Archuleta County evacuation feeds."
   ]
 }
