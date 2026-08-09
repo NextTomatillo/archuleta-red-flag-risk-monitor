@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-08T05:21:06.255464-06:00",
+    "checked_at": "2026-08-08T17:38:06.443207-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -22,7 +22,7 @@
         "acres_preliminary": true,
         "acres_source": "NIFC active fire perimeter",
         "acres_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
-        "acres_updated_at": "2026-08-07T08:38:40-06:00",
+        "acres_updated_at": "2026-08-08T06:45:14-06:00",
         "cause": "Natural",
         "description": "10 Miles S from Pagosa Springs, CO",
         "discovered_at": "2026-07-28T15:11:00-06:00",
@@ -7739,7 +7739,7 @@
         },
         "perimeter_geometry_source": "NIFC WFIGS active-fire perimeter",
         "perimeter_geometry_source_url": "https://www.arcgis.com/home/item.html?id=d1c32af3212341869b3c810f1a215824&sublayer=0",
-        "perimeter_geometry_updated_at": "2026-08-07T08:38:40-06:00",
+        "perimeter_geometry_updated_at": "2026-08-08T06:45:14-06:00",
         "perimeter_source": "2026 NIFS",
         "updated_at": "2026-08-07T18:12:51.487000-06:00"
       }
@@ -7761,10 +7761,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date remains Sunday, August 9, with low forecast volatility.",
-      "Monday's Arboles peak combines RH near 14%, wind near 24 mph, and four near-threshold hours.",
+      "Momentum is easing versus the morning run, with LOW forecast volatility at 11/100.",
+      "Sunday and Monday remain WATCH periods; Monday's highest PSPS screening shifted to Ignacio at 51/100.",
       "Official LPEA outage data currently lists no active customer outages.",
-      "Rio Blanco is reported at about 1,388 acres and 63% contained, with no evacuation notice detected."
+      "Rio Blanco is mapped at about 1,388 acres and 63% contained, with no evacuation notice detected."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7776,17 +7776,17 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-08T06:55:16-06:00",
-    "headline": "Screening remains CONCERN, with PSPS WATCH periods Sunday and Monday; no official COZ295 fire-weather alert or active LPEA outage is reported.",
-    "report_generated_at": "2026-08-08T05:21:06.255464-06:00",
+    "generated_at": "2026-08-08T18:19:28-06:00",
+    "headline": "Screening remains CONCERN with PSPS WATCH periods Sunday and Monday; no official COZ295 alert or active LPEA outage is reported.",
+    "report_generated_at": "2026-08-08T17:38:06.443207-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Sunday has the strongest estimated fire danger near Durango, while Monday has the highest PSPS screening near Arboles at WATCH 54/100. Official NWS data shows no COZ295 Red Flag or Fire Weather alert, and the official LPEA outage viewer lists no active outages; the LPEA keyword match is context, not confirmed shutoff intent. Rio Blanco is mapped at about 1,388 acres and 63% contained, with no evacuation notice detected.",
+    "summary": "Fire-weather and PSPS screening eased slightly but keep Sunday and Monday as WATCH periods. Sunday has the strongest estimated fire danger near Durango at VERY HIGH 77/100; Monday peaks near Ignacio at PSPS WATCH 51/100. Official NWS and LPEA data show no COZ295 fire-weather alert or active outage, while Rio Blanco remains about 1,388 acres and 63% contained with no evacuation notice detected.",
     "uncertainty": "PSPS screening is not statistically calibrated because no confirmed LPEA PSPS events have been logged; public keyword matches may reflect broad or older context, and forecasts can change.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Watch Durango and Ignacio from roughly 3 PM to 6 PM Sunday for near-threshold fire-weather conditions.",
-      "Watch Arboles from roughly 2 PM to 5 PM Monday for the run's highest PSPS and Red Flag screening scores.",
+      "Watch Durango and Ignacio from roughly 3 PM to 5 PM Sunday for near-threshold fire-weather conditions.",
+      "Watch Ignacio from roughly 2 PM to 4 PM Monday for the run's highest PSPS and Red Flag screening scores.",
       "Recheck official NWS alerts and the LPEA outage viewer for operational changes.",
       "Recheck Rio Blanco containment and official Archuleta County evacuation feeds."
     ]
@@ -7806,13 +7806,13 @@
     "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-08T05:21:06.255464-06:00",
+  "generated_at": "2026-08-08T17:38:06.443207-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Mon, Aug 10 near Arboles / southwest county (WATCH 54/100), driven by near-threshold wind/gust signal near 24 mph; red-flag RH near 14%; 4 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is steady versus the prior run (Aug 7 at 6:08 PM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Aug 9."
+    "summary": "Highest LPEA PSPS concern is Mon, Aug 10 near Ignacio / southeast La Plata County (WATCH 51/100), driven by red-flag wind/gust signal near 25 mph; near-threshold RH near 16%; 3 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Aug 8 at 5:21 AM MDT); forecast volatility is low and first WATCH-or-higher date is Sun, Aug 9."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7824,7 +7824,7 @@
   ],
   "notable_changes": [
     "First WATCH-or-higher PSPS date remains Sun, Aug 9.",
-    "No major day-level movement versus the prior run."
+    "Thu, Aug 13: easing vs prior run; PSPS ELEVATED -> ELEVATED; score +2, wind +2 mph, RH +4%, red-flag hours 0. Driver shifted to Durango / La Plata County."
   ],
   "operational_outage_context": {
     "active": false,
@@ -7850,7 +7850,7 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-08-08T05:19:28.4022189-06:00"
+    "update_time": "2026-08-08T17:37:32.492378-06:00"
   },
   "peaks": {
     "fire_danger": {
@@ -7865,35 +7865,34 @@
       "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "VERY HIGH",
       "location": "Durango / La Plata County",
-      "score": 80
+      "score": 77
     },
     "psps": {
       "date": "2026-08-10",
       "display_date": "Mon, Aug 10",
       "drivers": [
-        "near-threshold wind/gust signal near 24 mph",
-        "red-flag RH near 14%",
-        "4 sampled hours are near red-flag thresholds",
-        "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
+        "red-flag wind/gust signal near 25 mph",
+        "near-threshold RH near 16%",
+        "3 sampled hours are near red-flag thresholds"
       ],
-      "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-4 PM local; 3 near/red-flag threshold hours.",
       "level": "WATCH",
-      "location": "Arboles / southwest county",
-      "score": 54
+      "location": "Ignacio / southeast La Plata County",
+      "score": 51
     },
     "red_flag": {
       "date": "2026-08-10",
       "display_date": "Mon, Aug 10",
       "drivers": [
-        "4 near-threshold hours",
-        "RH near 14%",
-        "breezy wind/gust near 24 mph",
+        "3 near-threshold hours",
+        "dry RH near 16%",
+        "wind/gust near 25 mph",
         "dry-thunder probability near 15%"
       ],
-      "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-4 PM local; 3 near/red-flag threshold hours.",
       "level": "WATCH",
-      "location": "Arboles / southwest county",
-      "score": 63
+      "location": "Ignacio / southeast La Plata County",
+      "score": 60
     }
   },
   "red_flag_calibration": {
@@ -8070,8 +8069,8 @@
     "first_watch_or_likely_display": "Sun, Aug 9",
     "first_watch_shift": "First WATCH-or-higher PSPS date remains Sun, Aug 9.",
     "forecast_volatility_label": "LOW",
-    "forecast_volatility_score": 4,
-    "momentum": "Steady"
+    "forecast_volatility_score": 11,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
