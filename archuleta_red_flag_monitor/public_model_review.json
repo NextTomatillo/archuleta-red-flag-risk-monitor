@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Momentum is easing, but HIGH forecast volatility at 40/100 indicates substantial run-to-run change.",
-    "Tuesday eased from PSPS WATCH to ELEVATED, falling 18 points to 28/100 near Ignacio.",
-    "Saturday eased 16 points and remains ELEVATED, with Arboles now the driver.",
-    "Rio Blanco remains about 1,388 acres and 79% contained, with no evacuation notice detected."
+    "The first WATCH-or-higher date moved later from Sunday to Monday while overall momentum is rising.",
+    "Forecast volatility is MEDIUM at 15/100, with one materially changed day.",
+    "Saturday worsened by 10 points as minimum humidity fell 2%, though PSPS remains ELEVATED.",
+    "Official fire posture reaches STAGE 2 restrictions and VERY HIGH fire danger across checked sources."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-09T18:40:27-06:00",
-  "headline": "Screening remains CONCERN with PSPS WATCH through Monday, while no official COZ295 alert or active LPEA outage is reported.",
-  "report_generated_at": "2026-08-09T17:31:39.185434-06:00",
+  "generated_at": "2026-08-10T06:18:27-06:00",
+  "headline": "Screening is CONCERN with Monday PSPS WATCH near Arboles; official sources report no NWS fire-weather alert or active LPEA outage.",
+  "report_generated_at": "2026-08-10T05:28:16.130058-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Sunday and Monday remain PSPS WATCH periods centered on Arboles, peaking Sunday at 50/100 and Monday at 46/100. Official sources show no COZ295 Red Flag or Fire Weather alert, active LPEA outage, or confirmed shutoff notice; two Air Quality Alerts are separate health advisories. Rio Blanco is mapped at about 1,388 acres and 79% contained, with no evacuation notice detected.",
-  "uncertainty": "PSPS screening is uncalibrated because no confirmed LPEA PSPS events have been logged; 53 false-WATCH days and HIGH forecast volatility mean estimates may change materially.",
+  "summary": "Arboles is the Monday peak from 3 PM to 5 PM, with PSPS WATCH 46/100, Red Flag WATCH 55/100, and weather fire potential HIGH 61/100. Official sources show no active NWS fire-weather alert, LPEA outage, or confirmed shutoff notice. Rio Blanco is mapped at about 1,388 acres and 79% contained, with no evacuation notice detected.",
+  "uncertainty": "No confirmed LPEA PSPS events are available for calibration; 54 false-WATCH days and MEDIUM forecast volatility mean this screening estimate may change.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Arboles through 6 PM Sunday for wind, humidity, or official-alert escalation.",
-    "Watch Arboles from 2 PM to 4 PM Monday, the next PSPS WATCH window.",
+    "Watch Arboles from 3 PM to 5 PM Monday for wind, humidity, or official-alert escalation.",
     "Treat any new NWS alert or LPEA outage notice as official context, separate from screening estimates.",
+    "Recheck Saturday's worsening dry-weather signal in the next forecast runs.",
     "Monitor Rio Blanco containment and county evacuation feeds for operational changes."
   ]
 }
