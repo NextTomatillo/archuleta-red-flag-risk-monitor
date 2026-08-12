@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher date moved later from Monday to Sunday, Aug 16.",
-    "Monday eased from PSPS WATCH to ELEVATED, falling 16 points as humidity rose 3%.",
-    "Sunday worsened from ELEVATED to WATCH, while Tuesday increased 10 points but remains ELEVATED.",
-    "Rio Blanco containment increased to 91%, with no current evacuation notice detected."
+    "No WATCH-or-higher dates appear in either the current or prior forecast run.",
+    "Tuesday eased 16 points as humidity rose 8%, with the driver shifting to Durango.",
+    "Sunday and Monday each dropped from PSPS ELEVATED to LOW.",
+    "Official fire posture still reaches STAGE 2 restrictions and VERY HIGH fire danger."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-10T17:54:33-06:00",
-  "headline": "Screening is CONCERN with Sunday PSPS WATCH near Arboles; one localized LPEA outage has no identified fire or PSPS cause.",
-  "report_generated_at": "2026-08-10T17:30:13.039798-06:00",
+  "generated_at": "2026-08-11T17:53:39-06:00",
+  "headline": "Screening remains ELEVATED with no PSPS WATCH dates; official sources report no COZ295 alert, active LPEA outage, or evacuation notice.",
+  "report_generated_at": "2026-08-11T17:35:30.607845-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Sunday, Aug 16 is the next peak: Arboles reaches PSPS WATCH 48/100 and Red Flag WATCH 57/100 from 3 PM to 6 PM, while Chimney Rock reaches HIGH fire potential 63/100. Official sources show no active NWS fire-weather alert. LPEA reports one unplanned one-customer outage near Bayfield, separate from PSPS screening; Rio Blanco is 1,388 acres and 91% contained with no evacuation notice detected.",
-  "uncertainty": "No confirmed LPEA PSPS events are available for calibration; 54 false-WATCH days and HIGH forecast volatility at 43/100 mean this screening estimate may change materially.",
+  "summary": "Friday's peak is Ignacio at PSPS ELEVATED 25/100 and Red Flag LOW 25/100 near 4 PM, driven by wind near 25 mph. Sunday and Monday have eased to LOW, and official sources show no active fire-weather alert or LPEA outage. Rio Blanco remains 1,388 acres and 91% contained, with no evacuation notice detected.",
+  "uncertainty": "No confirmed LPEA PSPS events are available for calibration; 55 false-WATCH days and HIGH forecast volatility at 43/100 mean the outlook may change materially.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck the Sunday Arboles forecast as the 3 PM to 6 PM WATCH window approaches.",
-    "Monitor the localized Bayfield-area outage for restoration or an identified cause.",
-    "Treat any new NWS alert or LPEA PSPS notice as official context, separate from screening estimates.",
+    "Recheck Ignacio near 4 PM Friday for wind changes around the ELEVATED peak.",
+    "Watch whether Sunday and Monday remain LOW in subsequent forecast runs.",
+    "Treat any new NWS alert or LPEA notice as official context, separate from screening estimates.",
     "Monitor Rio Blanco containment and county evacuation feeds for operational changes."
   ]
 }
