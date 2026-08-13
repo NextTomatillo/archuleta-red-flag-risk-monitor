@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "No WATCH-or-higher dates appear in either the current or prior forecast run.",
-    "Tuesday eased 16 points as humidity rose 8%, with the driver shifting to Durango.",
-    "Sunday and Monday each dropped from PSPS ELEVATED to LOW.",
-    "Official fire posture still reaches STAGE 2 restrictions and VERY HIGH fire danger."
+    "Today and Monday eased to LOW, while Tuesday rose 12 points but remained ELEVATED.",
+    "Tuesday's peak shifted to Arboles, with RH near 18%, wind near 21 mph, and one near-threshold hour.",
+    "Official fire posture remains Stage 2 with VERY HIGH fire danger.",
+    "Two current wildfires are reported; no evacuation notice was detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-11T17:53:39-06:00",
-  "headline": "Screening remains ELEVATED with no PSPS WATCH dates; official sources report no COZ295 alert, active LPEA outage, or evacuation notice.",
-  "report_generated_at": "2026-08-11T17:35:30.607845-06:00",
+  "generated_at": "2026-08-12T18:18:29-06:00",
+  "headline": "Screening is ELEVATED for Tuesday near Arboles, while official sources show no COZ295 fire alert, active LPEA outage, or evacuation notice.",
+  "report_generated_at": "2026-08-12T18:11:57.195117-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Friday's peak is Ignacio at PSPS ELEVATED 25/100 and Red Flag LOW 25/100 near 4 PM, driven by wind near 25 mph. Sunday and Monday have eased to LOW, and official sources show no active fire-weather alert or LPEA outage. Rio Blanco remains 1,388 acres and 91% contained, with no evacuation notice detected.",
-  "uncertainty": "No confirmed LPEA PSPS events are available for calibration; 55 false-WATCH days and HIGH forecast volatility at 43/100 mean the outlook may change materially.",
+  "summary": "Tuesday is the screening peak: PSPS ELEVATED 34/100 near Arboles and Red Flag LOW 25/100, with RH near 18%, wind near 21 mph, and a modest dry-thunder signal. An official Flood Watch is active for mountain zones, but the COZ295 fire-alert count is zero and LPEA lists no active customer outages. NIFC reports Rio Blanco at about 1,388 acres and 91% contained plus the 0.10-acre Gunsight incident; no evacuation notice was detected.",
+  "uncertainty": "PSPS estimates are not calibrated to confirmed LPEA shutoffs: no confirmed events are logged, 56 past WATCH/LIKELY days were false watches, and forecast volatility is HIGH at 39/100.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Ignacio near 4 PM Friday for wind changes around the ELEVATED peak.",
-    "Watch whether Sunday and Monday remain LOW in subsequent forecast runs.",
-    "Treat any new NWS alert or LPEA notice as official context, separate from screening estimates.",
-    "Monitor Rio Blanco containment and county evacuation feeds for operational changes."
+    "Recheck Tuesday near Arboles for movement toward PSPS WATCH or Red Flag thresholds.",
+    "Monitor the official Flood Watch through midnight and check for any new NWS fire-weather alert.",
+    "Check the official LPEA outage viewer for operational changes; the current keyword match is not outage intent.",
+    "Monitor Rio Blanco and Gunsight updates and any official evacuation directive."
   ]
 }
