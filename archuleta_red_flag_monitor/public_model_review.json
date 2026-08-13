@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date appeared on Wednesday, Aug. 19, raising the overall PSPS screen from ELEVATED to WATCH.",
-    "Saturday worsened by 16 points but remains PSPS ELEVATED near Chimney Rock.",
-    "Official fire posture remains Stage 2 with VERY HIGH fire danger.",
-    "Two current wildfires are reported, with no evacuation notice detected."
+    "The area-wide PSPS screening level rose from WATCH to LIKELY; Wednesday's PSPS score increased 16 points.",
+    "Sunday, Monday, and Tuesday also worsened versus the prior run, with Arboles becoming the primary driver.",
+    "Official-source fire posture remains Stage 2 with VERY HIGH fire danger.",
+    "Rio Blanco is about 1,388 acres and 97% contained; Gunsight is 0.10 acre, with no evacuation notice detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-13T05:27:05-06:00",
-  "headline": "Screening rises to CONCERN with a Wednesday PSPS WATCH near Arboles; official sources show no COZ295 alert, LPEA outage, or evacuation notice.",
-  "report_generated_at": "2026-08-13T05:26:02.224207-06:00",
+  "generated_at": "2026-08-13T17:53:16-06:00",
+  "headline": "Screening rises to CONCERN with a Wednesday PSPS LIKELY outlook near Arboles; no official COZ295 alert or LPEA outage is active.",
+  "report_generated_at": "2026-08-13T17:23:41.470564-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Wednesday is the screening peak: PSPS WATCH 50/100 and Red Flag WATCH 58/100 near Arboles, with RH near 15%, wind near 23 mph, and four near-threshold hours. Saturday is also a CONCERN day near Chimney Rock, but official sources report zero COZ295 fire alerts and no active LPEA outages. Rio Blanco remains about 1,388 acres and 91% contained; Gunsight remains 0.10 acre, and no evacuation notice was detected.",
-  "uncertainty": "No confirmed LPEA PSPS events are logged; 56 prior WATCH/LIKELY days became false watches, so Wednesday's WATCH remains a screening estimate despite MEDIUM 74/100 confidence.",
+  "summary": "Wednesday is the screening peak near Arboles: PSPS LIKELY 66/100 and Red Flag LIKELY 77/100, with RH near 15%, wind near 25 mph, and five near-threshold hours. Saturday, Sunday, Tuesday, and Wednesday are CONCERN dates. Official checks show zero COZ295 fire alerts and no active LPEA outages; county feeds show no evacuation notice.",
+  "uncertainty": "No confirmed LPEA PSPS events are logged, and 56 prior WATCH/LIKELY dates did not become confirmed events. Wednesday remains a screening estimate with MEDIUM 69/100 confidence and HIGH forecast volatility.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Wednesday near Arboles for threshold changes or an official NWS or LPEA notice.",
-    "Monitor Saturday near Chimney Rock as RH and wind approach red-flag screening levels.",
-    "Check the official LPEA outage viewer; the current keyword match is broad context, not confirmed outage or PSPS intent.",
-    "Monitor Rio Blanco, Gunsight, and official county evacuation feeds."
+    "Recheck Wednesday near Arboles for an official NWS alert, LPEA notice, or further threshold shift.",
+    "Monitor the Saturday, Sunday, and Tuesday CONCERN windows for worsening wind, humidity, or thunder overlap.",
+    "Treat the LPEA keyword match as broad public-source context unless direct outage or PSPS intent appears.",
+    "Continue checking Rio Blanco, Gunsight, and county evacuation feeds for operational changes."
   ]
 }
