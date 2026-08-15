@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-15T05:27:45.177899-06:00",
+    "checked_at": "2026-08-15T17:39:54.446708-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -12,8 +12,8 @@
       "status": "none_detected",
       "warning_count": 0
     },
-    "headline": "2 current wildfires reported in Archuleta County; no current evacuation notice detected in checked county feeds.",
-    "incident_count": 2,
+    "headline": "1 current wildfire reported in Archuleta County; no current evacuation notice detected in checked county feeds.",
+    "incident_count": 1,
     "incident_source_status": "checked",
     "incidents": [
       {
@@ -7742,35 +7742,6 @@
         "perimeter_geometry_updated_at": "2026-08-08T06:45:14-06:00",
         "perimeter_source": "2026 NIFS",
         "updated_at": "2026-08-13T16:30:00.020000-06:00"
-      },
-      {
-        "acres": 0.1,
-        "acres_note": null,
-        "acres_preliminary": false,
-        "acres_source": "NIFC current incident record",
-        "acres_source_url": "https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015",
-        "acres_updated_at": "2026-08-12T14:17:12.543000-06:00",
-        "cause": "Undetermined",
-        "description": "",
-        "discovered_at": "2026-08-12T11:35:00-06:00",
-        "distance_miles": 15.4,
-        "id": "2026-COSJF-000950",
-        "incident_reported_acres": 0.1,
-        "incident_type": "WF",
-        "incident_type_label": "Wildfire",
-        "jurisdiction": "USFS",
-        "latitude": 37.26550595811888,
-        "longitude": -106.72984323628306,
-        "mapped_perimeter_acres": null,
-        "name": "Gunsight",
-        "nearest_area": "Pagosa Springs",
-        "percent_contained": null,
-        "perimeter_geometry": null,
-        "perimeter_geometry_source": null,
-        "perimeter_geometry_source_url": null,
-        "perimeter_geometry_updated_at": null,
-        "perimeter_source": null,
-        "updated_at": "2026-08-12T14:17:12.543000-06:00"
       }
     ],
     "largest_wildfire_acres": 1387.74,
@@ -7786,14 +7757,14 @@
     "perimeter_source_status": "checked",
     "prescribed_fire_count": 0,
     "status": "checked",
-    "wildfire_count": 2
+    "wildfire_count": 1
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The fire-weather screen rose to HIGH, with Wednesday now meeting the deterministic red-flag threshold.",
-      "The first PSPS WATCH date moved earlier from Wednesday to Sunday; Sunday and Tuesday both rose to WATCH.",
-      "Wednesday's strongest PSPS signal shifted to Ignacio at WATCH 63/100, with wind near 28 mph, RH near 15%, and three red-flag hours.",
-      "Official-source fire posture remains Stage 2 with VERY HIGH fire danger; two wildfires remain listed with no evacuation notice detected."
+      "Saturday worsened from PSPS ELEVATED to WATCH 55/100 as RH fell 2 points, wind rose about 1 mph, and one sampled hour met the red-flag screen.",
+      "The first WATCH-or-higher PSPS date moved earlier from Sunday to Saturday.",
+      "Wednesday remains the peak near Ignacio at PSPS WATCH 63/100 and Red Flag LIKELY 78/100, with a 2 PM-7 PM risk window.",
+      "Official-source fire posture remains Stage 2 with VERY HIGH fire danger; one wildfire remains listed and no evacuation notice was detected."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7805,19 +7776,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-15T07:01:41-06:00",
-    "headline": "Fire-weather screening rises to HIGH, with PSPS WATCH beginning Sunday and Wednesday meeting the red-flag screen; no official alert or LPEA outage is active.",
-    "report_generated_at": "2026-08-15T05:27:45.177899-06:00",
+    "generated_at": "2026-08-15T17:50:31-06:00",
+    "headline": "Fire-weather screening remains HIGH as PSPS WATCH moves to today; Wednesday remains the peak, with no official COZ295 alert or active LPEA outage.",
+    "report_generated_at": "2026-08-15T17:39:54.446708-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The screen now shows HIGH fire-weather risk on Wednesday, when Ignacio reaches Red Flag LIKELY 78/100 and PSPS WATCH 63/100; PSPS WATCH begins Sunday and continues Tuesday through Friday. Official checks show zero COZ295 fire alerts and no active LPEA outage, while county feeds show no evacuation notice. Rio Blanco remains about 1,388 acres and 97% contained.",
-    "uncertainty": "No confirmed LPEA PSPS events are logged, and 56 prior WATCH or LIKELY dates did not become confirmed events; this remains a screening estimate with MEDIUM 69/100 confidence and HIGH forecast volatility.",
+    "summary": "Today's Arboles screen worsened from ELEVATED to WATCH 55/100, moving first WATCH-or-higher timing from Sunday to Saturday. Wednesday remains the peak near Ignacio at PSPS WATCH 63/100 and Red Flag LIKELY 78/100; official checks show zero COZ295 alerts, no active LPEA outage, and no county evacuation notice. Rio Blanco remains about 1,388 acres and 97% contained.",
+    "uncertainty": "This is a screening estimate with MEDIUM 69/100 confidence and HIGH forecast volatility; no confirmed LPEA PSPS events are logged, and 56 prior WATCH or LIKELY dates did not become confirmed events.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Sunday and Wednesday for an official NWS alert, LPEA notice, or further threshold shift.",
-      "Monitor Wednesday's 1 PM-6 PM Ignacio window for changes in wind, humidity, and red-flag duration.",
+      "Recheck conditions at the next update Sunday morning for any official NWS or LPEA escalation.",
+      "Monitor Wednesday's 2 PM-7 PM Ignacio window for changes in wind, humidity, and red-flag duration.",
       "Treat the LPEA keyword match as broad public-source context unless direct outage or PSPS intent appears.",
-      "Continue checking Rio Blanco, Gunsight, and county evacuation feeds for operational changes."
+      "Continue checking Rio Blanco and county evacuation feeds for operational changes."
     ]
   },
   "confidence": {
@@ -7836,13 +7807,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-15T05:27:45.177899-06:00",
+  "generated_at": "2026-08-15T17:39:54.446708-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Wed, Aug 19 near Ignacio / southeast La Plata County (WATCH 63/100), driven by red-flag wind/gust signal near 28 mph; red-flag RH near 15%; 3 sampled hours meet red-flag screen. NIFC reports 2 current wildfires in Archuleta County.",
-    "trend_summary": "Momentum is rising versus the prior run (Aug 14 at 5:23 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sun, Aug 16."
+    "summary": "Highest LPEA PSPS concern is Wed, Aug 19 near Ignacio / southeast La Plata County (WATCH 63/100), driven by red-flag wind/gust signal near 26 mph; red-flag RH near 15%; 3 sampled hours meet red-flag screen. NIFC reports 1 current wildfire in Archuleta County.",
+    "trend_summary": "Momentum is rising versus the prior run (Aug 15 at 5:27 AM MDT); forecast volatility is high and first WATCH-or-higher date is Sat, Aug 15."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7853,10 +7824,9 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved earlier from Wed, Aug 19 to Sun, Aug 16.",
-    "Sun, Aug 16: worsening vs prior run; PSPS ELEVATED -> WATCH; score +10, wind 0 mph, RH -2%, red-flag hours 0.",
-    "Mon, Aug 17: worsening vs prior run; PSPS LOW -> ELEVATED; score +6, wind -1 mph, RH -1%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
-    "Tue, Aug 18: worsening vs prior run; PSPS ELEVATED -> WATCH; score +6, wind 0 mph, RH -2%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
+    "First WATCH-or-higher PSPS date moved earlier from Sun, Aug 16 to Sat, Aug 15.",
+    "Sat, Aug 15: worsening vs prior run; PSPS ELEVATED -> WATCH; score +15, wind +1 mph, RH -2%, red-flag hours +1.",
+    "Mon, Aug 17: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +6, wind 0 mph, RH -4%, red-flag hours 0."
   ],
   "operational_outage_context": {
     "active": false,
@@ -7882,32 +7852,32 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-08-15T05:26:13.8218842-06:00"
+    "update_time": "2026-08-15T17:38:17.4109472-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-19",
       "display_date": "Wed, Aug 19",
       "drivers": [
-        "very dry RH near 13%",
-        "wind/gust near 23 mph",
+        "very dry RH near 15%",
+        "wind/gust near 25 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "3 PM-6 PM local; 4 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "VERY HIGH",
-      "location": "Chimney Rock / west county",
-      "score": 73
+      "location": "Durango / La Plata County",
+      "score": 80
     },
     "psps": {
       "date": "2026-08-19",
       "display_date": "Wed, Aug 19",
       "drivers": [
-        "red-flag wind/gust signal near 28 mph",
+        "red-flag wind/gust signal near 26 mph",
         "red-flag RH near 15%",
         "3 sampled hours meet red-flag screen"
       ],
-      "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "WATCH",
       "location": "Ignacio / southeast La Plata County",
       "score": 63
@@ -7918,9 +7888,9 @@
       "drivers": [
         "3 sampled red-flag hours",
         "RH near 15%",
-        "wind/gust near 28 mph"
+        "wind/gust near 26 mph"
       ],
-      "highest_risk_window": "1 PM-6 PM local; 6 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Ignacio / southeast La Plata County",
       "score": 78
@@ -8098,9 +8068,9 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-16",
-    "first_watch_or_likely_display": "Sun, Aug 16",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Wed, Aug 19 to Sun, Aug 16.",
+    "first_watch_or_likely_date": "2026-08-15",
+    "first_watch_or_likely_display": "Sat, Aug 15",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Sun, Aug 16 to Sat, Aug 15.",
     "forecast_volatility_label": "HIGH",
     "forecast_volatility_score": 37,
     "momentum": "Rising"
