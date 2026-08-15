@@ -1,8 +1,8 @@
 {
   "changing_drivers": [
-    "The area-wide PSPS screen eased from LIKELY to WATCH; Wednesday's PSPS score decreased three points to 63/100.",
-    "Thursday extends the WATCH window and has the run's highest fire-potential score, 78/100 near Arboles.",
-    "Monday eased from ELEVATED to LOW, falling eight points as winds decreased and relative humidity increased.",
+    "The fire-weather screen rose to HIGH, with Wednesday now meeting the deterministic red-flag threshold.",
+    "The first PSPS WATCH date moved earlier from Wednesday to Sunday; Sunday and Tuesday both rose to WATCH.",
+    "Wednesday's strongest PSPS signal shifted to Ignacio at WATCH 63/100, with wind near 28 mph, RH near 15%, and three red-flag hours.",
     "Official-source fire posture remains Stage 2 with VERY HIGH fire danger; two wildfires remain listed with no evacuation notice detected."
   ],
   "evidence_ids": [
@@ -15,17 +15,17 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-14T05:27:16-06:00",
-  "headline": "PSPS screening eases to WATCH, focused on Wednesday and Thursday near Arboles; no official COZ295 alert or LPEA outage is active.",
-  "report_generated_at": "2026-08-14T05:23:32.815557-06:00",
+  "generated_at": "2026-08-15T07:01:41-06:00",
+  "headline": "Fire-weather screening rises to HIGH, with PSPS WATCH beginning Sunday and Wednesday meeting the red-flag screen; no official alert or LPEA outage is active.",
+  "report_generated_at": "2026-08-15T05:27:45.177899-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The area-wide screen eased from LIKELY to WATCH, led by Wednesday near Arboles at PSPS WATCH 63/100 and Red Flag WATCH 72/100; Thursday is also WATCH, with VERY HIGH fire potential 78/100. CONCERN dates are Aug. 15, 16, 18, 19, and 20. Official checks show zero COZ295 fire alerts and no active LPEA outage, while county feeds show no evacuation notice.",
-  "uncertainty": "No confirmed LPEA PSPS events are logged, and 56 prior WATCH/LIKELY dates did not become confirmed events. The Aug. 19-20 outlook remains a screening estimate with MEDIUM 69/100 confidence and HIGH forecast volatility.",
+  "summary": "The screen now shows HIGH fire-weather risk on Wednesday, when Ignacio reaches Red Flag LIKELY 78/100 and PSPS WATCH 63/100; PSPS WATCH begins Sunday and continues Tuesday through Friday. Official checks show zero COZ295 fire alerts and no active LPEA outage, while county feeds show no evacuation notice. Rio Blanco remains about 1,388 acres and 97% contained.",
+  "uncertainty": "No confirmed LPEA PSPS events are logged, and 56 prior WATCH or LIKELY dates did not become confirmed events; this remains a screening estimate with MEDIUM 69/100 confidence and HIGH forecast volatility.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Wednesday and Thursday for an official NWS alert, LPEA notice, or further threshold shift.",
-    "Monitor the 2 PM-6 PM Arboles windows for changes in wind, humidity, and dry-thunder overlap.",
+    "Recheck Sunday and Wednesday for an official NWS alert, LPEA notice, or further threshold shift.",
+    "Monitor Wednesday's 1 PM-6 PM Ignacio window for changes in wind, humidity, and red-flag duration.",
     "Treat the LPEA keyword match as broad public-source context unless direct outage or PSPS intent appears.",
     "Continue checking Rio Blanco, Gunsight, and county evacuation feeds for operational changes."
   ]
