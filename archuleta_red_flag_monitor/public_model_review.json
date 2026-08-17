@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Sunday moved from PSPS ELEVATED to WATCH 46/100, shifting the first WATCH-or-higher date earlier from Wednesday to today and the driver toward Arboles.",
-    "Friday and Saturday eased from PSPS WATCH to ELEVATED, with scores down 14 and 16 points respectively.",
-    "Wednesday remains the forecast PSPS peak near Arboles at WATCH 54/100, while Thursday has the highest Red Flag screening near Ignacio at WATCH 65/100.",
-    "LPEA reports one localized unplanned outage near Durango affecting one customer; no fire-weather or PSPS cause is identified."
+    "Momentum turned rising, while the first WATCH-or-higher PSPS date moved later from Sunday to Wednesday as today dropped back to ELEVATED.",
+    "Saturday worsened from PSPS ELEVATED to WATCH 47/100, with its score up 13 points.",
+    "Thursday eased from PSPS WATCH to ELEVATED, while Tuesday rose 8 points but remained ELEVATED and shifted toward Ignacio.",
+    "LPEA continues to report one localized unplanned outage near Durango affecting one customer; no fire-weather or PSPS cause is identified."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,17 +15,17 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-16T17:27:38-06:00",
-  "headline": "Fire-weather screening remains CONCERN and today returned to PSPS WATCH; a one-customer Durango-area outage has no identified fire or PSPS cause.",
-  "report_generated_at": "2026-08-16T17:24:01.082201-06:00",
+  "generated_at": "2026-08-17T06:21:05-06:00",
+  "headline": "Fire-weather screening remains CONCERN as risk shifts toward Wednesday; official COZ295 alerts remain at zero and a one-customer Durango outage is not linked to PSPS.",
+  "report_generated_at": "2026-08-17T05:25:03.274335-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Official checks show zero COZ295 alerts. Screening places today at PSPS WATCH 46/100 near Arboles and Durango, while Wednesday remains the forecast peak near Arboles at WATCH 54/100; Friday and Saturday eased to ELEVATED. LPEA reports one unplanned outage affecting one customer near Durango, with no fire-weather or PSPS cause identified.",
-  "uncertainty": "Confidence is MEDIUM 69/100 and forecast volatility is HIGH 53/100; no confirmed PSPS events are logged, and the localized outage is operational context rather than PSPS evidence.",
+  "summary": "Wednesday is the forecast peak: PSPS WATCH 51/100 near Ignacio, Red Flag WATCH 61/100 near Arboles, and VERY HIGH fire potential 75/100 near Durango. Saturday also returned to PSPS WATCH, while today and Thursday are ELEVATED. LPEA still shows one unplanned outage affecting one customer near Durango, with no posted fire or PSPS cause.",
+  "uncertainty": "Confidence is MEDIUM 69/100 and forecast volatility is HIGH 40/100; no confirmed PSPS events are logged, and the active outage is operational context rather than evidence of a shutoff.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck today's 5 PM-6 PM near-threshold window around Arboles and Durango against any official NWS or LPEA update.",
-    "Monitor Wednesday's 3 PM-6 PM Arboles window and Thursday's dry-thunder signal near Ignacio.",
+    "Monitor Wednesday's 2 PM-6 PM windows across Ignacio, Arboles, and Durango for wind, humidity, and any official NWS or LPEA update.",
+    "Recheck Saturday's returning WATCH signal near Arboles for persistence in the next forecast cycle.",
     "Recheck the Durango-area outage for restoration or a posted cause; do not treat it as PSPS evidence without official attribution.",
     "Continue checking Rio Blanco and county evacuation feeds for operational changes."
   ]
