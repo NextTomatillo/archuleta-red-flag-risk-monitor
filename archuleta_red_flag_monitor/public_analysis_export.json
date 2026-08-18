@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-17T17:31:35.845957-06:00",
+    "checked_at": "2026-08-18T12:47:14.638260-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -7761,10 +7761,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date moved earlier from Wednesday to Tuesday.",
-      "Tuesday worsened from ELEVATED to WATCH 46/100, up 8 points, with the driver shifting to Arboles.",
-      "Saturday eased from WATCH to ELEVATED 40/100, down 7 points.",
-      "The official LPEA viewer now reports no active outages; keyword matches remain contextual and do not establish PSPS intent."
+      "Forecast momentum is easing, while the first WATCH-or-higher PSPS date remains today.",
+      "Saturday eased from ELEVATED to LOW, down 26 points, with the driver shifting to Chimney Rock.",
+      "Sunday fell 26 points but remains ELEVATED, and Thursday eased 9 points while remaining ELEVATED.",
+      "The official LPEA viewer now lists nine outages affecting 2,522 customers near Durango and Ignacio, with no fire or PSPS cause identified."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7776,19 +7776,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-17T17:39:13-06:00",
-    "headline": "Fire-weather screening remains CONCERN as PSPS WATCH moves earlier to Tuesday; no official COZ295 alerts or active LPEA outages are reported.",
-    "report_generated_at": "2026-08-17T17:31:35.845957-06:00",
+    "generated_at": "2026-08-18T12:49:03-06:00",
+    "headline": "Fire-weather screening remains CONCERN with PSPS WATCH today and Wednesday; LPEA reports 2,522 customers out, with no fire or PSPS cause identified.",
+    "report_generated_at": "2026-08-18T12:47:14.638260-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Tuesday worsened to PSPS WATCH 46/100 near Arboles, and Wednesday remains the peak at WATCH 57/100 near Ignacio with Red Flag WATCH 67/100. NIFC still lists Rio Blanco at 1,387.74 acres and 97% contained, with no evacuation notice detected. LPEA keyword matches are context only; its official viewer lists no active outages.",
-    "uncertainty": "Confidence is MEDIUM 69/100 and forecast volatility is HIGH 30/100; no confirmed PSPS events are logged, and public keyword matches do not establish shutoff intent.",
+    "summary": "Today remains PSPS WATCH 46/100 near Arboles, while Wednesday is the peak at WATCH 54/100 near Arboles with Red Flag WATCH 63/100. The official LPEA viewer reports nine outages affecting 2,522 customers near Durango and Ignacio, but identifies no fire-weather or PSPS cause. Official COZ295 alerts remain at zero.",
+    "uncertainty": "Confidence is MEDIUM 69/100 and volatility is HIGH 53/100; no confirmed PSPS events are logged, and the active outages are operational context rather than evidence of a shutoff.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Monitor Tuesday's 5 PM-6 PM window near Arboles for forecast persistence or an official update.",
-      "Monitor Wednesday's 2 PM-6 PM window near Ignacio, where RH reaches 15% and wind/gust reaches 25 mph.",
-      "Check official NWS and LPEA sources for any alert, outage, or shutoff notice; none is currently reported.",
-      "Continue checking Rio Blanco and official county evacuation feeds for operational changes."
+      "Check the official LPEA viewer for outage restoration or a posted cause; do not classify these outages as PSPS without official attribution.",
+      "Monitor today's 4 PM-6 PM window near Arboles for forecast persistence or an official weather update.",
+      "Monitor Wednesday's 2 PM-5 PM window near Arboles and the 3 PM-4 PM fire-potential peak near Chimney Rock.",
+      "Continue checking official NWS, Rio Blanco, and county evacuation sources for operational changes."
     ]
   },
   "confidence": {
@@ -7799,6 +7799,7 @@
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
+      "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
       "forecast changed substantially versus prior run",
@@ -7807,13 +7808,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-17T17:31:35.845957-06:00",
+  "generated_at": "2026-08-18T12:47:14.638260-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Wed, Aug 19 near Ignacio / southeast La Plata County (WATCH 57/100), driven by red-flag wind/gust signal near 25 mph; red-flag RH near 15%; 5 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is steady versus the prior run (Aug 17 at 5:25 AM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 18."
+    "summary": "Highest LPEA PSPS concern is Wed, Aug 19 near Arboles / southwest county (WATCH 54/100), driven by near-threshold wind/gust signal near 23 mph; red-flag RH near 15%; 4 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Aug 17 at 5:31 PM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 18."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7824,76 +7825,356 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved earlier from Wed, Aug 19 to Tue, Aug 18.",
-    "Tue, Aug 18: worsening vs prior run; PSPS ELEVATED -> WATCH; score +8, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Sat, Aug 22: easing vs prior run; PSPS WATCH -> ELEVATED; score -7, wind 0 mph, RH +1%, red-flag hours 0."
+    "First WATCH-or-higher PSPS date remains Tue, Aug 18.",
+    "Sat, Aug 22: easing vs prior run; PSPS ELEVATED -> LOW; score -26, wind -8 mph, RH +1%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
+    "Sun, Aug 23: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -26, wind -8 mph, RH +1%, red-flag hours 0.",
+    "Thu, Aug 20: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind -1 mph, RH +1%, red-flag hours 0."
   ],
   "operational_outage_context": {
-    "active": false,
-    "active_outage_count": 0,
-    "affected_members": 0,
-    "areas": [],
-    "customers_affected": 0,
-    "customers_out_now": 0,
-    "customers_served": 47637,
+    "active": true,
+    "active_outage_count": 9,
+    "affected_members": 2522,
+    "areas": [
+      "Durango / La Plata County",
+      "Ignacio / southeast La Plata County"
+    ],
+    "customers_affected": 2522,
+    "customers_out_now": 2522,
+    "customers_served": 47644,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows no active customer outages.",
-    "hits": [],
-    "outages": [],
+    "headline": "Official LPEA outage data shows 2,522 customers without power near Durango / La Plata County, Ignacio / southeast La Plata County.",
+    "hits": [
+      {
+        "name": "F141",
+        "snippets": [
+          "Durango / La Plata County: 617 customers out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "F131",
+        "snippets": [
+          "Durango / La Plata County: 810 customers out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "F121",
+        "snippets": [
+          "Durango / La Plata County: 367 customers out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "NW121",
+        "snippets": [
+          "Ignacio / southeast La Plata County: 221 customers out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "NW111",
+        "snippets": [
+          "Ignacio / southeast La Plata County: 309 customers out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "F111",
+        "snippets": [
+          "Durango / La Plata County: 190 customers out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "2020 DELWOOD AVE",
+        "snippets": [
+          "Durango / La Plata County: 6 customers out; planned; cause 110 Maintenance."
+        ],
+        "url": "https://outage.lpea.coop"
+      },
+      {
+        "name": "177 COUNTY RD 103A",
+        "snippets": [
+          "Durango / La Plata County: 1 customer out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      }
+    ],
+    "outages": [
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 617,
+        "customers_out_now": 617,
+        "customers_restored": 0,
+        "distance_miles": 5.4,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0107",
+        "latitude": 37.25611164294716,
+        "longitude": -107.78560944005673,
+        "modified_at": "2026-08-18T12:09:46.377-06:00",
+        "name": "F141",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:42-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 810,
+        "customers_out_now": 810,
+        "customers_restored": 0,
+        "distance_miles": 7.8,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0108",
+        "latitude": 37.251049396098,
+        "longitude": -107.7424818132519,
+        "modified_at": "2026-08-18T12:09:46.243-06:00",
+        "name": "F131",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:38-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 367,
+        "customers_out_now": 367,
+        "customers_restored": 0,
+        "distance_miles": 7.5,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0109",
+        "latitude": 37.18026281380716,
+        "longitude": -107.81420501938555,
+        "modified_at": "2026-08-18T12:09:54.047-06:00",
+        "name": "F121",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:37-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 221,
+        "customers_out_now": 221,
+        "customers_restored": 0,
+        "distance_miles": 8.6,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0115",
+        "latitude": 37.17668921471921,
+        "longitude": -107.76846774895091,
+        "modified_at": "2026-08-18T12:09:46.257-06:00",
+        "name": "NW121",
+        "nearest_area": "Ignacio / southeast La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:38-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 309,
+        "customers_out_now": 309,
+        "customers_restored": 0,
+        "distance_miles": 6.9,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0116",
+        "latitude": 37.112663728974255,
+        "longitude": -107.75832756162652,
+        "modified_at": "2026-08-18T12:19:49.403-06:00",
+        "name": "NW111",
+        "nearest_area": "Ignacio / southeast La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:35-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 190,
+        "customers_out_now": 190,
+        "customers_restored": 0,
+        "distance_miles": 5.8,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0113",
+        "latitude": 37.20883903782416,
+        "longitude": -107.81650860160137,
+        "modified_at": "2026-08-18T12:09:54.047-06:00",
+        "name": "F111",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:38-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": "110 Maintenance",
+        "crew_assigned": true,
+        "customers_out_initially": 6,
+        "customers_out_now": 6,
+        "customers_restored": 0,
+        "distance_miles": 0.8,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0104",
+        "latitude": 37.286669394145285,
+        "longitude": -107.8809660204517,
+        "modified_at": "2026-08-18T08:41:50.16-06:00",
+        "name": "2020 DELWOOD AVE",
+        "nearest_area": "Durango / La Plata County",
+        "planned": true,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T08:35:24-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": true,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 20.1,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0145",
+        "latitude": 37.092306512577096,
+        "longitude": -108.1629892996853,
+        "modified_at": "2026-08-18T12:33:52.343-06:00",
+        "name": "177 COUNTY RD 103A",
+        "nearest_area": "Durango / La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:33:31-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      },
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 8.7,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-18-0130",
+        "latitude": 37.145009024217224,
+        "longitude": -107.78703831263121,
+        "modified_at": "2026-08-18T12:09:54.08-06:00",
+        "name": "NORTHWEST PIPELINE SUBSTATION",
+        "nearest_area": "Ignacio / southeast La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-18T12:08:43-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      }
+    ],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
-    "planned_outage_count": 0,
+    "planned_outage_count": 1,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "none",
+    "severity": "major",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "No active outages are listed by the official LPEA outage viewer.",
+    "summary": "9 active outages; 1 planned and 8 unplanned; 2,522 customers out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 0,
-    "update_time": "2026-08-17T17:32:32.8866656-06:00"
+    "unplanned_outage_count": 8,
+    "update_time": "2026-08-18T12:46:40.0430824-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-19",
       "display_date": "Wed, Aug 19",
       "drivers": [
-        "dry RH near 17%",
-        "wind/gust near 22 mph",
+        "very dry RH near 15%",
+        "wind/gust near 21 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
-      "level": "HIGH",
-      "location": "Durango / La Plata County",
-      "score": 66
+      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "level": "VERY HIGH",
+      "location": "Chimney Rock / west county",
+      "score": 72
     },
     "psps": {
       "date": "2026-08-19",
       "display_date": "Wed, Aug 19",
       "drivers": [
-        "red-flag wind/gust signal near 25 mph",
+        "near-threshold wind/gust signal near 23 mph",
         "red-flag RH near 15%",
-        "5 sampled hours are near red-flag thresholds"
+        "4 sampled hours are near red-flag thresholds",
+        "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
       ],
-      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
       "level": "WATCH",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 57
+      "location": "Arboles / southwest county",
+      "score": 54
     },
     "red_flag": {
       "date": "2026-08-19",
       "display_date": "Wed, Aug 19",
       "drivers": [
-        "5 near-threshold hours",
+        "4 near-threshold hours",
         "RH near 15%",
-        "wind/gust near 25 mph"
+        "breezy wind/gust near 23 mph",
+        "dry-thunder probability near 17%"
       ],
-      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-5 PM local; 4 near/red-flag threshold hours.",
       "level": "WATCH",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 67
+      "location": "Arboles / southwest county",
+      "score": 63
     }
   },
   "red_flag_calibration": {
@@ -8068,10 +8349,10 @@
   "trend": {
     "first_watch_or_likely_date": "2026-08-18",
     "first_watch_or_likely_display": "Tue, Aug 18",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Wed, Aug 19 to Tue, Aug 18.",
+    "first_watch_shift": "First WATCH-or-higher PSPS date remains Tue, Aug 18.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 30,
-    "momentum": "Steady"
+    "forecast_volatility_score": 53,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
