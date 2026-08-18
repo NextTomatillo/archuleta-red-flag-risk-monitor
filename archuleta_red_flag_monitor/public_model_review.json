@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Forecast momentum is easing, while the first WATCH-or-higher PSPS date remains today.",
-    "Saturday eased from ELEVATED to LOW, down 26 points, with the driver shifting to Chimney Rock.",
-    "Sunday fell 26 points but remains ELEVATED, and Thursday eased 9 points while remaining ELEVATED.",
-    "The official LPEA viewer now lists nine outages affecting 2,522 customers near Durango and Ignacio, with no fire or PSPS cause identified."
+    "Forecast momentum is steady and volatility is LOW 0/100; the first WATCH-or-higher date remains Tue, Aug 18.",
+    "Wednesday remains the peak near Arboles at PSPS WATCH 54/100 and Red Flag WATCH 63/100.",
+    "Fire posture remains elevated, with Stage 2 restrictions and VERY HIGH fire danger detected among checked official sources.",
+    "Rio Blanco remains 1,388 acres and 97% contained; no current evacuation order or warning was detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-18T12:49:03-06:00",
-  "headline": "Fire-weather screening remains CONCERN with PSPS WATCH today and Wednesday; LPEA reports 2,522 customers out, with no fire or PSPS cause identified.",
-  "report_generated_at": "2026-08-18T12:47:14.638260-06:00",
+  "generated_at": "2026-08-18T17:26:32-06:00",
+  "headline": "Fire-weather screening remains CONCERN with PSPS WATCH today and Wednesday; no official COZ295 alert or LPEA outage is active.",
+  "report_generated_at": "2026-08-18T17:24:24.289174-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Today remains PSPS WATCH 46/100 near Arboles, while Wednesday is the peak at WATCH 54/100 near Arboles with Red Flag WATCH 63/100. The official LPEA viewer reports nine outages affecting 2,522 customers near Durango and Ignacio, but identifies no fire-weather or PSPS cause. Official COZ295 alerts remain at zero.",
-  "uncertainty": "Confidence is MEDIUM 69/100 and volatility is HIGH 53/100; no confirmed PSPS events are logged, and the active outages are operational context rather than evidence of a shutoff.",
+  "summary": "Today's screening is PSPS WATCH 46/100 near Arboles; Wednesday remains the peak at PSPS WATCH 54/100 and Red Flag WATCH 63/100 near Arboles, with VERY HIGH fire potential 72/100 near Chimney Rock. Official NWS alerts for COZ295 remain at zero, and the official LPEA viewer lists no active outages. Rio Blanco remains 1,388 acres and 97% contained, with no current evacuation notice detected.",
+  "uncertainty": "Source coverage confidence is HIGH 77/100, but PSPS scores are uncalibrated because no confirmed LPEA PSPS events are logged; WATCH is a screening estimate, not an official notice.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check the official LPEA viewer for outage restoration or a posted cause; do not classify these outages as PSPS without official attribution.",
-    "Monitor today's 4 PM-6 PM window near Arboles for forecast persistence or an official weather update.",
-    "Monitor Wednesday's 2 PM-5 PM window near Arboles and the 3 PM-4 PM fire-potential peak near Chimney Rock.",
-    "Continue checking official NWS, Rio Blanco, and county evacuation sources for operational changes."
+    "Monitor today's 5 PM-6 PM window near Arboles for forecast persistence or an official update.",
+    "Monitor Wednesday's 2 PM-5 PM window near Arboles and 3 PM-4 PM fire-potential peak near Chimney Rock.",
+    "Continue checking official NWS and LPEA sources; do not treat keyword matches as outage or PSPS intent.",
+    "Continue checking Rio Blanco and official county evacuation sources for operational changes."
   ]
 }
