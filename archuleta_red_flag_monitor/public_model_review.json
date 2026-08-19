@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Forecast momentum is steady and volatility is LOW 0/100; the first WATCH-or-higher date remains Tue, Aug 18.",
-    "Wednesday remains the peak near Arboles at PSPS WATCH 54/100 and Red Flag WATCH 63/100.",
-    "Fire posture remains elevated, with Stage 2 restrictions and VERY HIGH fire danger detected among checked official sources.",
-    "Rio Blanco remains 1,388 acres and 97% contained; no current evacuation order or warning was detected."
+    "The first WATCH-or-higher date moved later from Tue, Aug 18 to Mon, Aug 24; today eased from WATCH to ELEVATED, down 22 points.",
+    "Monday worsened from ELEVATED to WATCH, up 28 points, while Sunday rose 22 points but remains ELEVATED.",
+    "Tuesday is the peak: PSPS WATCH 50/100 near Chimney Rock, Red Flag WATCH 61/100 near Ignacio, and fire potential VERY HIGH 71/100 near Chimney Rock.",
+    "Rio Blanco is reported at 100% containment, with no current evacuation order or warning detected; Stage 2 restrictions and VERY HIGH fire danger remain in checked sources."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-18T17:26:32-06:00",
-  "headline": "Fire-weather screening remains CONCERN with PSPS WATCH today and Wednesday; no official COZ295 alert or LPEA outage is active.",
-  "report_generated_at": "2026-08-18T17:24:24.289174-06:00",
+  "generated_at": "2026-08-19T08:58:22-06:00",
+  "headline": "Today's screening eased to ELEVATED, but area-wide risk remains CONCERN as PSPS WATCH shifts to Monday and Tuesday; no official COZ295 alert is active.",
+  "report_generated_at": "2026-08-19T08:55:44.564288-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Today's screening is PSPS WATCH 46/100 near Arboles; Wednesday remains the peak at PSPS WATCH 54/100 and Red Flag WATCH 63/100 near Arboles, with VERY HIGH fire potential 72/100 near Chimney Rock. Official NWS alerts for COZ295 remain at zero, and the official LPEA viewer lists no active outages. Rio Blanco remains 1,388 acres and 97% contained, with no current evacuation notice detected.",
-  "uncertainty": "Source coverage confidence is HIGH 77/100, but PSPS scores are uncalibrated because no confirmed LPEA PSPS events are logged; WATCH is a screening estimate, not an official notice.",
+  "summary": "Today is ELEVATED, while Monday and Tuesday are PSPS WATCH; Tuesday peaks near Chimney Rock at 50/100, with Red Flag WATCH 61/100 near Ignacio and VERY HIGH fire potential 71/100 near Chimney Rock. Official COZ295 alerts remain at zero. The official LPEA viewer lists three localized outages affecting nine customers, with no fire-weather or PSPS cause identified.",
+  "uncertainty": "Confidence is MEDIUM 69/100 because forecast volatility is HIGH 60/100, and PSPS scoring has no confirmed-event calibration; WATCH is screening, not an official notice.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Monitor today's 5 PM-6 PM window near Arboles for forecast persistence or an official update.",
-    "Monitor Wednesday's 2 PM-5 PM window near Arboles and 3 PM-4 PM fire-potential peak near Chimney Rock.",
-    "Continue checking official NWS and LPEA sources; do not treat keyword matches as outage or PSPS intent.",
-    "Continue checking Rio Blanco and official county evacuation sources for operational changes."
+    "Recheck whether the Monday and Tuesday WATCH signals persist as the forecast window approaches.",
+    "Monitor the official LPEA viewer for outage restoration or cause changes; do not classify these outages as PSPS without official attribution.",
+    "Continue checking official NWS alerts, especially for Monday and Tuesday's dry and breezy windows.",
+    "Continue checking Rio Blanco and official county evacuation sources despite the reported 100% containment."
   ]
 }
