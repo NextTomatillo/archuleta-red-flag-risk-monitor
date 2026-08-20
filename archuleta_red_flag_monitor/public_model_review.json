@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Overall PSPS screening rose from ELEVATED to WATCH, and the first WATCH-or-higher date appeared on Tuesday, Aug 25.",
-    "Tuesday rose 26 points from ELEVATED to WATCH as wind increased 9 mph; Arboles remains the driver area.",
-    "Sunday rose 28 points from LOW to ELEVATED as wind increased 9 mph, with the driver shifting to Chimney Rock.",
-    "The prior localized LPEA outage cleared; the current LPEA signal is a public-source keyword match, not an operational outage or confirmed shutoff intent."
+    "The first WATCH-or-higher PSPS date remains Tuesday, Aug 25; Wednesday now peaks at WATCH 50/100 near Durango.",
+    "Thursday eased 12 points as wind dropped 3 mph and humidity rose 4%; Sunday eased 16 points.",
+    "NIFC added the 0.5-acre Swiss Roll wildfire near Pagosa Springs; containment is not reported and no evacuation notice was detected.",
+    "The official LPEA viewer lists one unplanned two-customer outage near Durango, with no fire-weather or PSPS cause identified."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-20T04:27:38-06:00",
-  "headline": "PSPS screening rose to WATCH for Aug 25-26 as dry, breezy conditions strengthen; no official COZ295 alert or active LPEA outage is present.",
-  "report_generated_at": "2026-08-20T04:24:44.090966-06:00",
+  "generated_at": "2026-08-20T16:24:19-06:00",
+  "headline": "PSPS screening remains WATCH for Aug 25-26; a new small wildfire is listed near Pagosa, while no official COZ295 alert or fire-related outage is reported.",
+  "report_generated_at": "2026-08-20T16:20:55.984293-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "PSPS screening is WATCH on Tue, Aug 25 near Arboles (46/100) and Wed, Aug 26 near Ignacio (48/100); these are screening estimates, not LPEA shutoff notices. Fire-weather remains CONCERN, with today's fire-potential peak HIGH 69/100 near Chimney Rock and CONCERN dates Aug 20 and Aug 23-26. Official COZ295 alerts are zero, and the official LPEA viewer lists no active outages.",
-  "uncertainty": "Confidence is MEDIUM 69/100 because forecast volatility is HIGH 55/100 and no confirmed PSPS events are available for calibration; WATCH does not mean a shutoff is planned.",
+  "summary": "PSPS screening remains WATCH on Tue, Aug 25 near Arboles (46/100) and Wed, Aug 26 near Durango (50/100); these are screening estimates, not LPEA shutoff notices. Wednesday also carries the peak weather fire potential, VERY HIGH 72/100 near Durango. Official COZ295 alerts remain at zero; the official LPEA viewer lists one localized two-customer outage with no fire or PSPS cause, and NIFC now lists the 0.5-acre Swiss Roll fire with no evacuation notice detected.",
+  "uncertainty": "Confidence is MEDIUM 74/100 because PSPS scoring has no confirmed-event calibration; the forecast eased overall but the Aug 25-26 WATCH signal and new Swiss Roll incident require continued official-source checks.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck the Aug 25-26 WATCH signals in later forecasts, especially the afternoon wind and humidity windows.",
-    "Monitor official NWS and LPEA updates; COZ295 currently has zero alerts and the official outage viewer shows no active outages.",
-    "Confirm that LPEA keyword matches are current operational language before treating them as outage or PSPS intent.",
-    "Continue checking Rio Blanco and county evacuation sources despite the reported 100% containment."
+    "Recheck the Aug 25-26 WATCH signal, especially Wednesday afternoon wind and humidity near Durango and Ignacio.",
+    "Monitor Swiss Roll acreage, containment, and official county evacuation sources for any change.",
+    "Treat the two-customer LPEA outage as operational context only unless LPEA identifies a fire or PSPS cause.",
+    "Continue official NWS checks; the current COZ295 alert count is zero."
   ]
 }
