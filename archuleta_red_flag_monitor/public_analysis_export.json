@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-20T16:20:55.984293-06:00",
+    "checked_at": "2026-08-21T04:27:39.406316-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -92,10 +92,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date remains Tuesday, Aug 25; Wednesday now peaks at WATCH 50/100 near Durango.",
-      "Thursday eased 12 points as wind dropped 3 mph and humidity rose 4%; Sunday eased 16 points.",
-      "NIFC added the 0.5-acre Swiss Roll wildfire near Pagosa Springs; containment is not reported and no evacuation notice was detected.",
-      "The official LPEA viewer lists one unplanned two-customer outage near Durango, with no fire-weather or PSPS cause identified."
+      "The first WATCH-or-higher PSPS date moved earlier from Tuesday, Aug 25 to Monday, Aug 24.",
+      "Monday worsened from ELEVATED to WATCH, gaining 6 points as wind rose 1 mph, humidity fell 1%, and the driver shifted to Chimney Rock.",
+      "Thursday is the current peak near Ignacio at WATCH 61/100, driven by RH near 12%, wind near 25 mph, and 6 near-threshold hours.",
+      "Current official-source fire posture includes Stage 2 restrictions and VERY HIGH fire danger."
     ],
     "evidence_ids": [
       "overall_status",
@@ -107,19 +107,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-20T16:24:19-06:00",
-    "headline": "PSPS screening remains WATCH for Aug 25-26; a new small wildfire is listed near Pagosa, while no official COZ295 alert or fire-related outage is reported.",
-    "report_generated_at": "2026-08-20T16:20:55.984293-06:00",
+    "generated_at": "2026-08-21T04:28:55-06:00",
+    "headline": "PSPS screening is WATCH Aug 24-27 and now begins a day earlier; no official COZ295 alert is active, and LPEA's localized outage has no fire or PSPS cause.",
+    "report_generated_at": "2026-08-21T04:27:39.406316-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "PSPS screening remains WATCH on Tue, Aug 25 near Arboles (46/100) and Wed, Aug 26 near Durango (50/100); these are screening estimates, not LPEA shutoff notices. Wednesday also carries the peak weather fire potential, VERY HIGH 72/100 near Durango. Official COZ295 alerts remain at zero; the official LPEA viewer lists one localized two-customer outage with no fire or PSPS cause, and NIFC now lists the 0.5-acre Swiss Roll fire with no evacuation notice detected.",
-    "uncertainty": "Confidence is MEDIUM 74/100 because PSPS scoring has no confirmed-event calibration; the forecast eased overall but the Aug 25-26 WATCH signal and new Swiss Roll incident require continued official-source checks.",
+    "summary": "PSPS screening is WATCH from Mon, Aug 24 through Thu, Aug 27; it is a screening estimate, not an LPEA shutoff notice. Thursday peaks at WATCH 61/100 near Ignacio, with red-flag screening WATCH 74/100 there and weather fire potential VERY HIGH 77/100 near Chimney Rock. Official COZ295 alerts remain at zero; LPEA lists one unplanned 15-customer outage near Ignacio with no fire or PSPS cause, while two Archuleta wildfires remain listed and no evacuation notice was detected.",
+    "uncertainty": "Confidence is MEDIUM 74/100: PSPS calibration still has no confirmed events, the WATCH window expanded, and outage or incident context does not establish LPEA shutoff intent.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck the Aug 25-26 WATCH signal, especially Wednesday afternoon wind and humidity near Durango and Ignacio.",
-      "Monitor Swiss Roll acreage, containment, and official county evacuation sources for any change.",
-      "Treat the two-customer LPEA outage as operational context only unless LPEA identifies a fire or PSPS cause.",
-      "Continue official NWS checks; the current COZ295 alert count is zero."
+      "Recheck the expanded Aug 24-27 WATCH window, especially Monday's new signal near Chimney Rock.",
+      "Monitor Thursday afternoon near Ignacio, where the current PSPS and red-flag screening peaks occur.",
+      "Treat the 15-customer LPEA outage as operational context only unless LPEA identifies a fire or PSPS cause.",
+      "Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
     ]
   },
   "confidence": {
@@ -139,13 +139,13 @@
     "score": 74
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-20T16:20:55.984293-06:00",
+  "generated_at": "2026-08-21T04:27:39.406316-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Wed, Aug 26 near Durango / La Plata County (WATCH 50/100), driven by near-threshold wind/gust signal near 21 mph; red-flag RH near 15%; 2 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
-    "trend_summary": "Momentum is easing versus the prior run (Aug 20 at 4:24 AM MDT); forecast volatility is medium and first WATCH-or-higher date is Tue, Aug 25."
+    "summary": "Highest LPEA PSPS concern is Thu, Aug 27 near Ignacio / southeast La Plata County (WATCH 61/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 6 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
+    "trend_summary": "Momentum is rising versus the prior run (Aug 20 at 4:20 PM MDT); forecast volatility is medium and first WATCH-or-higher date is Mon, Aug 24."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -156,27 +156,26 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date remains Tue, Aug 25.",
-    "Thu, Aug 20: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -12, wind -3 mph, RH +4%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Sun, Aug 23: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -16, wind -1 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county."
+    "First WATCH-or-higher PSPS date moved earlier from Tue, Aug 25 to Mon, Aug 24.",
+    "Mon, Aug 24: worsening vs prior run; PSPS ELEVATED -> WATCH; score +6, wind +1 mph, RH -1%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
   ],
   "operational_outage_context": {
     "active": true,
     "active_outage_count": 1,
-    "affected_members": 2,
+    "affected_members": 15,
     "areas": [
-      "Durango / La Plata County"
+      "Ignacio / southeast La Plata County"
     ],
-    "customers_affected": 2,
-    "customers_out_now": 2,
-    "customers_served": 47647,
+    "customers_affected": 15,
+    "customers_out_now": 15,
+    "customers_served": 47651,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 2 customers without power near Durango / La Plata County.",
+    "headline": "Official LPEA outage data shows 15 customers without power near Ignacio / southeast La Plata County.",
     "hits": [
       {
-        "name": "#1 SKIER PL PURGATORY LIFT 8",
+        "name": "AIRPORT RD SOUTH",
         "snippets": [
-          "Durango / La Plata County: 2 customers out; unplanned; cause not posted."
+          "Ignacio / southeast La Plata County: 15 customers out; unplanned; cause not posted."
         ],
         "url": "https://outage.lpea.coop"
       }
@@ -185,25 +184,25 @@
       {
         "cause": null,
         "crew_assigned": true,
-        "customers_out_initially": 2,
-        "customers_out_now": 2,
+        "customers_out_initially": 15,
+        "customers_out_now": 15,
         "customers_restored": 0,
-        "distance_miles": 23.7,
+        "distance_miles": 7.2,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-08-20-0158",
-        "latitude": 37.617970124915516,
-        "longitude": -107.85348009118957,
-        "modified_at": "2026-08-20T10:15:56.793-06:00",
-        "name": "#1 SKIER PL PURGATORY LIFT 8",
-        "nearest_area": "Durango / La Plata County",
+        "id": "2026-08-21-0175",
+        "latitude": 37.15401597797434,
+        "longitude": -107.75525448911631,
+        "modified_at": "2026-08-21T03:22:30.767-06:00",
+        "name": "AIRPORT RD SOUTH",
+        "nearest_area": "Ignacio / southeast La Plata County",
         "planned": false,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-08-20T09:34:13-06:00",
+        "started_at": "2026-08-21T03:18:53-06:00",
         "url": "https://outage.lpea.coop",
-        "verified": true,
+        "verified": false,
         "work_status": ""
       }
     ],
@@ -216,52 +215,51 @@
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "1 active outage; 0 planned and 1 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.",
+    "summary": "1 active outage; 0 planned and 1 unplanned; 15 customers out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 1,
-    "update_time": "2026-08-20T16:20:53.6852332-06:00"
+    "update_time": "2026-08-21T04:26:57.1871331-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-08-26",
-      "display_date": "Wed, Aug 26",
+      "date": "2026-08-27",
+      "display_date": "Thu, Aug 27",
       "drivers": [
-        "very dry RH near 15%",
-        "wind/gust near 21 mph",
+        "very dry RH near 11%",
+        "wind/gust near 22 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "4 PM-5 PM local; 2 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
       "level": "VERY HIGH",
-      "location": "Durango / La Plata County",
-      "score": 72
+      "location": "Chimney Rock / west county",
+      "score": 77
     },
     "psps": {
-      "date": "2026-08-26",
-      "display_date": "Wed, Aug 26",
+      "date": "2026-08-27",
+      "display_date": "Thu, Aug 27",
       "drivers": [
-        "near-threshold wind/gust signal near 21 mph",
-        "red-flag RH near 15%",
-        "2 sampled hours are near red-flag thresholds",
-        "Official fire-posture context for Durango / La Plata County is elevated (STAGE 1; fire danger VERY HIGH), used as a small supporting modifier."
+        "red-flag wind/gust signal near 25 mph",
+        "very dry RH near 12%",
+        "6 sampled hours are near red-flag thresholds"
       ],
-      "highest_risk_window": "4 PM-5 PM local; 2 near/red-flag threshold hours.",
-      "level": "WATCH",
-      "location": "Durango / La Plata County",
-      "score": 50
-    },
-    "red_flag": {
-      "date": "2026-08-26",
-      "display_date": "Wed, Aug 26",
-      "drivers": [
-        "4 near-threshold hours",
-        "RH near 14%",
-        "breezy wind/gust near 22 mph"
-      ],
-      "highest_risk_window": "3 PM-6 PM local; 4 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "WATCH",
       "location": "Ignacio / southeast La Plata County",
-      "score": 58
+      "score": 61
+    },
+    "red_flag": {
+      "date": "2026-08-27",
+      "display_date": "Thu, Aug 27",
+      "drivers": [
+        "6 near-threshold hours",
+        "RH near 12%",
+        "wind/gust near 25 mph"
+      ],
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
+      "level": "WATCH",
+      "location": "Ignacio / southeast La Plata County",
+      "score": 74
     }
   },
   "red_flag_calibration": {
@@ -434,12 +432,12 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-25",
-    "first_watch_or_likely_display": "Tue, Aug 25",
-    "first_watch_shift": "First WATCH-or-higher PSPS date remains Tue, Aug 25.",
+    "first_watch_or_likely_date": "2026-08-24",
+    "first_watch_or_likely_display": "Mon, Aug 24",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Tue, Aug 25 to Mon, Aug 24.",
     "forecast_volatility_label": "MEDIUM",
-    "forecast_volatility_score": 26,
-    "momentum": "Easing"
+    "forecast_volatility_score": 24,
+    "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
