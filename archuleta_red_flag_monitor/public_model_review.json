@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date moved later from Monday, Aug 24 to Tuesday, Aug 25.",
-    "Monday fell from WATCH to ELEVATED by 6 points, while Thursday remained WATCH but eased 11 points with fewer red-flag hours.",
-    "Friday entered the forecast as the peak near Bayfield at WATCH 63/100, with RH near 12%, wind near 25 mph, and 6 near-threshold hours.",
-    "Current official-source fire posture still includes Stage 2 restrictions and VERY HIGH fire danger."
+    "The first WATCH-or-higher PSPS date remains Tuesday, Aug 25, with no major day-level movement versus the prior run.",
+    "Friday remains the peak near Bayfield at WATCH 63/100, with RH near 12%, wind near 25 mph, and 6 near-threshold hours.",
+    "Current official-source fire posture includes Stage 2 restrictions and VERY HIGH fire danger.",
+    "Two current wildfires are listed in Archuleta County, with no evacuation notice detected in the checked official feeds."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,16 +15,16 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-22T04:50:15-06:00",
-  "headline": "PSPS screening eased near-term but remains WATCH Aug 25-28, peaking Friday near Bayfield; no official COZ295 alert or fire-related LPEA outage is reported.",
-  "report_generated_at": "2026-08-22T04:15:58.875635-06:00",
+  "generated_at": "2026-08-22T10:07:32-06:00",
+  "headline": "PSPS screening remains WATCH Aug 25-28, peaking Friday near Bayfield; no official COZ295 alert or fire-related LPEA outage is reported.",
+  "report_generated_at": "2026-08-22T09:29:51.228409-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "PSPS screening moved a day later and is WATCH Tue, Aug 25 through Fri, Aug 28; these are screening estimates, not LPEA shutoff notices. Friday peaks near Bayfield at WATCH 63/100, with red-flag screening WATCH 74/100 and weather fire potential VERY HIGH 82/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.",
-  "uncertainty": "Confidence is MEDIUM 69/100 because forecast volatility is HIGH and PSPS calibration has no confirmed events; Friday is a new forecast-window date and may shift in later runs.",
+  "summary": "PSPS screening is unchanged at WATCH Tue, Aug 25 through Fri, Aug 28; these are screening estimates, not LPEA shutoff notices. Friday peaks near Bayfield at WATCH 63/100, with red-flag screening WATCH 74/100 and weather fire potential VERY HIGH 82/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.",
+  "uncertainty": "Confidence is HIGH 77/100 because source coverage is complete and the forecast is steady, but PSPS calibration has no confirmed events and Friday's forecast may still change.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck the Aug 25-28 WATCH window after the high-volatility shift, especially Tuesday's first signal near Chimney Rock.",
+    "Recheck the Aug 25-28 WATCH window after the next forecast update, especially Tuesday's first signal near Chimney Rock.",
     "Monitor Friday afternoon near Bayfield, where the current PSPS, red-flag, and weather fire-potential peaks align.",
     "Treat both one-customer LPEA outages as operational context only unless LPEA identifies a fire or PSPS cause.",
     "Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."

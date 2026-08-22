@@ -1,7 +1,7 @@
 # Archuleta County fire-weather monitor
 
-Generated: Aug 22, 2026 at 4:15 AM MDT (Pagosa Springs, CO local time)
-Next update: Aug 22, 2026 at 5:20 AM MDT (Pagosa Springs, CO local time)
+Generated: Aug 22, 2026 at 9:29 AM MDT (Pagosa Springs, CO local time)
+Next update: Aug 22, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -25,7 +25,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Fri, Aug 28 near Bayfield / east La Plata County (WATCH 63/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 6 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.
-- Confidence: **MEDIUM** (69/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; no confirmed PSPS events logged yet for calibration
 - Weather fire-potential peak: Fri, Aug 28: Bayfield / east La Plata County VERY HIGH 82/100
 - Red Flag likelihood peak: Fri, Aug 28: Bayfield / east La Plata County WATCH 74/100
 - LPEA PSPS peak: Fri, Aug 28: Bayfield / east La Plata County WATCH 63/100
@@ -43,43 +43,42 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Analyst Interpretation
 
-- Headline: PSPS screening eased near-term but remains WATCH Aug 25-28, peaking Friday near Bayfield; no official COZ295 alert or fire-related LPEA outage is reported.
-- Summary: PSPS screening moved a day later and is WATCH Tue, Aug 25 through Fri, Aug 28; these are screening estimates, not LPEA shutoff notices. Friday peaks near Bayfield at WATCH 63/100, with red-flag screening WATCH 74/100 and weather fire potential VERY HIGH 82/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.
-- Uncertainty: Confidence is MEDIUM 69/100 because forecast volatility is HIGH and PSPS calibration has no confirmed events; Friday is a new forecast-window date and may shift in later runs.
+- Headline: PSPS screening remains WATCH Aug 25-28, peaking Friday near Bayfield; no official COZ295 alert or fire-related LPEA outage is reported.
+- Summary: PSPS screening is unchanged at WATCH Tue, Aug 25 through Fri, Aug 28; these are screening estimates, not LPEA shutoff notices. Friday peaks near Bayfield at WATCH 63/100, with red-flag screening WATCH 74/100 and weather fire potential VERY HIGH 82/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.
+- Uncertainty: Confidence is HIGH 77/100 because source coverage is complete and the forecast is steady, but PSPS calibration has no confirmed events and Friday's forecast may still change.
 - Evidence used: overall_status, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture, active_incidents, calibration
 - This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
 
 Changing drivers:
-- The first WATCH-or-higher PSPS date moved later from Monday, Aug 24 to Tuesday, Aug 25.
-- Monday fell from WATCH to ELEVATED by 6 points, while Thursday remained WATCH but eased 11 points with fewer red-flag hours.
-- Friday entered the forecast as the peak near Bayfield at WATCH 63/100, with RH near 12%, wind near 25 mph, and 6 near-threshold hours.
-- Current official-source fire posture still includes Stage 2 restrictions and VERY HIGH fire danger.
+- The first WATCH-or-higher PSPS date remains Tuesday, Aug 25, with no major day-level movement versus the prior run.
+- Friday remains the peak near Bayfield at WATCH 63/100, with RH near 12%, wind near 25 mph, and 6 near-threshold hours.
+- Current official-source fire posture includes Stage 2 restrictions and VERY HIGH fire danger.
+- Two current wildfires are listed in Archuleta County, with no evacuation notice detected in the checked official feeds.
 
 What to watch next:
-- Recheck the Aug 25-28 WATCH window after the high-volatility shift, especially Tuesday's first signal near Chimney Rock.
+- Recheck the Aug 25-28 WATCH window after the next forecast update, especially Tuesday's first signal near Chimney Rock.
 - Monitor Friday afternoon near Bayfield, where the current PSPS, red-flag, and weather fire-potential peaks align.
 - Treat both one-customer LPEA outages as operational context only unless LPEA identifies a fire or PSPS cause.
 - Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected.
 
 ## Trend Intelligence
 
-- Summary: Momentum is easing versus the prior run (Aug 21 at 4:27 AM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25.
-- Momentum: **Easing**
-- Forecast volatility: **HIGH** (33/100)
+- Summary: Momentum is steady versus the prior run (Aug 22 at 4:15 AM MDT); forecast volatility is low and first WATCH-or-higher date is Tue, Aug 25.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Tue, Aug 25
-- Watch-date movement: First WATCH-or-higher PSPS date moved later from Mon, Aug 24 to Tue, Aug 25.
+- Watch-date movement: First WATCH-or-higher PSPS date remains Tue, Aug 25.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
-- First WATCH-or-higher PSPS date moved later from Mon, Aug 24 to Tue, Aug 25.
-- Thu, Aug 27: easing vs prior run; PSPS WATCH -> WATCH; score -11, wind -1 mph, RH +1%, red-flag hours -2. Driver shifted to Arboles / southwest county.
-- Mon, Aug 24: easing vs prior run; PSPS WATCH -> ELEVATED; score -6, wind 0 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county.
+- First WATCH-or-higher PSPS date remains Tue, Aug 25.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Fri, Aug 28 near Bayfield / east La Plata County (WATCH 63/100), driven by red-flag wind/gust signal near 25 mph; very dry RH near 12%; 6 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.
-- Trend: Momentum is easing versus the prior run (Aug 21 at 4:27 AM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25.
-- Confidence: **MEDIUM** (69/100)
+- Trend: Momentum is steady versus the prior run (Aug 22 at 4:15 AM MDT); forecast volatility is low and first WATCH-or-higher date is Tue, Aug 25.
+- Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Tue, Aug 25
 - PSPS peak: Fri, Aug 28 near Bayfield / east La Plata County at WATCH 63/100
 - Red Flag peak: Fri, Aug 28 near Bayfield / east La Plata County at WATCH 74/100
@@ -88,9 +87,8 @@ Notable changes:
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
-- First WATCH-or-higher PSPS date moved later from Mon, Aug 24 to Tue, Aug 25.
-- Thu, Aug 27: easing vs prior run; PSPS WATCH -> WATCH; score -11, wind -1 mph, RH +1%, red-flag hours -2. Driver shifted to Arboles / southwest county.
-- Mon, Aug 24: easing vs prior run; PSPS WATCH -> ELEVATED; score -6, wind 0 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county.
+- First WATCH-or-higher PSPS date remains Tue, Aug 25.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
