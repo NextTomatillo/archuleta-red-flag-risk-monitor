@@ -1,8 +1,8 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date remains Tuesday, Aug 25 near Arboles / southwest county.",
-    "Aug 26-28 fell from WATCH to ELEVATED as projected winds weakened, with Friday dropping 31 points.",
-    "Tuesday is now the PSPS and red-flag screening peak; Wednesday retains the highest weather fire potential near Chromo.",
+    "Overall PSPS screening rose from WATCH to LIKELY while the first WATCH-or-higher date remains Tuesday, Aug 25.",
+    "Friday rose from ELEVATED to LIKELY by 35 points as projected wind increased 9 mph and red-flag hours increased by 4.",
+    "Saturday entered as the peak: PSPS LIKELY 73/100 near Arboles, red-flag LIKELY 88/100 and fire potential EXTREME 90/100 near Bayfield.",
     "Current official-source fire posture includes Stage 2 restrictions and VERY HIGH fire danger."
   ],
   "evidence_ids": [
@@ -15,17 +15,17 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-22T16:40:40-06:00",
-  "headline": "PSPS screening eased to a single WATCH day on Aug 25 near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
-  "report_generated_at": "2026-08-22T16:24:32.077256-06:00",
+  "generated_at": "2026-08-23T05:14:07-06:00",
+  "headline": "PSPS screening rose to LIKELY Aug 28-29, peaking Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
+  "report_generated_at": "2026-08-23T04:38:01.392338-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "PSPS screening is WATCH only Tue, Aug 25 near Arboles at 46/100; this is a screening estimate, not an LPEA shutoff notice. Aug 26-28 eased to ELEVATED as forecast winds dropped, while weather fire potential still peaks HIGH 63/100 Wednesday near Chromo. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.",
-  "uncertainty": "Confidence is MEDIUM 69/100 because source coverage is complete but forecast volatility is HIGH 63/100; PSPS calibration has no confirmed events, so Aug 25 may still shift.",
+  "summary": "PSPS screening rose to LIKELY Fri, Aug 28 and Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at LIKELY 73/100, while Bayfield reaches red-flag screening LIKELY 88/100 and weather fire potential EXTREME 90/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.",
+  "uncertainty": "Confidence is MEDIUM 69/100 because source coverage is complete but forecast volatility is HIGH 79/100; PSPS calibration has no confirmed events, so the Aug 28-29 escalation may still shift.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck the Tuesday WATCH signal after the next forecast update because this run changed substantially.",
-    "Monitor Tuesday from 3 PM to 5 PM near Arboles, where RH near 15% and wind near 22 mph currently align.",
+    "Recheck the Aug 28-29 LIKELY window after the next forecast update because this run changed substantially.",
+    "Monitor Saturday afternoon near Arboles and Bayfield, where wind, low RH, red-flag, and fire-potential peaks align.",
     "Treat both one-customer LPEA outages as operational context only unless LPEA identifies a fire or PSPS cause.",
     "Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
   ]

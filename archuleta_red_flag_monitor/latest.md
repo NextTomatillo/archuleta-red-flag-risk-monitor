@@ -1,20 +1,20 @@
 # Archuleta County fire-weather monitor
 
-Generated: Aug 22, 2026 at 4:24 PM MDT (Pagosa Springs, CO local time)
-Next update: Aug 22, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
+Generated: Aug 23, 2026 at 4:38 AM MDT (Pagosa Springs, CO local time)
+Next update: Aug 23, 2026 at 5:20 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
 ## At A Glance
 
-- Fire-weather tier: **CONCERN**
-- PSPS likelihood: **WATCH**
-- PSPS likely dates: None
-- PSPS watch dates: Tue, Aug 25
-- Monitor heads-up recommended: **YES** - Send this monitor report because fire-weather screening tier is CONCERN; PSPS screening level is WATCH; a material current wildfire is reported in Archuleta County. This is not an official LPEA or NWS notice.
-- HIGH dates: None
-- CONCERN dates: Mon, Aug 24; Tue, Aug 25; Wed, Aug 26
-- ELEVATED dates: Thu, Aug 27; Fri, Aug 28
+- Fire-weather tier: **HIGH**
+- PSPS likelihood: **LIKELY**
+- PSPS likely dates: Fri, Aug 28; Sat, Aug 29
+- PSPS watch dates: Tue, Aug 25; Thu, Aug 27
+- Monitor heads-up recommended: **YES** - Send this monitor report because fire-weather screening tier is HIGH; PSPS screening level is LIKELY; a material current wildfire is reported in Archuleta County. This is not an official LPEA or NWS notice.
+- HIGH dates: Fri, Aug 28; Sat, Aug 29
+- CONCERN dates: Tue, Aug 25; Thu, Aug 27
+- ELEVATED dates: Mon, Aug 24; Wed, Aug 26
 - Official NWS Red Flag / Fire Weather alerts (COZ295): 0
 - LPEA signal: `operational_outage_active` - Official LPEA outage data indicates an operational outage; use as grid context, not PSPS/fire evidence unless LPEA identifies that cause.
 - LPEA source coverage: 13 sources; 5/5 official social sources reachable
@@ -24,77 +24,79 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Decision Support
 
-- Summary: Highest LPEA PSPS concern is Tue, Aug 25 near Arboles / southwest county (WATCH 46/100), driven by near-threshold wind/gust signal near 22 mph; red-flag RH near 15%; 3 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.
+- Summary: Highest LPEA PSPS concern is Sat, Aug 29 near Arboles / southwest county (LIKELY 73/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 11%; 4 sampled hours meet red-flag screen. NIFC reports 2 current wildfires in Archuleta County.
 - Confidence: **MEDIUM** (69/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; active LPEA operational outage context checked separately from PSPS scoring; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
-- Weather fire-potential peak: Wed, Aug 26: Chromo / southeast county HIGH 63/100
-- Red Flag likelihood peak: Tue, Aug 25: Arboles / southwest county WATCH 55/100
-- LPEA PSPS peak: Tue, Aug 25: Arboles / southwest county WATCH 46/100
+- Weather fire-potential peak: Sat, Aug 29: Bayfield / east La Plata County EXTREME 90/100
+- Red Flag likelihood peak: Sat, Aug 29: Bayfield / east La Plata County LIKELY 88/100
+- LPEA PSPS peak: Sat, Aug 29: Arboles / southwest county LIKELY 73/100
 - Method: rules-based decision support using public weather, fire-posture, and LPEA source signals; scores are screening estimates, not official or statistically calibrated probabilities.
 
 | Date | Weather fire potential | Red Flag likelihood | LPEA PSPS | Main window |
 | --- | --- | --- | --- | --- |
-| Sat, Aug 22 | Chimney Rock / west county: LOW 26/100 | Arboles / southwest county: LOW 0/100 | Arboles / southwest county: LOW 16/100 | Peak ingredients near 4 PM local; RH 21%, wind 18 mph. |
-| Sun, Aug 23 | Chimney Rock / west county: LOW 26/100 | Ignacio / southeast La Plata County: LOW 8/100 | Ignacio / southeast La Plata County: ELEVATED 22/100 | Peak ingredients near 3 PM local; RH 22%, wind 21 mph. |
-| Mon, Aug 24 | Arboles / southwest county: HIGH 55/100 | Arboles / southwest county: POSSIBLE 50/100 | Arboles / southwest county: ELEVATED 40/100 | 3 PM-5 PM local; 3 near/red-flag threshold hours. |
-| Tue, Aug 25 | Durango / La Plata County: HIGH 62/100 | Arboles / southwest county: WATCH 55/100 | Arboles / southwest county: WATCH 46/100 | 3 PM-5 PM local; 3 near/red-flag threshold hours. |
-| Wed, Aug 26 | Chromo / southeast county: HIGH 63/100 | Chromo / southeast county: POSSIBLE 50/100 | Arboles / southwest county: ELEVATED 24/100 | Peak ingredients near 4 PM local; RH 15%, wind 12 mph. |
-| Thu, Aug 27 | Chimney Rock / west county: MODERATE 46/100 | Arboles / southwest county: LOW 25/100 | Arboles / southwest county: ELEVATED 24/100 | Peak ingredients near 4 PM local; RH 13%, wind 12 mph. |
-| Fri, Aug 28 | Pagosa Springs: MODERATE 52/100 | Arboles / southwest county: LOW 25/100 | Arboles / southwest county: ELEVATED 32/100 | Peak ingredients near 5 PM local; RH 11%, wind 15 mph. |
+| Sun, Aug 23 | Durango / La Plata County: LOW 30/100 | Ignacio / southeast La Plata County: LOW 8/100 | Ignacio / southeast La Plata County: ELEVATED 22/100 | Peak ingredients near 4 PM local; RH 23%, wind 22 mph. |
+| Mon, Aug 24 | Chimney Rock / west county: MODERATE 46/100 | Arboles / southwest county: LOW 25/100 | Arboles / southwest county: ELEVATED 28/100 | Peak ingredients near 4 PM local; RH 15%, wind 17 mph. |
+| Tue, Aug 25 | Chimney Rock / west county: VERY HIGH 76/100 | Arboles / southwest county: POSSIBLE 52/100 | Arboles / southwest county: WATCH 46/100 | 3 PM-4 PM local; 2 near/red-flag threshold hours. |
+| Wed, Aug 26 | Chimney Rock / west county: MODERATE 46/100 | Arboles / southwest county: LOW 25/100 | Arboles / southwest county: ELEVATED 28/100 | Peak ingredients near 6 PM local; RH 20%, wind 20 mph. |
+| Thu, Aug 27 | Chimney Rock / west county: VERY HIGH 73/100 | Chimney Rock / west county: WATCH 56/100 | Chimney Rock / west county: WATCH 47/100 | 3 PM-4 PM local; 2 near/red-flag threshold hours. |
+| Fri, Aug 28 | Bayfield / east La Plata County: VERY HIGH 84/100 | Ignacio / southeast La Plata County: LIKELY 80/100 | Ignacio / southeast La Plata County: LIKELY 67/100 | 2 PM-7 PM local; 6 near/red-flag threshold hours. |
+| Sat, Aug 29 | Bayfield / east La Plata County: EXTREME 90/100 | Bayfield / east La Plata County: LIKELY 88/100 | Arboles / southwest county: LIKELY 73/100 | 2 PM-7 PM local; 6 near/red-flag threshold hours. |
 
 ## Analyst Interpretation
 
-- Headline: PSPS screening eased to a single WATCH day on Aug 25 near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.
-- Summary: PSPS screening is WATCH only Tue, Aug 25 near Arboles at 46/100; this is a screening estimate, not an LPEA shutoff notice. Aug 26-28 eased to ELEVATED as forecast winds dropped, while weather fire potential still peaks HIGH 63/100 Wednesday near Chromo. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.
-- Uncertainty: Confidence is MEDIUM 69/100 because source coverage is complete but forecast volatility is HIGH 63/100; PSPS calibration has no confirmed events, so Aug 25 may still shift.
+- Headline: PSPS screening rose to LIKELY Aug 28-29, peaking Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.
+- Summary: PSPS screening rose to LIKELY Fri, Aug 28 and Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at LIKELY 73/100, while Bayfield reaches red-flag screening LIKELY 88/100 and weather fire potential EXTREME 90/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.
+- Uncertainty: Confidence is MEDIUM 69/100 because source coverage is complete but forecast volatility is HIGH 79/100; PSPS calibration has no confirmed events, so the Aug 28-29 escalation may still shift.
 - Evidence used: overall_status, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture, active_incidents, calibration
 - This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
 
 Changing drivers:
-- The first WATCH-or-higher PSPS date remains Tuesday, Aug 25 near Arboles / southwest county.
-- Aug 26-28 fell from WATCH to ELEVATED as projected winds weakened, with Friday dropping 31 points.
-- Tuesday is now the PSPS and red-flag screening peak; Wednesday retains the highest weather fire potential near Chromo.
+- Overall PSPS screening rose from WATCH to LIKELY while the first WATCH-or-higher date remains Tuesday, Aug 25.
+- Friday rose from ELEVATED to LIKELY by 35 points as projected wind increased 9 mph and red-flag hours increased by 4.
+- Saturday entered as the peak: PSPS LIKELY 73/100 near Arboles, red-flag LIKELY 88/100 and fire potential EXTREME 90/100 near Bayfield.
 - Current official-source fire posture includes Stage 2 restrictions and VERY HIGH fire danger.
 
 What to watch next:
-- Recheck the Tuesday WATCH signal after the next forecast update because this run changed substantially.
-- Monitor Tuesday from 3 PM to 5 PM near Arboles, where RH near 15% and wind near 22 mph currently align.
+- Recheck the Aug 28-29 LIKELY window after the next forecast update because this run changed substantially.
+- Monitor Saturday afternoon near Arboles and Bayfield, where wind, low RH, red-flag, and fire-potential peaks align.
 - Treat both one-customer LPEA outages as operational context only unless LPEA identifies a fire or PSPS cause.
 - Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected.
 
 ## Trend Intelligence
 
-- Summary: Momentum is easing versus the prior run (Aug 22 at 9:29 AM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25.
-- Momentum: **Easing**
-- Forecast volatility: **HIGH** (63/100)
+- Summary: Momentum is rising versus the prior run (Aug 22 at 4:24 PM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25.
+- Momentum: **Rising**
+- Forecast volatility: **HIGH** (79/100)
 - First WATCH-or-higher PSPS date: Tue, Aug 25
 - Watch-date movement: First WATCH-or-higher PSPS date remains Tue, Aug 25.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
 - First WATCH-or-higher PSPS date remains Tue, Aug 25.
-- Fri, Aug 28: easing vs prior run; PSPS WATCH -> ELEVATED; score -31, wind -8 mph, RH 0%, red-flag hours -2. Driver shifted to Arboles / southwest county.
-- Wed, Aug 26: easing vs prior run; PSPS WATCH -> ELEVATED; score -27, wind -12 mph, RH 0%, red-flag hours 0. Driver shifted to Arboles / southwest county.
-- Thu, Aug 27: easing vs prior run; PSPS WATCH -> ELEVATED; score -26, wind -9 mph, RH +1%, red-flag hours 0.
-- Sat, Aug 22: easing vs prior run; PSPS ELEVATED -> LOW; score -2, wind 0 mph, RH 0%, red-flag hours 0. Driver shifted to Arboles / southwest county.
+- Overall PSPS likelihood changed from WATCH to LIKELY.
+- Fri, Aug 28: worsening vs prior run; PSPS ELEVATED -> LIKELY; score +35, wind +9 mph, RH +2%, red-flag hours +4. Driver shifted to Ignacio / southeast La Plata County.
+- Thu, Aug 27: worsening vs prior run; PSPS ELEVATED -> WATCH; score +23, wind +9 mph, RH +3%, red-flag hours 0. Driver shifted to Chimney Rock / west county.
+- Mon, Aug 24: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -12, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
+- Wed, Aug 26: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +4, wind +6 mph, RH 0%, red-flag hours 0.
 
 ## Public Analysis Export
 
-- Summary: Highest LPEA PSPS concern is Tue, Aug 25 near Arboles / southwest county (WATCH 46/100), driven by near-threshold wind/gust signal near 22 mph; red-flag RH near 15%; 3 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.
-- Trend: Momentum is easing versus the prior run (Aug 22 at 9:29 AM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25.
+- Summary: Highest LPEA PSPS concern is Sat, Aug 29 near Arboles / southwest county (LIKELY 73/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 11%; 4 sampled hours meet red-flag screen. NIFC reports 2 current wildfires in Archuleta County.
+- Trend: Momentum is rising versus the prior run (Aug 22 at 4:24 PM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25.
 - Confidence: **MEDIUM** (69/100)
 - First WATCH-or-higher PSPS date: Tue, Aug 25
-- PSPS peak: Tue, Aug 25 near Arboles / southwest county at WATCH 46/100
-- Red Flag peak: Tue, Aug 25 near Arboles / southwest county at WATCH 55/100
-- Weather fire-potential peak: Wed, Aug 26 near Chromo / southeast county at HIGH 63/100
+- PSPS peak: Sat, Aug 29 near Arboles / southwest county at LIKELY 73/100
+- Red Flag peak: Sat, Aug 29 near Bayfield / east La Plata County at LIKELY 88/100
+- Weather fire-potential peak: Sat, Aug 29 near Bayfield / east La Plata County at EXTREME 90/100
 - LPEA operational outage context: 2 active outages; 0 planned and 2 unplanned; 2 customers out. No fire-weather or PSPS cause is identified.
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
 - First WATCH-or-higher PSPS date remains Tue, Aug 25.
-- Fri, Aug 28: easing vs prior run; PSPS WATCH -> ELEVATED; score -31, wind -8 mph, RH 0%, red-flag hours -2. Driver shifted to Arboles / southwest county.
-- Wed, Aug 26: easing vs prior run; PSPS WATCH -> ELEVATED; score -27, wind -12 mph, RH 0%, red-flag hours 0. Driver shifted to Arboles / southwest county.
-- Thu, Aug 27: easing vs prior run; PSPS WATCH -> ELEVATED; score -26, wind -9 mph, RH +1%, red-flag hours 0.
-- Sat, Aug 22: easing vs prior run; PSPS ELEVATED -> LOW; score -2, wind 0 mph, RH 0%, red-flag hours 0. Driver shifted to Arboles / southwest county.
+- Overall PSPS likelihood changed from WATCH to LIKELY.
+- Fri, Aug 28: worsening vs prior run; PSPS ELEVATED -> LIKELY; score +35, wind +9 mph, RH +2%, red-flag hours +4. Driver shifted to Ignacio / southeast La Plata County.
+- Thu, Aug 27: worsening vs prior run; PSPS ELEVATED -> WATCH; score +23, wind +9 mph, RH +3%, red-flag hours 0. Driver shifted to Chimney Rock / west county.
+- Mon, Aug 24: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -12, wind -1 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
+- Wed, Aug 26: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +4, wind +6 mph, RH 0%, red-flag hours 0.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
@@ -105,34 +107,34 @@ What to watch next:
 ## PSPS Likelihood
 
 - **PSPS means Public Safety Power Shutoff:** a planned, safety-related power shutoff LPEA may use during dangerous fire-weather conditions to reduce wildfire ignition risk. See [LPEA PSPS guidance](https://lpea.coop/psps) and the [LPEA outage center](https://lpea.coop/outage-center); if power is out, also check the [LPEA outage map](https://outage.lpea.coop).
-- Overall: **WATCH** - PSPS watch screening is present from forecast thresholds or direct LPEA shutoff language; monitor official LPEA and NWS updates.
-- Likely PSPS watch dates: None
-- PSPS watch dates: Tue, Aug 25
+- Overall: **LIKELY** - PSPS likelihood is high on weather-driven red-flag days; prepare for possible LPEA safety-related interruption behavior.
+- Likely PSPS watch dates: Fri, Aug 28; Sat, Aug 29
+- PSPS watch dates: Tue, Aug 25; Thu, Aug 27
 - LPEA signal basis: LPEA active/update source contains red-flag, wildfire, or power-interruption language.
 - Note: This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
 | Date | PSPS likelihood | Driver locations | Weather basis |
 | --- | --- | --- | --- |
-| Sat, Aug 22 | LOW | Arboles / southwest county (LOW 16/100); Chimney Rock / west county (LOW 16/100); Pagosa Springs (LOW 12/100) | Top weather score 14/100 at Arboles / southwest county. Weather score 14/100: RH 21%, wind/gust 18 mph, red-flag hours 0, near-threshold hours 0. |
-| Sun, Aug 23 | ELEVATED | Ignacio / southeast La Plata County (ELEVATED 22/100); Arboles / southwest county (LOW 16/100); Chimney Rock / west county (LOW 16/100) | Top weather score 22/100 at Ignacio / southeast La Plata County. Weather score 22/100: RH 22%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
-| Mon, Aug 24 | ELEVATED | Arboles / southwest county (ELEVATED 40/100); Ignacio / southeast La Plata County (ELEVATED 38/100); Chimney Rock / west county (ELEVATED 28/100) | Top weather score 38/100 at Arboles / southwest county. Weather score 38/100: RH 16%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 3. |
-| Tue, Aug 25 | WATCH | Arboles / southwest county (WATCH 46/100) | Top weather score 44/100 at Arboles / southwest county. Weather score 44/100: RH 15%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 3. |
-| Wed, Aug 26 | ELEVATED | Arboles / southwest county (ELEVATED 24/100); Chimney Rock / west county (ELEVATED 24/100); Chromo / southeast county (ELEVATED 21/100) | Top weather score 22/100 at Arboles / southwest county. Weather score 22/100: RH 15%, wind/gust 12 mph, red-flag hours 0, near-threshold hours 0. |
-| Thu, Aug 27 | ELEVATED | Arboles / southwest county (ELEVATED 24/100); Chimney Rock / west county (ELEVATED 24/100); Ignacio / southeast La Plata County (ELEVATED 22/100) | Top weather score 22/100 at Arboles / southwest county. Weather score 22/100: RH 13%, wind/gust 12 mph, red-flag hours 0, near-threshold hours 0. |
-| Fri, Aug 28 | ELEVATED | Arboles / southwest county (ELEVATED 32/100); Durango / La Plata County (ELEVATED 32/100); Bayfield / east La Plata County (ELEVATED 32/100) | Top weather score 30/100 at Arboles / southwest county. Weather score 30/100: RH 11%, wind/gust 15 mph, red-flag hours 0, near-threshold hours 0. |
+| Sun, Aug 23 | ELEVATED | Ignacio / southeast La Plata County (ELEVATED 22/100); Durango / La Plata County (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100) | Top weather score 22/100 at Ignacio / southeast La Plata County. Weather score 22/100: RH 22%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 0. |
+| Mon, Aug 24 | ELEVATED | Ignacio / southeast La Plata County (ELEVATED 28/100); Arboles / southwest county (ELEVATED 28/100); Chimney Rock / west county (ELEVATED 28/100) | Top weather score 28/100 at Ignacio / southeast La Plata County. Weather score 28/100: RH 17%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 1. |
+| Tue, Aug 25 | WATCH | Arboles / southwest county (WATCH 46/100) | Top weather score 44/100 at Arboles / southwest county. Weather score 44/100: RH 14%, wind/gust 23 mph, red-flag hours 0, near-threshold hours 2. |
+| Wed, Aug 26 | ELEVATED | Arboles / southwest county (ELEVATED 28/100); Chimney Rock / west county (ELEVATED 28/100); Ignacio / southeast La Plata County (ELEVATED 24/100) | Top weather score 26/100 at Arboles / southwest county. Weather score 26/100: RH 14%, wind/gust 20 mph, red-flag hours 0, near-threshold hours 0. |
+| Thu, Aug 27 | WATCH | Chimney Rock / west county (WATCH 47/100) | Top weather score 45/100 at Chimney Rock / west county. Weather score 45/100: RH 16%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 2. |
+| Fri, Aug 28 | LIKELY | Ignacio / southeast La Plata County (LIKELY 67/100); Arboles / southwest county (LIKELY 65/100); Bayfield / east La Plata County (LIKELY 65/100); Durango / La Plata County (WATCH 59/100) | Top weather score 67/100 at Ignacio / southeast La Plata County. Weather score 67/100: RH 14%, wind/gust 26 mph, red-flag hours 4, near-threshold hours 6. |
+| Sat, Aug 29 | LIKELY | Arboles / southwest county (LIKELY 73/100); Durango / La Plata County (LIKELY 73/100); Bayfield / east La Plata County (LIKELY 73/100); Ignacio / southeast La Plata County (LIKELY 71/100) | Top weather score 71/100 at Arboles / southwest county. Weather score 71/100: RH 11%, wind/gust 28 mph, red-flag hours 4, near-threshold hours 6. |
 
 ## Area-Specific Outlook
 
 | Area | Today | Peak this run | Highest-risk window |
 | --- | --- | --- | --- |
-| Arboles | LOW 16/100 | Tue, Aug 25: WATCH 46/100 | 3 PM-5 PM local; 3 near/red-flag threshold hours. |
-| Ignacio | LOW 8/100 | Tue, Aug 25: ELEVATED 42/100 | 2 PM-5 PM local; 4 near/red-flag threshold hours. |
-| Durango | LOW 10/100 | Tue, Aug 25: ELEVATED 40/100 | 4 PM-5 PM local; 2 near/red-flag threshold hours. |
-| Bayfield | LOW 10/100 | Tue, Aug 25: ELEVATED 34/100 | 4 PM-4 PM local; 1 near/red-flag threshold hour. |
-| Pagosa Springs | LOW 12/100 | Fri, Aug 28: ELEVATED 30/100 | Peak ingredients near 4 PM local; RH 15%, wind 16 mph. |
-| Chimney Rock | LOW 16/100 | Mon, Aug 24: ELEVATED 28/100 | Peak ingredients near 3 PM local; RH 15%, wind 20 mph. |
-| Chromo | LOW 10/100 | Mon, Aug 24: ELEVATED 22/100 | Peak ingredients near 3 PM local; RH 18%, wind 15 mph. |
-| Piedra | LOW 10/100 | Mon, Aug 24: LOW 16/100 | Peak ingredients near 9 PM local; RH 44%, wind 20 mph. |
+| Arboles | LOW 16/100 | Sat, Aug 29: LIKELY 73/100 | 2 PM-7 PM local; 6 near/red-flag threshold hours. |
+| Durango | ELEVATED 18/100 | Sat, Aug 29: LIKELY 73/100 | 1 PM-8 PM local; 8 near/red-flag threshold hours. |
+| Bayfield | ELEVATED 18/100 | Sat, Aug 29: LIKELY 73/100 | 1 PM-7 PM local; 7 near/red-flag threshold hours. |
+| Ignacio | ELEVATED 22/100 | Sat, Aug 29: LIKELY 71/100 | 1 PM-7 PM local; 7 near/red-flag threshold hours. |
+| Chimney Rock | LOW 16/100 | Sat, Aug 29: WATCH 63/100 | 2 PM-7 PM local; 6 near/red-flag threshold hours. |
+| Pagosa Springs | LOW 12/100 | Sat, Aug 29: WATCH 52/100 | 2 PM-6 PM local; 5 near/red-flag threshold hours. |
+| Chromo | LOW 10/100 | Sat, Aug 29: WATCH 50/100 | 2 PM-6 PM local; 5 near/red-flag threshold hours. |
+| Piedra | LOW 10/100 | Sat, Aug 29: WATCH 46/100 | 2 PM-3 PM local; 2 near/red-flag threshold hours. |
 
 ## Current Fires + Evacuations
 
@@ -174,8 +176,8 @@ Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archule
 - Summary: No confirmed LPEA PSPS events logged yet; calibration will start once events are added.
 - Confirmed PSPS events logged: 0
 - Candidate/unconfirmed events logged: 0
-- WATCH/LIKELY false-watch past days: 62
-- Pending WATCH/LIKELY dates in current forecast: Tue, Aug 25
+- WATCH/LIKELY false-watch past days: 63
+- Pending WATCH/LIKELY dates in current forecast: Tue, Aug 25; Thu, Aug 27; Fri, Aug 28; Sat, Aug 29
 - Calibration source: manual PSPS event log plus forecast history from prior monitor runs.
 
 ### Red Flag / Fire Weather Calibration
@@ -186,7 +188,7 @@ Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archule
 - Date-level pre-alert HIGH hit rate: 100%
 - Episode-level average lead time: 3.5 days
 - HIGH false-watch past days: 21
-- Pending HIGH dates in current forecast: None
+- Pending HIGH dates in current forecast: Fri, Aug 28; Sat, Aug 29
 - Calibration source: official NWS Red Flag / Fire Weather alert dates plus forecast history from prior monitor runs.
 
 ## Official Weather Alerts
@@ -213,13 +215,13 @@ Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archule
 
 | Date | Tier | Main reason | Worst sampled metrics |
 | --- | --- | --- | --- |
-| Sat, Aug 22 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 25%, wind/gust 18 mph, thunder 27%<br>Arboles / southwest county: RH 21%, wind/gust 18 mph, thunder 15%<br>Chimney Rock / west county: RH 19%, wind/gust 17 mph, thunder 21% |
-| Sun, Aug 23 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 26%, wind/gust 18 mph, thunder 39%<br>Arboles / southwest county: RH 21%, wind/gust 20 mph, thunder 17%<br>Chimney Rock / west county: RH 20%, wind/gust 17 mph, thunder 28% |
-| Mon, Aug 24 | CONCERN | Arboles / southwest county: Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours. | Arboles / southwest county: RH 16%, wind/gust 22 mph, thunder 5%<br>Chimney Rock / west county: RH 15%, wind/gust 20 mph, thunder 9%<br>Ignacio / southeast La Plata County: RH 17%, wind/gust 23 mph, thunder 6% |
-| Tue, Aug 25 | CONCERN | Arboles / southwest county: Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours. | Arboles / southwest county: RH 15%, wind/gust 22 mph, thunder 11%<br>Chimney Rock / west county: RH 15%, wind/gust 20 mph, thunder 22%<br>Durango / La Plata County: RH 18%, wind/gust 22 mph, thunder 24% |
-| Wed, Aug 26 | CONCERN | Chromo / southeast county: Dry-thunder signal: 2 hourly periods combine thunder near 20% with limited precipitation and dry air. | Arboles / southwest county: RH 15%, wind/gust 12 mph, thunder 15%<br>Chimney Rock / west county: RH 14%, wind/gust 10 mph, thunder 17%<br>Chromo / southeast county: RH 18%, wind/gust 12 mph, thunder 20% |
-| Thu, Aug 27 | ELEVATED | Arboles / southwest county: Elevated ingredient present: very low RH forecast near 13%; dry-thunder probability reaches 15%. | Arboles / southwest county: RH 13%, wind/gust 12 mph, thunder 15%<br>Chimney Rock / west county: RH 13%, wind/gust 12 mph, thunder 15%<br>Chromo / southeast county: RH 17%, wind/gust 13 mph, thunder 16% |
-| Fri, Aug 28 | ELEVATED | Pagosa Springs: Elevated ingredient present: very low RH forecast near 15%. | Pagosa Springs: RH 15%, wind/gust 16 mph, thunder 8%<br>Arboles / southwest county: RH 11%, wind/gust 15 mph, thunder 2%<br>Chimney Rock / west county: RH 10%, wind/gust 13 mph, thunder 4% |
+| Sun, Aug 23 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 27%, wind/gust 20 mph, thunder 37%<br>Arboles / southwest county: RH 19%, wind/gust 20 mph, thunder 20%<br>Chimney Rock / west county: RH 19%, wind/gust 18 mph, thunder 24% |
+| Mon, Aug 24 | ELEVATED | Arboles / southwest county: Elevated ingredient present: very low RH forecast near 15%. | Arboles / southwest county: RH 15%, wind/gust 17 mph, thunder 9%<br>Chimney Rock / west county: RH 15%, wind/gust 17 mph, thunder 11% |
+| Tue, Aug 25 | CONCERN | Arboles / southwest county: Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours. | Arboles / southwest county: RH 14%, wind/gust 23 mph, thunder 10%<br>Chimney Rock / west county: RH 15%, wind/gust 21 mph, thunder 20%<br>Ignacio / southeast La Plata County: RH 17%, wind/gust 24 mph, thunder 11% |
+| Wed, Aug 26 | ELEVATED | Arboles / southwest county: Elevated ingredient present: very low RH forecast near 14%. | Arboles / southwest county: RH 14%, wind/gust 20 mph, thunder 13%<br>Chimney Rock / west county: RH 14%, wind/gust 16 mph, thunder 24%<br>Ignacio / southeast La Plata County: RH 17%, wind/gust 20 mph, thunder 16% |
+| Thu, Aug 27 | CONCERN | Arboles / southwest county: Near red-flag screen: RH <= 18% with wind/gust >= 20 mph for at least 2 hours. | Arboles / southwest county: RH 16%, wind/gust 23 mph, thunder 11%<br>Chimney Rock / west county: RH 16%, wind/gust 21 mph, thunder 20%<br>Ignacio / southeast La Plata County: RH 17%, wind/gust 24 mph, thunder 14% |
+| Fri, Aug 28 | HIGH | Arboles / southwest county: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Arboles / southwest county: RH 13%, wind/gust 26 mph, thunder 2%<br>Chimney Rock / west county: RH 12%, wind/gust 22 mph, thunder 4%<br>Chromo / southeast county: RH 15%, wind/gust 20 mph, thunder 6% |
+| Sat, Aug 29 | HIGH | Arboles / southwest county: Forecast meets red-flag screen: RH <= 15% and wind/gust >= 25 mph for at least 3 hours in a 12-hour window. | Pagosa Springs: RH 15%, wind/gust 23 mph, thunder 5%<br>Arboles / southwest county: RH 11%, wind/gust 28 mph, thunder 3%<br>Chimney Rock / west county: RH 9%, wind/gust 25 mph, thunder 4% |
 
 ## Sample Point Status
 
