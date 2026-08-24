@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-23T16:42:28.103219-06:00",
+    "checked_at": "2026-08-24T09:55:50.761613-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -7778,7 +7778,7 @@
         "acres_preliminary": false,
         "acres_source": "NIFC current incident record",
         "acres_source_url": "https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015",
-        "acres_updated_at": "2026-08-23T16:12:44.417000-06:00",
+        "acres_updated_at": "2026-08-23T18:56:06.950000-06:00",
         "cause": "Natural",
         "description": "",
         "discovered_at": "2026-08-23T10:49:38-06:00",
@@ -7799,7 +7799,7 @@
         "perimeter_geometry_source_url": null,
         "perimeter_geometry_updated_at": null,
         "perimeter_source": null,
-        "updated_at": "2026-08-23T16:12:44.417000-06:00"
+        "updated_at": "2026-08-23T18:56:06.950000-06:00"
       }
     ],
     "largest_wildfire_acres": 1387.74,
@@ -7819,10 +7819,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date moved later from Tuesday, Aug 25 to Wednesday, Aug 26, while the overall level remains LIKELY.",
-      "Wednesday rose from ELEVATED to WATCH by 18 points as the driver shifted to Chimney Rock / west county.",
-      "Tuesday eased from WATCH to ELEVATED by 6 points, and today's Pagosa Springs screening eased to LOW.",
-      "NIFC added the 0.10-acre Arroyo wildfire near Arboles; no evacuation notice was detected, and incidents remain operational context rather than PSPS score inputs."
+      "The first WATCH-or-higher PSPS date moved later from Wednesday, Aug 26 to Friday, Aug 28.",
+      "Friday eased from LIKELY to WATCH by 12 points as projected wind fell 4 mph and red-flag hours fell by 2.",
+      "Wednesday and Thursday eased from WATCH to ELEVATED, by 16 and 13 points respectively.",
+      "Saturday remains the peak near Arboles at PSPS LIKELY 69/100 and red-flag LIKELY 80/100."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7834,19 +7834,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-23T17:19:22-06:00",
-    "headline": "PSPS screening remains LIKELY Aug 28-29, peaking Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
-    "report_generated_at": "2026-08-23T16:42:28.103219-06:00",
+    "generated_at": "2026-08-24T10:04:02-06:00",
+    "headline": "PSPS screening eased but remains LIKELY for Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
+    "report_generated_at": "2026-08-24T09:55:50.761613-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "PSPS screening remains LIKELY Fri, Aug 28 and Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at LIKELY 73/100, while Ignacio reaches red-flag screening LIKELY 88/100 and Durango fire potential reaches EXTREME 88/100. Official COZ295 alerts remain zero; LPEA lists one unplanned one-customer outage near Pagosa Springs without a fire or PSPS cause, and no evacuation notice was detected for three listed wildfires.",
-    "uncertainty": "Confidence is MEDIUM 69/100 because coverage is complete but forecast volatility remains HIGH 50/100; no confirmed PSPS events are available for calibration, so Aug 28-29 may still shift.",
+    "summary": "PSPS screening eased to WATCH Fri, Aug 28 and remains LIKELY Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at PSPS LIKELY 69/100 and red-flag LIKELY 80/100, while Bayfield fire potential reaches VERY HIGH 80/100. Official COZ295 alerts remain zero; LPEA lists one planned one-customer construction outage near Bayfield without a fire or PSPS cause, and no evacuation notice was detected for three listed wildfires.",
+    "uncertainty": "Confidence is MEDIUM 69/100 because coverage is complete but forecast volatility remains HIGH 48/100; no confirmed PSPS events are available for calibration, so the Saturday peak may still shift.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck the Aug 28-29 LIKELY window after the next forecast update because day-level signals remain volatile.",
-      "Monitor Saturday afternoon near Arboles, Ignacio, and Durango, where the PSPS, red-flag, and fire-potential peaks align.",
-      "Treat the one-customer Pagosa Springs outage as operational context unless LPEA identifies a fire or PSPS cause.",
-      "Check official incident and evacuation feeds for changes to the new Arroyo wildfire and the other listed incidents."
+      "Recheck the Saturday LIKELY peak after the next forecast update because day-level signals remain volatile.",
+      "Monitor Friday through Sunday near Arboles, Ignacio, and Bayfield as the highest-risk area and timing continue to shift.",
+      "Treat the planned one-customer Bayfield construction outage as operational context, not PSPS evidence.",
+      "Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
     ]
   },
   "confidence": {
@@ -7866,13 +7866,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-23T16:42:28.103219-06:00",
+  "generated_at": "2026-08-24T09:55:50.761613-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "HIGH",
     "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sat, Aug 29 near Arboles / southwest county (LIKELY 73/100), driven by red-flag wind/gust signal near 28 mph; very dry RH near 11%; 4 sampled hours meet red-flag screen. NIFC reports 3 current wildfires in Archuleta County.",
-    "trend_summary": "Momentum is steady versus the prior run (Aug 23 at 4:38 AM MDT); forecast volatility is high and first WATCH-or-higher date is Wed, Aug 26."
+    "summary": "Highest LPEA PSPS concern is Sat, Aug 29 near Arboles / southwest county (LIKELY 69/100), driven by red-flag wind/gust signal near 26 mph; red-flag RH near 13%; 4 sampled hours meet red-flag screen. NIFC reports 3 current wildfires in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Aug 23 at 4:42 PM MDT); forecast volatility is high and first WATCH-or-higher date is Fri, Aug 28."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7883,61 +7883,61 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Tue, Aug 25 to Wed, Aug 26.",
-    "Wed, Aug 26: worsening vs prior run; PSPS ELEVATED -> WATCH; score +18, wind +2 mph, RH +1%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
-    "Sun, Aug 23: easing vs prior run; PSPS ELEVATED -> LOW; score -10, wind -2 mph, RH +4%, red-flag hours 0. Driver shifted to Pagosa Springs.",
-    "Tue, Aug 25: easing vs prior run; PSPS WATCH -> ELEVATED; score -6, wind -1 mph, RH +1%, red-flag hours 0.",
-    "Mon, Aug 24: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +16, wind 0 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county."
+    "First WATCH-or-higher PSPS date moved later from Wed, Aug 26 to Fri, Aug 28.",
+    "Fri, Aug 28: easing vs prior run; PSPS LIKELY -> WATCH; score -12, wind -4 mph, RH +2%, red-flag hours -2. Driver shifted to Ignacio / southeast La Plata County.",
+    "Wed, Aug 26: easing vs prior run; PSPS WATCH -> ELEVATED; score -16, wind 0 mph, RH +1%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Thu, Aug 27: easing vs prior run; PSPS WATCH -> ELEVATED; score -13, wind -1 mph, RH +2%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
+    "Mon, Aug 24: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -14, wind 0 mph, RH +1%, red-flag hours 0."
   ],
   "operational_outage_context": {
     "active": true,
     "active_outage_count": 1,
     "affected_members": 1,
     "areas": [
-      "Pagosa Springs"
+      "Bayfield / east La Plata County"
     ],
     "customers_affected": 1,
     "customers_out_now": 1,
-    "customers_served": 47636,
+    "customers_served": 47645,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 1 customer without power near Pagosa Springs.",
+    "headline": "Official LPEA outage data shows 1 customer without power near Bayfield / east La Plata County.",
     "hits": [
       {
-        "name": "304 N 2ND ST",
+        "name": "203 Mudita Rd",
         "snippets": [
-          "Pagosa Springs: 1 customer out; unplanned; cause not posted."
+          "Bayfield / east La Plata County: 1 customer out; planned; cause 100 Construction."
         ],
         "url": "https://outage.lpea.coop"
       }
     ],
     "outages": [
       {
-        "cause": null,
-        "crew_assigned": false,
+        "cause": "100 Construction",
+        "crew_assigned": true,
         "customers_out_initially": 1,
         "customers_out_now": 1,
         "customers_restored": 0,
-        "distance_miles": 0.3,
+        "distance_miles": 6.4,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-08-23-0187",
-        "latitude": 37.27156220008631,
-        "longitude": -107.00546218060543,
-        "modified_at": "2026-08-23T15:37:17.353-06:00",
-        "name": "304 N 2ND ST",
-        "nearest_area": "Pagosa Springs",
-        "planned": false,
+        "id": "2026-08-24-0192",
+        "latitude": 37.20074560195192,
+        "longitude": -107.71042395490171,
+        "modified_at": "2026-08-24T09:37:54.81-06:00",
+        "name": "203 Mudita Rd",
+        "nearest_area": "Bayfield / east La Plata County",
+        "planned": true,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-08-23T15:34:52-06:00",
+        "started_at": "2026-08-24T09:36:18-06:00",
         "url": "https://outage.lpea.coop",
-        "verified": false,
+        "verified": true,
         "work_status": ""
       }
     ],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
-    "planned_outage_count": 0,
+    "planned_outage_count": 1,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
     "severity": "localized",
@@ -7945,52 +7945,52 @@
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
+    "summary": "1 active outage; 1 planned and 0 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 1,
-    "update_time": "2026-08-23T16:41:15.4351527-06:00"
+    "unplanned_outage_count": 0,
+    "update_time": "2026-08-24T09:55:21.1469499-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-29",
       "display_date": "Sat, Aug 29",
       "drivers": [
-        "very dry RH near 13%",
+        "very dry RH near 15%",
         "wind/gust near 28 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "1 PM-8 PM local; 8 near/red-flag threshold hours.",
-      "level": "EXTREME",
-      "location": "Durango / La Plata County",
-      "score": 88
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
+      "level": "VERY HIGH",
+      "location": "Bayfield / east La Plata County",
+      "score": 80
     },
     "psps": {
       "date": "2026-08-29",
       "display_date": "Sat, Aug 29",
       "drivers": [
-        "red-flag wind/gust signal near 28 mph",
-        "very dry RH near 11%",
+        "red-flag wind/gust signal near 26 mph",
+        "red-flag RH near 13%",
         "4 sampled hours meet red-flag screen",
         "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
       ],
-      "highest_risk_window": "1 PM-7 PM local; 7 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "LIKELY",
       "location": "Arboles / southwest county",
-      "score": 73
+      "score": 69
     },
     "red_flag": {
       "date": "2026-08-29",
       "display_date": "Sat, Aug 29",
       "drivers": [
-        "5 sampled red-flag hours",
-        "RH near 12%",
-        "wind/gust near 30 mph"
+        "4 sampled red-flag hours",
+        "RH near 13%",
+        "wind/gust near 26 mph"
       ],
-      "highest_risk_window": "1 PM-8 PM local; 8 near/red-flag threshold hours.",
+      "highest_risk_window": "2 PM-7 PM local; 6 near/red-flag threshold hours.",
       "level": "LIKELY",
-      "location": "Ignacio / southeast La Plata County",
-      "score": 88
+      "location": "Arboles / southwest county",
+      "score": 80
     }
   },
   "red_flag_calibration": {
@@ -8158,7 +8158,6 @@
     ],
     "official_alert_episode_count": 3,
     "pending_high_dates": [
-      "2026-08-28",
       "2026-08-29"
     ],
     "summary": "3/3 official Red Flag / Fire Weather episodes had a pre-alert HIGH monitor signal; date-level result was 21/21. Episode-average lead time: 3.5 days."
@@ -8166,12 +8165,12 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-26",
-    "first_watch_or_likely_display": "Wed, Aug 26",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Aug 25 to Wed, Aug 26.",
+    "first_watch_or_likely_date": "2026-08-28",
+    "first_watch_or_likely_display": "Fri, Aug 28",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Wed, Aug 26 to Fri, Aug 28.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 50,
-    "momentum": "Steady"
+    "forecast_volatility_score": 48,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
