@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Overall PSPS screening rose from WATCH to LIKELY while the first WATCH-or-higher date remains Tuesday, Aug 25.",
-    "Friday rose from ELEVATED to LIKELY by 35 points as projected wind increased 9 mph and red-flag hours increased by 4.",
-    "Saturday entered as the peak: PSPS LIKELY 73/100 near Arboles, red-flag LIKELY 88/100 and fire potential EXTREME 90/100 near Bayfield.",
-    "Current official-source fire posture includes Stage 2 restrictions and VERY HIGH fire danger."
+    "The first WATCH-or-higher PSPS date moved later from Tuesday, Aug 25 to Wednesday, Aug 26, while the overall level remains LIKELY.",
+    "Wednesday rose from ELEVATED to WATCH by 18 points as the driver shifted to Chimney Rock / west county.",
+    "Tuesday eased from WATCH to ELEVATED by 6 points, and today's Pagosa Springs screening eased to LOW.",
+    "NIFC added the 0.10-acre Arroyo wildfire near Arboles; no evacuation notice was detected, and incidents remain operational context rather than PSPS score inputs."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-23T05:14:07-06:00",
-  "headline": "PSPS screening rose to LIKELY Aug 28-29, peaking Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
-  "report_generated_at": "2026-08-23T04:38:01.392338-06:00",
+  "generated_at": "2026-08-23T17:19:22-06:00",
+  "headline": "PSPS screening remains LIKELY Aug 28-29, peaking Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
+  "report_generated_at": "2026-08-23T16:42:28.103219-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "PSPS screening rose to LIKELY Fri, Aug 28 and Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at LIKELY 73/100, while Bayfield reaches red-flag screening LIKELY 88/100 and weather fire potential EXTREME 90/100. Official COZ295 alerts remain at zero; LPEA lists two localized one-customer outages with no fire or PSPS cause, and no evacuation notice was detected for the two listed wildfires.",
-  "uncertainty": "Confidence is MEDIUM 69/100 because source coverage is complete but forecast volatility is HIGH 79/100; PSPS calibration has no confirmed events, so the Aug 28-29 escalation may still shift.",
+  "summary": "PSPS screening remains LIKELY Fri, Aug 28 and Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at LIKELY 73/100, while Ignacio reaches red-flag screening LIKELY 88/100 and Durango fire potential reaches EXTREME 88/100. Official COZ295 alerts remain zero; LPEA lists one unplanned one-customer outage near Pagosa Springs without a fire or PSPS cause, and no evacuation notice was detected for three listed wildfires.",
+  "uncertainty": "Confidence is MEDIUM 69/100 because coverage is complete but forecast volatility remains HIGH 50/100; no confirmed PSPS events are available for calibration, so Aug 28-29 may still shift.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck the Aug 28-29 LIKELY window after the next forecast update because this run changed substantially.",
-    "Monitor Saturday afternoon near Arboles and Bayfield, where wind, low RH, red-flag, and fire-potential peaks align.",
-    "Treat both one-customer LPEA outages as operational context only unless LPEA identifies a fire or PSPS cause.",
-    "Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
+    "Recheck the Aug 28-29 LIKELY window after the next forecast update because day-level signals remain volatile.",
+    "Monitor Saturday afternoon near Arboles, Ignacio, and Durango, where the PSPS, red-flag, and fire-potential peaks align.",
+    "Treat the one-customer Pagosa Springs outage as operational context unless LPEA identifies a fire or PSPS cause.",
+    "Check official incident and evacuation feeds for changes to the new Arroyo wildfire and the other listed incidents."
   ]
 }
