@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date moved later from Wednesday, Aug 26 to Friday, Aug 28.",
-    "Friday eased from LIKELY to WATCH by 12 points as projected wind fell 4 mph and red-flag hours fell by 2.",
-    "Wednesday and Thursday eased from WATCH to ELEVATED, by 16 and 13 points respectively.",
-    "Saturday remains the peak near Arboles at PSPS LIKELY 69/100 and red-flag LIKELY 80/100."
+    "The first WATCH-or-higher PSPS date remains Friday, Aug 28.",
+    "Friday and Sunday each eased by 7 points while remaining at WATCH.",
+    "Saturday remains the peak near Arboles at PSPS LIKELY 65/100, with RH near 15%, wind/gust near 28 mph, and 3 red-flag hours.",
+    "Snow Springs and Spring Basin were discovered today at 1 acre and 0.1 acre; no evacuation notice was detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-24T10:04:02-06:00",
-  "headline": "PSPS screening eased but remains LIKELY for Saturday near Arboles; no official COZ295 alert or fire-related LPEA outage is reported.",
-  "report_generated_at": "2026-08-24T09:55:50.761613-06:00",
+  "generated_at": "2026-08-24T16:30:38-06:00",
+  "headline": "Saturday remains the modeled peak near Arboles, but PSPS screening eased to 65/100; no official COZ295 alert, active LPEA outage, or evacuation notice is reported.",
+  "report_generated_at": "2026-08-24T16:23:53.032789-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "PSPS screening eased to WATCH Fri, Aug 28 and remains LIKELY Sat, Aug 29; these are screening estimates, not LPEA shutoff notices. Saturday peaks near Arboles at PSPS LIKELY 69/100 and red-flag LIKELY 80/100, while Bayfield fire potential reaches VERY HIGH 80/100. Official COZ295 alerts remain zero; LPEA lists one planned one-customer construction outage near Bayfield without a fire or PSPS cause, and no evacuation notice was detected for three listed wildfires.",
-  "uncertainty": "Confidence is MEDIUM 69/100 because coverage is complete but forecast volatility remains HIGH 48/100; no confirmed PSPS events are available for calibration, so the Saturday peak may still shift.",
+  "summary": "PSPS screening remains LIKELY Sat, Aug 29 near Arboles at 65/100, with red-flag likelihood 78/100; these are screening estimates, not official LPEA or NWS notices. Official COZ295 alerts remain zero, and the official LPEA outage viewer lists no active outages despite broad keyword matches on monitored LPEA pages. NIFC lists Rio Blanco at 1,387.74 acres and 100% contained plus two new small incidents, Snow Springs at 1 acre and Spring Basin at 0.1 acre; no evacuation notice was detected.",
+  "uncertainty": "Confidence is MEDIUM 74/100; forecast volatility is MEDIUM 17/100 and no confirmed PSPS events exist for calibration. The two new small fire records have no reported containment and may update quickly.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck the Saturday LIKELY peak after the next forecast update because day-level signals remain volatile.",
-    "Monitor Friday through Sunday near Arboles, Ignacio, and Bayfield as the highest-risk area and timing continue to shift.",
-    "Treat the planned one-customer Bayfield construction outage as operational context, not PSPS evidence.",
-    "Continue official NWS, incident, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
+    "Recheck Saturday's LIKELY peak after the next forecast update because the timing and driver area can still shift.",
+    "Monitor official updates for Snow Springs and Spring Basin, including any containment or evacuation changes.",
+    "Treat the LPEA keyword match as broad public-source context, not evidence of an active outage or PSPS decision.",
+    "Continue checking official NWS alerts; the current COZ295 alert count is zero."
   ]
 }
