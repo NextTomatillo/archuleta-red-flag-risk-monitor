@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The first WATCH-or-higher PSPS date moved earlier from Friday, Aug 28 to Tuesday, Aug 25.",
-    "Tuesday worsened from ELEVATED to WATCH, rising 6 points as projected RH fell 1 percentage point.",
-    "Sunday eased from WATCH to ELEVATED, falling 23 points as projected RH rose 2 percentage points.",
-    "Saturday remains the peak near Arboles at PSPS LIKELY 69/100 and red-flag LIKELY 81/100."
+    "Momentum eased: PSPS screening shifted from LIKELY to WATCH, and the first WATCH-or-higher date moved from Aug 25 to Aug 28.",
+    "Aug 25 fell from WATCH to ELEVATED as wind eased 2 mph, RH rose 4 percentage points, and red-flag hours remained zero.",
+    "Aug 29 fell from LIKELY to WATCH as RH increased 1 percentage point and red-flag hours declined by two.",
+    "Very high fire danger and Stage 1 restrictions near Chimney Rock support the Aug 29 concern; Pagosa Springs is under Stage 2 restrictions."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-25T09:27:17-06:00",
-  "headline": "Today moved into PSPS WATCH and Saturday remains LIKELY near Arboles; official COZ295 alerts are zero, and two planned Durango outages are not fire-related.",
-  "report_generated_at": "2026-08-25T09:25:17.542649-06:00",
+  "generated_at": "2026-08-25T20:25:27-06:00",
+  "headline": "Fire-weather screening eased to CONCERN; Aug 29 remains the peak WATCH period near Chimney Rock, with no official NWS fire-weather alert.",
+  "report_generated_at": "2026-08-25T18:53:53.128992-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "PSPS screening moved earlier: Tue, Aug 25 is now WATCH 46/100, Fri remains WATCH 50/100, and Sat remains LIKELY 69/100 near Arboles; these are screening estimates, not LPEA notices. Official COZ295 alerts remain zero. LPEA lists two planned Durango outages affecting 30 customers, attributed to construction and maintenance rather than fire weather or PSPS; Rio Blanco remains the only listed county wildfire at 1,387.74 acres and 100% containment, with no evacuation notice detected.",
-  "uncertainty": "Confidence is MEDIUM 69/100 because forecast volatility is HIGH 45/100 and no confirmed PSPS events exist for calibration; the timing and driver area may still change.",
+  "summary": "Screening estimates place the highest fire potential on Sat, Aug 29 near Chimney Rock: VERY HIGH fire potential (81/100), Red Flag WATCH (72/100), and PSPS WATCH (63/100), mainly 2-6 PM. Official NWS alert count is zero. LPEA reports two unplanned outages affecting 58 customers near Bayfield and Pagosa Springs, but identifies no fire-weather or PSPS cause, so they are operational context only.",
+  "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; forecast volatility is high, no confirmed PSPS events exist for calibration, and incident data may lag field conditions.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Monitor today's WATCH conditions near Arboles through the late-afternoon risk window.",
-    "Recheck Saturday's LIKELY peak after the next forecast update because volatility remains high.",
-    "Keep the two planned Durango outages separate from PSPS evidence unless LPEA identifies a fire-weather cause.",
-    "Continue official NWS, wildfire, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
+    "Watch the Aug 28-29 afternoon wind and RH forecast, especially near Chimney Rock and Arboles.",
+    "Check NWS COZ295 for any official Red Flag or Fire Weather alert.",
+    "Check LPEA for an identified outage cause or PSPS notice; current outages are unplanned and not linked to fire weather.",
+    "Follow official county feeds for evacuation changes; none is currently detected."
   ]
 }

@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-25T09:25:17.542649-06:00",
+    "checked_at": "2026-08-25T18:53:53.128992-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -7761,10 +7761,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "The first WATCH-or-higher PSPS date moved earlier from Friday, Aug 28 to Tuesday, Aug 25.",
-      "Tuesday worsened from ELEVATED to WATCH, rising 6 points as projected RH fell 1 percentage point.",
-      "Sunday eased from WATCH to ELEVATED, falling 23 points as projected RH rose 2 percentage points.",
-      "Saturday remains the peak near Arboles at PSPS LIKELY 69/100 and red-flag LIKELY 81/100."
+      "Momentum eased: PSPS screening shifted from LIKELY to WATCH, and the first WATCH-or-higher date moved from Aug 25 to Aug 28.",
+      "Aug 25 fell from WATCH to ELEVATED as wind eased 2 mph, RH rose 4 percentage points, and red-flag hours remained zero.",
+      "Aug 29 fell from LIKELY to WATCH as RH increased 1 percentage point and red-flag hours declined by two.",
+      "Very high fire danger and Stage 1 restrictions near Chimney Rock support the Aug 29 concern; Pagosa Springs is under Stage 2 restrictions."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7776,19 +7776,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-25T09:27:17-06:00",
-    "headline": "Today moved into PSPS WATCH and Saturday remains LIKELY near Arboles; official COZ295 alerts are zero, and two planned Durango outages are not fire-related.",
-    "report_generated_at": "2026-08-25T09:25:17.542649-06:00",
+    "generated_at": "2026-08-25T20:25:27-06:00",
+    "headline": "Fire-weather screening eased to CONCERN; Aug 29 remains the peak WATCH period near Chimney Rock, with no official NWS fire-weather alert.",
+    "report_generated_at": "2026-08-25T18:53:53.128992-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "PSPS screening moved earlier: Tue, Aug 25 is now WATCH 46/100, Fri remains WATCH 50/100, and Sat remains LIKELY 69/100 near Arboles; these are screening estimates, not LPEA notices. Official COZ295 alerts remain zero. LPEA lists two planned Durango outages affecting 30 customers, attributed to construction and maintenance rather than fire weather or PSPS; Rio Blanco remains the only listed county wildfire at 1,387.74 acres and 100% containment, with no evacuation notice detected.",
-    "uncertainty": "Confidence is MEDIUM 69/100 because forecast volatility is HIGH 45/100 and no confirmed PSPS events exist for calibration; the timing and driver area may still change.",
+    "summary": "Screening estimates place the highest fire potential on Sat, Aug 29 near Chimney Rock: VERY HIGH fire potential (81/100), Red Flag WATCH (72/100), and PSPS WATCH (63/100), mainly 2-6 PM. Official NWS alert count is zero. LPEA reports two unplanned outages affecting 58 customers near Bayfield and Pagosa Springs, but identifies no fire-weather or PSPS cause, so they are operational context only.",
+    "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; forecast volatility is high, no confirmed PSPS events exist for calibration, and incident data may lag field conditions.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Monitor today's WATCH conditions near Arboles through the late-afternoon risk window.",
-      "Recheck Saturday's LIKELY peak after the next forecast update because volatility remains high.",
-      "Keep the two planned Durango outages separate from PSPS evidence unless LPEA identifies a fire-weather cause.",
-      "Continue official NWS, wildfire, and evacuation checks; COZ295 alerts are zero and no evacuation notice was detected."
+      "Watch the Aug 28-29 afternoon wind and RH forecast, especially near Chimney Rock and Arboles.",
+      "Check NWS COZ295 for any official Red Flag or Fire Weather alert.",
+      "Check LPEA for an identified outage cause or PSPS notice; current outages are unplanned and not linked to fire weather.",
+      "Follow official county feeds for evacuation changes; none is currently detected."
     ]
   },
   "confidence": {
@@ -7797,7 +7797,7 @@
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
-      "13/13 LPEA public sources reachable",
+      "12/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
       "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
@@ -7808,13 +7808,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-25T09:25:17.542649-06:00",
+  "generated_at": "2026-08-25T18:53:53.128992-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
-    "overall_tier": "HIGH",
-    "psps_likelihood": "LIKELY",
-    "summary": "Highest LPEA PSPS concern is Sat, Aug 29 near Arboles / southwest county (LIKELY 69/100), driven by red-flag wind/gust signal near 26 mph; red-flag RH near 15%; 3 sampled hours meet red-flag screen. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is steady versus the prior run (Aug 24 at 4:23 PM MDT); forecast volatility is high and first WATCH-or-higher date is Tue, Aug 25."
+    "overall_tier": "CONCERN",
+    "psps_likelihood": "WATCH",
+    "summary": "Highest LPEA PSPS concern is Sat, Aug 29 near Chimney Rock / west county (WATCH 63/100), driven by red-flag wind/gust signal near 25 mph; red-flag RH near 15%; 5 sampled hours are near red-flag thresholds. NIFC reports 1 current wildfire in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Aug 25 at 9:25 AM MDT); forecast volatility is high and first WATCH-or-higher date is Fri, Aug 28."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7825,108 +7825,111 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved earlier from Fri, Aug 28 to Tue, Aug 25.",
-    "Sun, Aug 30: easing vs prior run; PSPS WATCH -> ELEVATED; score -23, wind +1 mph, RH +2%, red-flag hours 0.",
-    "Tue, Aug 25: worsening vs prior run; PSPS ELEVATED -> WATCH; score +6, wind 0 mph, RH -1%, red-flag hours 0."
+    "First WATCH-or-higher PSPS date moved later from Tue, Aug 25 to Fri, Aug 28.",
+    "Overall PSPS likelihood changed from LIKELY to WATCH.",
+    "Tue, Aug 25: easing vs prior run; PSPS WATCH -> ELEVATED; score -24, wind -2 mph, RH +4%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
+    "Sat, Aug 29: easing vs prior run; PSPS LIKELY -> WATCH; score -6, wind 0 mph, RH +1%, red-flag hours -2. Driver shifted to Chimney Rock / west county.",
+    "Thu, Aug 27: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -10, wind -1 mph, RH +2%, red-flag hours 0."
   ],
   "operational_outage_context": {
     "active": true,
     "active_outage_count": 2,
-    "affected_members": 30,
+    "affected_members": 58,
     "areas": [
-      "Durango / La Plata County"
+      "Bayfield / east La Plata County",
+      "Pagosa Springs"
     ],
-    "customers_affected": 30,
-    "customers_out_now": 30,
-    "customers_served": 47639,
+    "customers_affected": 58,
+    "customers_out_now": 58,
+    "customers_served": 47638,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows 30 customers without power near Durango / La Plata County.",
+    "headline": "Official LPEA outage data shows 58 customers without power near Bayfield / east La Plata County, Pagosa Springs.",
     "hits": [
       {
-        "name": "1831 GLENISLE AVE",
+        "name": "584 FREEMAN PARK WAY",
         "snippets": [
-          "Durango / La Plata County: 1 customer out; planned; cause 100 Construction."
+          "Bayfield / east La Plata County: 2 customers out; unplanned; cause not posted."
         ],
         "url": "https://outage.lpea.coop"
       },
       {
-        "name": "1465 W 3RD AVE",
+        "name": "5535 CR 302",
         "snippets": [
-          "Durango / La Plata County: 29 customers out; planned; cause 110 Maintenance."
+          "Pagosa Springs: 56 customers out; unplanned; cause not posted."
         ],
         "url": "https://outage.lpea.coop"
       }
     ],
     "outages": [
       {
-        "cause": "100 Construction",
+        "cause": null,
         "crew_assigned": true,
-        "customers_out_initially": 1,
-        "customers_out_now": 1,
+        "customers_out_initially": 2,
+        "customers_out_now": 2,
         "customers_restored": 0,
-        "distance_miles": 0.7,
+        "distance_miles": 14.1,
         "ended_at": null,
         "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-08-25-0197",
-        "latitude": 37.284116944575175,
-        "longitude": -107.8853343357693,
-        "modified_at": "2026-08-25T08:40:54.52-06:00",
-        "name": "1831 GLENISLE AVE",
-        "nearest_area": "Durango / La Plata County",
-        "planned": true,
+        "id": "2026-08-25-0204",
+        "latitude": 37.42739612433613,
+        "longitude": -107.56335763142337,
+        "modified_at": "2026-08-25T18:20:35.42-06:00",
+        "name": "584 FREEMAN PARK WAY",
+        "nearest_area": "Bayfield / east La Plata County",
+        "planned": false,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-08-25T08:22:26-06:00",
+        "started_at": "2026-08-25T18:16:13-06:00",
         "url": "https://outage.lpea.coop",
         "verified": true,
         "work_status": ""
       },
       {
-        "cause": "110 Maintenance",
+        "cause": null,
         "crew_assigned": true,
-        "customers_out_initially": 29,
-        "customers_out_now": 29,
+        "customers_out_initially": 56,
+        "customers_out_now": 56,
         "customers_restored": 0,
-        "distance_miles": 0.4,
+        "distance_miles": 6.4,
         "ended_at": null,
-        "estimated_restoration_at": "2026-08-25T17:00:00-06:00",
+        "estimated_restoration_at": null,
         "fire_related": false,
-        "id": "2026-08-25-0198",
-        "latitude": 37.281129953858155,
-        "longitude": -107.88144096251145,
-        "modified_at": "2026-08-25T09:17:29.3-06:00",
-        "name": "1465 W 3RD AVE",
-        "nearest_area": "Durango / La Plata County",
-        "planned": true,
+        "id": "2026-08-25-0205",
+        "latitude": 37.29271826545475,
+        "longitude": -106.897827928335,
+        "modified_at": "2026-08-25T18:52:29.507-06:00",
+        "name": "5535 CR 302",
+        "nearest_area": "Pagosa Springs",
+        "planned": false,
         "psps_related": false,
         "source": "Official LPEA outage viewer",
-        "started_at": "2026-08-25T09:00:46-06:00",
+        "started_at": "2026-08-25T18:49:13-06:00",
         "url": "https://outage.lpea.coop",
-        "verified": true,
+        "verified": false,
         "work_status": ""
       }
     ],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
-    "planned_outage_count": 2,
+    "planned_outage_count": 0,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "localized",
+    "severity": "moderate",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "2 active outages; 2 planned and 0 unplanned; 30 customers out. No fire-weather or PSPS cause is identified.",
+    "summary": "2 active outages; 0 planned and 2 unplanned; 58 customers out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 0,
-    "update_time": "2026-08-25T09:25:30.2078477-06:00"
+    "unplanned_outage_count": 2,
+    "update_time": "2026-08-25T18:53:31.3583133-06:00"
   },
   "peaks": {
     "fire_danger": {
       "date": "2026-08-29",
       "display_date": "Sat, Aug 29",
       "drivers": [
-        "very dry RH near 14%",
+        "very dry RH near 15%",
         "wind/gust near 25 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
@@ -7934,35 +7937,35 @@
       "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
       "level": "VERY HIGH",
       "location": "Chimney Rock / west county",
-      "score": 78
+      "score": 81
     },
     "psps": {
       "date": "2026-08-29",
       "display_date": "Sat, Aug 29",
       "drivers": [
-        "red-flag wind/gust signal near 26 mph",
+        "red-flag wind/gust signal near 25 mph",
         "red-flag RH near 15%",
-        "3 sampled hours meet red-flag screen",
-        "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
+        "5 sampled hours are near red-flag thresholds",
+        "Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger VERY HIGH), used as a small supporting modifier."
       ],
       "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
-      "level": "LIKELY",
-      "location": "Arboles / southwest county",
-      "score": 69
+      "level": "WATCH",
+      "location": "Chimney Rock / west county",
+      "score": 63
     },
     "red_flag": {
       "date": "2026-08-29",
       "display_date": "Sat, Aug 29",
       "drivers": [
-        "3 sampled red-flag hours",
+        "5 near-threshold hours",
         "RH near 15%",
-        "wind/gust near 26 mph",
-        "dry-thunder probability near 19%"
+        "wind/gust near 25 mph",
+        "dry-thunder probability near 16%"
       ],
       "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
-      "level": "LIKELY",
-      "location": "Arboles / southwest county",
-      "score": 81
+      "level": "WATCH",
+      "location": "Chimney Rock / west county",
+      "score": 72
     }
   },
   "red_flag_calibration": {
@@ -8129,20 +8132,18 @@
       "2026-07-02"
     ],
     "official_alert_episode_count": 3,
-    "pending_high_dates": [
-      "2026-08-29"
-    ],
+    "pending_high_dates": [],
     "summary": "3/3 official Red Flag / Fire Weather episodes had a pre-alert HIGH monitor signal; date-level result was 21/21. Episode-average lead time: 3.5 days."
   },
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-08-25",
-    "first_watch_or_likely_display": "Tue, Aug 25",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved earlier from Fri, Aug 28 to Tue, Aug 25.",
+    "first_watch_or_likely_date": "2026-08-28",
+    "first_watch_or_likely_display": "Fri, Aug 28",
+    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Tue, Aug 25 to Fri, Aug 28.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 45,
-    "momentum": "Steady"
+    "forecast_volatility_score": 51,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
