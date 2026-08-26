@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Momentum eased: PSPS screening shifted from LIKELY to WATCH, and the first WATCH-or-higher date moved from Aug 25 to Aug 28.",
-    "Aug 25 fell from WATCH to ELEVATED as wind eased 2 mph, RH rose 4 percentage points, and red-flag hours remained zero.",
-    "Aug 29 fell from LIKELY to WATCH as RH increased 1 percentage point and red-flag hours declined by two.",
-    "Very high fire danger and Stage 1 restrictions near Chimney Rock support the Aug 29 concern; Pagosa Springs is under Stage 2 restrictions."
+    "Aug 25 eased from ELEVATED to LOW as RH rose 15 percentage points, wind fell 1 mph, and red-flag hours remained zero.",
+    "The first WATCH-or-higher PSPS date remains Fri, Aug 28.",
+    "Sat, Aug 29 remains the peak period near Chimney Rock, with VERY HIGH fire potential and WATCH-level Red Flag and PSPS screening.",
+    "The earlier LPEA outages have cleared; remaining public-page keyword matches are context only, not a current outage or PSPS notice."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-25T20:25:27-06:00",
-  "headline": "Fire-weather screening eased to CONCERN; Aug 29 remains the peak WATCH period near Chimney Rock, with no official NWS fire-weather alert.",
-  "report_generated_at": "2026-08-25T18:53:53.128992-06:00",
+  "generated_at": "2026-08-25T21:24:55-06:00",
+  "headline": "Fire-weather screening remains CONCERN, with an Aug 29 WATCH peak near Chimney Rock; no official NWS fire-weather alert or active LPEA outage is posted.",
+  "report_generated_at": "2026-08-25T21:19:47.371096-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Screening estimates place the highest fire potential on Sat, Aug 29 near Chimney Rock: VERY HIGH fire potential (81/100), Red Flag WATCH (72/100), and PSPS WATCH (63/100), mainly 2-6 PM. Official NWS alert count is zero. LPEA reports two unplanned outages affecting 58 customers near Bayfield and Pagosa Springs, but identifies no fire-weather or PSPS cause, so they are operational context only.",
-  "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; forecast volatility is high, no confirmed PSPS events exist for calibration, and incident data may lag field conditions.",
+  "summary": "Screening estimates peak Sat, Aug 29 near Chimney Rock at VERY HIGH fire potential 81/100, Red Flag WATCH 72/100, and PSPS WATCH 63/100, mainly 2-6 PM. Official NWS alerts are zero, and the official LPEA outage viewer lists no active outages; public-page keyword matches are context only, not a PSPS notice. Rio Blanco remains reported at 1,387.74 acres and 100% contained, with no evacuation notice detected.",
+  "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; medium forecast volatility remains, no confirmed PSPS events exist for calibration, and incident data may lag field conditions.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
     "Watch the Aug 28-29 afternoon wind and RH forecast, especially near Chimney Rock and Arboles.",
     "Check NWS COZ295 for any official Red Flag or Fire Weather alert.",
-    "Check LPEA for an identified outage cause or PSPS notice; current outages are unplanned and not linked to fire weather.",
-    "Follow official county feeds for evacuation changes; none is currently detected."
+    "Check LPEA for a direct outage or PSPS notice rather than relying on broad or historical keyword matches.",
+    "Follow official county feeds for fire and evacuation changes; none is currently detected."
   ]
 }
