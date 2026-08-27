@@ -1,7 +1,7 @@
 # Archuleta County fire-weather monitor
 
-Generated: Aug 27, 2026 at 1:39 AM MDT (Pagosa Springs, CO local time)
-Next update: Aug 27, 2026 at 5:20 AM MDT (Pagosa Springs, CO local time)
+Generated: Aug 27, 2026 at 5:33 AM MDT (Pagosa Springs, CO local time)
+Next update: Aug 27, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -25,7 +25,7 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 ## Decision Support
 
 - Summary: Highest LPEA PSPS concern is Wed, Sep 2 near Chimney Rock / west county (WATCH 53/100), driven by red-flag wind/gust signal near 25 mph; near-threshold RH near 16%; 4 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.
-- Confidence: **MEDIUM** (69/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
+- Confidence: **HIGH** (77/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; no confirmed PSPS events logged yet for calibration
 - Weather fire-potential peak: Fri, Aug 28: Chimney Rock / west county HIGH 69/100
 - Red Flag likelihood peak: Wed, Sep 2: Chimney Rock / west county WATCH 58/100
 - LPEA PSPS peak: Wed, Sep 2: Chimney Rock / west county WATCH 53/100
@@ -43,45 +43,42 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Analyst Interpretation
 
-- Headline: Screening remains CONCERN: Aug 28 and Sep 2 are WATCH dates, while official NWS alerts and active LPEA outages remain at zero.
-- Summary: Screening peaks Fri, Aug 28 at HIGH fire potential 69/100 and Wed, Sep 2 near Chimney Rock at Red Flag WATCH 58/100 and PSPS WATCH 53/100. Official NWS alerts and active LPEA outages are zero; LPEA keyword matches are context, not outage intent. NIFC now lists Rio Blanco plus the 0.25-acre Swiss Roll fire, with no evacuation notice detected.
-- Uncertainty: These are screening estimates, not official warnings or calibrated PSPS probabilities; forecast volatility is HIGH, no confirmed PSPS events exist, and incident data may lag field conditions.
+- Headline: Screening remains CONCERN with WATCH dates Aug 28 and Sep 2; no official NWS alert, evacuation notice, or active LPEA outage is posted.
+- Summary: Forecast screening is steady: fire potential peaks Fri, Aug 28 near Chimney Rock at HIGH 69/100, while Red Flag and PSPS concern peak Wed, Sep 2 at WATCH 58/100 and 53/100. Official NWS alerts and active LPEA outages remain zero; broad keyword matches are context only. NIFC still lists Rio Blanco and the 0.25-acre Swiss Roll fire, with no evacuation notice detected.
+- Uncertainty: These are screening estimates, not official warnings or calibrated PSPS probabilities; no confirmed PSPS events exist for calibration, and incident data may lag field conditions.
 - Evidence used: overall_status, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture, active_incidents, calibration
 - This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
 
 Changing drivers:
-- Wed, Sep 2 entered the forecast as the peak PSPS and Red Flag WATCH date near Chimney Rock.
-- Tue, Sep 1 fell from PSPS WATCH to ELEVATED, down 23 points as RH increased 2 percentage points; the driver shifted to Arboles.
-- Sat, Aug 29 fell from PSPS WATCH to ELEVATED, down 19 points as wind eased 1 mph and RH increased 2 percentage points.
-- NIFC incident context increased to two fires with the addition of the 0.25-acre Swiss Roll fire near Pagosa Springs.
+- Forecast screening is unchanged from the 1:39 AM run, with no major day-level movement.
+- Fri, Aug 28 remains the first PSPS WATCH date, with peak fire potential near Chimney Rock from 3-4 PM.
+- Wed, Sep 2 remains the peak Red Flag and PSPS WATCH date near Chimney Rock from 2-5 PM.
+- The official LPEA outage viewer remains clear; public keyword matches are context only, not current outage or PSPS intent.
 
 What to watch next:
 - Watch Aug 28 from 3-4 PM and Sep 2 from 2-5 PM, especially near Chimney Rock.
 - Check NWS COZ295 for an official Red Flag or Fire Weather alert.
 - Check LPEA for a direct outage or PSPS notice rather than relying on broad or historical keyword matches.
-- Follow official fire and county evacuation feeds for Swiss Roll changes; no evacuation notice is currently detected.
+- Continue checking official fire and county evacuation feeds; no evacuation notice is currently detected.
 
 ## Trend Intelligence
 
-- Summary: Momentum is easing versus the prior run (Aug 26 at 5:24 AM MDT); forecast volatility is high and first WATCH-or-higher date is Fri, Aug 28.
-- Momentum: **Easing**
-- Forecast volatility: **HIGH** (55/100)
+- Summary: Momentum is steady versus the prior run (Aug 27 at 1:39 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, Aug 28.
+- Momentum: **Steady**
+- Forecast volatility: **LOW** (0/100)
 - First WATCH-or-higher PSPS date: Fri, Aug 28
 - Watch-date movement: First WATCH-or-higher PSPS date remains Fri, Aug 28.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
 - First WATCH-or-higher PSPS date remains Fri, Aug 28.
-- Tue, Sep 1: easing vs prior run; PSPS WATCH -> ELEVATED; score -23, wind 0 mph, RH +2%, red-flag hours 0. Driver shifted to Arboles / southwest county.
-- Sat, Aug 29: easing vs prior run; PSPS WATCH -> ELEVATED; score -19, wind -1 mph, RH +2%, red-flag hours 0. Driver shifted to Chimney Rock / west county.
-- Thu, Aug 27: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind +1 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
-- Mon, Aug 31: easing vs prior run; PSPS ELEVATED -> ELEVATED; score +2, wind +1 mph, RH +4%, red-flag hours 0. Driver shifted to Arboles / southwest county.
+- No major day-level movement versus the prior run.
 
 ## Public Analysis Export
 
 - Summary: Highest LPEA PSPS concern is Wed, Sep 2 near Chimney Rock / west county (WATCH 53/100), driven by red-flag wind/gust signal near 25 mph; near-threshold RH near 16%; 4 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.
-- Trend: Momentum is easing versus the prior run (Aug 26 at 5:24 AM MDT); forecast volatility is high and first WATCH-or-higher date is Fri, Aug 28.
-- Confidence: **MEDIUM** (69/100)
+- Trend: Momentum is steady versus the prior run (Aug 27 at 1:39 AM MDT); forecast volatility is low and first WATCH-or-higher date is Fri, Aug 28.
+- Confidence: **HIGH** (77/100)
 - First WATCH-or-higher PSPS date: Fri, Aug 28
 - PSPS peak: Wed, Sep 2 near Chimney Rock / west county at WATCH 53/100
 - Red Flag peak: Wed, Sep 2 near Chimney Rock / west county at WATCH 58/100
@@ -91,10 +88,7 @@ Notable changes:
 
 What changed:
 - First WATCH-or-higher PSPS date remains Fri, Aug 28.
-- Tue, Sep 1: easing vs prior run; PSPS WATCH -> ELEVATED; score -23, wind 0 mph, RH +2%, red-flag hours 0. Driver shifted to Arboles / southwest county.
-- Sat, Aug 29: easing vs prior run; PSPS WATCH -> ELEVATED; score -19, wind -1 mph, RH +2%, red-flag hours 0. Driver shifted to Chimney Rock / west county.
-- Thu, Aug 27: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind +1 mph, RH 0%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
-- Mon, Aug 31: easing vs prior run; PSPS ELEVATED -> ELEVATED; score +2, wind +1 mph, RH +4%, red-flag hours 0. Driver shifted to Arboles / southwest county.
+- No major day-level movement versus the prior run.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
@@ -144,7 +138,7 @@ What to watch next:
 
 | Incident | Type | Size | Containment | Nearest monitored area | Updated |
 | --- | --- | --- | --- | --- | --- |
-| Rio Blanco | Wildfire | 1,387.74 acres | 100% | Chromo / southeast county (9.9 mi) | Aug 18 at 7:20 PM MDT |
+| Rio Blanco | Wildfire | 1,388.00 acres | 100% | Chromo / southeast county (9.9 mi) | Aug 18 at 7:20 PM MDT |
 | Swiss Roll | Wildfire | 0.25 acres | Not reported | Pagosa Springs (14.5 mi) | Aug 26 at 1:38 PM MDT |
 
 Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archuleta County fire updates](https://sheriff.archuletacounty.gov/divisions/emergency-operations/fire-updates-and-information/), [County alerts](https://nixle.us/archuleta-county-office-of-emergency-management-aux/), [Watch Duty](https://app.watchduty.org/)
