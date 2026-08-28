@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-27T17:40:31.907026-06:00",
+    "checked_at": "2026-08-28T17:24:16.655954-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -7744,18 +7744,18 @@
         "updated_at": "2026-08-18T19:20:51.133000-06:00"
       },
       {
-        "acres": 1.0,
+        "acres": 1.25,
         "acres_note": null,
         "acres_preliminary": false,
         "acres_source": "NIFC current incident record",
         "acres_source_url": "https://www.arcgis.com/home/item.html?id=4181a117dc9e43db8598533e29972015",
-        "acres_updated_at": "2026-08-27T16:46:23.360000-06:00",
+        "acres_updated_at": "2026-08-28T13:08:29.440000-06:00",
         "cause": "Natural",
         "description": "",
         "discovered_at": "2026-08-20T08:33:19-06:00",
         "distance_miles": 14.6,
         "id": "2026-COSJF-000985",
-        "incident_reported_acres": 1.0,
+        "incident_reported_acres": 1.25,
         "incident_type": "WF",
         "incident_type_label": "Wildfire",
         "jurisdiction": "USFS",
@@ -7770,7 +7770,7 @@
         "perimeter_geometry_source_url": null,
         "perimeter_geometry_updated_at": null,
         "perimeter_source": null,
-        "updated_at": "2026-08-27T16:46:23.360000-06:00"
+        "updated_at": "2026-08-28T13:08:29.440000-06:00"
       }
     ],
     "largest_wildfire_acres": 1387.74,
@@ -7790,10 +7790,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "Forecast momentum eased, and the first WATCH-or-higher PSPS date moved later from Fri, Aug 28 to Wed, Sep 2.",
-      "Fri, Aug 28 eased from PSPS WATCH to ELEVATED as its score fell 16 points and its driver shifted to Bayfield.",
-      "Wed, Sep 2 remains the peak fire-weather and PSPS concern near Chimney Rock from 2-6 PM.",
-      "The official LPEA outage viewer remains clear; public keyword matches are context only, not current outage or PSPS intent."
+      "The prior Sep 2 PSPS WATCH fell to ELEVATED, lowering overall PSPS screening from WATCH to ELEVATED.",
+      "Sep 3 near Chimney Rock remains the peak, with RH near 18%, wind/gust near 24 mph, and two near-threshold hours.",
+      "The official LPEA outage viewer lists no active outages; broad public-source keyword matches are context only.",
+      "Stage 2 restrictions and VERY HIGH fire danger support preparedness, while NWS has issued no active alert."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7805,19 +7805,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-27T17:57:44-06:00",
-    "headline": "Forecast risk eased, leaving Sep 2 as the only PSPS WATCH date; no official NWS alert, evacuation notice, or active LPEA outage is posted.",
-    "report_generated_at": "2026-08-27T17:40:31.907026-06:00",
+    "generated_at": "2026-08-28T17:26:10-06:00",
+    "headline": "Fire-weather screening remains CONCERN for Sep 3, but PSPS screening eased to ELEVATED; no official NWS alert, evacuation, or LPEA outage is active.",
+    "report_generated_at": "2026-08-28T17:24:16.655954-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Screening remains CONCERN, but Aug 28 eased from PSPS WATCH to ELEVATED; the only WATCH date is now Wed, Sep 2 near Chimney Rock, with Red Flag and PSPS scores of 61/100 and 53/100. Official NWS alerts and active LPEA outages remain zero. NIFC lists Rio Blanco at 1,387.74 mapped acres and Swiss Roll at 1 acre, with no evacuation notice detected.",
-    "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; incident and public-page data may lag field conditions.",
+    "summary": "Sep 3 near Chimney Rock is the peak: fire-weather HIGH 63/100, Red Flag POSSIBLE 51/100, and PSPS ELEVATED 44/100 from 3-4 PM. The prior Sep 2 PSPS WATCH fell below WATCH, and the overall PSPS level eased to ELEVATED. Official NWS alerts and LPEA operational outages are zero; two wildfires remain listed, with Rio Blanco 100% contained and no evacuation notice detected.",
+    "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; weather, incident, and public-page data can change or lag field conditions.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Watch Sep 2 from 2-6 PM, especially near Chimney Rock.",
-      "Check NWS COZ295 for an official Red Flag or Fire Weather alert.",
-      "Check LPEA for a direct outage or PSPS notice rather than relying on broad or historical keyword matches.",
-      "Continue checking official incident and county evacuation feeds for Swiss Roll; it is listed at 1 acre with no evacuation notice detected."
+      "Recheck Sep 3 near Chimney Rock from 3-4 PM for changes in RH, wind, and official NWS alerts.",
+      "Confirm any outage or PSPS action directly with LPEA; the official outage viewer currently shows none.",
+      "Monitor Swiss Roll incident updates and official county evacuation feeds.",
+      "Treat Rio Blanco's 100% containment and mapped acreage as source-reported and potentially lagged."
     ]
   },
   "confidence": {
@@ -7836,13 +7836,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-27T17:40:31.907026-06:00",
+  "generated_at": "2026-08-28T17:24:16.655954-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
-    "psps_likelihood": "WATCH",
-    "summary": "Highest LPEA PSPS concern is Wed, Sep 2 near Chimney Rock / west county (WATCH 53/100), driven by red-flag wind/gust signal near 25 mph; near-threshold RH near 16%; 5 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
-    "trend_summary": "Momentum is easing versus the prior run (Aug 27 at 5:33 AM MDT); forecast volatility is high and first WATCH-or-higher date is Wed, Sep 2."
+    "psps_likelihood": "ELEVATED",
+    "summary": "Highest LPEA PSPS concern is Thu, Sep 3 near Chimney Rock / west county (ELEVATED 44/100), driven by near-threshold wind/gust signal near 24 mph; near-threshold RH near 18%; 2 sampled hours are near red-flag thresholds. NIFC reports 2 current wildfires in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Aug 28 at 5:23 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7853,9 +7853,11 @@
     "LPEA may use internal circuit, asset, crew, outage, and operational data this monitor cannot see."
   ],
   "notable_changes": [
-    "First WATCH-or-higher PSPS date moved later from Fri, Aug 28 to Wed, Sep 2.",
-    "Thu, Aug 27: easing vs prior run; PSPS ELEVATED -> LOW; score -12, wind -5 mph, RH +6%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Fri, Aug 28: easing vs prior run; PSPS WATCH -> ELEVATED; score -16, wind -2 mph, RH 0%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County."
+    "Prior WATCH-or-higher PSPS date Wed, Sep 2 dropped below WATCH.",
+    "Overall PSPS likelihood changed from WATCH to ELEVATED.",
+    "Wed, Sep 2: easing vs prior run; PSPS WATCH -> ELEVATED; score -15, wind 0 mph, RH +1%, red-flag hours 0.",
+    "Thu, Sep 3: easing vs prior run; PSPS WATCH -> ELEVATED; score -5, wind 0 mph, RH +2%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
+    "Sat, Aug 29: easing vs prior run; PSPS ELEVATED -> ELEVATED; score -9, wind -2 mph, RH +1%, red-flag hours 0."
   ],
   "operational_outage_context": {
     "active": false,
@@ -7864,7 +7866,7 @@
     "areas": [],
     "customers_affected": 0,
     "customers_out_now": 0,
-    "customers_served": 47635,
+    "customers_served": 47561,
     "fire_related": false,
     "headline": "Official LPEA outage data shows no active customer outages.",
     "hits": [],
@@ -7881,49 +7883,50 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-08-27T17:43:46.7704309-06:00"
+    "update_time": "2026-08-28T17:24:06.8311476-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-09-02",
-      "display_date": "Wed, Sep 2",
+      "date": "2026-09-03",
+      "display_date": "Thu, Sep 3",
       "drivers": [
-        "dry RH near 16%",
-        "wind/gust near 25 mph",
+        "dry RH near 18%",
+        "wind/gust near 24 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
       "level": "HIGH",
       "location": "Chimney Rock / west county",
-      "score": 68
+      "score": 63
     },
     "psps": {
-      "date": "2026-09-02",
-      "display_date": "Wed, Sep 2",
+      "date": "2026-09-03",
+      "display_date": "Thu, Sep 3",
       "drivers": [
-        "red-flag wind/gust signal near 25 mph",
-        "near-threshold RH near 16%",
-        "5 sampled hours are near red-flag thresholds",
+        "near-threshold wind/gust signal near 24 mph",
+        "near-threshold RH near 18%",
+        "2 sampled hours are near red-flag thresholds",
         "Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger VERY HIGH), used as a small supporting modifier."
       ],
-      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
-      "level": "WATCH",
+      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "level": "ELEVATED",
       "location": "Chimney Rock / west county",
-      "score": 53
+      "score": 44
     },
     "red_flag": {
-      "date": "2026-09-02",
-      "display_date": "Wed, Sep 2",
+      "date": "2026-09-03",
+      "display_date": "Thu, Sep 3",
       "drivers": [
-        "5 near-threshold hours",
-        "dry RH near 16%",
-        "wind/gust near 25 mph"
+        "2 near-threshold hours",
+        "dry RH near 18%",
+        "breezy wind/gust near 24 mph",
+        "dry-thunder probability near 19%"
       ],
-      "highest_risk_window": "2 PM-6 PM local; 5 near/red-flag threshold hours.",
-      "level": "WATCH",
+      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "level": "POSSIBLE",
       "location": "Chimney Rock / west county",
-      "score": 61
+      "score": 51
     }
   },
   "red_flag_calibration": {
@@ -8096,11 +8099,11 @@
   "scope": "Public-source screening analysis for weather-driven Red Flag and LPEA PSPS risk.",
   "timezone": "America/Denver",
   "trend": {
-    "first_watch_or_likely_date": "2026-09-02",
-    "first_watch_or_likely_display": "Wed, Sep 2",
-    "first_watch_shift": "First WATCH-or-higher PSPS date moved later from Fri, Aug 28 to Wed, Sep 2.",
+    "first_watch_or_likely_date": null,
+    "first_watch_or_likely_display": null,
+    "first_watch_shift": "Prior WATCH-or-higher PSPS date Wed, Sep 2 dropped below WATCH.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 38,
+    "forecast_volatility_score": 42,
     "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",

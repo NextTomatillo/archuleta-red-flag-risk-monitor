@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Forecast momentum eased, and the first WATCH-or-higher PSPS date moved later from Fri, Aug 28 to Wed, Sep 2.",
-    "Fri, Aug 28 eased from PSPS WATCH to ELEVATED as its score fell 16 points and its driver shifted to Bayfield.",
-    "Wed, Sep 2 remains the peak fire-weather and PSPS concern near Chimney Rock from 2-6 PM.",
-    "The official LPEA outage viewer remains clear; public keyword matches are context only, not current outage or PSPS intent."
+    "The prior Sep 2 PSPS WATCH fell to ELEVATED, lowering overall PSPS screening from WATCH to ELEVATED.",
+    "Sep 3 near Chimney Rock remains the peak, with RH near 18%, wind/gust near 24 mph, and two near-threshold hours.",
+    "The official LPEA outage viewer lists no active outages; broad public-source keyword matches are context only.",
+    "Stage 2 restrictions and VERY HIGH fire danger support preparedness, while NWS has issued no active alert."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-27T17:57:44-06:00",
-  "headline": "Forecast risk eased, leaving Sep 2 as the only PSPS WATCH date; no official NWS alert, evacuation notice, or active LPEA outage is posted.",
-  "report_generated_at": "2026-08-27T17:40:31.907026-06:00",
+  "generated_at": "2026-08-28T17:26:10-06:00",
+  "headline": "Fire-weather screening remains CONCERN for Sep 3, but PSPS screening eased to ELEVATED; no official NWS alert, evacuation, or LPEA outage is active.",
+  "report_generated_at": "2026-08-28T17:24:16.655954-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Screening remains CONCERN, but Aug 28 eased from PSPS WATCH to ELEVATED; the only WATCH date is now Wed, Sep 2 near Chimney Rock, with Red Flag and PSPS scores of 61/100 and 53/100. Official NWS alerts and active LPEA outages remain zero. NIFC lists Rio Blanco at 1,387.74 mapped acres and Swiss Roll at 1 acre, with no evacuation notice detected.",
-  "uncertainty": "These are screening estimates, not official warnings or calibrated PSPS probabilities; incident and public-page data may lag field conditions.",
+  "summary": "Sep 3 near Chimney Rock is the peak: fire-weather HIGH 63/100, Red Flag POSSIBLE 51/100, and PSPS ELEVATED 44/100 from 3-4 PM. The prior Sep 2 PSPS WATCH fell below WATCH, and the overall PSPS level eased to ELEVATED. Official NWS alerts and LPEA operational outages are zero; two wildfires remain listed, with Rio Blanco 100% contained and no evacuation notice detected.",
+  "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; weather, incident, and public-page data can change or lag field conditions.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch Sep 2 from 2-6 PM, especially near Chimney Rock.",
-    "Check NWS COZ295 for an official Red Flag or Fire Weather alert.",
-    "Check LPEA for a direct outage or PSPS notice rather than relying on broad or historical keyword matches.",
-    "Continue checking official incident and county evacuation feeds for Swiss Roll; it is listed at 1 acre with no evacuation notice detected."
+    "Recheck Sep 3 near Chimney Rock from 3-4 PM for changes in RH, wind, and official NWS alerts.",
+    "Confirm any outage or PSPS action directly with LPEA; the official outage viewer currently shows none.",
+    "Monitor Swiss Roll incident updates and official county evacuation feeds.",
+    "Treat Rio Blanco's 100% containment and mapped acreage as source-reported and potentially lagged."
   ]
 }
