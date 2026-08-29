@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "A first WATCH-or-higher PSPS date appeared on Sep 4, raising overall PSPS screening from ELEVATED to WATCH.",
-    "Sep 4 near Chimney Rock has four near-threshold hours, RH near 16%, and wind/gust near 22 mph.",
-    "Medicine Creek is newly listed at 0.10 acres; three current wildfires are now reported, with no evacuation notice detected.",
-    "The official LPEA outage viewer remains clear; public keyword matches are context only, and NWS has no active alert."
+    "The prior Sep 4 PSPS WATCH fell to ELEVATED, lowering overall PSPS screening from WATCH to ELEVATED.",
+    "Sep 4 eased by 24 points as RH increased by 3 percentage points; its leading location shifted to Arboles.",
+    "LPEA reports one unplanned one-customer outage near Durango, with no fire-weather or PSPS cause identified.",
+    "Three wildfires remain listed, including Swiss Roll at 1.50 acres, with no evacuation notice detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-29T05:23:26-06:00",
-  "headline": "PSPS screening rose to WATCH for Sep 4 near Chimney Rock, while no official NWS alert, evacuation notice, or active LPEA outage is posted.",
-  "report_generated_at": "2026-08-29T05:21:52.781765-06:00",
+  "generated_at": "2026-08-29T17:23:25-06:00",
+  "headline": "Fire-weather and PSPS screening eased to ELEVATED with no watch dates; LPEA reports one localized outage with no fire or PSPS cause identified.",
+  "report_generated_at": "2026-08-29T17:22:08.619200-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Sep 4 is the peak near Chimney Rock from 2-5 PM: fire-weather HIGH 66/100, Red Flag WATCH 57/100, and PSPS WATCH 48/100, with RH near 16% and wind/gust near 22 mph. This is screening guidance, not an official alert or shutoff notice. Three current wildfires are listed, including the new 0.10-acre Medicine Creek incident; no evacuation notice is detected.",
-  "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; forecast, incident, and public-page data may change or lag field conditions.",
+  "summary": "The prior Sep 4 WATCH fell to ELEVATED, and no HIGH or CONCERN dates remain. Peak PSPS screening is ELEVATED 33/100 near Arboles on Sep 2; the weather peak is MODERATE 42/100 near Chimney Rock on Sep 3. LPEA's official viewer lists one unplanned one-customer outage near Durango, but no fire-weather or PSPS cause is identified; NWS alerts and evacuation notices remain zero.",
+  "uncertainty": "Screening scores are not official warnings or calibrated PSPS probabilities; the outage cause is unreported, and forecast, incident, and public-page data may change or lag.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Monitor Sep 4 near Chimney Rock from 2-5 PM for changes in RH, wind, and near-threshold duration.",
-    "Check official NWS COZ295 and LPEA updates for any alert, outage, or direct PSPS notice.",
-    "Monitor Medicine Creek and Swiss Roll updates along with official county evacuation feeds.",
-    "Confirm current Stage 1 restrictions with the responsible jurisdiction before burn-related decisions."
+    "Check the official LPEA outage viewer for restoration or a posted cause for the localized Durango-area outage.",
+    "Recheck Sep 2 near Arboles and Sep 3 near Chimney Rock for renewed drying or wind increases.",
+    "Check official NWS COZ295 and LPEA updates for any direct alert or PSPS notice.",
+    "Continue monitoring current fires and official county evacuation feeds."
   ]
 }
