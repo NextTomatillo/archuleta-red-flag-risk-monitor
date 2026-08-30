@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The prior Sep 4 PSPS WATCH fell to ELEVATED, lowering overall PSPS screening from WATCH to ELEVATED.",
-    "Sep 4 eased by 24 points as RH increased by 3 percentage points; its leading location shifted to Arboles.",
-    "LPEA reports one unplanned one-customer outage near Durango, with no fire-weather or PSPS cause identified.",
-    "Three wildfires remain listed, including Swiss Roll at 1.50 acres, with no evacuation notice detected."
+    "Sep 3 near Chimney Rock worsened by 10 points while remaining below PSPS WATCH.",
+    "The Sep 3 peak combines RH near 18%, wind/gust near 23 mph, and three near-threshold hours.",
+    "The prior localized LPEA outage has cleared; the official outage viewer lists no active outages.",
+    "A separate NWS Flood Watch is active for portions of the monitored region, but no official COZ295 fire alert is posted."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-29T17:23:25-06:00",
-  "headline": "Fire-weather and PSPS screening eased to ELEVATED with no watch dates; LPEA reports one localized outage with no fire or PSPS cause identified.",
-  "report_generated_at": "2026-08-29T17:22:08.619200-06:00",
+  "generated_at": "2026-08-30T05:21:38-06:00",
+  "headline": "Fire-weather screening returned to CONCERN for Sep 3, while PSPS stays ELEVATED; no active LPEA outage or official COZ295 fire alert is posted.",
+  "report_generated_at": "2026-08-30T05:20:29.749841-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The prior Sep 4 WATCH fell to ELEVATED, and no HIGH or CONCERN dates remain. Peak PSPS screening is ELEVATED 33/100 near Arboles on Sep 2; the weather peak is MODERATE 42/100 near Chimney Rock on Sep 3. LPEA's official viewer lists one unplanned one-customer outage near Durango, but no fire-weather or PSPS cause is identified; NWS alerts and evacuation notices remain zero.",
-  "uncertainty": "Screening scores are not official warnings or calibrated PSPS probabilities; the outage cause is unreported, and forecast, incident, and public-page data may change or lag.",
+  "summary": "Sep 3 near Chimney Rock is the peak from 3-5 PM: fire-weather HIGH 62/100, Red Flag POSSIBLE 50/100, and PSPS ELEVATED 40/100. NWS has a separate Flood Watch for portions of the monitored region through midnight, but no official COZ295 Red Flag or Fire Weather alert. LPEA's outage viewer is clear, three wildfires remain listed, and no evacuation notice is detected.",
+  "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; forecast, incident, alert, and public-page data may change or lag.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Check the official LPEA outage viewer for restoration or a posted cause for the localized Durango-area outage.",
-    "Recheck Sep 2 near Arboles and Sep 3 near Chimney Rock for renewed drying or wind increases.",
-    "Check official NWS COZ295 and LPEA updates for any direct alert or PSPS notice.",
+    "Monitor Sep 3 near Chimney Rock from 3-5 PM for changes in RH, wind, and near-threshold duration.",
+    "Follow the separate NWS Flood Watch through midnight and check for updated official alerts.",
+    "Check LPEA directly for any new outage or PSPS notice rather than relying on broad keyword matches.",
     "Continue monitoring current fires and official county evacuation feeds."
   ]
 }
