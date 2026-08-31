@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-08-30T17:21:40.908087-06:00",
+    "checked_at": "2026-08-31T05:26:31.113813-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -7819,10 +7819,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "Sep 3 eased 24 points from PSPS ELEVATED to LOW, shifting the peak day to Sep 2.",
-      "Sep 4 and Sep 5 each eased 16 points from PSPS ELEVATED to LOW.",
-      "Sep 2 near Chimney Rock peaks with RH near 18%, wind/gust near 24 mph, and two near-threshold hours.",
-      "The official LPEA outage viewer remains clear; current keyword matches are not an outage confirmation."
+      "Sep 3 worsened 24 points from PSPS LOW to ELEVATED, moving the peak back to Chimney Rock.",
+      "Sep 5 worsened 10 points from PSPS LOW to ELEVATED, with the driver shifting to Durango.",
+      "Sep 3 peaks with RH near 17%, wind/gust near 22 mph, and three near-threshold hours.",
+      "LPEA now lists one localized one-customer outage near Bayfield with no identified fire-weather or PSPS cause."
     ],
     "evidence_ids": [
       "overall_status",
@@ -7834,18 +7834,18 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-08-30T17:23:27-06:00",
-    "headline": "Fire-weather screening remains CONCERN, now peaking Sep 2 near Chimney Rock; PSPS stays ELEVATED with no official fire alert or LPEA outage.",
-    "report_generated_at": "2026-08-30T17:21:40.908087-06:00",
+    "generated_at": "2026-08-31T05:51:13-06:00",
+    "headline": "Fire-weather screening remains CONCERN for Sep 3 near Chimney Rock; PSPS is ELEVATED, and LPEA lists one localized outage with no fire or PSPS cause.",
+    "report_generated_at": "2026-08-31T05:26:31.113813-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Sep 2 near Chimney Rock is the peak from 3-4 PM: fire-weather HIGH 62/100, Red Flag POSSIBLE 50/100, and PSPS ELEVATED 40/100. No official COZ295 fire alert or LPEA outage is active; a separate NWS Flood Watch covers monitored terrain through midnight Sep 1. Three wildfires remain listed, with no evacuation notice detected.",
-    "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; forecast, incident, alert, and public-page data may change or lag.",
+    "summary": "Sep 3 near Chimney Rock is the peak from 3-5 PM: fire-weather HIGH 62/100, Red Flag POSSIBLE 50/100, and PSPS ELEVATED 40/100. LPEA lists one unplanned one-customer outage near Bayfield, but identifies no fire-weather or PSPS cause; no official COZ295 fire alert is active. A separate Flood Watch runs through midnight Sep 1, three fires remain listed, and no evacuation notice is detected.",
+    "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; forecast, incident, alert, outage, and public-page data may change or lag.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Monitor Sep 2 near Chimney Rock from 3-4 PM for changes in RH, wind, and near-threshold duration.",
+      "Monitor Sep 3 near Chimney Rock from 3-5 PM for changes in RH, wind, and near-threshold duration.",
+      "Track the localized Bayfield-area outage directly with LPEA without treating it as PSPS or fire evidence.",
       "Follow the separate NWS Flood Watch through midnight Sep 1 and check for updated official alerts.",
-      "Check LPEA directly for any new outage or PSPS notice rather than relying on broad keyword matches.",
       "Continue monitoring current fires and official county evacuation feeds."
     ]
   },
@@ -7857,6 +7857,7 @@
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
+      "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
       "forecast changed substantially versus prior run",
@@ -7865,13 +7866,13 @@
     "score": 69
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-08-30T17:21:40.908087-06:00",
+  "generated_at": "2026-08-31T05:26:31.113813-06:00",
   "headline": {
     "monitor_heads_up_recommended": true,
     "overall_tier": "CONCERN",
     "psps_likelihood": "ELEVATED",
-    "summary": "Highest LPEA PSPS concern is Wed, Sep 2 near Chimney Rock / west county (ELEVATED 40/100), driven by near-threshold wind/gust signal near 24 mph; near-threshold RH near 18%; 2 sampled hours are near red-flag thresholds. NIFC reports 3 current wildfires in Archuleta County.",
-    "trend_summary": "Momentum is easing versus the prior run (Aug 30 at 5:20 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "summary": "Highest LPEA PSPS concern is Thu, Sep 3 near Chimney Rock / west county (ELEVATED 40/100), driven by near-threshold wind/gust signal near 22 mph; near-threshold RH near 17%; 3 sampled hours are near red-flag thresholds. NIFC reports 3 current wildfires in Archuleta County.",
+    "trend_summary": "Momentum is rising versus the prior run (Aug 30 at 5:21 PM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -7883,75 +7884,109 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Thu, Sep 3: easing vs prior run; PSPS ELEVATED -> LOW; score -24, wind -7 mph, RH -1%, red-flag hours 0. Driver shifted to Pagosa Springs.",
-    "Sat, Sep 5: easing vs prior run; PSPS ELEVATED -> LOW; score -16, wind -9 mph, RH +1%, red-flag hours 0.",
-    "Fri, Sep 4: easing vs prior run; PSPS ELEVATED -> LOW; score -16, wind -7 mph, RH 0%, red-flag hours 0.",
-    "Sun, Aug 30: easing vs prior run; PSPS ELEVATED -> ELEVATED; score +7, wind +1 mph, RH +4%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County."
+    "Thu, Sep 3: worsening vs prior run; PSPS LOW -> ELEVATED; score +24, wind +8 mph, RH 0%, red-flag hours 0. Driver shifted to Chimney Rock / west county.",
+    "Sat, Sep 5: worsening vs prior run; PSPS LOW -> ELEVATED; score +10, wind +8 mph, RH +2%, red-flag hours 0. Driver shifted to Durango / La Plata County.",
+    "Fri, Sep 4: worsening vs prior run; PSPS LOW -> ELEVATED; score +4, wind +8 mph, RH +3%, red-flag hours 0. Driver shifted to Pagosa Springs."
   ],
   "operational_outage_context": {
-    "active": false,
-    "active_outage_count": 0,
-    "affected_members": 0,
-    "areas": [],
-    "customers_affected": 0,
-    "customers_out_now": 0,
+    "active": true,
+    "active_outage_count": 1,
+    "affected_members": 1,
+    "areas": [
+      "Bayfield / east La Plata County"
+    ],
+    "customers_affected": 1,
+    "customers_out_now": 1,
     "customers_served": 47562,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows no active customer outages.",
-    "hits": [],
-    "outages": [],
+    "headline": "Official LPEA outage data shows 1 customer without power near Bayfield / east La Plata County.",
+    "hits": [
+      {
+        "name": "310 S PEARL ST",
+        "snippets": [
+          "Bayfield / east La Plata County: 1 customer out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      }
+    ],
+    "outages": [
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 0.2,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-08-30-0271",
+        "latitude": 37.2276148633196,
+        "longitude": -107.60026871502065,
+        "modified_at": "2026-08-30T21:00:26.127-06:00",
+        "name": "310 S PEARL ST",
+        "nearest_area": "Bayfield / east La Plata County",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-08-30T20:58:03-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      }
+    ],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
     "planned_outage_count": 0,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "none",
+    "severity": "localized",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "No active outages are listed by the official LPEA outage viewer.",
+    "summary": "1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 0,
-    "update_time": "2026-08-30T17:20:20.9971234-06:00"
+    "unplanned_outage_count": 1,
+    "update_time": "2026-08-31T05:26:25.8488518-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-09-02",
-      "display_date": "Wed, Sep 2",
+      "date": "2026-09-03",
+      "display_date": "Thu, Sep 3",
       "drivers": [
-        "dry RH near 18%",
-        "wind/gust near 24 mph",
+        "dry RH near 17%",
+        "wind/gust near 22 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is VERY HIGH"
       ],
-      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "HIGH",
       "location": "Chimney Rock / west county",
       "score": 62
     },
     "psps": {
-      "date": "2026-09-02",
-      "display_date": "Wed, Sep 2",
+      "date": "2026-09-03",
+      "display_date": "Thu, Sep 3",
       "drivers": [
-        "near-threshold wind/gust signal near 24 mph",
-        "near-threshold RH near 18%",
-        "2 sampled hours are near red-flag thresholds",
+        "near-threshold wind/gust signal near 22 mph",
+        "near-threshold RH near 17%",
+        "3 sampled hours are near red-flag thresholds",
         "Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger VERY HIGH), used as a small supporting modifier."
       ],
-      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "ELEVATED",
       "location": "Chimney Rock / west county",
       "score": 40
     },
     "red_flag": {
-      "date": "2026-09-02",
-      "display_date": "Wed, Sep 2",
+      "date": "2026-09-03",
+      "display_date": "Thu, Sep 3",
       "drivers": [
-        "2 near-threshold hours",
-        "dry RH near 18%",
-        "breezy wind/gust near 24 mph"
+        "3 near-threshold hours",
+        "dry RH near 17%",
+        "breezy wind/gust near 22 mph"
       ],
-      "highest_risk_window": "3 PM-4 PM local; 2 near/red-flag threshold hours.",
+      "highest_risk_window": "3 PM-5 PM local; 3 near/red-flag threshold hours.",
       "level": "POSSIBLE",
       "location": "Chimney Rock / west county",
       "score": 50
@@ -8131,8 +8166,8 @@
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
     "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 61,
-    "momentum": "Easing"
+    "forecast_volatility_score": 51,
+    "momentum": "Rising"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
