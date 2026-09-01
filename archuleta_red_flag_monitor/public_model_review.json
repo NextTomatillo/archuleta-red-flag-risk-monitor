@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
     "Sep 3 remains the peak with RH near 17%, wind/gust near 23 mph, and three near-threshold hours.",
-    "Momentum is easing and forecast volatility is MEDIUM, with a maximum day-level score change of 6 points.",
-    "Aug 31 and Sep 6 each eased 6 points versus the prior run.",
-    "LPEA lists one localized one-customer outage near Chimney Rock with no identified fire-weather or PSPS cause."
+    "Forecast momentum is steady with LOW volatility and no major day-level movement.",
+    "The prior localized LPEA outage has cleared; current keyword matches are not an outage confirmation.",
+    "Two current wildfires remain listed, down from three, with no evacuation notice detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-08-31T17:46:24-06:00",
-  "headline": "Fire-weather screening remains CONCERN for Sep 3 near Chimney Rock; PSPS is ELEVATED, with one localized outage and no identified fire or PSPS cause.",
-  "report_generated_at": "2026-08-31T17:27:17.200101-06:00",
+  "generated_at": "2026-09-01T06:00:28-06:00",
+  "headline": "Fire-weather screening remains CONCERN for Sep 3 near Chimney Rock; PSPS is ELEVATED, while official alerts and LPEA outages are clear.",
+  "report_generated_at": "2026-09-01T05:31:46.961151-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Sep 3 near Chimney Rock remains the peak from 3-5 PM: fire-weather HIGH 58/100, Red Flag POSSIBLE 50/100, and PSPS ELEVATED 40/100. LPEA lists one unplanned one-customer outage near Chimney Rock, but identifies no fire-weather or PSPS cause; no official COZ295 fire alert is active. A separate Flood Watch runs through midnight, three fires remain listed, and no evacuation notice is detected.",
+  "summary": "Sep 3 near Chimney Rock remains the peak from 3-5 PM: fire-weather HIGH 58/100, Red Flag POSSIBLE 50/100, and PSPS ELEVATED 40/100. No official COZ295 fire alert or LPEA outage is active; broad LPEA keyword matches remain context only. Two wildfires remain listed, with no evacuation notice detected.",
   "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; forecast, incident, alert, outage, and public-page data may change or lag.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
     "Monitor Sep 3 near Chimney Rock from 3-5 PM for changes in RH, wind, and near-threshold duration.",
-    "Track the localized Chimney Rock-area outage directly with LPEA without treating it as PSPS or fire evidence.",
-    "Follow the separate NWS Flood Watch through midnight and check for updated official alerts.",
-    "Continue monitoring current fires and official county evacuation feeds."
+    "Check LPEA directly for any new outage or PSPS notice rather than relying on broad keyword matches.",
+    "Continue monitoring current fires and official county evacuation feeds.",
+    "Watch for any new official COZ295 fire alert."
   ]
 }
