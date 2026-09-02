@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Sep 3 remains the peak with RH near 17%, wind/gust near 23 mph, and three near-threshold hours.",
-    "Forecast momentum is steady with LOW volatility and no major day-level movement.",
-    "The prior localized LPEA outage has cleared; current keyword matches are not an outage confirmation.",
-    "Two current wildfires remain listed, down from three, with no evacuation notice detected."
+    "Sep 2 near Arboles is the peak, with fire potential MODERATE 37/100 and PSPS screening ELEVATED 33/100.",
+    "Sep 3 eased from the prior run, with the PSPS score down 16 points and no WATCH-or-higher date present.",
+    "No official weather alert or LPEA outage is active; broad LPEA keyword matches remain context only.",
+    "The checked NIFC feed reports no current Archuleta County wildfire, and no evacuation notice was detected."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-09-01T06:00:28-06:00",
-  "headline": "Fire-weather screening remains CONCERN for Sep 3 near Chimney Rock; PSPS is ELEVATED, while official alerts and LPEA outages are clear.",
-  "report_generated_at": "2026-09-01T05:31:46.961151-06:00",
+  "generated_at": "2026-09-02T06:32:17-06:00",
+  "headline": "Fire-weather and PSPS screening are ELEVATED, with no official COZ295 alerts, active LPEA outages, current county fires, or evacuation notices.",
+  "report_generated_at": "2026-09-02T05:40:03.274020-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Sep 3 near Chimney Rock remains the peak from 3-5 PM: fire-weather HIGH 58/100, Red Flag POSSIBLE 50/100, and PSPS ELEVATED 40/100. No official COZ295 fire alert or LPEA outage is active; broad LPEA keyword matches remain context only. Two wildfires remain listed, with no evacuation notice detected.",
-  "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; forecast, incident, alert, outage, and public-page data may change or lag.",
+  "summary": "Sep 2 near Arboles is the peak: fire potential MODERATE 37/100, Red Flag screening LOW 25/100, and PSPS screening ELEVATED 33/100. Sep 3 eased from the prior run, no WATCH-or-higher PSPS date is present, and official NWS alerts and LPEA outages are clear. The checked NIFC feed reports no current Archuleta County wildfire, and no evacuation notice was detected.",
+  "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; weather forecasts and public incident, alert, outage, and social-source data may change or lag.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Monitor Sep 3 near Chimney Rock from 3-5 PM for changes in RH, wind, and near-threshold duration.",
-    "Check LPEA directly for any new outage or PSPS notice rather than relying on broad keyword matches.",
-    "Continue monitoring current fires and official county evacuation feeds.",
-    "Watch for any new official COZ295 fire alert."
+    "Monitor Sep 2 near Arboles around 3 PM for changes from RH near 21% and wind near 25 mph.",
+    "Watch whether Sep 3 continues to remain below CONCERN thresholds.",
+    "Check LPEA directly for any new outage or PSPS notice rather than relying on keyword matches.",
+    "Continue checking authoritative incident and county evacuation feeds."
   ]
 }
