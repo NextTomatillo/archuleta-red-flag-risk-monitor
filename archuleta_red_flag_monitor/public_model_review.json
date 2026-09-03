@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Fire-weather screening eased to GREEN; Sep 3 is now the peak with LOW fire potential 34/100.",
-    "Sep 2 PSPS screening eased from ELEVATED to LOW as wind fell 8 mph, with no WATCH-or-higher date present.",
-    "No official weather alert or LPEA outage is active; broad LPEA keyword matches remain context only.",
-    "NIFC lists the 1.5-acre Swiss Roll wildfire, with no evacuation notice detected."
+    "Weather screening remains GREEN with no major day-level movement; forecast volatility is LOW at 6/100.",
+    "LPEA now lists a localized, unplanned outage affecting one customer near Chromo; no cause or restoration estimate is provided.",
+    "Swiss Roll remains listed at 1.5 acres, with containment unreported and its incident record last updated Sep 2.",
+    "Stage 1 restrictions and HIGH official fire-danger context remain relevant despite GREEN weather screening."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-09-02T17:42:00-06:00",
-  "headline": "Fire-weather screening eased to GREEN; PSPS remains ELEVATED, with no official COZ295 alert or LPEA outage and one 1.5-acre wildfire.",
-  "report_generated_at": "2026-09-02T17:36:36.145217-06:00",
+  "generated_at": "2026-09-03T06:05:53-06:00",
+  "headline": "Fire-weather screening remains GREEN; LPEA lists a one-customer outage near Chromo, with no fire or PSPS cause identified.",
+  "report_generated_at": "2026-09-03T05:38:20.374266-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "Sep 3 is the peak, with LOW fire potential 34/100 near Chimney Rock, LOW Red Flag screening 8/100, and ELEVATED PSPS screening 24/100 near Arboles. Sep 2 PSPS screening eased from ELEVATED to LOW as wind fell 8 mph; no WATCH-or-higher date is present. NIFC lists the 1.5-acre Swiss Roll wildfire, with no evacuation notice detected.",
-  "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; weather forecasts and public incident, alert, outage, and social-source data may change or lag.",
+  "summary": "Sep 3 remains the screening peak: LOW fire potential 34/100 near Chimney Rock, LOW Red Flag likelihood 8/100 and ELEVATED PSPS screening 24/100 near Arboles, with no WATCH-or-higher date. There are no active official COZ295 fire alerts; LPEA lists one customer out near Chromo without a stated cause or restoration estimate, not evidence of a PSPS. NIFC still lists Swiss Roll at 1.5 acres with containment unreported, and no evacuation notice was detected in checked county feeds.",
+  "uncertainty": "Scores are unofficial screening estimates, not calibrated PSPS probabilities; source reports can lag, and GREEN does not override fire restrictions or evacuation instructions.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Watch whether Sep 3 remains below CONCERN thresholds as the forecast updates.",
-    "Monitor authoritative updates for the 1.5-acre Swiss Roll wildfire and any county evacuation notice.",
-    "Check LPEA directly for any new outage or PSPS notice rather than relying on keyword matches.",
-    "Continue verifying Stage 1 restrictions and HIGH official fire-danger context."
+    "Check LPEA for restoration and any stated outage cause; keep operational outages separate from PSPS estimates.",
+    "Monitor afternoon wind and humidity updates near Arboles and Chimney Rock.",
+    "Check Swiss Roll incident updates and official county evacuation notices; unreported containment is unknown, not zero.",
+    "Verify restrictions with the responsible jurisdiction; GREEN screening is not an all-clear for burning."
   ]
 }

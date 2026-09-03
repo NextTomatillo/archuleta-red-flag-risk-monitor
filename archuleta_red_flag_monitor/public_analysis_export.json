@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-09-02T17:36:36.145217-06:00",
+    "checked_at": "2026-09-03T05:38:20.374266-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -63,10 +63,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "Fire-weather screening eased to GREEN; Sep 3 is now the peak with LOW fire potential 34/100.",
-      "Sep 2 PSPS screening eased from ELEVATED to LOW as wind fell 8 mph, with no WATCH-or-higher date present.",
-      "No official weather alert or LPEA outage is active; broad LPEA keyword matches remain context only.",
-      "NIFC lists the 1.5-acre Swiss Roll wildfire, with no evacuation notice detected."
+      "Weather screening remains GREEN with no major day-level movement; forecast volatility is LOW at 6/100.",
+      "LPEA now lists a localized, unplanned outage affecting one customer near Chromo; no cause or restoration estimate is provided.",
+      "Swiss Roll remains listed at 1.5 acres, with containment unreported and its incident record last updated Sep 2.",
+      "Stage 1 restrictions and HIGH official fire-danger context remain relevant despite GREEN weather screening."
     ],
     "evidence_ids": [
       "overall_status",
@@ -78,44 +78,44 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-09-02T17:42:00-06:00",
-    "headline": "Fire-weather screening eased to GREEN; PSPS remains ELEVATED, with no official COZ295 alert or LPEA outage and one 1.5-acre wildfire.",
-    "report_generated_at": "2026-09-02T17:36:36.145217-06:00",
+    "generated_at": "2026-09-03T06:05:53-06:00",
+    "headline": "Fire-weather screening remains GREEN; LPEA lists a one-customer outage near Chromo, with no fire or PSPS cause identified.",
+    "report_generated_at": "2026-09-03T05:38:20.374266-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "Sep 3 is the peak, with LOW fire potential 34/100 near Chimney Rock, LOW Red Flag screening 8/100, and ELEVATED PSPS screening 24/100 near Arboles. Sep 2 PSPS screening eased from ELEVATED to LOW as wind fell 8 mph; no WATCH-or-higher date is present. NIFC lists the 1.5-acre Swiss Roll wildfire, with no evacuation notice detected.",
-    "uncertainty": "These are rules-based screening estimates, not official warnings or calibrated PSPS probabilities; weather forecasts and public incident, alert, outage, and social-source data may change or lag.",
+    "summary": "Sep 3 remains the screening peak: LOW fire potential 34/100 near Chimney Rock, LOW Red Flag likelihood 8/100 and ELEVATED PSPS screening 24/100 near Arboles, with no WATCH-or-higher date. There are no active official COZ295 fire alerts; LPEA lists one customer out near Chromo without a stated cause or restoration estimate, not evidence of a PSPS. NIFC still lists Swiss Roll at 1.5 acres with containment unreported, and no evacuation notice was detected in checked county feeds.",
+    "uncertainty": "Scores are unofficial screening estimates, not calibrated PSPS probabilities; source reports can lag, and GREEN does not override fire restrictions or evacuation instructions.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Watch whether Sep 3 remains below CONCERN thresholds as the forecast updates.",
-      "Monitor authoritative updates for the 1.5-acre Swiss Roll wildfire and any county evacuation notice.",
-      "Check LPEA directly for any new outage or PSPS notice rather than relying on keyword matches.",
-      "Continue verifying Stage 1 restrictions and HIGH official fire-danger context."
+      "Check LPEA for restoration and any stated outage cause; keep operational outages separate from PSPS estimates.",
+      "Monitor afternoon wind and humidity updates near Arboles and Chimney Rock.",
+      "Check Swiss Roll incident updates and official county evacuation notices; unreported containment is unknown, not zero.",
+      "Verify restrictions with the responsible jurisdiction; GREEN screening is not an all-clear for burning."
     ]
   },
   "confidence": {
-    "label": "MEDIUM",
+    "label": "HIGH",
     "reasons": [
       "8/8 sampled weather points available",
       "7/7 fire-posture sources reachable",
       "official NWS alert zones checked",
       "13/13 LPEA public sources reachable",
       "LPEA active/update sources checked",
+      "active LPEA operational outage context checked separately from PSPS scoring",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
-      "forecast changed substantially versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 77
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-09-02T17:36:36.145217-06:00",
+  "generated_at": "2026-09-03T05:38:20.374266-06:00",
   "headline": {
     "monitor_heads_up_recommended": false,
     "overall_tier": "GREEN",
     "psps_likelihood": "ELEVATED",
     "summary": "Highest LPEA PSPS concern is Thu, Sep 3 near Arboles / southwest county (ELEVATED 24/100), driven by near-threshold wind/gust signal near 22 mph; dry RH near 20%; Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is easing versus the prior run (Sep 2 at 5:40 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "trend_summary": "Momentum is steady versus the prior run (Sep 2 at 5:36 PM MDT); forecast volatility is low and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -127,33 +127,68 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Wed, Sep 2: easing vs prior run; PSPS ELEVATED -> LOW; score -17, wind -8 mph, RH +2%, red-flag hours 0. Driver shifted to Chimney Rock / west county."
+    "No major day-level movement versus the prior run."
   ],
   "operational_outage_context": {
-    "active": false,
-    "active_outage_count": 0,
-    "affected_members": 0,
-    "areas": [],
-    "customers_affected": 0,
-    "customers_out_now": 0,
-    "customers_served": 47715,
+    "active": true,
+    "active_outage_count": 1,
+    "affected_members": 1,
+    "areas": [
+      "Chromo / southeast county"
+    ],
+    "customers_affected": 1,
+    "customers_out_now": 1,
+    "customers_served": 47717,
     "fire_related": false,
-    "headline": "Official LPEA outage data shows no active customer outages.",
-    "hits": [],
-    "outages": [],
+    "headline": "Official LPEA outage data shows 1 customer without power near Chromo / southeast county.",
+    "hits": [
+      {
+        "name": "740 COUNTY RD 382",
+        "snippets": [
+          "Chromo / southeast county: 1 customer out; unplanned; cause not posted."
+        ],
+        "url": "https://outage.lpea.coop"
+      }
+    ],
+    "outages": [
+      {
+        "cause": null,
+        "crew_assigned": false,
+        "customers_out_initially": 1,
+        "customers_out_now": 1,
+        "customers_restored": 0,
+        "distance_miles": 0.8,
+        "ended_at": null,
+        "estimated_restoration_at": null,
+        "fire_related": false,
+        "id": "2026-09-02-0015",
+        "latitude": 37.03609001404172,
+        "longitude": -106.82603463644767,
+        "modified_at": "2026-09-02T19:52:16.627-06:00",
+        "name": "740 COUNTY RD 382",
+        "nearest_area": "Chromo / southeast county",
+        "planned": false,
+        "psps_related": false,
+        "source": "Official LPEA outage viewer",
+        "started_at": "2026-09-02T19:51:11-06:00",
+        "url": "https://outage.lpea.coop",
+        "verified": false,
+        "work_status": ""
+      }
+    ],
     "outages_url": "https://outage.lpea.coop/data/outages.json",
     "planned_outage_count": 0,
     "planned_url": "https://outage.lpea.coop/data/plannedOutages.json",
     "psps_related": false,
-    "severity": "none",
+    "severity": "localized",
     "source": "Official LPEA outage viewer JSON",
     "source_count": 1,
     "source_url": "https://outage.lpea.coop",
     "status": "checked",
-    "summary": "No active outages are listed by the official LPEA outage viewer.",
+    "summary": "1 active outage; 0 planned and 1 unplanned; 1 customer out. No fire-weather or PSPS cause is identified.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
-    "unplanned_outage_count": 0,
-    "update_time": "2026-09-02T17:38:44.3364265-06:00"
+    "unplanned_outage_count": 1,
+    "update_time": "2026-09-03T06:00:47.2066201-06:00"
   },
   "peaks": {
     "fire_danger": {
@@ -165,7 +200,7 @@
         "official fire restrictions at STAGE 1",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 22%, wind 22 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 21%, wind 22 mph.",
       "level": "LOW",
       "location": "Chimney Rock / west county",
       "score": 34
@@ -178,7 +213,7 @@
         "dry RH near 20%",
         "Official fire-posture context for Arboles / southwest county is elevated (STAGE 1; fire danger UNKNOWN), used as a small supporting modifier."
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 22 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 23%, wind 22 mph.",
       "level": "ELEVATED",
       "location": "Arboles / southwest county",
       "score": 24
@@ -189,7 +224,7 @@
       "drivers": [
         "breezy wind/gust near 22 mph"
       ],
-      "highest_risk_window": "Peak ingredients near 3 PM local; RH 24%, wind 22 mph.",
+      "highest_risk_window": "Peak ingredients near 3 PM local; RH 23%, wind 22 mph.",
       "level": "LOW",
       "location": "Arboles / southwest county",
       "score": 8
@@ -368,9 +403,9 @@
     "first_watch_or_likely_date": null,
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 34,
-    "momentum": "Easing"
+    "forecast_volatility_label": "LOW",
+    "forecast_volatility_score": 6,
+    "momentum": "Steady"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
