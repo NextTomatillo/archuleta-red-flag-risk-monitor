@@ -1,7 +1,7 @@
 # Archuleta County fire-weather monitor
 
-Generated: Sep 4, 2026 at 5:29 AM MDT (Pagosa Springs, CO local time)
-Next update: Sep 4, 2026 at 5:20 PM MDT (Pagosa Springs, CO local time)
+Generated: Sep 4, 2026 at 5:32 PM MDT (Pagosa Springs, CO local time)
+Next update: Sep 5, 2026 at 5:20 AM MDT (Pagosa Springs, CO local time)
 Date/time basis: Pagosa Springs, CO local time (America/Denver)
 > **Unofficial monitor:** This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.
 
@@ -24,77 +24,73 @@ Date/time basis: Pagosa Springs, CO local time (America/Denver)
 
 ## Decision Support
 
-- Summary: Highest LPEA PSPS concern is Mon, Sep 7 near Bayfield / east La Plata County (ELEVATED 27/100), driven by red-flag wind/gust signal near 25 mph; Official fire-posture context for Bayfield / east La Plata County is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.
-- Confidence: **MEDIUM** (69/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; forecast changed substantially versus prior run; no confirmed PSPS events logged yet for calibration
-- Weather fire-potential peak: Mon, Sep 7: Bayfield / east La Plata County MODERATE 35/100
-- Red Flag likelihood peak: Mon, Sep 7: Bayfield / east La Plata County LOW 25/100
-- LPEA PSPS peak: Mon, Sep 7: Bayfield / east La Plata County ELEVATED 27/100
+- Summary: Highest LPEA PSPS concern is Sun, Sep 6 near Chimney Rock / west county (ELEVATED 30/100), driven by near-threshold wind/gust signal near 21 mph; near-threshold RH near 18%; Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.
+- Confidence: **MEDIUM** (74/100) - 8/8 sampled weather points available; 7/7 fire-posture sources reachable; official NWS alert zones checked; 13/13 LPEA public sources reachable; LPEA active/update sources checked; authoritative NIFC current-incident feed checked for Archuleta County; official Archuleta County evacuation feeds checked; forecast changed moderately versus prior run; no confirmed PSPS events logged yet for calibration
+- Weather fire-potential peak: Sun, Sep 6: Chimney Rock / west county MODERATE 38/100
+- Red Flag likelihood peak: Mon, Sep 7: Arboles / southwest county LOW 25/100
+- LPEA PSPS peak: Sun, Sep 6: Chimney Rock / west county ELEVATED 30/100
 - Method: rules-based decision support using public weather, fire-posture, and LPEA source signals; scores are screening estimates, not official or statistically calibrated probabilities.
 
 | Date | Weather fire potential | Red Flag likelihood | LPEA PSPS | Main window |
 | --- | --- | --- | --- | --- |
-| Fri, Sep 4 | Pagosa Springs: LOW 14/100 | Pagosa Springs: LOW 0/100 | Pagosa Springs: LOW 10/100 | Peak ingredients near 3 PM local; RH 30%, wind 18 mph. |
-| Sat, Sep 5 | Durango / La Plata County: LOW 26/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 18/100 | Peak ingredients near 6 PM local; RH 24%, wind 22 mph. |
-| Sun, Sep 6 | Chimney Rock / west county: LOW 34/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 24/100 | Peak ingredients near 4 PM local; RH 22%, wind 21 mph. |
-| Mon, Sep 7 | Bayfield / east La Plata County: MODERATE 35/100 | Bayfield / east La Plata County: LOW 25/100 | Bayfield / east La Plata County: ELEVATED 27/100 | Peak ingredients near 4 PM local; RH 36%, wind 25 mph. |
-| Tue, Sep 8 | Durango / La Plata County: LOW 26/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 25%, wind 21 mph. |
-| Wed, Sep 9 | Durango / La Plata County: LOW 26/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 26%, wind 21 mph. |
-| Thu, Sep 10 | Durango / La Plata County: LOW 26/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 26%, wind 22 mph. |
+| Fri, Sep 4 | Durango / La Plata County: LOW 22/100 | Durango / La Plata County: LOW 0/100 | Durango / La Plata County: LOW 8/100 | Peak ingredients near 7 PM local; RH 30%, wind 12 mph. |
+| Sat, Sep 5 | Chimney Rock / west county: LOW 34/100 | Chimney Rock / west county: LOW 8/100 | Chimney Rock / west county: ELEVATED 24/100 | Peak ingredients near 4 PM local; RH 22%, wind 21 mph. |
+| Sun, Sep 6 | Chimney Rock / west county: MODERATE 38/100 | Chimney Rock / west county: LOW 16/100 | Chimney Rock / west county: ELEVATED 30/100 | 4 PM-4 PM local; 1 near/red-flag threshold hour. |
+| Mon, Sep 7 | Arboles / southwest county: MODERATE 35/100 | Arboles / southwest county: LOW 25/100 | Arboles / southwest county: ELEVATED 27/100 | Peak ingredients near 4 PM local; RH 29%, wind 25 mph. |
+| Tue, Sep 8 | Durango / La Plata County: LOW 26/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 23%, wind 21 mph. |
+| Wed, Sep 9 | Pagosa Springs: LOW 14/100 | Ignacio / southeast La Plata County: LOW 8/100 | Ignacio / southeast La Plata County: LOW 16/100 | Peak ingredients near 4 PM local; RH 27%, wind 21 mph. |
+| Thu, Sep 10 | Bayfield / east La Plata County: LOW 26/100 | Arboles / southwest county: LOW 8/100 | Arboles / southwest county: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 29%, wind 21 mph. |
 
 ## Analyst Interpretation
 
-- Headline: Regional screening is ELEVATED for Sep 7 near Bayfield; no official COZ295 fire alert or active LPEA outage is listed.
-- Summary: The Sep 7 regional peak near Bayfield / east La Plata County is MODERATE for fire potential (35/100), LOW for Red Flag likelihood (25/100), and ELEVATED for PSPS screening (27/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while LPEA keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.
+- Headline: ELEVATED screening now peaks Sep 6 near Chimney Rock; no official COZ295 alert, LPEA outage, evacuation, or WATCH-level PSPS date is listed.
+- Summary: The Sep 6 regional peak near Chimney Rock is MODERATE for fire potential (38/100), LOW for Red Flag likelihood (16/100), and ELEVATED for PSPS screening (30/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC still lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.
 - Uncertainty: Scores are unofficial screening estimates, not calibrated PSPS probabilities; source updates can lag, and screening does not override restrictions or official safety instructions.
 - Evidence used: overall_status, weather_peaks, official_alerts, forecast_change, lpea_context, fire_posture, active_incidents, calibration
 - This interpretation cannot change the deterministic tiers, scores, official alerts, or notification decision.
 
 Changing drivers:
-- Sep 7 strengthened by 9 points and the regional driver shifted from Pagosa Springs to Bayfield / east La Plata County.
-- Sep 4 eased from ELEVATED to LOW as wind decreased and relative humidity increased.
+- The regional screening peak shifted to Sep 6 near Chimney Rock, with RH near 18% and wind near 21 mph.
+- Forecast momentum is easing and volatility declined to MEDIUM at 28/100.
+- Sep 9 eased from ELEVATED to LOW, while Sep 4 wind decreased by about 7 mph versus the prior run.
 - Stage 1 restrictions and HIGH official fire danger remain supporting context, not an official warning.
-- The LPEA keyword match is public-source context only; the official outage viewer lists no active outages.
 
 What to watch next:
-- Recheck Sep 7 wind and humidity as the regional forecast changes.
+- Recheck Sep 6 humidity and wind near Chimney Rock as the forecast changes.
+- Track Sep 7 wind near Arboles and distinguish regional context from Pagosa Springs conditions.
 - Verify whether LPEA keyword matches become a direct outage or PSPS notice.
 - Watch Swiss Roll acreage, containment, and county evacuation feeds for updates.
-- Treat Bayfield context separately from Pagosa Springs local conditions.
 
 ## Trend Intelligence
 
-- Summary: Momentum is rising versus the prior run (Sep 3 at 5:38 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present.
-- Momentum: **Rising**
-- Forecast volatility: **HIGH** (41/100)
+- Summary: Momentum is easing versus the prior run (Sep 4 at 5:29 AM MDT); forecast volatility is medium and first WATCH-or-higher date is not present.
+- Momentum: **Easing**
+- Forecast volatility: **MEDIUM** (28/100)
 - First WATCH-or-higher PSPS date: None
 - Watch-date movement: No WATCH-or-higher PSPS dates in current or prior run.
 - Method: compares current forecast evidence against prior local forecast history.
 
 Notable changes:
 - No WATCH-or-higher PSPS dates in current or prior run.
-- Fri, Sep 4: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -2 mph, RH +2%, red-flag hours 0.
-- Mon, Sep 7: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +9, wind +1 mph, RH -3%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County.
-- Sun, Sep 6: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +6, wind 0 mph, RH -5%, red-flag hours 0. Driver shifted to Arboles / southwest county.
-- Wed, Sep 9: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind -1 mph, RH -6%, red-flag hours 0.
+- Wed, Sep 9: easing vs prior run; PSPS ELEVATED -> LOW; score -2, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
+- Fri, Sep 4: mixed vs prior run; PSPS LOW -> LOW; score -2, wind -7 mph, RH -5%, red-flag hours 0. Driver shifted to Durango / La Plata County.
 
 ## Public Analysis Export
 
-- Summary: Highest LPEA PSPS concern is Mon, Sep 7 near Bayfield / east La Plata County (ELEVATED 27/100), driven by red-flag wind/gust signal near 25 mph; Official fire-posture context for Bayfield / east La Plata County is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.
-- Trend: Momentum is rising versus the prior run (Sep 3 at 5:38 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present.
-- Confidence: **MEDIUM** (69/100)
+- Summary: Highest LPEA PSPS concern is Sun, Sep 6 near Chimney Rock / west county (ELEVATED 30/100), driven by near-threshold wind/gust signal near 21 mph; near-threshold RH near 18%; Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.
+- Trend: Momentum is easing versus the prior run (Sep 4 at 5:29 AM MDT); forecast volatility is medium and first WATCH-or-higher date is not present.
+- Confidence: **MEDIUM** (74/100)
 - First WATCH-or-higher PSPS date: None
-- PSPS peak: Mon, Sep 7 near Bayfield / east La Plata County at ELEVATED 27/100
-- Red Flag peak: Mon, Sep 7 near Bayfield / east La Plata County at LOW 25/100
-- Weather fire-potential peak: Mon, Sep 7 near Bayfield / east La Plata County at MODERATE 35/100
+- PSPS peak: Sun, Sep 6 near Chimney Rock / west county at ELEVATED 30/100
+- Red Flag peak: Mon, Sep 7 near Arboles / southwest county at LOW 25/100
+- Weather fire-potential peak: Sun, Sep 6 near Chimney Rock / west county at MODERATE 38/100
 - LPEA operational outage context: No active outages are listed by the official LPEA outage viewer.
 - Public JSON: `archuleta_red_flag_monitor/public_analysis_export.json`
 
 What changed:
 - No WATCH-or-higher PSPS dates in current or prior run.
-- Fri, Sep 4: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -2 mph, RH +2%, red-flag hours 0.
-- Mon, Sep 7: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +9, wind +1 mph, RH -3%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County.
-- Sun, Sep 6: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +6, wind 0 mph, RH -5%, red-flag hours 0. Driver shifted to Arboles / southwest county.
-- Wed, Sep 9: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind -1 mph, RH -6%, red-flag hours 0.
+- Wed, Sep 9: easing vs prior run; PSPS ELEVATED -> LOW; score -2, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.
+- Fri, Sep 4: mixed vs prior run; PSPS LOW -> LOW; score -2, wind -7 mph, RH -5%, red-flag hours 0. Driver shifted to Durango / La Plata County.
 
 What to watch next:
 - Check whether the largest day-level changes line up with wind/RH movement or public-source context.
@@ -113,26 +109,26 @@ What to watch next:
 
 | Date | PSPS likelihood | Driver locations | Weather basis |
 | --- | --- | --- | --- |
-| Fri, Sep 4 | LOW | Pagosa Springs (LOW 10/100); Arboles / southwest county (LOW 10/100); Chimney Rock / west county (LOW 10/100) | Top weather score 8/100 at Pagosa Springs. Weather score 8/100: RH 30%, wind/gust 18 mph, red-flag hours 0, near-threshold hours 0. |
-| Sat, Sep 5 | ELEVATED | Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100) | Top weather score 16/100 at Arboles / southwest county. Weather score 16/100: RH 24%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 0. |
-| Sun, Sep 6 | ELEVATED | Arboles / southwest county (ELEVATED 24/100); Chimney Rock / west county (ELEVATED 24/100); Pagosa Springs (ELEVATED 18/100) | Top weather score 22/100 at Arboles / southwest county. Weather score 22/100: RH 21%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
-| Mon, Sep 7 | ELEVATED | Bayfield / east La Plata County (ELEVATED 27/100); Ignacio / southeast La Plata County (ELEVATED 25/100); Pagosa Springs (ELEVATED 18/100) | Top weather score 25/100 at Bayfield / east La Plata County. Weather score 25/100: RH 36%, wind/gust 25 mph, red-flag hours 0, near-threshold hours 0. |
-| Tue, Sep 8 | ELEVATED | Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100) | Top weather score 16/100 at Arboles / southwest county. Weather score 16/100: RH 25%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
-| Wed, Sep 9 | ELEVATED | Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100) | Top weather score 16/100 at Arboles / southwest county. Weather score 16/100: RH 25%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
-| Thu, Sep 10 | ELEVATED | Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100) | Top weather score 16/100 at Arboles / southwest county. Weather score 16/100: RH 26%, wind/gust 22 mph, red-flag hours 0, near-threshold hours 0. |
+| Fri, Sep 4 | LOW | Durango / La Plata County (LOW 8/100); Pagosa Springs (LOW 2/100); Arboles / southwest county (LOW 2/100) | Top weather score 6/100 at Durango / La Plata County. Weather score 6/100: RH 21%, wind/gust 12 mph, red-flag hours 0, near-threshold hours 0. |
+| Sat, Sep 5 | ELEVATED | Chimney Rock / west county (ELEVATED 24/100); Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100) | Top weather score 22/100 at Chimney Rock / west county. Weather score 22/100: RH 22%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
+| Sun, Sep 6 | ELEVATED | Chimney Rock / west county (ELEVATED 30/100); Arboles / southwest county (ELEVATED 24/100); Durango / La Plata County (ELEVATED 24/100) | Top weather score 28/100 at Chimney Rock / west county. Weather score 28/100: RH 18%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 1. |
+| Mon, Sep 7 | ELEVATED | Arboles / southwest county (ELEVATED 27/100); Durango / La Plata County (ELEVATED 27/100); Bayfield / east La Plata County (ELEVATED 27/100) | Top weather score 25/100 at Arboles / southwest county. Weather score 25/100: RH 28%, wind/gust 25 mph, red-flag hours 0, near-threshold hours 0. |
+| Tue, Sep 8 | ELEVATED | Arboles / southwest county (ELEVATED 18/100); Durango / La Plata County (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100) | Top weather score 16/100 at Arboles / southwest county. Weather score 16/100: RH 23%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
+| Wed, Sep 9 | LOW | Ignacio / southeast La Plata County (LOW 16/100); Pagosa Springs (LOW 10/100); Arboles / southwest county (LOW 10/100) | Top weather score 16/100 at Ignacio / southeast La Plata County. Weather score 16/100: RH 26%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
+| Thu, Sep 10 | ELEVATED | Arboles / southwest county (ELEVATED 18/100); Bayfield / east La Plata County (ELEVATED 18/100); Ignacio / southeast La Plata County (LOW 16/100) | Top weather score 16/100 at Arboles / southwest county. Weather score 16/100: RH 29%, wind/gust 21 mph, red-flag hours 0, near-threshold hours 0. |
 
 ## Area-Specific Outlook
 
 | Area | Today | Peak this run | Highest-risk window |
 | --- | --- | --- | --- |
-| Bayfield | LOW 10/100 | Mon, Sep 7: ELEVATED 27/100 | Peak ingredients near 4 PM local; RH 36%, wind 25 mph. |
-| Ignacio | LOW 8/100 | Mon, Sep 7: ELEVATED 25/100 | Peak ingredients near 4 PM local; RH 34%, wind 25 mph. |
-| Arboles | LOW 10/100 | Sun, Sep 6: ELEVATED 24/100 | Peak ingredients near 4 PM local; RH 22%, wind 21 mph. |
-| Chimney Rock | LOW 10/100 | Sun, Sep 6: ELEVATED 24/100 | Peak ingredients near 4 PM local; RH 19%, wind 21 mph. |
-| Pagosa Springs | LOW 10/100 | Sun, Sep 6: ELEVATED 18/100 | Peak ingredients near 5 PM local; RH 26%, wind 21 mph. |
-| Piedra | LOW 10/100 | Mon, Sep 7: ELEVATED 18/100 | Peak ingredients near 3 PM local; RH 42%, wind 21 mph. |
-| Durango | LOW 10/100 | Sat, Sep 5: ELEVATED 18/100 | Peak ingredients near 3 PM local; RH 27%, wind 21 mph. |
-| Chromo | LOW 10/100 | Fri, Sep 4: LOW 10/100 | Peak ingredients near 4 PM local; RH 32%, wind 16 mph. |
+| Chimney Rock | LOW 2/100 | Sun, Sep 6: ELEVATED 30/100 | 4 PM-4 PM local; 1 near/red-flag threshold hour. |
+| Arboles | LOW 2/100 | Mon, Sep 7: ELEVATED 27/100 | Peak ingredients near 4 PM local; RH 29%, wind 25 mph. |
+| Durango | LOW 8/100 | Mon, Sep 7: ELEVATED 27/100 | Peak ingredients near 3 PM local; RH 34%, wind 25 mph. |
+| Bayfield | LOW 2/100 | Mon, Sep 7: ELEVATED 27/100 | Peak ingredients near 4 PM local; RH 34%, wind 26 mph. |
+| Ignacio | LOW 0/100 | Mon, Sep 7: ELEVATED 25/100 | Peak ingredients near 4 PM local; RH 32%, wind 26 mph. |
+| Pagosa Springs | LOW 2/100 | Sun, Sep 6: ELEVATED 18/100 | Peak ingredients near 5 PM local; RH 25%, wind 21 mph. |
+| Piedra | LOW 2/100 | Mon, Sep 7: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 43%, wind 22 mph. |
+| Chromo | LOW 2/100 | Mon, Sep 7: ELEVATED 18/100 | Peak ingredients near 4 PM local; RH 35%, wind 21 mph. |
 
 ## Current Fires + Evacuations
 
@@ -211,13 +207,13 @@ Official links: [NIFC map](https://www.nifc.gov/fire-information/maps), [Archule
 
 | Date | Tier | Main reason | Worst sampled metrics |
 | --- | --- | --- | --- |
-| Fri, Sep 4 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 30%, wind/gust 18 mph, thunder 28%<br>Arboles / southwest county: RH 27%, wind/gust 20 mph, thunder 20%<br>Chimney Rock / west county: RH 26%, wind/gust 18 mph, thunder 25% |
-| Sat, Sep 5 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 26%, wind/gust 18 mph, thunder 8%<br>Arboles / southwest county: RH 24%, wind/gust 22 mph, thunder 5%<br>Chimney Rock / west county: RH 22%, wind/gust 20 mph, thunder 5% |
-| Sun, Sep 6 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 23%, wind/gust 21 mph, thunder 28%<br>Arboles / southwest county: RH 21%, wind/gust 21 mph, thunder 27%<br>Chimney Rock / west county: RH 19%, wind/gust 21 mph, thunder 28% |
-| Mon, Sep 7 | ELEVATED | Bayfield / east La Plata County: Elevated ingredient present: wind/gust forecast near 25 mph. | Bayfield / east La Plata County: RH 36%, wind/gust 25 mph, thunder 49%<br>Ignacio / southeast La Plata County: RH 34%, wind/gust 25 mph, thunder 41% |
-| Tue, Sep 8 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 28%, wind/gust 20 mph, thunder 24%<br>Arboles / southwest county: RH 25%, wind/gust 21 mph, thunder 11%<br>Chimney Rock / west county: RH 24%, wind/gust 20 mph, thunder 15% |
-| Wed, Sep 9 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 29%, wind/gust 17 mph, thunder 39%<br>Arboles / southwest county: RH 25%, wind/gust 21 mph, thunder 30%<br>Chimney Rock / west county: RH 24%, wind/gust 18 mph, thunder 34% |
-| Thu, Sep 10 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 30%, wind/gust 17 mph, thunder 45%<br>Arboles / southwest county: RH 26%, wind/gust 22 mph, thunder 32%<br>Chimney Rock / west county: RH 25%, wind/gust 20 mph, thunder 40% |
+| Fri, Sep 4 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 31%, wind/gust 13 mph, thunder 24%<br>Arboles / southwest county: RH 29%, wind/gust 13 mph, thunder 18%<br>Chimney Rock / west county: RH 28%, wind/gust 13 mph, thunder 20% |
+| Sat, Sep 5 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 27%, wind/gust 18 mph, thunder 8%<br>Arboles / southwest county: RH 23%, wind/gust 23 mph, thunder 6%<br>Chimney Rock / west county: RH 22%, wind/gust 21 mph, thunder 6% |
+| Sun, Sep 6 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 23%, wind/gust 21 mph, thunder 26%<br>Arboles / southwest county: RH 19%, wind/gust 21 mph, thunder 28%<br>Chimney Rock / west county: RH 18%, wind/gust 21 mph, thunder 27% |
+| Mon, Sep 7 | ELEVATED | Arboles / southwest county: Elevated ingredient present: wind/gust forecast near 25 mph. | Arboles / southwest county: RH 28%, wind/gust 25 mph, thunder 25%<br>Durango / La Plata County: RH 34%, wind/gust 25 mph, thunder 41%<br>Bayfield / east La Plata County: RH 33%, wind/gust 26 mph, thunder 38% |
+| Tue, Sep 8 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 26%, wind/gust 20 mph, thunder 21%<br>Arboles / southwest county: RH 23%, wind/gust 21 mph, thunder 13%<br>Chimney Rock / west county: RH 21%, wind/gust 20 mph, thunder 14% |
+| Wed, Sep 9 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 28%, wind/gust 16 mph, thunder 43%<br>Arboles / southwest county: RH 24%, wind/gust 20 mph, thunder 35%<br>Chimney Rock / west county: RH 23%, wind/gust 18 mph, thunder 40% |
+| Thu, Sep 10 | GREEN | No notable red-flag ingredients across sampled county points. | Pagosa Springs: RH 32%, wind/gust 16 mph, thunder 48%<br>Arboles / southwest county: RH 29%, wind/gust 21 mph, thunder 33%<br>Chimney Rock / west county: RH 27%, wind/gust 18 mph, thunder 41% |
 
 ## Sample Point Status
 

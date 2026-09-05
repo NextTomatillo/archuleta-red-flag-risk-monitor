@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "Sep 7 strengthened by 9 points and the regional driver shifted from Pagosa Springs to Bayfield / east La Plata County.",
-    "Sep 4 eased from ELEVATED to LOW as wind decreased and relative humidity increased.",
-    "Stage 1 restrictions and HIGH official fire danger remain supporting context, not an official warning.",
-    "The LPEA keyword match is public-source context only; the official outage viewer lists no active outages."
+    "The regional screening peak shifted to Sep 6 near Chimney Rock, with RH near 18% and wind near 21 mph.",
+    "Forecast momentum is easing and volatility declined to MEDIUM at 28/100.",
+    "Sep 9 eased from ELEVATED to LOW, while Sep 4 wind decreased by about 7 mph versus the prior run.",
+    "Stage 1 restrictions and HIGH official fire danger remain supporting context, not an official warning."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-09-04T06:08:20-06:00",
-  "headline": "Regional screening is ELEVATED for Sep 7 near Bayfield; no official COZ295 fire alert or active LPEA outage is listed.",
-  "report_generated_at": "2026-09-04T05:29:44.827487-06:00",
+  "generated_at": "2026-09-04T17:55:56-06:00",
+  "headline": "ELEVATED screening now peaks Sep 6 near Chimney Rock; no official COZ295 alert, LPEA outage, evacuation, or WATCH-level PSPS date is listed.",
+  "report_generated_at": "2026-09-04T17:32:33.689443-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The Sep 7 regional peak near Bayfield / east La Plata County is MODERATE for fire potential (35/100), LOW for Red Flag likelihood (25/100), and ELEVATED for PSPS screening (27/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while LPEA keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.",
+  "summary": "The Sep 6 regional peak near Chimney Rock is MODERATE for fire potential (38/100), LOW for Red Flag likelihood (16/100), and ELEVATED for PSPS screening (30/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC still lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.",
   "uncertainty": "Scores are unofficial screening estimates, not calibrated PSPS probabilities; source updates can lag, and screening does not override restrictions or official safety instructions.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Sep 7 wind and humidity as the regional forecast changes.",
+    "Recheck Sep 6 humidity and wind near Chimney Rock as the forecast changes.",
+    "Track Sep 7 wind near Arboles and distinguish regional context from Pagosa Springs conditions.",
     "Verify whether LPEA keyword matches become a direct outage or PSPS notice.",
-    "Watch Swiss Roll acreage, containment, and county evacuation feeds for updates.",
-    "Treat Bayfield context separately from Pagosa Springs local conditions."
+    "Watch Swiss Roll acreage, containment, and county evacuation feeds for updates."
   ]
 }

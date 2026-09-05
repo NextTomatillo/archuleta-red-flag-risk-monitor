@@ -1,6 +1,6 @@
 {
   "active_incident_context": {
-    "checked_at": "2026-09-04T05:29:44.827487-06:00",
+    "checked_at": "2026-09-04T17:32:33.689443-06:00",
     "context_note": "Current incidents and evacuation notices are operational context. They do not raise PSPS scores by themselves; follow official evacuation instructions immediately.",
     "evacuations": {
       "active_count": 0,
@@ -63,10 +63,10 @@
   },
   "analyst_interpretation": {
     "changing_drivers": [
-      "Sep 7 strengthened by 9 points and the regional driver shifted from Pagosa Springs to Bayfield / east La Plata County.",
-      "Sep 4 eased from ELEVATED to LOW as wind decreased and relative humidity increased.",
-      "Stage 1 restrictions and HIGH official fire danger remain supporting context, not an official warning.",
-      "The LPEA keyword match is public-source context only; the official outage viewer lists no active outages."
+      "The regional screening peak shifted to Sep 6 near Chimney Rock, with RH near 18% and wind near 21 mph.",
+      "Forecast momentum is easing and volatility declined to MEDIUM at 28/100.",
+      "Sep 9 eased from ELEVATED to LOW, while Sep 4 wind decreased by about 7 mph versus the prior run.",
+      "Stage 1 restrictions and HIGH official fire danger remain supporting context, not an official warning."
     ],
     "evidence_ids": [
       "overall_status",
@@ -78,19 +78,19 @@
       "active_incidents",
       "calibration"
     ],
-    "generated_at": "2026-09-04T06:08:20-06:00",
-    "headline": "Regional screening is ELEVATED for Sep 7 near Bayfield; no official COZ295 fire alert or active LPEA outage is listed.",
-    "report_generated_at": "2026-09-04T05:29:44.827487-06:00",
+    "generated_at": "2026-09-04T17:55:56-06:00",
+    "headline": "ELEVATED screening now peaks Sep 6 near Chimney Rock; no official COZ295 alert, LPEA outage, evacuation, or WATCH-level PSPS date is listed.",
+    "report_generated_at": "2026-09-04T17:32:33.689443-06:00",
     "schema_version": 1,
     "status": "reviewed",
-    "summary": "The Sep 7 regional peak near Bayfield / east La Plata County is MODERATE for fire potential (35/100), LOW for Red Flag likelihood (25/100), and ELEVATED for PSPS screening (27/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while LPEA keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.",
+    "summary": "The Sep 6 regional peak near Chimney Rock is MODERATE for fire potential (38/100), LOW for Red Flag likelihood (16/100), and ELEVATED for PSPS screening (30/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC still lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.",
     "uncertainty": "Scores are unofficial screening estimates, not calibrated PSPS probabilities; source updates can lag, and screening does not override restrictions or official safety instructions.",
     "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
     "watch_items": [
-      "Recheck Sep 7 wind and humidity as the regional forecast changes.",
+      "Recheck Sep 6 humidity and wind near Chimney Rock as the forecast changes.",
+      "Track Sep 7 wind near Arboles and distinguish regional context from Pagosa Springs conditions.",
       "Verify whether LPEA keyword matches become a direct outage or PSPS notice.",
-      "Watch Swiss Roll acreage, containment, and county evacuation feeds for updates.",
-      "Treat Bayfield context separately from Pagosa Springs local conditions."
+      "Watch Swiss Roll acreage, containment, and county evacuation feeds for updates."
     ]
   },
   "confidence": {
@@ -103,19 +103,19 @@
       "LPEA active/update sources checked",
       "authoritative NIFC current-incident feed checked for Archuleta County",
       "official Archuleta County evacuation feeds checked",
-      "forecast changed substantially versus prior run",
+      "forecast changed moderately versus prior run",
       "no confirmed PSPS events logged yet for calibration"
     ],
-    "score": 69
+    "score": 74
   },
   "export_type": "archuleta_red_flag_psps_public_analysis",
-  "generated_at": "2026-09-04T05:29:44.827487-06:00",
+  "generated_at": "2026-09-04T17:32:33.689443-06:00",
   "headline": {
     "monitor_heads_up_recommended": false,
     "overall_tier": "ELEVATED",
     "psps_likelihood": "ELEVATED",
-    "summary": "Highest LPEA PSPS concern is Mon, Sep 7 near Bayfield / east La Plata County (ELEVATED 27/100), driven by red-flag wind/gust signal near 25 mph; Official fire-posture context for Bayfield / east La Plata County is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.",
-    "trend_summary": "Momentum is rising versus the prior run (Sep 3 at 5:38 AM MDT); forecast volatility is high and first WATCH-or-higher date is not present."
+    "summary": "Highest LPEA PSPS concern is Sun, Sep 6 near Chimney Rock / west county (ELEVATED 30/100), driven by near-threshold wind/gust signal near 21 mph; near-threshold RH near 18%; Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier. NIFC reports 1 current wildfire in Archuleta County.",
+    "trend_summary": "Momentum is easing versus the prior run (Sep 4 at 5:29 AM MDT); forecast volatility is medium and first WATCH-or-higher date is not present."
   },
   "local_time_name": "Pagosa Springs, CO",
   "method_notes": [
@@ -127,10 +127,8 @@
   ],
   "notable_changes": [
     "No WATCH-or-higher PSPS dates in current or prior run.",
-    "Fri, Sep 4: easing vs prior run; PSPS ELEVATED -> LOW; score -8, wind -2 mph, RH +2%, red-flag hours 0.",
-    "Mon, Sep 7: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +9, wind +1 mph, RH -3%, red-flag hours 0. Driver shifted to Bayfield / east La Plata County.",
-    "Sun, Sep 6: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score +6, wind 0 mph, RH -5%, red-flag hours 0. Driver shifted to Arboles / southwest county.",
-    "Wed, Sep 9: worsening vs prior run; PSPS ELEVATED -> ELEVATED; score 0, wind -1 mph, RH -6%, red-flag hours 0."
+    "Wed, Sep 9: easing vs prior run; PSPS ELEVATED -> LOW; score -2, wind 0 mph, RH -1%, red-flag hours 0. Driver shifted to Ignacio / southeast La Plata County.",
+    "Fri, Sep 4: mixed vs prior run; PSPS LOW -> LOW; score -2, wind -7 mph, RH -5%, red-flag hours 0. Driver shifted to Durango / La Plata County."
   ],
   "operational_outage_context": {
     "active": false,
@@ -139,7 +137,7 @@
     "areas": [],
     "customers_affected": 0,
     "customers_out_now": 0,
-    "customers_served": 47722,
+    "customers_served": 47714,
     "fire_related": false,
     "headline": "Official LPEA outage data shows no active customer outages.",
     "hits": [],
@@ -156,33 +154,35 @@
     "summary": "No active outages are listed by the official LPEA outage viewer.",
     "summary_url": "https://outage.lpea.coop/data/outageSummary.json",
     "unplanned_outage_count": 0,
-    "update_time": "2026-09-04T05:44:54.5024353-06:00"
+    "update_time": "2026-09-04T17:30:59.5236622-06:00"
   },
   "peaks": {
     "fire_danger": {
-      "date": "2026-09-07",
-      "display_date": "Mon, Sep 7",
+      "date": "2026-09-06",
+      "display_date": "Sun, Sep 6",
       "drivers": [
-        "wind/gust near 25 mph",
+        "dry RH near 18%",
+        "wind/gust near 21 mph",
         "official fire restrictions at STAGE 1",
         "official fire danger is HIGH"
       ],
-      "highest_risk_window": "Peak ingredients near 4 PM local; RH 36%, wind 25 mph.",
+      "highest_risk_window": "4 PM-4 PM local; 1 near/red-flag threshold hour.",
       "level": "MODERATE",
-      "location": "Bayfield / east La Plata County",
-      "score": 35
+      "location": "Chimney Rock / west county",
+      "score": 38
     },
     "psps": {
-      "date": "2026-09-07",
-      "display_date": "Mon, Sep 7",
+      "date": "2026-09-06",
+      "display_date": "Sun, Sep 6",
       "drivers": [
-        "red-flag wind/gust signal near 25 mph",
-        "Official fire-posture context for Bayfield / east La Plata County is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier."
+        "near-threshold wind/gust signal near 21 mph",
+        "near-threshold RH near 18%",
+        "Official fire-posture context for Chimney Rock / west county is elevated (STAGE 1; fire danger HIGH), used as a small supporting modifier."
       ],
-      "highest_risk_window": "Peak ingredients near 4 PM local; RH 36%, wind 25 mph.",
+      "highest_risk_window": "4 PM-4 PM local; 1 near/red-flag threshold hour.",
       "level": "ELEVATED",
-      "location": "Bayfield / east La Plata County",
-      "score": 27
+      "location": "Chimney Rock / west county",
+      "score": 30
     },
     "red_flag": {
       "date": "2026-09-07",
@@ -190,9 +190,9 @@
       "drivers": [
         "wind/gust near 25 mph"
       ],
-      "highest_risk_window": "Peak ingredients near 4 PM local; RH 36%, wind 25 mph.",
+      "highest_risk_window": "Peak ingredients near 4 PM local; RH 29%, wind 25 mph.",
       "level": "LOW",
-      "location": "Bayfield / east La Plata County",
+      "location": "Arboles / southwest county",
       "score": 25
     }
   },
@@ -369,9 +369,9 @@
     "first_watch_or_likely_date": null,
     "first_watch_or_likely_display": null,
     "first_watch_shift": "No WATCH-or-higher PSPS dates in current or prior run.",
-    "forecast_volatility_label": "HIGH",
-    "forecast_volatility_score": 41,
-    "momentum": "Rising"
+    "forecast_volatility_label": "MEDIUM",
+    "forecast_volatility_score": 28,
+    "momentum": "Easing"
   },
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_next": [
