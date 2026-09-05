@@ -1,9 +1,9 @@
 {
   "changing_drivers": [
-    "The regional screening peak shifted to Sep 6 near Chimney Rock, with RH near 18% and wind near 21 mph.",
-    "Forecast momentum is easing and volatility declined to MEDIUM at 28/100.",
-    "Sep 9 eased from ELEVATED to LOW, while Sep 4 wind decreased by about 7 mph versus the prior run.",
-    "Stage 1 restrictions and HIGH official fire danger remain supporting context, not an official warning."
+    "A verified unplanned LPEA outage is affecting 25 customers near Durango; the listed cause is equipment decay or age, not fire weather or PSPS.",
+    "The regional screening peak moved to Sep 11 near Arboles, with RH near 22% and wind near 25 mph.",
+    "Forecast momentum is rising, while volatility remains MEDIUM at 28/100.",
+    "Sep 9 increased from LOW to ELEVATED screening and its driver shifted to Arboles."
   ],
   "evidence_ids": [
     "overall_status",
@@ -15,18 +15,18 @@
     "active_incidents",
     "calibration"
   ],
-  "generated_at": "2026-09-04T17:55:56-06:00",
-  "headline": "ELEVATED screening now peaks Sep 6 near Chimney Rock; no official COZ295 alert, LPEA outage, evacuation, or WATCH-level PSPS date is listed.",
-  "report_generated_at": "2026-09-04T17:32:33.689443-06:00",
+  "generated_at": "2026-09-05T06:20:13-06:00",
+  "headline": "A localized LPEA equipment outage affects 25 customers near Durango; fire-weather screening remains ELEVATED but below WATCH.",
+  "report_generated_at": "2026-09-05T05:22:57.610137-06:00",
   "schema_version": 1,
   "status": "reviewed",
-  "summary": "The Sep 6 regional peak near Chimney Rock is MODERATE for fire potential (38/100), LOW for Red Flag likelihood (16/100), and ELEVATED for PSPS screening (30/100); no date reaches WATCH. Official COZ295 alerts and active LPEA outages are both zero, while keyword matches remain unconfirmed context rather than an outage or PSPS notice. NIFC still lists the 1.5-acre Swiss Roll wildfire, with containment unreported, and checked county feeds show no current evacuation notice.",
-  "uncertainty": "Scores are unofficial screening estimates, not calibrated PSPS probabilities; source updates can lag, and screening does not override restrictions or official safety instructions.",
+  "summary": "The official LPEA viewer lists one verified unplanned outage near Durango affecting 25 customers, with equipment decay or age as the cause, a crew assigned, and no restoration estimate; it is not identified as fire-related or PSPS. Regional screening peaks Sep 11 near Arboles at MODERATE fire potential (37/100), LOW Red Flag likelihood (25/100), and ELEVATED PSPS screening (33/100), with no WATCH date or official COZ295 alert. Swiss Roll remains listed at 1.5 acres, and checked county feeds show no evacuation notice.",
+  "uncertainty": "Outage and incident details can change between source updates; screening scores are unofficial estimates and do not replace LPEA, NWS, or county instructions.",
   "unofficial_notice": "This is not an official forecast, National Weather Service warning, LPEA outage notice, or LPEA Public Safety Power Shutoff notice. Confirm conditions and safety decisions with NWS and LPEA.",
   "watch_items": [
-    "Recheck Sep 6 humidity and wind near Chimney Rock as the forecast changes.",
-    "Track Sep 7 wind near Arboles and distinguish regional context from Pagosa Springs conditions.",
-    "Verify whether LPEA keyword matches become a direct outage or PSPS notice.",
-    "Watch Swiss Roll acreage, containment, and county evacuation feeds for updates."
+    "Check the official LPEA viewer for restoration of the localized Durango-area outage.",
+    "Recheck Sep 11 humidity and wind near Arboles as the forecast horizon advances.",
+    "Watch for any official COZ295 alert or direct LPEA PSPS notice.",
+    "Track Swiss Roll acreage, containment, and county evacuation feeds for updates."
   ]
 }
